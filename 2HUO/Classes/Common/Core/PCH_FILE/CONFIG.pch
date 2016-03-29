@@ -1,0 +1,48 @@
+//
+//  Created by iURCoder on 11/4/15.
+//  Copyright © 2015 iUR. All rights reserved.
+//
+
+//  ************************************************************************************************
+//
+//  ****************************************** How to use it ***************************************
+//
+//  Apple LLVM 7.0 - Language -> Prefix Header -> add $(SRCROOT)/$(PRODUCT_NAME)/ your PCH file path
+//
+//  ************************************************************************************************
+
+#ifdef __OBJC__
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "Action.h"
+#import "Masonry.h"
+#import "HYSCategories.h"
+#import "IHENUM.h"
+#import "MJRefresh.h"
+#import "MFJRouter.h"
+
+#endif
+
+#define MAS_SHORTHAND
+
+#ifdef DEBUG
+#define FuckYou(...) NSLog(__VA_ARGS__)
+#else
+#define FuckYou(...)
+#endif
+
+#define ScreenSize [UIScreen mainScreen].bounds.size
+#define Screen_Height [UIScreen mainScreen].bounds.size.height
+#define Screen_Width [UIScreen mainScreen].bounds.size.width
+#define ScreenScale [UIScreen mainScreen].scale
+
+#define TabBar_Height 49
+#define NavigationBarMaxY 64
+#define Content_Height Screen_Height - NavigationBarMaxY - TabBar_Height
+#define ILFRAME(frame)     ILLog(@"x:%.1f,y:%.1f,w:%.1f,h:%.1f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+#define SINGLE_LINE_WIDTH           (1 / [UIScreen mainScreen].scale)
+#define SINGLE_LINE_ADJUST_OFFSET   ((1 / [UIScreen mainScreen].scale) / 2)
+#define NAVCOLOR UIColorHex(0xF9F7F4)
+
+
