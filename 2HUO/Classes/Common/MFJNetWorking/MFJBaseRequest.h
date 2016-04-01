@@ -57,8 +57,6 @@
 @property(nonatomic,assign)BOOL                         requestNeedActive;
 /** AFN返回的AFHTTPRequestOperation */
 @property(nonatomic,strong)NSURLSessionDataTask       * task;
-/** 请求的 Block (发送请求)  */
-@property(nonatomic,copy)MFJRequestBlock                requestInActiveBlock;
 /** 设置请求超时时间，默认是60S。*/
 @property (nonatomic, assign) NSTimeInterval            timeoutInterval;
 /** 请求是否超时 */
@@ -96,10 +94,6 @@
 + (instancetype)Request;
 
 - (instancetype)initRequest;
-
-+ (instancetype)RequestWithBlock:(MFJRequestBlock)voidBlock;
-
-- (instancetype)initRequestWithBlock:(MFJRequestBlock)voidBlock;
 
 - (BOOL)succeed;
 

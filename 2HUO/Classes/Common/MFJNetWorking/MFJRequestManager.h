@@ -10,6 +10,8 @@
 
 @class MFJBaseRequest;
 
+typedef void(^listenCallBack)( MFJBaseRequest * req);
+
 @interface MFJRequestManager : NSObject
 
 - (nonnull instancetype)init UNAVAILABLE_ATTRIBUTE;
@@ -21,5 +23,7 @@
 - (void)sendRequest:(nonnull MFJBaseRequest  *)req;
 
 - (void)cancelRequest:(nonnull MFJBaseRequest  *)req;
+
+- (void)listen:(listenCallBack)block;
 
 @end

@@ -25,21 +25,6 @@
     return self;
 }
 
-+ (instancetype)RequestWithBlock:(MFJRequestBlock)voidBlock
-{
-    return [[self alloc] initRequestWithBlock:voidBlock];
-}
-
-- (instancetype)initRequestWithBlock:(MFJRequestBlock)voidBlock
-{
-    self = [super init];
-    if(self){
-        self.requestInActiveBlock = voidBlock;
-        [self loadRequest];
-    }
-    return self;
-}
-
 - (void)loadRequest
 {
     self.outputData         = nil;
@@ -71,19 +56,20 @@
 - (void)loadActive
 {
     self.requestNeedActive = NO;
-    @weakify(self);
-    [[RACObserve(self,requestNeedActive)
-      filter:^BOOL(NSNumber *active) {
-          return [active boolValue];
-      }]
-     subscribeNext:^(NSNumber *active) {
-         @strongify(self);
-         if (self.requestInActiveBlock) {
-             self.requestInActiveBlock();
-         }
-         self.requestNeedActive = NO;
-     }];
-    
+}
+
+- (void)setRequestNeedActive:(BOOL)requestNeedActive
+{
+    if (self.requestNeedActive == requestNeedActive) {
+        return;
+    }else{
+        if (requestNeedActive == YES) {
+            [self start];
+            _requestNeedActive = NO;
+        }else{
+            return;
+        }
+    }
 }
 
 - (BOOL)succeed
@@ -121,12 +107,12 @@
 
 - (void)start
 {
-    
+    [[MFJRequestManager sharedMFJREQManager] sendRequest:self];
 }
 
 - (void)cancle
 {
-    
+    [[MFJRequestManager sharedMFJREQManager] cancelRequest:self];
 }
 
 - (NSURLRequestCachePolicy)RequestCachePolicy {

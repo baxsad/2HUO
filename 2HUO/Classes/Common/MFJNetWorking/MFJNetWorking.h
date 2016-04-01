@@ -6,8 +6,5 @@
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#ifndef MFJNetWorking_h
-#define MFJNetWorking_h
-
-
-#endif /* MFJNetWorking_h */
+#import "MFJBaseRequest.h"
+#import "MFJRequestManager.h"
