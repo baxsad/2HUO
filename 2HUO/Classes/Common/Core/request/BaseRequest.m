@@ -10,12 +10,14 @@
 ///-------------------------------------------------------------
 /// @brief 通过类方法构建request请求
 ///-------------------------------------------------------------
-+(id)Request
+
+
++(instancetype)Request
 {
     return [[self alloc] initRequest];
 }
 
--(id)initRequest
+-(instancetype)initRequest
 {
     self = [super init];
     if(self){
@@ -26,12 +28,12 @@
 ///-------------------------------------------------------------
 /// @brief 通过block构建request请求
 ///-------------------------------------------------------------
-+(id)RequestWithBlock:(wRequestBlock)voidBlock
++(instancetype)RequestWithBlock:(wRequestBlock)voidBlock
 {
     return [[self alloc] initRequestWithBlock:voidBlock];
 }
 
--(id)initRequestWithBlock:(wRequestBlock)voidBlock
+-(instancetype)initRequestWithBlock:(wRequestBlock)voidBlock
 {
     self = [super init];
     if(self){
@@ -78,9 +80,6 @@
          }
          self.requestNeedActive = NO;
      }];
-    
-    
-
     
 }
 ///-------------------------------------------------------------

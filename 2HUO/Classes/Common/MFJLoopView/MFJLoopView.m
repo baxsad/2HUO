@@ -124,6 +124,8 @@ static NSString *const kMFJLoopCollectionViewCellID = @"kMFJLoopCollectionViewCe
         pageControl.currentPageIndicatorTintColor = self.pageControlCurrentPageColor;
         _pageControl                              = pageControl;
         [self addSubview:pageControl];
+        _pageControl.hidden = self.pageControlHiden;
+        
         if (!self.turnOffInfiniteLoop) {
             [self addTimer];
         }
@@ -213,6 +215,12 @@ static NSString *const kMFJLoopCollectionViewCellID = @"kMFJLoopCollectionViewCe
     if (self.didSelectMFJLoopItemBlock) {
         self.didSelectMFJLoopItemBlock(indexPath.item);
     }
+}
+
+- (void)setPageControlHiden:(BOOL)pageControlHiden
+{
+    _pageControlHiden = pageControlHiden;
+    self.pageControl.hidden = pageControlHiden;
 }
 
 #pragma mark - configure 📌

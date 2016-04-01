@@ -34,10 +34,15 @@
 
 @implementation MFUHomeScene
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Hell's gate";
+    self.title = @"@$R#@F$*^?";
     [self showBarButton:NAV_RIGHT title:@"Edit" fontColor:UIColorHex(0xD2B203)];
     [self setupData];
     _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];
@@ -62,6 +67,13 @@
     [self SOAPRequest];
     
 }
+
+
+-(void)OnTapSegmentCtr:(UISegmentedControl *)seg{
+    
+    [self.tableView reloadData];
+}
+
 
 - (void)SOAPRequest
 {
@@ -123,6 +135,7 @@
                                 @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1exewgr3su4j20xc0xcdn9",
                                 @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1enlbc2m25lj20p00xcdjb",
                                 @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1enoi58suy0j20m80xcq7k"];
+        model.date = @"15 hour ago";
         [data addObject:model];
     }
     _data = [data copy];
@@ -199,18 +212,18 @@
 {
     return indexPath.section ? [tableView fd_heightForCellWithIdentifier:@"MFUHomeTBCell" cacheByIndexPath:indexPath configuration:^(MFUHomeTBCell * cell) {
         [cell configModel:[_data objectAtIndex:indexPath.row]];
-    }] : 150;
+    }] : Screen_Width*0.5;
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return section == 0 ? Screen_Width/15*6 : 0;
+    return section == 0 ? Screen_Width/15*6 : 10;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return section == 0 ? self.bannerView : nil;
+    return section == 0 ? self.bannerView : [UIView new];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -254,6 +267,7 @@
                                        selectedBlock:^(NSInteger index) {
                                            
                                        }];
+        _bannerView.pageControlHiden = YES;
         
     }
     return _bannerView;
@@ -269,16 +283,13 @@
         
         MFJActionSheetSection * s2 = [MFJActionSheetSection sectionWithTitle:nil message:nil buttonTitles:@[@"Cancle"] buttonStyle:MFJActionSheetButtonStyleYellow];
         
-        UIImageView * view = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"wallhaven"]];
-        view.frame = CGRectMake(0, 0, Screen_Width-40, 200);
         
-        MFJActionSheetSection * s3 = [MFJActionSheetSection sectionWithTitle:@"我是第一个分组！" message:@"自定义view" contentView:view];
         
         
         [s1 setButtonStyle:MFJActionSheetButtonStyleInstagramRed forButtonAtIndex:0];
         
         
-        _sheet = [[MFJActionSheet alloc] initWithSections:@[s3,s1,s2]];
+        _sheet = [[MFJActionSheet alloc] initWithSections:@[s1,s2]];
         
         _sheet.buttonClickBlock = ^(MFJActionSheet * sheet , NSIndexPath * indexPath){
             NSLog(@"click:%li,%li",indexPath.section,indexPath.row);
@@ -287,5 +298,7 @@
     }
     return _sheet;
 }
+
+
 
 @end

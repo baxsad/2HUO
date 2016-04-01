@@ -195,6 +195,7 @@
     
     return (result == [NSNull null]) ? nil : result;
 }
+
 - (NSString *)joinToPath{
     NSMutableArray *array = [NSMutableArray array];
     [self each:^(id key, id value) {

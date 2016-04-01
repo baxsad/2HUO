@@ -174,5 +174,10 @@
  *  @return YES 含有 NO 不含有
  */
 - (BOOL)containString:(NSString *)string;
-
+/**
+ *  设备版本
+ *
+ *  @return e.g. iPhone 5S
+ */
++ (NSString*)deviceVersion;
 @end

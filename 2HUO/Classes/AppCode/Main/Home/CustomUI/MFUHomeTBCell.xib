@@ -65,13 +65,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="王思聪" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7t0-fR-BBu">
                                 <rect key="frame" x="60" y="17.5" width="39" height="16"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.31764705882352939" green="0.31764705882352939" blue="0.31764705882352939" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.19215686274509802" green="0.19215686274509802" blue="0.19215686274509802" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20:12" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cog-hg-oD8">
                                 <rect key="frame" x="60" y="35" width="29" height="13.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="home_more" translatesAutoresizingMaskIntoConstraints="NO" id="9dR-om-9Ah">
@@ -127,6 +127,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="collectionHeight" destination="N95-bT-8Df" id="eHg-fV-Jjc"/>
+                <outlet property="date" destination="Cog-hg-oD8" id="HH1-Vf-XHp"/>
                 <outlet property="desc" destination="y6J-Iv-ozw" id="e9r-QV-rMM"/>
                 <outlet property="imagesCollection" destination="YED-kL-i2O" id="ppE-pf-Mky"/>
                 <outlet property="moreButton" destination="9dR-om-9Ah" id="CCe-U5-uzc"/>

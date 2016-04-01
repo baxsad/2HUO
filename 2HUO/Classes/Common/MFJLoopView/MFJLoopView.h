@@ -36,6 +36,7 @@ typedef void(^DidSelectMFJLoopItemBlock)(NSInteger);
 @property (nonatomic, strong) UIColor *pageControlCurrentPageColor;
 @property (nonatomic, strong) UIColor *pageControlNormalPageColor;
 @property (nonatomic, assign) BOOL turnOffInfiniteLoop;//默认 no
+@property (nonatomic, assign) BOOL pageControlHiden;
 
 + (instancetype)loopViewWithFrame:(CGRect)frame
                      placeholderImage:(UIImage *)placeholderImage

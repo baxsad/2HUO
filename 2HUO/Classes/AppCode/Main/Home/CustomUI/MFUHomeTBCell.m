@@ -68,6 +68,7 @@
     [self.imageViews removeAllObjects];
     [self.imagesCollection reloadData];
     self.desc.text = model.desc;
+    self.date.text = [NSString stringWithFormat:@"%@ from %@",model.date,[NSString deviceVersion]];
     BOOL like = arc4random()%200 > 100;
     NSInteger count = arc4random()%200;
     NSString * scount = [NSString stringWithFormat:@"%li",count];

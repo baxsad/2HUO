@@ -44,5 +44,6 @@
 #define SINGLE_LINE_WIDTH           (1 / [UIScreen mainScreen].scale)
 #define SINGLE_LINE_ADJUST_OFFSET   ((1 / [UIScreen mainScreen].scale) / 2)
 #define NAVCOLOR UIColorHex(0xF9F7F4)
+#define TEMCOLOR UIColorHex(0xD2B203)
 
 

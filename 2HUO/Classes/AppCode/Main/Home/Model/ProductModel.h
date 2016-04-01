@@ -12,5 +12,6 @@
 
 @property (nonatomic, copy ) NSString * desc;
 @property (nonatomic, copy ) NSArray  * productImages;
+@property (nonatomic, copy ) NSString * date;
 
 @end
