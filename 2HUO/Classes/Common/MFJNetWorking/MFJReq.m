@@ -1,26 +1,43 @@
 //
-//  MFJBaseRequest.m
+//  MFJReq.m
 //  2HUO
 //
 //  Created by iURCoder on 3/31/16.
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "MFJBaseRequest.h"
-#import "MFJRequestManager.h"
+#import "MFJReq.h"
+#import "MFJReqAction.h"
 
-@implementation MFJBaseRequest
+@interface MFJReq ()
 
-+ (instancetype)Request
+@property (nonatomic, strong) MFJReqAction * action;
+
+@end
+
+@implementation MFJReq
+
++ (nonnull instancetype)Request
 {
-    return [[self alloc] initRequest];
+    return [self RequestWithMethod:MFJRequestMethodTypeGET];
 }
 
-- (instancetype)initRequest
++ (nonnull instancetype)RequestWithMethod:(MFJRequestMethodType)method
+{
+    return [[self alloc] initWithRequestMethod:method];
+}
+
+- (nonnull instancetype)initRequest
+{
+    return [self initWithRequestMethod:MFJRequestMethodTypeGET];
+}
+
+- (nonnull instancetype)initWithRequestMethod:(MFJRequestMethodType)method
 {
     self = [super init];
     if(self){
         [self loadRequest];
+        self.METHOD = method;
     }
     return self;
 }
@@ -37,18 +54,19 @@
     self.url                = nil;
     self.message            = nil;
     self.codeKey            = nil;
-    self.exactitudeKey      = RightKey;
-    self.keyPath            = kEYPath;
+    self.exactitudeKey      = MFJ_REQUEST_RIGHT_CODE;
+    self.exactitudeKeyPath  = MFJ_ERROR_CODE_PATH;
     self.SCHEME             = nil;
     self.HOST               = nil;
-    self.PATH               = nil;
+    self.PATH               = @"";
     self.METHOD             = MFJRequestMethodTypeGET;
     self.needCheckCode      = NO;
     self.requestSerializer  = MFJRequestSerializerTypeHTTP;
     self.responseSerializer = MFJResponseSerializerTypeJSON;
-    self.timeoutInterval    = 60;
+    self.timeoutInterval    = MFJ_API_REQUEST_TIME_OUT;
     self.isFirstRequest     = YES;
     self.isTimeout          = NO;
+    self.action             = [MFJReqAction action];
     [self loadActive];
     
 }
@@ -87,7 +105,9 @@
 
 - (BOOL)failed
 {
-    return MFJRequestStatusFailed == self.status ? YES : NO;
+    return (MFJRequestStatusFailed == self.status
+            || MFJRequestStatusError == self.status)
+    ? YES : NO;
 }
 
 - (BOOL)Error
@@ -107,12 +127,23 @@
 
 - (void)start
 {
-    [[MFJRequestManager sharedMFJREQManager] sendRequest:self];
+    if (self.action) {
+        [self.action sendRequest:self];
+    }
 }
 
 - (void)cancle
 {
-    [[MFJRequestManager sharedMFJREQManager] cancelRequest:self];
+    if (self.action) {
+        [self.action cancelRequest:self];
+    }
+}
+
+- (void)listen:(nonnull listenCallBack)block
+{
+    if (block && self.action) {
+        [self.action listen:block];
+    }
 }
 
 - (NSURLRequestCachePolicy)RequestCachePolicy {

@@ -11,7 +11,7 @@
 
 @interface MFULocationScene ()
 
-@property (nonatomic, strong) MFJBaseRequest * req;
+@property (nonatomic, strong) MFJReq * req;
 
 @end
 
@@ -20,19 +20,28 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    self.req.requestNeedActive = YES;
+    [self.req start];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.req = [[MFJBaseRequest alloc] initRequest];
-    
+    self.req = [[MFJReq alloc] initRequest];
+    self.req.PATH = @"api/topics/hot.json";
     self.req.requestNeedActive = YES;
-    [[MFJRequestManager sharedMFJREQManager] listen:^(MFJBaseRequest *req) {
-        NSLog(@"%li",req.status);
+    [self.req listen:^(MFJReq *req) {
+        if (req.succeed) {
+            NSLog(@"ooooook%@",req.output);
+        }
+        if (req.failed) {
+            NSLog(@"eeeeeer%@",req.error);
+        }
     }];
+    
+    for (int i = 0; i<99; i++) {
+        self.req.requestNeedActive = YES;
+    }
     
 }
 

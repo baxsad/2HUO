@@ -6,5 +6,6 @@
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "MFJBaseRequest.h"
-#import "MFJRequestManager.h"
+#import "MFJReq.h"
+#import "MFJReqAction.h"
+#import "MFJGroupReq.h"

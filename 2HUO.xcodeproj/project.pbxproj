@@ -64,13 +64,13 @@
 		A04E998D1CA2914100B0ABB5 /* MFJRouterReger.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E998B1CA2914100B0ABB5 /* MFJRouterReger.m */; };
 		A04E99A81CA299AC00B0ABB5 /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99A51CA299AC00B0ABB5 /* NJKScrollFullScreen.m */; };
 		A04E99A91CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99A71CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m */; };
-		A05920CC1CAE104700454ED8 /* MFJRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A05920CB1CAE104700454ED8 /* MFJRequestManager.m */; };
+		A05920CC1CAE104700454ED8 /* MFJReqAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A05920CB1CAE104700454ED8 /* MFJReqAction.m */; };
 		A05BC3061CA7E64700291407 /* MFJLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A05BC3031CA7E64700291407 /* MFJLoopView.m */; };
 		A05BC3071CA7E64700291407 /* MFJLoopViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A05BC3051CA7E64700291407 /* MFJLoopViewCell.m */; };
 		A08E82061CAA36BB00B485A6 /* MFUHomeMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A08E82051CAA36BB00B485A6 /* MFUHomeMenuCell.m */; };
 		A08E82081CAA36CC00B485A6 /* MFUHomeMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A08E82071CAA36CC00B485A6 /* MFUHomeMenuCell.xib */; };
 		A08E821C1CAA82C100B485A6 /* MFJUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = A08E821B1CAA82C100B485A6 /* MFJUserDefaults.m */; };
-		A08E82271CACC5A900B485A6 /* MFJBaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A08E82261CACC5A900B485A6 /* MFJBaseRequest.m */; };
+		A08E82271CACC5A900B485A6 /* MFJReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A08E82261CACC5A900B485A6 /* MFJReq.m */; };
 		A0A333631C97E1FF000C03C2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A333621C97E1FF000C03C2 /* main.m */; };
 		A0A333661C97E1FF000C03C2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A333651C97E1FF000C03C2 /* AppDelegate.m */; };
 		A0A333691C97E1FF000C03C2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A333681C97E1FF000C03C2 /* ViewController.m */; };
@@ -80,6 +80,7 @@
 		A0A3337C1C97E1FF000C03C2 /* _HUOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A3337B1C97E1FF000C03C2 /* _HUOTests.m */; };
 		A0A333871C97E1FF000C03C2 /* _HUOUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A333861C97E1FF000C03C2 /* _HUOUITests.m */; };
 		A0A334471C98080C000C03C2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A334461C98080C000C03C2 /* libsqlite3.tbd */; };
+		A0AF9B221CAF8D390081907C /* MFJGroupReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF9B211CAF8D390081907C /* MFJGroupReq.m */; };
 		A0E6F8461CA3BE1B00182976 /* MFJBaseSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F8451CA3BE1B00182976 /* MFJBaseSettingViewController.m */; };
 		A0E6F8511CA3BE7800182976 /* MFJSettingGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F84E1CA3BE7800182976 /* MFJSettingGroup.m */; };
 		A0E6F8521CA3BE7800182976 /* MFJSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F8501CA3BE7800182976 /* MFJSettingItem.m */; };
@@ -232,8 +233,8 @@
 		A04E99A51CA299AC00B0ABB5 /* NJKScrollFullScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKScrollFullScreen.m; sourceTree = "<group>"; };
 		A04E99A61CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NJKFullScreenSupport.h"; sourceTree = "<group>"; };
 		A04E99A71CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NJKFullScreenSupport.m"; sourceTree = "<group>"; };
-		A05920CA1CAE104700454ED8 /* MFJRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJRequestManager.h; sourceTree = "<group>"; };
-		A05920CB1CAE104700454ED8 /* MFJRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJRequestManager.m; sourceTree = "<group>"; };
+		A05920CA1CAE104700454ED8 /* MFJReqAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJReqAction.h; sourceTree = "<group>"; };
+		A05920CB1CAE104700454ED8 /* MFJReqAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJReqAction.m; sourceTree = "<group>"; };
 		A05BC3021CA7E64700291407 /* MFJLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJLoopView.h; sourceTree = "<group>"; };
 		A05BC3031CA7E64700291407 /* MFJLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJLoopView.m; sourceTree = "<group>"; };
 		A05BC3041CA7E64700291407 /* MFJLoopViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJLoopViewCell.h; sourceTree = "<group>"; };
@@ -243,10 +244,10 @@
 		A08E82071CAA36CC00B485A6 /* MFUHomeMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MFUHomeMenuCell.xib; sourceTree = "<group>"; };
 		A08E821A1CAA82C100B485A6 /* MFJUserDefaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJUserDefaults.h; sourceTree = "<group>"; };
 		A08E821B1CAA82C100B485A6 /* MFJUserDefaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJUserDefaults.m; sourceTree = "<group>"; };
-		A08E82231CACC11100B485A6 /* MFJNETDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFJNETDefines.h; sourceTree = "<group>"; };
+		A08E82231CACC11100B485A6 /* MFJDefines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFJDefines.h; sourceTree = "<group>"; };
 		A08E82241CACC3D000B485A6 /* MFJNetWorking.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFJNetWorking.h; sourceTree = "<group>"; };
-		A08E82251CACC5A900B485A6 /* MFJBaseRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJBaseRequest.h; sourceTree = "<group>"; };
-		A08E82261CACC5A900B485A6 /* MFJBaseRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJBaseRequest.m; sourceTree = "<group>"; };
+		A08E82251CACC5A900B485A6 /* MFJReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJReq.h; sourceTree = "<group>"; };
+		A08E82261CACC5A900B485A6 /* MFJReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJReq.m; sourceTree = "<group>"; };
 		A0A3335E1C97E1FF000C03C2 /* 2HUO.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 2HUO.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A333621C97E1FF000C03C2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A0A333641C97E1FF000C03C2 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -264,6 +265,8 @@
 		A0A333861C97E1FF000C03C2 /* _HUOUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _HUOUITests.m; sourceTree = "<group>"; };
 		A0A333881C97E1FF000C03C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0A334461C98080C000C03C2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		A0AF9B201CAF8D390081907C /* MFJGroupReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJGroupReq.h; sourceTree = "<group>"; };
+		A0AF9B211CAF8D390081907C /* MFJGroupReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJGroupReq.m; sourceTree = "<group>"; };
 		A0E6F8441CA3BE1B00182976 /* MFJBaseSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJBaseSettingViewController.h; sourceTree = "<group>"; };
 		A0E6F8451CA3BE1B00182976 /* MFJBaseSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJBaseSettingViewController.m; sourceTree = "<group>"; };
 		A0E6F84D1CA3BE7800182976 /* MFJSettingGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJSettingGroup.h; sourceTree = "<group>"; };
@@ -632,11 +635,13 @@
 			isa = PBXGroup;
 			children = (
 				A08E82241CACC3D000B485A6 /* MFJNetWorking.h */,
-				A08E82231CACC11100B485A6 /* MFJNETDefines.h */,
-				A08E82251CACC5A900B485A6 /* MFJBaseRequest.h */,
-				A08E82261CACC5A900B485A6 /* MFJBaseRequest.m */,
-				A05920CA1CAE104700454ED8 /* MFJRequestManager.h */,
-				A05920CB1CAE104700454ED8 /* MFJRequestManager.m */,
+				A08E82231CACC11100B485A6 /* MFJDefines.h */,
+				A08E82251CACC5A900B485A6 /* MFJReq.h */,
+				A08E82261CACC5A900B485A6 /* MFJReq.m */,
+				A05920CA1CAE104700454ED8 /* MFJReqAction.h */,
+				A05920CB1CAE104700454ED8 /* MFJReqAction.m */,
+				A0AF9B201CAF8D390081907C /* MFJGroupReq.h */,
+				A0AF9B211CAF8D390081907C /* MFJGroupReq.m */,
 			);
 			name = MFJNetWorking;
 			path = 2HUO/Classes/Common/MFJNetWorking;
@@ -1155,8 +1160,9 @@
 				A04E99801CA2911400B0ABB5 /* SceneModel.m in Sources */,
 				A04E996A1CA2911400B0ABB5 /* NSObject+HYSCat.m in Sources */,
 				A0E6F8AC1CA3FA4800182976 /* MFULocationScene.m in Sources */,
-				A08E82271CACC5A900B485A6 /* MFJBaseRequest.m in Sources */,
-				A05920CC1CAE104700454ED8 /* MFJRequestManager.m in Sources */,
+				A0AF9B221CAF8D390081907C /* MFJGroupReq.m in Sources */,
+				A08E82271CACC5A900B485A6 /* MFJReq.m in Sources */,
+				A05920CC1CAE104700454ED8 /* MFJReqAction.m in Sources */,
 				A04E996F1CA2911400B0ABB5 /* UIControl+HYSCat.m in Sources */,
 				A04E99841CA2911400B0ABB5 /* O2HCache.m in Sources */,
 				A02F97681CA64B52008D02E3 /* MFJPhotoGroupItem.m in Sources */,

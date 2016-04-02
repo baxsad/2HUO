@@ -30,8 +30,8 @@ static NSString* const kWebBaseUrl = @"http://www.caimiapp.com/";
 
 #endif
 
-#define RightKey 0
-#define kEYPath @"error_code"
+#define MFJ_REQUEST_RIGHT_CODE  0
+#define MFJ_ERROR_CODE_PATH     @"error_code"
 
 // 网络请求类型
 typedef NS_ENUM(NSUInteger, MFJRequestMethodType) {
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSInteger, MFJRequestStatus) {
     MFJRequestStatusCancle  = 1 << 2,  /**< 请求已取消    */
     MFJRequestStatusTimeOut = 5,       /**< 请求超时      */
     MFJRequestStatusNotStart= 6,       /**< 请求未开始    */
-    MFJRequestStatusStart   = 7        /**< 开始请求    */
+    MFJRequestStatusStart   = 7        /**< 开始请求      */
 };
 
 // 请求的序列化格式
@@ -90,7 +90,7 @@ typedef NS_ENUM(NSUInteger, MFJSSLPinningMode) {
 typedef void (^MFJRequestBlock)(void);
 
 // MFJ 默认的请求超时时间
-#define MFJ_API_REQUEST_TIME_OUT     15
+#define MFJ_API_REQUEST_TIME_OUT     29
 #define MAX_HTTP_CONNECTION_PER_HOST 5
 
 

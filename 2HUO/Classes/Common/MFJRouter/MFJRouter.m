@@ -635,10 +635,10 @@ navController:(UINavigationController* )navController
 
 - (UIViewController *)currentViewController
 {
-    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-    UIView *firstView = [keyWindow.subviews firstObject];
-    UIView *secondView = [firstView.subviews firstObject];
-    UIViewController *vc = [self parentController:secondView];
+    UIWindow * keyWindow  = [UIApplication sharedApplication].keyWindow;
+    UIView   * firstView  = [keyWindow.subviews firstObject];
+    UIView   * secondView = [firstView.subviews firstObject];
+    UIViewController * vc = [self parentController:secondView];
     if ([vc isKindOfClass:[UITabBarController class]]) {
         UITabBarController *tab = (UITabBarController *)vc;
         if ([tab.selectedViewController isKindOfClass:[UINavigationController class]]) {
