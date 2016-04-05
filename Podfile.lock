@@ -27,6 +27,7 @@ PODS:
   - ReactiveCocoa/UI (2.4.7):
     - ReactiveCocoa/Core
   - UITableView+FDTemplateLayoutCell (1.5.beta)
+  - Wilddog (0.9.8)
   - YYCache (1.0.2)
   - YYImage (1.0.1):
     - YYImage/Core (= 1.0.1)
@@ -45,6 +46,7 @@ DEPENDENCIES:
   - PXAlertView (~> 0.1.0)
   - ReactiveCocoa (~> 2.4.7)
   - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
+  - Wilddog
   - YYText (~> 1.0.3)
   - YYWebImage (~> 1.0)
 
@@ -57,6 +59,7 @@ SPEC CHECKSUMS:
   PXAlertView: bb8a7e6bb95f73fe3fe091cacd279b683460f084
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
   UITableView+FDTemplateLayoutCell: 02b508ab1cb4cea16a8c17ac83d2cd1fd72124f9
+  Wilddog: 15621cdcdaba903a75a0b49fe3a4b8d4dd4545cd
   YYCache: c159ab4bb51e1ca4872ddadaf1778f9ec4ae40bb
   YYImage: b41b45bc5f32bfcdf67bdfb9c09da9e9832357c0
   YYText: 3050159192035d7f232b537ce76668aac2e2bd8b
