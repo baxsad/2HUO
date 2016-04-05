@@ -8,6 +8,7 @@
 
 #import "MFULocationScene.h"
 #import "MFJNetWorking.h"
+#import "YDog.h"
 
 @interface MFULocationScene ()
 
@@ -42,6 +43,8 @@
     for (int i = 0; i<99; i++) {
         self.req.requestNeedActive = YES;
     }
+    
+    [[YDog shareInstance] setValue:@"" inPath:@"/home/list/"];
     
 }
 

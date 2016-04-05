@@ -49,11 +49,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>Wilddog.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>YYCache.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -77,37 +72,32 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>025A6EF0EB44A5B8ADAFAD11C09F0CBD</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>04730B9DBA500F579C4C7FDF5D6DE8D7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>09FA060F1A0492FB25232F489AC4E573</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0A3E7517CCADB140B31EFA3E7828B28F</key>
+		<key>11A4CFB727B96569393061E3E445F550</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>22F959E6371042FE1AF8A26D2421AAFB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>347F10C32EA6F1B2E192E45FA02E6757</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F9945FF3FE62C7380A6986C627CA5F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>754731CEFE4837A64D80C9BEE11496A0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8AF314F78C22ADF2959CEF9866800FB5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,22 +112,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B4AA2F2EBA35B24B1F8D867D0AD9286E</key>
+		<key>C54AC38CEE9754F2CEBA92B4112EA873</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CA489F6F553D78338AFF0CAFD051C7F9</key>
+		<key>E27368A6BD7E6DFF82D09506FEEF6D9E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DB1CA5DAA482C3BAF55573BC6526590D</key>
+		<key>E52742350C4FB19B805D4D46AFAFC7BF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DFF488055CE5402B774334041B619B38</key>
+		<key>E7EA2BA1AC67E153EE630D4AC2B66E0A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

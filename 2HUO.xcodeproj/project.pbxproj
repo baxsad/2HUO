@@ -67,6 +67,7 @@
 		A05920CC1CAE104700454ED8 /* MFJReqAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A05920CB1CAE104700454ED8 /* MFJReqAction.m */; };
 		A05BC3061CA7E64700291407 /* MFJLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A05BC3031CA7E64700291407 /* MFJLoopView.m */; };
 		A05BC3071CA7E64700291407 /* MFJLoopViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A05BC3051CA7E64700291407 /* MFJLoopViewCell.m */; };
+		A07DDF641CB358A000BB2852 /* YDog.m in Sources */ = {isa = PBXBuildFile; fileRef = A07DDF631CB358A000BB2852 /* YDog.m */; };
 		A08E82061CAA36BB00B485A6 /* MFUHomeMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A08E82051CAA36BB00B485A6 /* MFUHomeMenuCell.m */; };
 		A08E82081CAA36CC00B485A6 /* MFUHomeMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A08E82071CAA36CC00B485A6 /* MFUHomeMenuCell.xib */; };
 		A08E821C1CAA82C100B485A6 /* MFJUserDefaults.m in Sources */ = {isa = PBXBuildFile; fileRef = A08E821B1CAA82C100B485A6 /* MFJUserDefaults.m */; };
@@ -81,6 +82,7 @@
 		A0A333871C97E1FF000C03C2 /* _HUOUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A333861C97E1FF000C03C2 /* _HUOUITests.m */; };
 		A0A334471C98080C000C03C2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A334461C98080C000C03C2 /* libsqlite3.tbd */; };
 		A0AF9B221CAF8D390081907C /* MFJGroupReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF9B211CAF8D390081907C /* MFJGroupReq.m */; };
+		A0BF1CCE1CB3CB5D004CCFF6 /* libAVOSCloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */; };
 		A0E6F8461CA3BE1B00182976 /* MFJBaseSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F8451CA3BE1B00182976 /* MFJBaseSettingViewController.m */; };
 		A0E6F8511CA3BE7800182976 /* MFJSettingGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F84E1CA3BE7800182976 /* MFJSettingGroup.m */; };
 		A0E6F8521CA3BE7800182976 /* MFJSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F8501CA3BE7800182976 /* MFJSettingItem.m */; };
@@ -239,6 +241,10 @@
 		A05BC3031CA7E64700291407 /* MFJLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJLoopView.m; sourceTree = "<group>"; };
 		A05BC3041CA7E64700291407 /* MFJLoopViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJLoopViewCell.h; sourceTree = "<group>"; };
 		A05BC3051CA7E64700291407 /* MFJLoopViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJLoopViewCell.m; sourceTree = "<group>"; };
+		A07DDF621CB358A000BB2852 /* YDog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDog.h; sourceTree = "<group>"; };
+		A07DDF631CB358A000BB2852 /* YDog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDog.m; sourceTree = "<group>"; };
+		A07DDF651CB35F3E00BB2852 /* libWilddogStatic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWilddogStatic.a; path = Pods/Wilddog/libWilddogStatic.a; sourceTree = "<group>"; };
+		A07DDF671CB35F4C00BB2852 /* Wilddog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Wilddog.framework; path = Pods/Wilddog/Wilddog.framework; sourceTree = "<group>"; };
 		A08E82041CAA36BB00B485A6 /* MFUHomeMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFUHomeMenuCell.h; sourceTree = "<group>"; };
 		A08E82051CAA36BB00B485A6 /* MFUHomeMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFUHomeMenuCell.m; sourceTree = "<group>"; };
 		A08E82071CAA36CC00B485A6 /* MFUHomeMenuCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MFUHomeMenuCell.xib; sourceTree = "<group>"; };
@@ -267,6 +273,7 @@
 		A0A334461C98080C000C03C2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		A0AF9B201CAF8D390081907C /* MFJGroupReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJGroupReq.h; sourceTree = "<group>"; };
 		A0AF9B211CAF8D390081907C /* MFJGroupReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJGroupReq.m; sourceTree = "<group>"; };
+		A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAVOSCloud.a; path = Pods/AVOSCloud/libAVOSCloud.a; sourceTree = "<group>"; };
 		A0E6F8441CA3BE1B00182976 /* MFJBaseSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJBaseSettingViewController.h; sourceTree = "<group>"; };
 		A0E6F8451CA3BE1B00182976 /* MFJBaseSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJBaseSettingViewController.m; sourceTree = "<group>"; };
 		A0E6F84D1CA3BE7800182976 /* MFJSettingGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJSettingGroup.h; sourceTree = "<group>"; };
@@ -306,6 +313,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0BF1CCE1CB3CB5D004CCFF6 /* libAVOSCloud.a in Frameworks */,
 				A04E97771CA11F4200B0ABB5 /* libsqlite3.0.tbd in Frameworks */,
 				A04E97751CA11F3400B0ABB5 /* libstdc++.6.0.9.tbd in Frameworks */,
 				A04E97731CA11F2900B0ABB5 /* libz.tbd in Frameworks */,
@@ -349,6 +357,9 @@
 		4DE3BF721F95B1C7A4E83D5B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */,
+				A07DDF671CB35F4C00BB2852 /* Wilddog.framework */,
+				A07DDF651CB35F3E00BB2852 /* libWilddogStatic.a */,
 				A04E97761CA11F4200B0ABB5 /* libsqlite3.0.tbd */,
 				A04E97741CA11F3400B0ABB5 /* libstdc++.6.0.9.tbd */,
 				A04E97721CA11F2900B0ABB5 /* libz.tbd */,
@@ -376,6 +387,7 @@
 		A04E98F81CA2911400B0ABB5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A07DDF611CB3588500BB2852 /* YDog */,
 				A04E98F91CA2911400B0ABB5 /* BaseUI */,
 				A04E99041CA2911400B0ABB5 /* Category */,
 				A04E992E1CA2911400B0ABB5 /* Core */,
@@ -620,6 +632,15 @@
 				A05BC3051CA7E64700291407 /* MFJLoopViewCell.m */,
 			);
 			path = MFJLoopView;
+			sourceTree = "<group>";
+		};
+		A07DDF611CB3588500BB2852 /* YDog */ = {
+			isa = PBXGroup;
+			children = (
+				A07DDF621CB358A000BB2852 /* YDog.h */,
+				A07DDF631CB358A000BB2852 /* YDog.m */,
+			);
+			path = YDog;
 			sourceTree = "<group>";
 		};
 		A08E82191CAA82C100B485A6 /* MFJUserDefaults */ = {
@@ -1154,6 +1175,7 @@
 				A0E6F8BC1CA4311500182976 /* MFJStatusButton.m in Sources */,
 				A0E6F8AF1CA3FA4800182976 /* MFUMoreScene.m in Sources */,
 				A0E6F8AA1CA3FA4800182976 /* MFUHomeTBCell.m in Sources */,
+				A07DDF641CB358A000BB2852 /* YDog.m in Sources */,
 				A04E99871CA2911400B0ABB5 /* WrSystemInfo.mm in Sources */,
 				A02F97651CA64A4A008D02E3 /* CALayer+MFJExtent.m in Sources */,
 				A04E99861CA2911400B0ABB5 /* Util.m in Sources */,
@@ -1325,15 +1347,61 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PRODUCT_NAME)/Classes/Common/Core/PCH_FILE/CONFIG.PCH";
 				INFOPLIST_FILE = 2HUO/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Pods/AVOSCloud";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"JSONModel\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"PXAlertView\"",
+					"-l\"ReactiveCocoa\"",
+					"-l\"UITableView+FDTemplateLayoutCell\"",
+					"-l\"YYCache\"",
+					"-l\"YYImage\"",
+					"-l\"YYText\"",
+					"-l\"YYWebImage\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JavaScriptCore\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.-HUO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos9.2;
+				SDKROOT = iphoneos9.3;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1344,15 +1412,61 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PRODUCT_NAME)/Classes/Common/Core/PCH_FILE/CONFIG.PCH";
 				INFOPLIST_FILE = 2HUO/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Pods/AVOSCloud";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-l\"AFNetworking\"",
+					"-l\"JSONModel\"",
+					"-l\"MBProgressHUD\"",
+					"-l\"MJRefresh\"",
+					"-l\"Masonry\"",
+					"-l\"PXAlertView\"",
+					"-l\"ReactiveCocoa\"",
+					"-l\"UITableView+FDTemplateLayoutCell\"",
+					"-l\"YYCache\"",
+					"-l\"YYImage\"",
+					"-l\"YYText\"",
+					"-l\"YYWebImage\"",
+					"-l\"sqlite3\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"AssetsLibrary\"",
+					"-framework",
+					"\"CoreFoundation\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"Foundation\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"JavaScriptCore\"",
+					"-framework",
+					"\"MobileCoreServices\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.app.-HUO";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos9.2;
+				SDKROOT = iphoneos9.3;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};
