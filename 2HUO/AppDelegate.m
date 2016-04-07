@@ -9,6 +9,8 @@
 #import "AppDelegate.h"
 #import "MFUHomeViewController.h"
 #import "MFJRouter.h"
+#import <AVOSCloud/AVOSCloud.h>
+#import <AVOSCloudSNS/AVOSCloudSNS.h>
 
 @interface AppDelegate ()
 
@@ -43,6 +45,10 @@
     [[UINavigationBar appearance] setBarTintColor:UIColorHex(0xF9F7F4)];
     [[UINavigationBar appearance] setTintColor:UIColorHex(0xF9F7F4)];
     [[UINavigationBar appearance] setTranslucent:NO];
+    
+    [AVOSCloud setApplicationId:@"FM9OAvPJzXtzIVFp8G39AdCG-gzGzoHsz"
+                      clientKey:@"bSnxSKtyJaKCocdbXCum4XfR"];
+    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"" andAppSecret:@"" andRedirectURI:@""];
     
     return YES;
 }

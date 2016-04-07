@@ -65,8 +65,6 @@
 		A04E99A81CA299AC00B0ABB5 /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99A51CA299AC00B0ABB5 /* NJKScrollFullScreen.m */; };
 		A04E99A91CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99A71CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m */; };
 		A05920CC1CAE104700454ED8 /* MFJReqAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A05920CB1CAE104700454ED8 /* MFJReqAction.m */; };
-		A05BC3061CA7E64700291407 /* MFJLoopView.m in Sources */ = {isa = PBXBuildFile; fileRef = A05BC3031CA7E64700291407 /* MFJLoopView.m */; };
-		A05BC3071CA7E64700291407 /* MFJLoopViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A05BC3051CA7E64700291407 /* MFJLoopViewCell.m */; };
 		A07DDF641CB358A000BB2852 /* YDog.m in Sources */ = {isa = PBXBuildFile; fileRef = A07DDF631CB358A000BB2852 /* YDog.m */; };
 		A08E82061CAA36BB00B485A6 /* MFUHomeMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A08E82051CAA36BB00B485A6 /* MFUHomeMenuCell.m */; };
 		A08E82081CAA36CC00B485A6 /* MFUHomeMenuCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A08E82071CAA36CC00B485A6 /* MFUHomeMenuCell.xib */; };
@@ -81,6 +79,10 @@
 		A0A3337C1C97E1FF000C03C2 /* _HUOTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A3337B1C97E1FF000C03C2 /* _HUOTests.m */; };
 		A0A333871C97E1FF000C03C2 /* _HUOUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A333861C97E1FF000C03C2 /* _HUOUITests.m */; };
 		A0A334471C98080C000C03C2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0A334461C98080C000C03C2 /* libsqlite3.tbd */; };
+		A0A6F0531CB4B9420059AE77 /* BannerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A6F0521CB4B9420059AE77 /* BannerModel.m */; };
+		A0A6F0561CB4C5200059AE77 /* WFLoopShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A6F0551CB4C5200059AE77 /* WFLoopShowView.m */; };
+		A0A6F05A1CB4F9560059AE77 /* ADDSchooleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A6F0581CB4F9560059AE77 /* ADDSchooleViewController.m */; };
+		A0A6F05B1CB4F9560059AE77 /* ADDSchooleViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0A6F0591CB4F9560059AE77 /* ADDSchooleViewController.xib */; };
 		A0AF9B221CAF8D390081907C /* MFJGroupReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF9B211CAF8D390081907C /* MFJGroupReq.m */; };
 		A0BF1CCE1CB3CB5D004CCFF6 /* libAVOSCloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */; };
 		A0E6F8461CA3BE1B00182976 /* MFJBaseSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F8451CA3BE1B00182976 /* MFJBaseSettingViewController.m */; };
@@ -237,10 +239,6 @@
 		A04E99A71CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NJKFullScreenSupport.m"; sourceTree = "<group>"; };
 		A05920CA1CAE104700454ED8 /* MFJReqAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJReqAction.h; sourceTree = "<group>"; };
 		A05920CB1CAE104700454ED8 /* MFJReqAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJReqAction.m; sourceTree = "<group>"; };
-		A05BC3021CA7E64700291407 /* MFJLoopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJLoopView.h; sourceTree = "<group>"; };
-		A05BC3031CA7E64700291407 /* MFJLoopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJLoopView.m; sourceTree = "<group>"; };
-		A05BC3041CA7E64700291407 /* MFJLoopViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJLoopViewCell.h; sourceTree = "<group>"; };
-		A05BC3051CA7E64700291407 /* MFJLoopViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJLoopViewCell.m; sourceTree = "<group>"; };
 		A07DDF621CB358A000BB2852 /* YDog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YDog.h; sourceTree = "<group>"; };
 		A07DDF631CB358A000BB2852 /* YDog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YDog.m; sourceTree = "<group>"; };
 		A07DDF651CB35F3E00BB2852 /* libWilddogStatic.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libWilddogStatic.a; path = Pods/Wilddog/libWilddogStatic.a; sourceTree = "<group>"; };
@@ -271,6 +269,13 @@
 		A0A333861C97E1FF000C03C2 /* _HUOUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = _HUOUITests.m; sourceTree = "<group>"; };
 		A0A333881C97E1FF000C03C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A0A334461C98080C000C03C2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		A0A6F0511CB4B9420059AE77 /* BannerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BannerModel.h; sourceTree = "<group>"; };
+		A0A6F0521CB4B9420059AE77 /* BannerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BannerModel.m; sourceTree = "<group>"; };
+		A0A6F0541CB4C5200059AE77 /* WFLoopShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WFLoopShowView.h; sourceTree = "<group>"; };
+		A0A6F0551CB4C5200059AE77 /* WFLoopShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WFLoopShowView.m; sourceTree = "<group>"; };
+		A0A6F0571CB4F9560059AE77 /* ADDSchooleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ADDSchooleViewController.h; sourceTree = "<group>"; };
+		A0A6F0581CB4F9560059AE77 /* ADDSchooleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ADDSchooleViewController.m; sourceTree = "<group>"; };
+		A0A6F0591CB4F9560059AE77 /* ADDSchooleViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ADDSchooleViewController.xib; sourceTree = "<group>"; };
 		A0AF9B201CAF8D390081907C /* MFJGroupReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJGroupReq.h; sourceTree = "<group>"; };
 		A0AF9B211CAF8D390081907C /* MFJGroupReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJGroupReq.m; sourceTree = "<group>"; };
 		A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAVOSCloud.a; path = Pods/AVOSCloud/libAVOSCloud.a; sourceTree = "<group>"; };
@@ -626,10 +631,8 @@
 		A05BC3011CA7E64700291407 /* MFJLoopView */ = {
 			isa = PBXGroup;
 			children = (
-				A05BC3021CA7E64700291407 /* MFJLoopView.h */,
-				A05BC3031CA7E64700291407 /* MFJLoopView.m */,
-				A05BC3041CA7E64700291407 /* MFJLoopViewCell.h */,
-				A05BC3051CA7E64700291407 /* MFJLoopViewCell.m */,
+				A0A6F0541CB4C5200059AE77 /* WFLoopShowView.h */,
+				A0A6F0551CB4C5200059AE77 /* WFLoopShowView.m */,
 			);
 			path = MFJLoopView;
 			sourceTree = "<group>";
@@ -817,6 +820,9 @@
 			children = (
 				A0E6F88F1CA3FA4800182976 /* MFUHomeScene.h */,
 				A0E6F8901CA3FA4800182976 /* MFUHomeScene.m */,
+				A0A6F0571CB4F9560059AE77 /* ADDSchooleViewController.h */,
+				A0A6F0581CB4F9560059AE77 /* ADDSchooleViewController.m */,
+				A0A6F0591CB4F9560059AE77 /* ADDSchooleViewController.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -846,6 +852,8 @@
 			children = (
 				A0E6F8B71CA422EC00182976 /* ProductModel.h */,
 				A0E6F8B81CA422EC00182976 /* ProductModel.m */,
+				A0A6F0511CB4B9420059AE77 /* BannerModel.h */,
+				A0A6F0521CB4B9420059AE77 /* BannerModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1051,6 +1059,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0A6F05B1CB4F9560059AE77 /* ADDSchooleViewController.xib in Resources */,
 				A0A333711C97E1FF000C03C2 /* LaunchScreen.storyboard in Resources */,
 				A0E6F8B61CA3FEE500182976 /* MFUHomeImageCollectionCell.xib in Resources */,
 				A08E82081CAA36CC00B485A6 /* MFUHomeMenuCell.xib in Resources */,
@@ -1143,6 +1152,7 @@
 				A0E6F8A81CA3FA4800182976 /* MFUHomeViewController.m in Sources */,
 				A02F975F1CA649B0008D02E3 /* UIView+MFJExtent.m in Sources */,
 				A04E997D1CA2911400B0ABB5 /* MYREQUEST.m in Sources */,
+				A0A6F05A1CB4F9560059AE77 /* ADDSchooleViewController.m in Sources */,
 				A02F976E1CA6CD2D008D02E3 /* MFJImageView.m in Sources */,
 				A04E99791CA2911400B0ABB5 /* TMDiskCache.m in Sources */,
 				A04E99721CA2911400B0ABB5 /* UIScrollView+HYSCat.m in Sources */,
@@ -1152,9 +1162,11 @@
 				A04E99601CA2911400B0ABB5 /* IHBaseViewController.m in Sources */,
 				A0E6F8521CA3BE7800182976 /* MFJSettingItem.m in Sources */,
 				A08E821C1CAA82C100B485A6 /* MFJUserDefaults.m in Sources */,
+				A0A6F0531CB4B9420059AE77 /* BannerModel.m in Sources */,
 				A04E99711CA2911400B0ABB5 /* UIImage+HYSCat.m in Sources */,
 				A04E99641CA2911400B0ABB5 /* UIButton+IHBarButton.m in Sources */,
 				A04E99A91CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m in Sources */,
+				A0A6F0561CB4C5200059AE77 /* WFLoopShowView.m in Sources */,
 				A0E6F8A91CA3FA4800182976 /* MFUHomeScene.m in Sources */,
 				A04E99A81CA299AC00B0ABB5 /* NJKScrollFullScreen.m in Sources */,
 				A04E997A1CA2911400B0ABB5 /* TMMemoryCache.m in Sources */,
@@ -1163,7 +1175,6 @@
 				A04E99611CA2911400B0ABB5 /* IHBaseWebViewController.m in Sources */,
 				A0A333691C97E1FF000C03C2 /* ViewController.m in Sources */,
 				A04E996E1CA2911400B0ABB5 /* UIColor+HYSCat.m in Sources */,
-				A05BC3071CA7E64700291407 /* MFJLoopViewCell.m in Sources */,
 				A04E99741CA2911400B0ABB5 /* UITableViewCell+HYSCat.m in Sources */,
 				A04E99621CA2911400B0ABB5 /* IHNavigationController.m in Sources */,
 				A08E82061CAA36BB00B485A6 /* MFUHomeMenuCell.m in Sources */,
@@ -1190,7 +1201,6 @@
 				A02F97681CA64B52008D02E3 /* MFJPhotoGroupItem.m in Sources */,
 				A02F976B1CA64BD6008D02E3 /* MFJPhotoGroupCell.m in Sources */,
 				A04E99761CA2911400B0ABB5 /* UIView+HYSCat.m in Sources */,
-				A05BC3061CA7E64700291407 /* MFJLoopView.m in Sources */,
 				A04E99851CA2911400B0ABB5 /* O2HUD.m in Sources */,
 				A04E99661CA2911400B0ABB5 /* NSData+HYSCat.m in Sources */,
 				A0E6F8461CA3BE1B00182976 /* MFJBaseSettingViewController.m in Sources */,
@@ -1347,12 +1357,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PRODUCT_NAME)/Classes/Common/Core/PCH_FILE/CONFIG.PCH";
 				INFOPLIST_FILE = 2HUO/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Pods/AVOSCloud";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods/AVOSCloud",
+					"$(PROJECT_DIR)/Pods/AVOSCloudSNS",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1412,12 +1426,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PRODUCT_NAME)/Classes/Common/Core/PCH_FILE/CONFIG.PCH";
 				INFOPLIST_FILE = 2HUO/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Pods/AVOSCloud";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Pods/AVOSCloud",
+					"$(PROJECT_DIR)/Pods/AVOSCloudSNS",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",

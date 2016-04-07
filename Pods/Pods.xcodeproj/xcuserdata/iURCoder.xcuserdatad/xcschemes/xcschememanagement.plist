@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AVOSCloudSNS.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>JSONModel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -72,32 +77,42 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>07195194925CD4A63C60B07F188935E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>09FA060F1A0492FB25232F489AC4E573</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>11A4CFB727B96569393061E3E445F550</key>
+		<key>121B4D64FF41416ACA9AF0DF16DC1565</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>22F959E6371042FE1AF8A26D2421AAFB</key>
+		<key>338202E02F6B9A53E13AF44AB81555C8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>347F10C32EA6F1B2E192E45FA02E6757</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3F9945FF3FE62C7380A6986C627CA5F4</key>
+		<key>415C20E19F8A637A246711112490553E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>53480ED0BE09FF49E34B1702D485CAAB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>69A13DDC5FBFFB83FE3501269A84107D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>70DCF3E69C79FF518E9F4E777F76B135</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,22 +127,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C54AC38CEE9754F2CEBA92B4112EA873</key>
+		<key>9A7B80A937F0D87018AC8D8DC2E6E12B</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E27368A6BD7E6DFF82D09506FEEF6D9E</key>
+		<key>AD6BA40DC1CC28BF161E13AA1C791EF7</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E52742350C4FB19B805D4D46AFAFC7BF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E7EA2BA1AC67E153EE630D4AC2B66E0A</key>
+		<key>CB96FE81ABB413B8092AF8F9C843154A</key>
 		<dict>
 			<key>primary</key>
 			<true/>

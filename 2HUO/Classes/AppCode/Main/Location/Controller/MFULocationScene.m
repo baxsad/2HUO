@@ -9,6 +9,7 @@
 #import "MFULocationScene.h"
 #import "MFJNetWorking.h"
 #import "YDog.h"
+#import <AVOSCloud/AVOSCloud.h>
 
 @interface MFULocationScene ()
 
@@ -33,10 +34,10 @@
     self.req.requestNeedActive = YES;
     [self.req listen:^(MFJReq *req) {
         if (req.succeed) {
-            NSLog(@"ooooook%@",req.output);
+//            NSLog(@"ooooook%@",req.output);
         }
         if (req.failed) {
-            NSLog(@"eeeeeer%@",req.error);
+//            NSLog(@"eeeeeer%@",req.error);
         }
     }];
     
@@ -44,7 +45,8 @@
         self.req.requestNeedActive = YES;
     }
     
-    [[YDog shareInstance] setValue:@"" inPath:@"/home/list/"];
+    
+    
     
 }
 

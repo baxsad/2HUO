@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '41C778B1EDFEFF812C322BDF'
+               BlueprintIdentifier = '9FA8FBC0808D0334DDC176CF'
                BlueprintName = 'PXAlertView'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libPXAlertView.a'>

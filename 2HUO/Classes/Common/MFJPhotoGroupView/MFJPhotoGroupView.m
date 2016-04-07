@@ -255,13 +255,15 @@
     
     if (item.thumbClippedToTop) {
         CGRect fromFrame = [_fromView convertRect:_fromView.bounds toView:cell];
+        
+        
         CGRect originFrame = cell.imageContainerView.frame;
         CGFloat scale = fromFrame.size.width / cell.imageContainerView.width;
         
         cell.imageContainerView.centerX = CGRectGetMidX(fromFrame);
         cell.imageContainerView.height = fromFrame.size.height / scale;
         cell.imageContainerView.layer.transformScale = scale;
-        cell.imageContainerView.centerY = CGRectGetMidY(fromFrame);
+        cell.imageContainerView.centerY = CGRectGetMidY(fromFrame)+20;
         
         float oneTime = animated ? 0.25 : 0;
         [UIView animateWithDuration:oneTime delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -284,11 +286,13 @@
     } else {
         CGRect fromFrame = [_fromView convertRect:_fromView.bounds toView:cell.imageContainerView];
         
+        fromFrame.origin.y += 20;
+        
         cell.imageContainerView.clipsToBounds = NO;
         cell.imageView.frame = fromFrame;
         cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         
-        float oneTime = animated ? 0.18 : 0;
+        float oneTime = animated ? 0.25 : 0;
         [UIView animateWithDuration:oneTime*2 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseInOut animations:^{
             _blurBackground.alpha = 1;
         }completion:NULL];

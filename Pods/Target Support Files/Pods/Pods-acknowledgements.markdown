@@ -28,6 +28,10 @@ THE SOFTWARE.
 
 Copyright 2015 LeanCloud, Inc. See https://leancloud.cn/terms.html
 
+## AVOSCloudSNS
+
+Copyright 2015 LeanCloud, Inc. See https://leancloud.cn/terms.html
+
 ## JSONModel
 
 JSONModel

@@ -8,7 +8,7 @@
 
 #import "MFUHomeScene.h"
 #import "UIViewController+NJKFullScreenSupport.h"
-#import "MFJLoopView.h"
+#import "WFLoopShowView.h"
 
 #import "MFUHomeTBCell.h"
 #import "MFUHomeMenuCell.h"
@@ -20,6 +20,9 @@
 #import "MFJPhotoGroupView.h"
 
 #import <AFNetworking/AFNetworking.h>
+#import "YDog.h"
+#import "BannerModel.h"
+#import "ADDSchooleViewController.h"
 
 
 @interface MFUHomeScene ()<UITableViewDataSource,UITableViewDelegate,MFUCellDelegate>
@@ -27,7 +30,7 @@
 @property (nonatomic, strong) UITableView          * tableView;
 @property (nonatomic, strong) NJKScrollFullScreen  * scrollProxy;
 @property (nonatomic, strong) NSArray              * data;
-@property (nonatomic, strong) MFJLoopView          * bannerView;
+@property (nonatomic, strong) WFLoopShowView       * bannerView;
 @property (nonatomic, strong) MFJActionSheet       * sheet;
 
 @end
@@ -61,67 +64,36 @@
     }];
     UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0.00001)];
     self.tableView.tableHeaderView = headerView;
-    [self.bannerView loadImages:@[@"http://ww4.sinaimg.cn/large/a15b4afegw1f281ov02p8j20m807dt9r",
-                                 @"http://ww4.sinaimg.cn/large/a15b4afegw1f281ow6a36j20m807d75p",
-                                 @"http://ww4.sinaimg.cn/large/a15b4afegw1f281oyebwgj20m807dabm"]];
-    [self SOAPRequest];
-    
-}
-
-
--(void)OnTapSegmentCtr:(UISegmentedControl *)seg{
-    
-    [self.tableView reloadData];
-}
-
-
-- (void)SOAPRequest
-{
-    
-    AFHTTPSessionManager * manager   = [AFHTTPSessionManager manager];
-    
-    NSString *soapBody = @"<DoWork xmlns=\"http://tempuri.org/IService1\"></DoWork>";
-    
-    NSString *soapMessage =[NSString stringWithFormat:
-                            @"<?xml version=\"1.0\" encoding=\"utf-8\"?>\
-                            <soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\
-                            xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\">\
-                            <soap:Header>\
-                            </soap:Header>\
-                            <soap:Body>%@</soap:Body>\
-                            </soap:Envelope>",soapBody];
     
     
-    
-    AFHTTPRequestSerializer * serializer = [AFHTTPRequestSerializer serializer];
-    
-    serializer.timeoutInterval = 30;
-    
-    [serializer setValue:@"application/soap+xml; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    
-    [serializer setValue:[NSString stringWithFormat:@"%li", soapMessage.length] forHTTPHeaderField:@"Content-Length"];
-    
-    [serializer setQueryStringSerializationWithBlock:^NSString *(NSURLRequest *request, NSDictionary *parameters, NSError *__autoreleasing *error) {
-        return soapMessage;
-    }];
-    
-    manager.requestSerializer = serializer;
-    
-    [manager POST:@"http://qxw1193260152.my3w.com/Service1.svc?wsdl" parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+    [[YDog shareInstance] selectFrom:@"Banner" type:SearchTypeEqualTo where:@"name" is:@"_homeBanner" page:@"1" complete:^(NSArray *objects, NSError *error) {
         
-    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        BannerModel * model = [[BannerModel alloc] initWithDictionary:@{@"list":objects} error:nil];
+        [self.bannerView loadImagesWithModel:model];
         
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"ok");
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
     }];
     
     
+    
+    
+    
 }
+
+
+-(void)rightButtonTouch{
+    
+    ADDSchooleViewController * scene = [[ADDSchooleViewController alloc] init];
+    scene.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:scene animated:YES];
+    
+}
+
 
 - (void)setupData
 {
+    
+    
+    
     NSMutableArray *data = [@[] mutableCopy];
     for (NSUInteger i = 0; i < 10; i++) {
         ProductModel * model = [[ProductModel alloc] init];
@@ -175,10 +147,6 @@
     [self showToolbar:YES];
 }
 
-- (void)rightButtonTouch
-{
-    
-}
 
 #pragma mark - UITableViewDelegate and UITableViewDataScore
 
@@ -256,18 +224,11 @@
     return _tableView;
 }
 
-- (MFJLoopView *)bannerView
+- (WFLoopShowView *)bannerView
 {
     if (!_bannerView) {
         CGRect rect = CGRectMake(0, 0, Screen_Width, Screen_Width/15*6);
-        _bannerView = [MFJLoopView loopViewWithFrame:rect
-                                    placeholderImage:nil
-                                              images:nil
-                                              titles:nil
-                                       selectedBlock:^(NSInteger index) {
-                                           
-                                       }];
-        _bannerView.pageControlHiden = YES;
+        _bannerView = [[WFLoopShowView alloc] initWithFrame:rect image:nil animationDuration:2.7];
         
     }
     return _bannerView;
