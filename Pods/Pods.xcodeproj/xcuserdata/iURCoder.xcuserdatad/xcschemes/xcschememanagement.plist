@@ -9,7 +9,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>AVOSCloudSNS.xcscheme</key>
+		<key>IQKeyboardManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -77,7 +77,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>07195194925CD4A63C60B07F188935E9</key>
+		<key>01073B335F6B377A265AD611AF347A1A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,17 +87,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>121B4D64FF41416ACA9AF0DF16DC1565</key>
+		<key>11CFB8DF0962F2F30A0F58BEF1057DF1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>338202E02F6B9A53E13AF44AB81555C8</key>
+		<key>26FC3317E314136D716F67C9FEDF484E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>415C20E19F8A637A246711112490553E</key>
+		<key>312C033AB68242BA8B69A69DC39C872C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -107,12 +107,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>69A13DDC5FBFFB83FE3501269A84107D</key>
+		<key>55DBDD8B7D446F1D618F303A9FB53209</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>70DCF3E69C79FF518E9F4E777F76B135</key>
+		<key>67F06192ACE1BA99B60C7185550BE7F0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8893D32CD5B1CB5773D567A149DE799E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,17 +132,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9A7B80A937F0D87018AC8D8DC2E6E12B</key>
+		<key>9FC87E1EE2B12281F4A20402DD014A40</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AD6BA40DC1CC28BF161E13AA1C791EF7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CB96FE81ABB413B8092AF8F9C843154A</key>
+		<key>FE0B3EEB79246831A263A0A86869F86D</key>
 		<dict>
 			<key>primary</key>
 			<true/>

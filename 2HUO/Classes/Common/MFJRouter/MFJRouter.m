@@ -299,7 +299,7 @@ typedef NS_ENUM(NSInteger, MFJOpendType) {
 
 - (void)reg:(NSString *)urlPattern toClass:(Class)cls navClass:(Class)navcls
 {
-    [self map:urlPattern class:nil controller:nil navClass:navcls navController:nil toHandler:nil];
+    [self map:urlPattern class:cls controller:nil navClass:navcls navController:nil toHandler:nil];
 }
 
 #pragma mark  通过 controller 注册 url

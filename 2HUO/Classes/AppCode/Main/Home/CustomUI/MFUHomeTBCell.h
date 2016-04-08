@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class ProductModel,MFUHomeTBCell;
+@class ProductInfo,MFUHomeTBCell;
 
 @protocol MFUCellDelegate
 
-- (void)MFUHomeTBCell:(MFUHomeTBCell *)cell moreButtonDidSelect:(ProductModel *)model;
+- (void)MFUHomeTBCell:(MFUHomeTBCell *)cell moreButtonDidSelect:(ProductInfo *)model;
 
 @end
 
@@ -22,6 +22,6 @@
 
 @property (nonatomic, assign) NSInteger row;
 
-- (void)configModel:(ProductModel *)model;
+- (void)configModel:(ProductInfo *)model;
 
 @end

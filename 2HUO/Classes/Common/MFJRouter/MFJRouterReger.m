@@ -13,8 +13,7 @@
 
 + (void)reg
 {
-    [[MFJRouter sharedInstance] reg:@"mfj://demo" toClass:NSClassFromString(@"DemoVC")];
-    [[MFJRouter sharedInstance] reg:@"mfj://test" toClass:NSClassFromString(@"testViewController") navClass:NSClassFromString(@"IHNavigationController")];// 这样注册的话，模态跳转的时候带导航控制器
+    [[MFJRouter sharedInstance] reg:@"mfj://addProduct" toClass:NSClassFromString(@"MFUReleaseProductScene") navClass:NSClassFromString(@"IHNavigationController")];
     
     
 }

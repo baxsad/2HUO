@@ -10,4 +10,6 @@
 #import "NJKScrollFullScreen.h"
 @interface MFUHomeScene : IHBaseViewController<NJKScrollFullscreenDelegate>
 
+
+
 @end

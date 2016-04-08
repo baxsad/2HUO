@@ -43,6 +43,8 @@ typedef NS_ENUM(NSUInteger, MFJStatusButtonType) {
 
 @property (nonatomic, strong) MFJStatusParams    * model;
 
+@property (nonatomic, copy  ) void (^ButtonClick)();
+
 - (instancetype)initWithFrame:(CGRect)rect
                         image:(NSString *)image
                   selectImage:(NSString *)selectIamge

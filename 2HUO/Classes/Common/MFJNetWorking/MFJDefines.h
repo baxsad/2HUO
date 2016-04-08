@@ -9,7 +9,7 @@
 #ifndef MFJNETDefines_h
 #define MFJNETDefines_h
 
-//#define isTest
+#import <AFNetworking/AFNetworking.h>
 
 #ifdef isTest
 

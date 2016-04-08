@@ -7,31 +7,23 @@
 //
 
 #import "MFUHomeScene.h"
-#import "UIViewController+NJKFullScreenSupport.h"
 #import "WFLoopShowView.h"
-
 #import "MFUHomeTBCell.h"
 #import "MFUHomeMenuCell.h"
-
-#import "ProductModel.h"
 #import "UITableView+FDTemplateLayoutCell.h"
-
 #import "MFJActionSheet.h"
 #import "MFJPhotoGroupView.h"
-
-#import <AFNetworking/AFNetworking.h>
-#import "YDog.h"
 #import "BannerModel.h"
-#import "ADDSchooleViewController.h"
+#import "Product.h"
 
 
 @interface MFUHomeScene ()<UITableViewDataSource,UITableViewDelegate,MFUCellDelegate>
 
 @property (nonatomic, strong) UITableView          * tableView;
-@property (nonatomic, strong) NJKScrollFullScreen  * scrollProxy;
 @property (nonatomic, strong) NSArray              * data;
 @property (nonatomic, strong) WFLoopShowView       * bannerView;
 @property (nonatomic, strong) MFJActionSheet       * sheet;
+@property (nonatomic, strong) Product              * productModel;
 
 @end
 
@@ -45,11 +37,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"@$R#@F$*^?";
+    
     [self showBarButton:NAV_RIGHT title:@"Edit" fontColor:UIColorHex(0xD2B203)];
-    [self setupData];
-    _scrollProxy = [[NJKScrollFullScreen alloc] initWithForwardTarget:self];
-    _scrollProxy.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MFUHomeTBCell class]) bundle:nil] forCellReuseIdentifier:@"MFUHomeTBCell"];
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([MFUHomeMenuCell class]) bundle:nil] forCellReuseIdentifier:@"MFUHomeMenuCell"];
@@ -73,78 +62,43 @@
         
     }];
     
+//    NSDictionary * user = @{@"nick":@"王思聪",@"uid":@"10001",@"avatar":@"http://ww4.sinaimg.cn/large/a15b4afegw1f2nymm1a3yj20go0go3zc",@"school":@"伦敦大学",@"type":@1};
+//    NSArray * images = @[@"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1eueu5fdlzlj20xc0xcq83",
+//                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1es9mk18gwxj20xc0xcqd7",
+//                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1exewl2ixflj20xb0xcgsx",
+//                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1ekmwr1mfy3j20xc0xc7iy",
+//                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1ey0w3n9zv4j20xc0xctj5",
+//                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1eknha9qvfaj20xc0p0473",
+//                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1exewgr3su4j20xc0xcdn9",
+//                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1enlbc2m25lj20p00xcdjb",
+//                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1enoi58suy0j20m80xcq7k"];
+//    NSArray * tags = @[@{@"tagName":@"硬件",@"tagId":@100001},@{@"tagName":@"硬件",@"tagId":@100002},@{@"tagName":@"智能设备",@"tagId":@100003},@{@"tagName":@"手机",@"tagId":@100004},@{@"tagName":@"iphone 6s",@"tagId":@100005}];
+//    NSDictionary * data = @{@"pid":@24234,@"user":user,@"createTime":@1459998586,@"updateTime":@1459999586,@"images":images,@"title":@"我是标题我是标题我是标题我是标题我是标题",@"content":@"昨晚坐MU5160从北京飞往上海把卡包落在了飞机上（黑色卡包，里面有各大银行各式各样的黑卡），哪位好心人捡到了请联系我助理 15101143311 思聪必有重谢。😭😭😭",@"tags":tags,@"likeCount":@672,@"location":@"北京市",@"school":@"北京电影学院",@"presentPrice":@49900,@"originalPrice":@129000,@"transactionMode":@"online",@"type":@"sale"};
+//    
+//    [[[YDog alloc] init] insertInto:@"Products" values:data complete:^(BOOL succeeded, NSError *error) {
+//        if (succeeded) {
+//            NSLog(@"上传成功！！");
+//        }
+//    }];
     
+    [[[YDog alloc] init] selectFrom:@"Products" type:SearchTypeNone where:@"likeCount" is:@100 page:nil complete:^(NSArray *objects, NSError *error) {
+        NSDictionary * response = @{@"list":objects};
+        
+        self.productModel = [[Product alloc] initWithDictionary:response error:nil];
+        
+    }];
     
-    
+    [RACObserve(self, productModel) subscribeNext:^(id x) {
+        [self.tableView reloadData];
+    }];
     
 }
 
 
 -(void)rightButtonTouch{
     
-    ADDSchooleViewController * scene = [[ADDSchooleViewController alloc] init];
-    scene.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:scene animated:YES];
+    [[MFJRouter sharedInstance] show:@"mfj://addProduct" completion:nil];
     
-}
-
-
-- (void)setupData
-{
-    
-    
-    
-    NSMutableArray *data = [@[] mutableCopy];
-    for (NSUInteger i = 0; i < 10; i++) {
-        ProductModel * model = [[ProductModel alloc] init];
-        model.desc = @"昨晚坐MU5160从北京飞往上海把卡包落在了飞机上（黑色卡包，里面有各大银行各式各样的黑卡），哪位好心人捡到了请联系我助理 15101143311 思聪必有重谢。😭😭😭";
-        model.productImages = @[@"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1eueu5fdlzlj20xc0xcq83",
-                                @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1es9mk18gwxj20xc0xcqd7",
-                                @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1exewl2ixflj20xb0xcgsx",
-                                @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1ekmwr1mfy3j20xc0xc7iy",
-                                @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1ey0w3n9zv4j20xc0xctj5",
-                                @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1eknha9qvfaj20xc0p0473",
-                                @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1exewgr3su4j20xc0xcdn9",
-                                @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1enlbc2m25lj20p00xcdjb",
-                                @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1enoi58suy0j20m80xcq7k"];
-        model.date = @"15 hour ago";
-        [data addObject:model];
-    }
-    _data = [data copy];
-}
-
-#pragma mark -
-#pragma mark NJKScrollFullScreenDelegate
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollUp:(CGFloat)deltaY
-{
-    [self moveNavigationBar:deltaY animated:YES];
-    [self moveToolbar:-deltaY animated:YES]; // move to revese direction
-}
-
-- (void)scrollFullScreen:(NJKScrollFullScreen *)proxy scrollViewDidScrollDown:(CGFloat)deltaY
-{
-    [self moveNavigationBar:deltaY animated:YES];
-    [self moveToolbar:-deltaY animated:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollUp:(NJKScrollFullScreen *)proxy
-{
-    [self hideNavigationBar:YES];
-    [self hideToolbar:YES];
-}
-
-- (void)scrollFullScreenScrollViewDidEndDraggingScrollDown:(NJKScrollFullScreen *)proxy
-{
-    [self showNavigationBar:YES];
-    [self showToolbar:YES];
-}
-
-- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
-    [_scrollProxy reset];
-    [self showNavigationBar:YES];
-    [self showToolbar:YES];
 }
 
 
@@ -157,7 +111,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return section ? _data.count : 1;
+    return section ? self.productModel.list.count : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -166,7 +120,7 @@
     if (indexPath.section) {
         MFUHomeTBCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MFUHomeTBCell"];
         cell.delegate = self;
-        [cell configModel:[_data objectAtIndex:indexPath.row]];
+        [cell configModel:[self.productModel.list objectAtIndex:indexPath.row]];
         NSString * rowStr = [NSString stringWithFormat:@"%li%li",indexPath.section+1,indexPath.row];
         cell.row = [rowStr integerValue];
         return cell;
@@ -179,7 +133,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return indexPath.section ? [tableView fd_heightForCellWithIdentifier:@"MFUHomeTBCell" cacheByIndexPath:indexPath configuration:^(MFUHomeTBCell * cell) {
-        [cell configModel:[_data objectAtIndex:indexPath.row]];
+        [cell configModel:[self.productModel.list objectAtIndex:indexPath.row]];
     }] : Screen_Width*0.5;
     
 }
@@ -204,7 +158,7 @@
     return [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 0.001)];
 }
 
-- (void)MFUHomeTBCell:(MFUHomeTBCell *)cell moreButtonDidSelect:(ProductModel *)model
+- (void)MFUHomeTBCell:(MFUHomeTBCell *)cell moreButtonDidSelect:(Product *)model
 {
     
     [self.sheet showInView:[UIApplication sharedApplication].keyWindow animated:YES];
@@ -215,7 +169,7 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        _tableView.delegate = (id)_scrollProxy;
+        _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsHorizontalScrollIndicator = NO;
         _tableView.showsVerticalScrollIndicator = NO;

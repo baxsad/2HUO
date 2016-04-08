@@ -21,4 +21,6 @@ typedef void(^PinchGesture)(CGFloat scale);
 
 - (void)addPinchGesture:(PinchGesture)block;//<- 捏合手势
 
++ (UIView *)getLine:(UIColor *)color rect:(CGRect)rect;
+
 @end

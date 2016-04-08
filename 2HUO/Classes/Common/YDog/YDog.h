@@ -10,23 +10,24 @@
 #import <AVOSCloud/AVOSCloud.h>
 
 typedef NS_ENUM(NSUInteger, SearchType) {
-    SearchTypeEqualTo     = 0 ,
-    SearchTypeNotEqualTo    = 1 ,
-    SearchTypeGreaterThan    = 2 ,
+    SearchTypeNone                     = 1024,
+    SearchTypeEqualTo                  = 0 ,
+    SearchTypeNotEqualTo               = 1 ,
+    SearchTypeGreaterThan              = 2 ,
     SearchTypeGreaterThanOrEqualTo     = 3 ,
-    SearchTypeLessThan   = 4 ,
-    SearchTypeLessThanOrEqualTo = 5,
-    SearchTypeMatchesRegex = 6,
-    SearchTypeContains = 7,
-    SearchTypeNotContains = 8,
-    SearchTypeHasPrefix = 9,
-    SearchTypeHasSuffix = 10,
-    SearchTypeArrayContainsArray = 11,
-    SearchTypeOr = 12,
-    SearchTypeAnd = 13
+    SearchTypeLessThan                 = 4 ,
+    SearchTypeLessThanOrEqualTo        = 5,
+    SearchTypeMatchesRegex             = 6,
+    SearchTypeContains                 = 7,
+    SearchTypeNotContains              = 8,
+    SearchTypeHasPrefix                = 9,
+    SearchTypeHasSuffix                = 10,
+    SearchTypeArrayContainsArray       = 11,
+    SearchTypeOr                       = 12,
+    SearchTypeAnd                      = 13
 };
 
-typedef void (^YDogSaveObjectComplete)(BOOL succeeded, NSError *error);
+typedef void (^SaveObjectComplete)(BOOL succeeded, NSError *error);
 
 typedef void (^FindObjectComplete)(NSArray *objects, NSError *error);
 
@@ -34,11 +35,11 @@ typedef void (^DeleteObjectCallBack)(AVObject *object, BOOL succeeded, NSError *
 
 @interface YDog : NSObject
 
++ (instancetype)dog;
+
 + (instancetype)shareInstance;
 
-- (void)insertInto:(NSString *)table values:(NSDictionary *)values option:(NSDictionary *)option complete:(YDogSaveObjectComplete)complete;
-
-- (void)insertInto:(NSString *)table values:(NSDictionary *)values complete:(YDogSaveObjectComplete)complete;
+- (void)insertInto:(NSString *)table values:(NSDictionary *)values complete:(SaveObjectComplete)complete;
 
 - (void)insertInto:(NSString *)table values:(NSDictionary *)values;
 
@@ -50,6 +51,6 @@ typedef void (^DeleteObjectCallBack)(AVObject *object, BOOL succeeded, NSError *
 - (void)deleteFrom:(NSString *)table type:(SearchType)type where:(NSString *)key is:(id)value complete:(DeleteObjectCallBack)complete;
 
 
-- (void)update:(NSString *)table values:(NSDictionary *)values where:(NSString *)key equeTo:(NSString *)value complete:(YDogSaveObjectComplete)complete;
+- (void)update:(NSString *)table values:(NSDictionary *)values where:(NSString *)key equeTo:(NSString *)value complete:(SaveObjectComplete)complete;
 
 @end

@@ -10,7 +10,12 @@
 #import "MFUHomeViewController.h"
 #import "MFJRouter.h"
 #import <AVOSCloud/AVOSCloud.h>
-#import <AVOSCloudSNS/AVOSCloudSNS.h>
+#import "UMSocial.h"
+#import "UMSocialSinaSSOHandler.h"
+#import "IQKeyboardManager.h"
+#import "UMSocialQQHandler.h"
+#import "UMSocialWechatHandler.h"
+#import "TMCache.h"
 
 @interface AppDelegate ()
 
@@ -31,6 +36,9 @@
     [MFJRouter sharedInstance].openException = YES;
     [[MFJRouter sharedInstance] reg];
     
+    [IQKeyboardManager sharedManager].enable = YES;
+    [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
+    
     [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
     NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:UIColorHex(0x333333)};
     [[UINavigationBar appearance] setTitleTextAttributes:attributes];
@@ -48,7 +56,22 @@
     
     [AVOSCloud setApplicationId:@"FM9OAvPJzXtzIVFp8G39AdCG-gzGzoHsz"
                       clientKey:@"bSnxSKtyJaKCocdbXCum4XfR"];
-    [AVOSCloudSNS setupPlatform:AVOSCloudSNSSinaWeibo withAppKey:@"" andAppSecret:@"" andRedirectURI:@""];
+    
+    [UMSocialData setAppKey:@"57074e7e67e58e35ca000c98"];
+    [UMSocialConfig setFollowWeiboUids:@{UMShareToSina:@"521733123"}];
+    [UMSocialSinaSSOHandler openNewSinaSSOWithAppKey:@"3390655125"
+                                              secret:@"a27b0c2e581ffddb22e9a0b663ca7f93"
+                                         RedirectURL:@"http://open.weibo.com/apps/3390655125/info/advanced"];
+
+    [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
+    
+    
+    [UMSocialWechatHandler setWXAppId:@"wx34395ba624fb9c7c" appSecret:@"589bc13601292147f9df4f84ace91b19" url:@"http://www.umeng.com/social"];
+    
+    id obj = [[TMCache sharedCache] objectForKey:kUSERCACHE];
+    NSDictionary *dic = [obj toDictionary];
+    User * user = [[User alloc] initWithDictionary:dic error:NULL];
+    [[AccountCenter shareInstance] save:user];
     
     return YES;
 }
@@ -62,5 +85,14 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application {}
 
 - (void)applicationWillTerminate:(UIApplication *)application {}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    BOOL result = [UMSocialSnsService handleOpenURL:url];
+    if (result == FALSE) {
+        //调用其他SDK，例如支付宝SDK等
+    }
+    return result;
+}
 
 @end

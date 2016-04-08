@@ -50,4 +50,11 @@ static char flashColorKey;
     }];
 }
 
++ (UIView *)getLine:(UIColor *)color rect:(CGRect)rect
+{
+    UIView * line = [[UIView alloc] initWithFrame:rect];
+    line.backgroundColor = color;
+    return line;
+}
+
 @end

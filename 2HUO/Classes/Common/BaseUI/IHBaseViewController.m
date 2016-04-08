@@ -20,9 +20,13 @@
         // support full screen on iOS 6
         self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
         self.navigationController.toolbar.barStyle = UIBarStyleBlackTranslucent;
+        self.automaticallyAdjustsScrollViewInsets=NO;
     }
+    
+    
     self.edgesForExtendedLayout = UIRectEdgeAll;
     self.extendedLayoutIncludesOpaqueBars = YES;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -48,6 +52,7 @@
     else if (NAV_RIGHT == position) {
         UIBarButtonItem *barbutton = [[UIBarButtonItem alloc] initWithTitle:name style:UIBarButtonItemStyleBordered target:self action:@selector(rightButtonTouch)];
         [barbutton setTitleTextAttributes:@{NSForegroundColorAttributeName:color} forState:UIControlStateNormal];
+        
         self.navigationItem.rightBarButtonItem = nil;
         self.navigationItem.rightBarButtonItems =@[fixedSpace,barbutton];
     }

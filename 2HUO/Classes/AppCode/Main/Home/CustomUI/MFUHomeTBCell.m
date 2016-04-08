@@ -8,11 +8,14 @@
 
 #import "MFUHomeTBCell.h"
 #import "MFUHomeImageCollectionCell.h"
-#import "ProductModel.h"
+#import "Product.h"
 #import "MFJStatusButton.h"
 
 #import "MFJPhotoGroupView.h"
 #import "MFJImageView.h"
+
+#import <YYWebImage/YYWebImage.h>
+#import "YDog.h"
 
 #define kPadding 2
 #define kMaxRow 9
@@ -26,7 +29,7 @@
 @property (nonatomic, weak) IBOutlet UILabel          * desc;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint * collectionHeight;
 
-@property (nonatomic, strong) ProductModel * model;
+@property (nonatomic, strong) ProductInfo * model;
 @property (nonatomic, weak) IBOutlet UIView           * toolBar;
 @property (nonatomic, weak) IBOutlet UIImageView      * moreButton;
 
@@ -58,21 +61,58 @@
             [self.delegate MFUHomeTBCell:self moreButtonDidSelect:nil];
         }
     }];
+    
+    self.likeOrNoButton.ButtonClick = ^{
+        @strongify(self);
+        
+        if (!self.model) {
+            return ;
+        }
+        
+        NSNumber * islike;
+        NSNumber * likecount;
+        if (self.model.isLike) {
+            
+            islike = @0;
+            likecount = [NSNumber numberWithInteger:(self.model.likeCount - 1)];
+            self.model.isLike = NO;
+            self.model.likeCount = (self.model.likeCount - 1);
+            
+        }else{
+            
+            islike = @1;
+            likecount = [NSNumber numberWithInteger:(self.model.likeCount + 1)];
+            self.model.isLike = YES;
+            self.model.likeCount = (self.model.likeCount + 1);
+            
+        }
+        
+        NSString * pid = [NSString stringWithFormat:@"%li",self.model.pid];
+        
+        [[[YDog alloc] init] update:@"Products" values:@{@"isLike":islike,@"likeCount":likecount} where:@"pid" equeTo:pid complete:^(BOOL succeeded, NSError *error) {
+            if (succeeded) {
+                FuckYou(@"更新喜欢数成功！");
+            }
+            if (error) {
+                FuckYou(@"更新喜欢数失败:%@",error);
+            }
+        }];
+    };
+    
 }
 
-- (void)configModel:(ProductModel *)model
+- (void)configModel:(ProductInfo *)model
 {
     
     self.model = model;
     [self setUpImageCollection];
     [self.imageViews removeAllObjects];
     [self.imagesCollection reloadData];
-    self.desc.text = model.desc;
-    self.date.text = [NSString stringWithFormat:@"%@ from %@",model.date,[NSString deviceVersion]];
-    BOOL like = arc4random()%200 > 100;
-    NSInteger count = arc4random()%200;
-    NSString * scount = [NSString stringWithFormat:@"%li",count];
-    [self.likeOrNoButton configureStatus:like text:like?[NSString stringWithFormat:@"%li",count]:scount animated:YES];
+    self.desc.text = model.content;
+    self.date.text = [NSString stringWithFormat:@"%li from %@",model.createTime,[NSString deviceVersion]];
+    self.nick.text = self.model.user.nick;
+    [self.userIcon yy_setImageWithURL:[NSURL URLWithString:model.user.avatar] options:YYWebImageOptionUseNSURLCache];
+    [self.likeOrNoButton configureStatus:model.isLike text:[NSString stringWithFormat:@"%li",model.likeCount] animated:YES];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -82,13 +122,13 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger rowNumber = self.model.productImages.count > kMaxRow ? kMaxRow : self.model.productImages.count ;
+    NSInteger rowNumber = self.model.images.count > kMaxRow ? kMaxRow : self.model.images.count ;
     return rowNumber;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MFUHomeImageCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"555" forIndexPath:indexPath];
-    [cell setProductIamge:self.model.productImages[indexPath.row] size:self.imageSize];
+    [cell setProductIamge:self.model.images[indexPath.row] size:self.imageSize];
     [self.imageViews addObject:cell.image];
     return cell;
 }
@@ -119,7 +159,7 @@
 - (void)setUpImageCollection
 {
     CGFloat cellWidth = Screen_Width;
-    CGFloat imageCount = self.model.productImages.count;
+    CGFloat imageCount = self.model.images.count;
     CGSize  itemSize = CGSizeZero;
     
     if (imageCount == 0) {

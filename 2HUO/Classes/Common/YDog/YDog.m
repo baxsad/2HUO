@@ -17,6 +17,11 @@
 
 @implementation YDog
 
++ (instancetype)dog
+{
+    return [[self alloc] init];
+}
+
 + (instancetype)shareInstance
 {
     static YDog *dog;
@@ -27,22 +32,16 @@
     return dog;
 }
 
-- (void)insertInto:(NSString *)table values:(NSDictionary *)values option:(NSDictionary *)option complete:(YDogSaveObjectComplete)complete
+- (void)insertInto:(NSString *)table values:(NSDictionary *)values option:(NSDictionary *)option complete:(SaveObjectComplete)complete
 {
+    NSAssert(values, @"values is empty");
+    
     AVObject *obj = [[AVObject alloc] initWithClassName:table];
-    AVSaveOption *op = nil;
-    if (option) {
-        
-        op = [[AVSaveOption alloc] init];
-        AVQuery *query = [[AVQuery alloc] init];
-        [query whereKey:[option allKeys][0] equalTo:[option allValues][0]];
-        op.query = query;
-
-    }
     
     if ([values isKindOfClass:[NSDictionary class]]||[values isKindOfClass:[NSMutableDictionary class]]) {
         for (NSString * ikey in values) {
             id ivalue = values[ikey];
+            ivalue = ivalue == nil ? @"" : ivalue;
             [obj setObject:ivalue forKey:ikey];
         }
     }else{
@@ -52,28 +51,17 @@
         return;
     }
     
-    if (option) {
-        [obj saveInBackgroundWithOption:op block:^(BOOL succeeded, NSError *error) {
-            if (complete) {
-                complete(succeeded,error);
-            }
-            
-        }];
-    }else if (complete) {
+    if (complete) {
         [obj saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-            if (complete) {
-                complete(succeeded,error);
-            }
-            
+            complete(succeeded,error);
         }];
     }else{
         [obj saveInBackground];
-        
     }
     
 }
 
-- (void)insertInto:(NSString *)table values:(NSDictionary *)values complete:(YDogSaveObjectComplete)complete
+- (void)insertInto:(NSString *)table values:(NSDictionary *)values complete:(SaveObjectComplete)complete
 {
     [self insertInto:table values:values option:nil complete:complete];
 }
@@ -97,7 +85,9 @@
 
 - (void)selectFrom:(NSString *)table type:(SearchType)type where:(NSString *)key is:(id)value page:(NSString *)page complete:(FindObjectComplete)complete
 {
-    
+    if ([value isKindOfClass:[NSNumber class]]) {
+        value = [value stringValue];
+    }
     AVQuery *query = [AVQuery queryWithClassName:table];
     if (key && value && ![key isEqualToString:@""] && ![value isEqualToString:@""]) {
         switch (type) {
@@ -182,6 +172,10 @@
                 }
                 query = [AVQuery andQueryWithSubqueries:queryArray];
             }
+                break;
+                
+            case SearchTypeNone:
+            
                 break;
                 
             default:
@@ -345,13 +339,17 @@
     }
 }
 
-- (void)update:(NSString *)table values:(NSDictionary *)values where:(NSString *)key equeTo:(NSString *)value complete:(YDogSaveObjectComplete)complete
+- (void)update:(NSString *)table values:(NSDictionary *)values where:(NSString *)key equeTo:(NSString *)value complete:(SaveObjectComplete)complete
 {
     AVQuery *query = [AVQuery queryWithClassName:table];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         NSArray<AVObject *> *response = objects;
         for (AVObject *obj in response) {
-            if ([obj[key] isEqualToString:value]) {
+            id serverValue = obj[key];
+            if ([serverValue isKindOfClass:[NSNumber class]]) {
+                serverValue = [serverValue stringValue];
+            }
+            if ([serverValue isEqualToString:value]) {
                 
                 for (NSString * ikey in values) {
                     [obj setObject:values[ikey] forKey:ikey];

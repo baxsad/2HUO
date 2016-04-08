@@ -7,6 +7,8 @@
 //
 
 #import "MFUMoreScene.h"
+#import "AccountCenter.h"
+
 
 @implementation MFUMoreScene
 
@@ -16,7 +18,7 @@
     
     // 1.第0组：3个
     [self add0SectionItems];
-    
+//    [[AccountCenter shareInstance] logoutWithType:UMSocialSnsTypeSina];
     
 }
 
@@ -28,11 +30,13 @@
     MFJSettingItem *push = [MFJSettingItem itemWithIcon:@"wallhaven" title:@"first" subTitle:@"" type:MFJSettingItemTypeArrow];
     //cell点击事件
     push.selected = ^{
-        UIViewController *helpVC = [[UIViewController alloc] init];
-        helpVC.view.backgroundColor = [UIColor grayColor];
-        helpVC.title = @"帮助";
-        helpVC.hidesBottomBarWhenPushed = YES;
-        [weakSelf.navigationController pushViewController:helpVC animated:YES];
+        [[AccountCenter shareInstance] logoutWithType:UMSocialSnsTypeWechatSession complete:^(BOOL success) {
+            if (success) {
+                [O2HUD showMessage:@"退出成功" timeout:1];
+            }else{
+                [O2HUD showMessage:@"退出失败" timeout:1];
+            }
+        }];
     };
     
     // 1.2.声音提示
@@ -50,11 +54,18 @@
     MFJSettingItem *ff = [MFJSettingItem itemWithIcon:@"" title:@"ff" subTitle:@"" type:MFJSettingItemTypeNone];
     //cell点击事件
     ff.selected = ^{
-        UIViewController *helpVC = [[UIViewController alloc] init];
-        helpVC.view.backgroundColor = [UIColor grayColor];
-        helpVC.title = @"帮助";
-        helpVC.hidesBottomBarWhenPushed = YES;
-        [weakSelf.navigationController pushViewController:helpVC animated:YES];
+        
+        if (ISLOGIN) {
+            [O2HUD showMessage:@"已经登陆" timeout:1];
+            NSLog(@"%@",[AccountCenter shareInstance].user);
+            return ;
+        }
+        
+        [[AccountCenter shareInstance] loginWithType:UMSocialSnsTypeWechatSession viewController:self data:^(BOOL success, User * user) {
+            if (success && user) {
+                [[AccountCenter shareInstance] save:user];
+            }
+        }];
     };
     
     MFJSettingGroup *group = [[MFJSettingGroup alloc] init];

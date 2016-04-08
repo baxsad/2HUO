@@ -269,6 +269,10 @@
     [UIView    setAnimationDuration:0.125];
     [self setBackgroundColor:UIColorHex(0xffffff)];
     [UIView commitAnimations];
+    
+    if (self.ButtonClick) {
+        self.ButtonClick();
+    }
 }
 
 @end

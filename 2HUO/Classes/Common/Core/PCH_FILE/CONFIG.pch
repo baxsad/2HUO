@@ -15,12 +15,15 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "Action.h"
 #import "Masonry.h"
 #import "HYSCategories.h"
-#import "IHENUM.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 #import "MJRefresh.h"
 #import "MFJRouter.h"
+#import "YDog.h"
+#import "O2HUD.h"
+#import "AccountCenter.h"
+#import "User.h"
 
 #endif
 
@@ -45,5 +48,9 @@
 #define SINGLE_LINE_ADJUST_OFFSET   ((1 / [UIScreen mainScreen].scale) / 2)
 #define NAVCOLOR UIColorHex(0xF9F7F4)
 #define TEMCOLOR UIColorHex(0xD2B203)
+#define ISLOGIN ([AccountCenter shareInstance].token && [AccountCenter shareInstance].token.length > 5)
+
+//用户信息的缓存key
+#define kUSERCACHE @"kUSERCACHE"
 
 
