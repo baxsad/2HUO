@@ -8,7 +8,7 @@
 
 #import "IHBaseViewController.h"
 #import "NJKScrollFullScreen.h"
-@interface MFUHomeScene : IHBaseViewController<NJKScrollFullscreenDelegate>
+@interface MFUHomeScene : IHBaseViewController
 
 
 

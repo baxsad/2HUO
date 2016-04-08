@@ -157,7 +157,8 @@
             
         }];
     }else{
-        NSLog(@"尚未登录！");
+        
+        [[TMCache sharedCache] removeObjectForKey:kUSERCACHE];
     }
 }
 

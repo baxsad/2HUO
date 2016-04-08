@@ -34,8 +34,6 @@
     [[UITextField appearance] setTintColor:UIColorHex(0xffb6b6)];
     [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
-    
-    
     [self addAllChildViewControllers];
     
     self.colorFullView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width/3, self.tabBar.bounds.size.height)];
