@@ -17,8 +17,10 @@ typedef NS_ENUM(NSUInteger, UserLoginType) {
     
 };
 
+typedef void (^UserLoginCallBack)(BOOL success);
 typedef void (^UserLoginResultBlock)(BOOL success, User * user);
 typedef void (^UserLogoutCallBack)(BOOL success);
+typedef void (^ClearCacheCallBack)(BOOL success,CGFloat progress);
 
 @interface AccountCenter : NSObject
 
@@ -30,8 +32,12 @@ typedef void (^UserLogoutCallBack)(BOOL success);
 
 - (void)save:(User *)user;
 
-- (void)loginWithType:(UMSocialSnsType)type viewController:(UIViewController*)viewController data:(UserLoginResultBlock)complete;
+- (void)login:(UMSocialSnsType)type viewController:(UIViewController*)viewController complete:(UserLoginCallBack)complete;
 
-- (void)logoutWithType:(UMSocialSnsType)type complete:(UserLogoutCallBack)callBack;
+- (void)logout;
+
+- (void)logoutWithType:(UMSocialSnsType)type;
+
+- (void)clearCache:(ClearCacheCallBack)callback;
 
 @end

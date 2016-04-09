@@ -9,6 +9,7 @@
 #import "AccountCenter.h"
 #import "User.h"
 #import "TMCache.h"
+#import <YYWebImage/YYWebImage.h>
 
 @implementation AccountCenter
 
@@ -41,6 +42,21 @@
     }];
 }
 
+- (void)login:(UMSocialSnsType)type viewController:(UIViewController*)viewController complete:(UserLoginCallBack)complete
+{
+    [self loginWithType:type viewController:viewController data:^(BOOL success, User *user) {
+        if (success && user) {
+            if (complete) {
+                complete(YES);
+            }
+            [self save:user];
+        }else{
+            if (complete) {
+                complete(NO);
+            }
+        }
+    }];
+}
 
 - (void)loginWithType:(UMSocialSnsType)type viewController:(UIViewController*)viewController data:(UserLoginResultBlock)complete
 {
@@ -137,29 +153,41 @@
     }];
 }
 
-- (void)logoutWithType:(UMSocialSnsType)type complete:(UserLogoutCallBack)callBack
+- (void)logout
+{
+    [self logoutWithType:UMSocialSnsTypeSina];
+    [self logoutWithType:UMSocialSnsTypeMobileQQ];
+    [self logoutWithType:UMSocialSnsTypeWechatSession];
+    
+}
+
+- (void)logoutWithType:(UMSocialSnsType)type
 {
     NSString* platforName = [UMSocialSnsPlatformManager getSnsPlatformString:type];
     if ([UMSocialAccountManager isOauthAndTokenNotExpired:platforName]) {
         [[UMSocialDataService defaultDataService] requestUnOauthWithType:platforName completion:^(UMSocialResponseEntity* response) {
-            
-            if (response.responseCode == UMSResponseCodeSuccess) {
-                [[TMCache sharedCache] removeObjectForKey:kUSERCACHE];
-                [self save:nil];
-                if (callBack) {
-                    callBack(YES);
-                }
-            }else{
-                if (callBack) {
-                    callBack(NO);
-                }
-            }
-            
+            [self save:nil];
         }];
-    }else{
-        
-        [[TMCache sharedCache] removeObjectForKey:kUSERCACHE];
     }
+}
+
+- (void)clearCache:(ClearCacheCallBack)callback
+{
+    [[TMCache sharedCache] removeAllObjects];
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
+    YYImageCache *cache = [YYWebImageManager sharedManager].cache;
+    [cache.diskCache removeAllObjectsWithProgressBlock:^(int removedCount, int totalCount) {
+        // progress
+        if (callback) {
+            callback(NO,removedCount/totalCount);
+        }
+    } endBlock:^(BOOL error) {
+        // end
+        if (callback) {
+            callback(YES,1.0);
+        }
+    }];
+    
 }
 
 @end

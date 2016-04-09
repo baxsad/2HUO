@@ -25,18 +25,12 @@
 #pragma mark 添加第0组的模型数据
 - (void)add0SectionItems
 {
-    __weak typeof(self) weakSelf = self;
+//    __weak typeof(self) weakSelf = self;
     // 1.1.推送和提醒
     MFJSettingItem *push = [MFJSettingItem itemWithIcon:@"wallhaven" title:@"first" subTitle:@"" type:MFJSettingItemTypeArrow];
     //cell点击事件
     push.selected = ^{
-        [[AccountCenter shareInstance] logoutWithType:UMSocialSnsTypeWechatSession complete:^(BOOL success) {
-            if (success) {
-                [O2HUD showMessage:@"退出成功" timeout:1];
-            }else{
-                [O2HUD showMessage:@"退出失败" timeout:1];
-            }
-        }];
+        [[AccountCenter shareInstance] logout];
     };
     
     // 1.2.声音提示
@@ -61,9 +55,9 @@
             return ;
         }
         
-        [[AccountCenter shareInstance] loginWithType:UMSocialSnsTypeWechatSession viewController:self data:^(BOOL success, User * user) {
-            if (success && user) {
-                [[AccountCenter shareInstance] save:user];
+        [[AccountCenter shareInstance] login:UMSocialSnsTypeSina viewController:self complete:^(BOOL success) {
+            if (success) {
+                [O2HUD showMessage:@"登陆成功" timeout:1];
             }
         }];
     };
