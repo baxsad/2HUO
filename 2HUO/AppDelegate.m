@@ -16,6 +16,7 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialWechatHandler.h"
 #import "TMCache.h"
+#import "FPSLable.h"
 
 @interface AppDelegate ()
 
@@ -32,6 +33,10 @@
     MFUHomeViewController * home = [[MFUHomeViewController alloc] init];
     self.window.rootViewController = home;
     [self.window makeKeyAndVisible];
+    
+//    FPSLable *fps = [FPSLable new];
+//    fps.centerY = 25;
+//    [self.window addSubview:fps];
     
     [MFJRouter sharedInstance].openException = YES;
     [[MFJRouter sharedInstance] reg];

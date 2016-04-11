@@ -8,6 +8,7 @@
 
 #import "MFJDragCellCollectionView.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "MFUSelectIamgeCollectionCell.h"
 
 #define angelToRandian(x)  ((x)/180.0*M_PI)
 
@@ -22,8 +23,8 @@ typedef NS_ENUM(NSUInteger, MFJDragCellCollectionViewScrollDirection) {
 @interface MFJDragCellCollectionView ()
 @property (nonatomic, strong) NSIndexPath *originalIndexPath;
 @property (nonatomic, strong) NSIndexPath *moveIndexPath;
-@property (nonatomic, weak) UIView *tempMoveCell;
-@property (nonatomic, weak) UILongPressGestureRecognizer *longPressGesture;
+@property (nonatomic,   weak) UIView *tempMoveCell;
+@property (nonatomic,   weak) UILongPressGestureRecognizer *longPressGesture;
 @property (nonatomic, strong) CADisplayLink *edgeTimer;
 @property (nonatomic, assign) CGPoint lastPoint;
 @property (nonatomic, assign) MFJDragCellCollectionViewScrollDirection scrollDirection;
@@ -106,11 +107,22 @@ typedef NS_ENUM(NSUInteger, MFJDragCellCollectionViewScrollDirection) {
     //获取手指所在的cell
     _originalIndexPath = [self indexPathForItemAtPoint:[longPressGesture locationOfTouch:0 inView:longPressGesture.view]];
     UICollectionViewCell *cell = [self cellForItemAtIndexPath:_originalIndexPath];
+    
+    // 如果最后一个cell就不添加手势
+    if (((MFUSelectIamgeCollectionCell *)cell).isADD) {
+        return;
+    }
+    
     UIView *tempMoveCell = [cell snapshotViewAfterScreenUpdates:NO];
     cell.hidden = YES;
     _tempMoveCell = tempMoveCell;
     _tempMoveCell.frame = cell.frame;
     [self addSubview:_tempMoveCell];
+    
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        _tempMoveCell.transform = CGAffineTransformMakeScale(1.05, 1.05);
+    }];
     
     //开启边缘滚动定时器
     [self mfj_setEdgeTimer];
@@ -145,6 +157,7 @@ typedef NS_ENUM(NSUInteger, MFJDragCellCollectionViewScrollDirection) {
  */
 - (void)mfj_gestureEndOrCancle:(UILongPressGestureRecognizer *)longPressGesture{
     UICollectionViewCell *cell = [self cellForItemAtIndexPath:_originalIndexPath];
+    
     self.userInteractionEnabled = NO;
     [self mfj_stopEdgeTimer];
     //通知代理
@@ -153,6 +166,7 @@ typedef NS_ENUM(NSUInteger, MFJDragCellCollectionViewScrollDirection) {
     }
     [UIView animateWithDuration:0.25 animations:^{
         _tempMoveCell.center = cell.center;
+        _tempMoveCell.transform = CGAffineTransformMakeScale(1.0, 1.0);
     } completion:^(BOOL finished) {
         [self mfj_stopShakeAllCell];
         [_tempMoveCell removeFromSuperview];
@@ -197,6 +211,12 @@ typedef NS_ENUM(NSUInteger, MFJDragCellCollectionViewScrollDirection) {
         if ([self indexPathForCell:cell] == _originalIndexPath) {
             continue;
         }
+        
+        // 如果移动到最后一个cell就跳过
+        if (((MFUSelectIamgeCollectionCell *)cell).isADD) {
+            continue;
+        }
+        
         //计算中心距
         CGFloat spacingX = fabs(_tempMoveCell.center.x - cell.center.x);
         CGFloat spacingY = fabs(_tempMoveCell.center.y - cell.center.y);
@@ -298,16 +318,16 @@ typedef NS_ENUM(NSUInteger, MFJDragCellCollectionViewScrollDirection) {
     anim.values=@[@(angelToRandian(-_shakeLevel)),@(angelToRandian(_shakeLevel)),@(angelToRandian(-_shakeLevel))];
     anim.repeatCount=MAXFLOAT;
     anim.duration=0.2;
-//    NSArray *cells = [self visibleCells];
-//    for (UICollectionViewCell *cell in cells) {
-//        /**如果加了shake动画就不用再加了*/
-//        if (![cell.layer animationForKey:@"shake"]) {
-//            [cell.layer addAnimation:anim forKey:@"shake"];
-//        }
-//    }
-//    if (![_tempMoveCell.layer animationForKey:@"shake"]) {
-//        [_tempMoveCell.layer addAnimation:anim forKey:@"shake"];
-//    }
+    NSArray *cells = [self visibleCells];
+    for (UICollectionViewCell *cell in cells) {
+        /**如果加了shake动画就不用再加了*/
+        if (![cell.layer animationForKey:@"shake"]) {
+            [cell.layer addAnimation:anim forKey:@"shake"];
+        }
+    }
+    if (![_tempMoveCell.layer animationForKey:@"shake"]) {
+        [_tempMoveCell.layer addAnimation:anim forKey:@"shake"];
+    }
 }
 
 - (void)mfj_stopShakeAllCell{

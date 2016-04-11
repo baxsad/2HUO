@@ -10,10 +10,14 @@
 #import "MFJTextView.h"
 #import "MFJDragCellCollectionView.h"
 #import "MFUSelectIamgeCollectionCell.h"
+#import "TZImagePickerController.h"
+
+#import "MFJPickerViewController.h"
+#import "GDImagePickerController.h"
 
 #define IMAGE_WIDTH (Screen_Width - 50)*(1.0/3.0)
 
-@interface MFUReleaseProductScene ()<UITextViewDelegate,MFJDragCellCollectionViewDataSource, MFJDragCellCollectionViewDelegate>
+@interface MFUReleaseProductScene ()<UITextViewDelegate,MFJDragCellCollectionViewDataSource, MFJDragCellCollectionViewDelegate,TZImagePickerControllerDelegate,UIScrollViewDelegate>
 
 @property (nonatomic, strong) UIScrollView * contentScrollView;
 @property (nonatomic, strong) UITextField  * titleTextField;
@@ -75,6 +79,7 @@
     _contentScrollView.contentSize = CGSizeMake(Screen_Width, 2.0*Screen_Height);
     _contentScrollView.bounces = NO;
     _contentScrollView.scrollEnabled = YES;
+    _contentScrollView.delegate = self;
     
     _titleTextField = [[UITextField alloc] init];
     _titleTextField.font = [UIFont systemFontOfSize:14];
@@ -144,6 +149,7 @@
     UIImage * image = [UIImage imageNamed:@"addvote"];
     NSData * imageData = UIImagePNGRepresentation(image);
     [self.imageData addObject:imageData];
+    
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(IMAGE_WIDTH, IMAGE_WIDTH);
     layout.minimumLineSpacing = 10;
@@ -152,7 +158,12 @@
     _imageCollection.backgroundColor = [UIColor clearColor];
     _imageCollection.delegate = self;
     _imageCollection.dataSource = self;
-    _imageCollection.shakeLevel = 2.0f;
+    _imageCollection.shakeWhenMoveing = NO;
+    _imageCollection.clipsToBounds = NO;
+    _imageCollection.scrollEnabled = NO;
+    _imageCollection.showsVerticalScrollIndicator = NO;
+    _imageCollection.showsHorizontalScrollIndicator = NO;
+    
     [self.contentScrollView addSubview:_imageCollection];
     [_imageCollection registerNib:[UINib nibWithNibName:@"MFUSelectIamgeCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"MFUSelectIamgeCollectionCell"];
     [_imageCollection mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -162,6 +173,39 @@
         make.right.equalTo(self.contentScrollView.mas_right).offset(15);
         make.size.mas_equalTo(CGSizeMake(Screen_Width - 30, IMAGE_WIDTH));
     }];
+    
+    [RACObserve(self,imageData) subscribeNext:^(id x) {
+        if (self.imageData.count<=3) {
+            [_imageCollection mas_updateConstraints:^(MASConstraintMaker *make) {
+                @strongify(self);
+                make.top.equalTo(self.contentView.mas_bottom).offset(15);
+                make.left.equalTo(self.contentScrollView.mas_left).offset(15);
+                make.right.equalTo(self.contentScrollView.mas_right).offset(15);
+                make.size.mas_equalTo(CGSizeMake(Screen_Width - 30, IMAGE_WIDTH));
+            }];
+        }
+        if (self.imageData.count<=6) {
+            [_imageCollection mas_updateConstraints:^(MASConstraintMaker *make) {
+                @strongify(self);
+                make.top.equalTo(self.contentView.mas_bottom).offset(15);
+                make.left.equalTo(self.contentScrollView.mas_left).offset(15);
+                make.right.equalTo(self.contentScrollView.mas_right).offset(15);
+                make.size.mas_equalTo(CGSizeMake(Screen_Width - 30, 2*IMAGE_WIDTH + 10));
+            }];
+        }
+        if (self.imageData.count<=9) {
+            [_imageCollection mas_updateConstraints:^(MASConstraintMaker *make) {
+                @strongify(self);
+                make.top.equalTo(self.contentView.mas_bottom).offset(15);
+                make.left.equalTo(self.contentScrollView.mas_left).offset(15);
+                make.right.equalTo(self.contentScrollView.mas_right).offset(15);
+                make.size.mas_equalTo(CGSizeMake(Screen_Width - 30, 3*IMAGE_WIDTH + 20));
+            }];
+        }
+        
+    }];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -169,6 +213,10 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self postAction];
+}
 
 - (void)postAction
 {
@@ -194,6 +242,9 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
     MFUSelectIamgeCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"MFUSelectIamgeCollectionCell" forIndexPath:indexPath];
     cell.data = _imageData[indexPath.row];
+    if (indexPath.row == _imageData.count - 1) {
+        cell.isADD = YES;
+    }
     return cell;
 }
 
@@ -204,6 +255,28 @@
 #pragma mark - <MFJDragCellCollectionViewDelegate>
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (indexPath.row == _imageData.count-1) {
+        
+        
+        GDImagePickerController *imagePickerVc = [[GDImagePickerController alloc] initWithMaxImagesCount:9];
+        
+//        [imagePickerVc setDidFinishPickingPhotosHandle:^(NSArray<UIImage *> *photos, NSArray *assets) {
+//            if (photos) {
+//                for (UIImage * image in photos) {
+//                    NSData * imageData = UIImagePNGRepresentation(image);
+//                    [self.imageData insertObject:imageData atIndex:0];
+//                }
+//                [self.imageCollection reloadData];
+//            }
+//        }];
+        [self presentViewController:imagePickerVc animated:YES completion:nil];
+        
+    }else{
+        
+        
+        
+    }
     
 }
 

@@ -49,6 +49,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>TZImagePickerController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>UITableView+FDTemplateLayoutCell.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -77,7 +82,7 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>01073B335F6B377A265AD611AF347A1A</key>
+		<key>02340FEC2D95D1F0B1A11F8F07C98349</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -87,17 +92,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>11CFB8DF0962F2F30A0F58BEF1057DF1</key>
+		<key>1550B6F669C029333FB6972A52438389</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>26FC3317E314136D716F67C9FEDF484E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>312C033AB68242BA8B69A69DC39C872C</key>
+		<key>3E53C7FF82D1750292CA2851592FDBC8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,16 +112,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>67F06192ACE1BA99B60C7185550BE7F0</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8893D32CD5B1CB5773D567A149DE799E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>8F74D9EA91F4C43190670066BAC37D44</key>
 		<dict>
 			<key>primary</key>
@@ -132,12 +122,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9FC87E1EE2B12281F4A20402DD014A40</key>
+		<key>BEFC62232E0551428D53482774998C60</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>FE0B3EEB79246831A263A0A86869F86D</key>
+		<key>CE327FFD0E12A85514AE85C5B29575E8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DC7585771A2C7C1ECD1779BE2471D77F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E3294AA305ADE4B3183E8DF27478CC1C</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E886850D32477E91E85B03631D11332A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EDABCC27F447D8453F7A861E3A2797B9</key>
 		<dict>
 			<key>primary</key>
 			<true/>

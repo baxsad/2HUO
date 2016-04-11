@@ -10,6 +10,7 @@
 
 @interface MFUSelectIamgeCollectionCell : UICollectionViewCell
 
-@property (nonatomic,strong) NSData * data;
+@property (nonatomic, strong) NSData * data;
+@property (nonatomic, assign) BOOL     isADD;
 
 @end
