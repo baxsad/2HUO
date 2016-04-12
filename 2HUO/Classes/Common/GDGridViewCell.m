@@ -22,4 +22,9 @@
     _imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 }
 
+- (void)setAssetModel:(GDAssetModel *)assetModel
+{
+    _assetModel = assetModel;
+}
+
 @end

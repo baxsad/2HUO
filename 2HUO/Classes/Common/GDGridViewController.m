@@ -7,6 +7,7 @@
 //
 
 #import "GDGridViewController.h"
+#import "GDImagePickerController.h"
 #import "GDGridViewCell.h"
 
 @implementation NSIndexSet (Convenience)
@@ -46,21 +47,33 @@
 
 @property (nonatomic, copy ) NSArray       *allAlbum;
 
-@property (nonatomic) NSInteger colsInPortrait;
-@property (nonatomic) NSInteger colsInLandscape;
-@property (nonatomic) double minimumInteritemSpacing;
+@property (nonatomic,assign) BOOL           collectionIsScrollEnd;
+
+@property (nonatomic,assign) BOOL           toolBarIsShow;
+
+@property (nonatomic, copy ) NSMutableArray*allAsset;
+
+// UI
+
+@property (nonatomic, strong) UIButton     *nextButton;
+
+@property (nonatomic, strong) UIView       *toolBar;
+
 @property CGRect previousPreheatRect;
 
 @end
 
 static CGSize AssetGridThumbnailSize;
+static CGSize collectionSize;
 NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
 
 @implementation GDGridViewController
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _allAsset = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.prompt = @"";
     self.collectionView.backgroundColor = [UIColor whiteColor];
@@ -70,13 +83,50 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
         self.navigationController.toolbar.barStyle = UIBarStyleBlackTranslucent;
         self.automaticallyAdjustsScrollViewInsets=NO;
     }
-    
+
     self.edgesForExtendedLayout = UIRectEdgeAll;
     self.extendedLayoutIncludesOpaqueBars = NO;
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    [self setupNavigationBarButtonItemAndTitleView];
+
+    __weak typeof(self) weakSelf = self;
+    [[GDAssetManager  manager] getAllAlbums:self.picker.mediaTypes completion:^(NSArray<GDAlbumModel *> *models) {
+        
+        __strong __typeof(self) strongSelf = weakSelf;
+        strongSelf.allAlbum = models;
+        strongSelf.albumModel = models[0];
+        [self maskeupAssetModelWith:_albumModel];
+        strongSelf.assetsTitle = strongSelf.albumModel.title;
+        strongSelf.navigationItem.prompt = strongSelf.assetsTitle;
+        [strongSelf.collectionView reloadData];
+        
+    }];
+    
+    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
+    [self resetCachedAssets];
+    
+    
+    
+}
+
+- (void)maskeupAssetModelWith:(GDAlbumModel *)model
+{
+    [_allAsset removeAllObjects];
+    self.assetsFetchResult = self.albumModel.result;
+    [self.assetsFetchResult enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        GDAssetModel * model = [GDAssetModel modelWithAsset:obj];
+        [_allAsset addObject:model];
+        
+    }];
+}
+
+- (void)setupNavigationBarButtonItemAndTitleView
+{
     UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    fixedSpace.width = 5;//右边距
+    fixedSpace.width = 0;//右边距
     UIBarButtonItem *barbutton = [[UIBarButtonItem alloc] initWithTitle:@"Cancle" style:UIBarButtonItemStyleBordered target:self action:@selector(leftButtonTouch)];
     [barbutton setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:95.0/255.0 green:95.0/255.0 blue:95.0/255.0 alpha:1]} forState:UIControlStateNormal];
     self.navigationItem.leftBarButtonItem = nil;
@@ -84,57 +134,83 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
     if (iOS7Later) {
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
-
-    
-    NSArray * mediaTypes = @[@(PHAssetMediaTypeAudio),
-                             @(PHAssetMediaTypeVideo),
-                             @(PHAssetMediaTypeImage)];
-    
-    [[GDAssetManager  manager] getAllAlbums:mediaTypes completion:^(NSArray<GDAlbumModel *> *models) {
-        
-        self.allAlbum = models;
-        self.albumModel = models[1];
-        self.assetsFetchResult = self.albumModel.result;
-        self.assetsTitle = self.albumModel.title;
-        self.navigationItem.prompt = self.assetsTitle;
-        [self.collectionView reloadData];
-        
-    }];
-    
-    [[PHPhotoLibrary sharedPhotoLibrary] registerChangeObserver:self];
-    [self resetCachedAssets];
-    
     UIButton * selectAlbumButton = [[UIButton alloc] init];
     [selectAlbumButton setTitle:@"be a motherfucker" forState:UIControlStateNormal];
     [selectAlbumButton setTitleColor:UIColorHex(0x555555) forState:UIControlStateNormal];
     [selectAlbumButton sizeToFit];
+    selectAlbumButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     self.navigationItem.titleView = selectAlbumButton;
     
-    UIButton * sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    sendButton.frame = CGRectMake(0, 0, 55, 25);
-    [sendButton setTitle:@"Send" forState:UIControlStateNormal];
-    [sendButton setTitleColor:[UIColor colorWithRed:95.0/255.0 green:95.0/255.0 blue:95.0/255.0 alpha:1] forState:UIControlStateNormal];
-    [sendButton setBackgroundColor:[UIColor whiteColor]];
-    sendButton.layer.borderWidth = 1;
-    sendButton.layer.borderColor = [UIColor colorWithRed:125.0/255.0 green:125.0/255.0 blue:125.0/255.0 alpha:1].CGColor;
-    [sendButton addTarget:self action:@selector(postAction) forControlEvents:UIControlEventTouchUpInside];
-    sendButton.titleLabel.font = [UIFont systemFontOfSize:13];
-    sendButton.layer.cornerRadius = 3;
-    sendButton.layer.masksToBounds = YES;
-    self.navigationItem.rightBarButtonItem =
-    [[UIBarButtonItem alloc] initWithCustomView:sendButton];
     
+    UIBarButtonItem *negativeSeperator = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    negativeSeperator.width = -7;
+    _nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    _nextButton.frame = CGRectMake(0, 0, 55, 25);
+    [_nextButton setTitle:@"Next" forState:UIControlStateNormal];
+    [_nextButton setTitleColor:[UIColor colorWithRed:135.0/255.0 green:135.0/255.0 blue:135.0/255.0 alpha:1] forState:UIControlStateNormal];
+    [_nextButton setBackgroundColor:[UIColor whiteColor]];
+    _nextButton.layer.borderWidth = 1;
+    _nextButton.layer.borderColor = [UIColor colorWithRed:175.0/255.0 green:175.0/255.0 blue:175.0/255.0 alpha:1].CGColor;
+    [_nextButton addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
+    _nextButton.titleLabel.font = [UIFont systemFontOfSize:13];
+    _nextButton.layer.cornerRadius = 3;
+    _nextButton.layer.masksToBounds = YES;
+    self.navigationItem.rightBarButtonItems =
+    @[negativeSeperator,[[UIBarButtonItem alloc] initWithCustomView:_nextButton]];
+
 }
 
-- (void)postAction
+- (void)setupToolBar
 {
+    [self.view addSubview:self.toolBar];
     
+    [self hidenToolBar];
+}
+
+- (void)hidenToolBar
+{
+    if (!_toolBarIsShow) {
+        return;
+    }
+    CGRect hidenRect = CGRectMake(0, collectionSize.height, SCREEN_WIDTH, TOOL_BAR_HEIGHT);
+    [UIView animateWithDuration:0.25 animations:^{
+        self.toolBar.frame = hidenRect;
+        self.collectionView.height = collectionSize.height;
+    } completion:^(BOOL finished) {
+        _toolBarIsShow = NO;
+    }];
+}
+
+- (void)showToolBar
+{
+    if (_toolBarIsShow) {
+        return;
+    }
+    CGRect showRect = CGRectMake(0, collectionSize.height - TOOL_BAR_HEIGHT, SCREEN_WIDTH, TOOL_BAR_HEIGHT);
+    [UIView animateWithDuration:0.25 animations:^{
+        self.toolBar.frame = showRect;
+        self.collectionView.height = collectionSize.height - TOOL_BAR_HEIGHT;
+    } completion:^(BOOL finished) {
+        _toolBarIsShow = YES;
+    }];
+    if (_collectionIsScrollEnd) {
+        CGPoint off = self.collectionView.contentOffset;
+        off.y = self.collectionView.contentSize.height - self.collectionView.bounds.size.height + self.collectionView.contentInset.bottom;
+        [self.collectionView setContentOffset:off animated:YES];
+    }
+}
+
+- (void)nextAction
+{
+    [self hidenToolBar];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [self updateCachedAssets];
+    collectionSize = self.view.frame.size;
+    [self setupToolBar];
 }
 
 - (void)dealloc
@@ -145,12 +221,15 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
 
 - (void)leftButtonTouch
 {
+    [self resetCachedAssets];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 
-- (instancetype)init;
+- (instancetype)initWithPicker:(GDImagePickerController*)picker
 {
+    self.picker = picker;
+    
     CGRect rect = [UIScreen mainScreen].bounds;
     
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
@@ -172,26 +251,61 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
         }
     }
     
-    _colsInPortrait = 3;
-    _colsInLandscape = 5;
-    _minimumInteritemSpacing = 2.0;
-    
     UICollectionViewFlowLayout *layout = [self collectionViewFlowLayoutForOrientation:[UIApplication sharedApplication].statusBarOrientation];
+    
     if (self = [super initWithCollectionViewLayout:layout])
     {
+        
         //Compute the thumbnail pixel size:
         CGFloat scale = [UIScreen mainScreen].scale;
-        //NSLog(@"This is @%fx scale device", scale);
+        
         AssetGridThumbnailSize = CGSizeMake(layout.itemSize.width * scale, layout.itemSize.height * scale);
         
         self.collectionView.allowsMultipleSelection = YES;
+        self.collectionView.showsVerticalScrollIndicator = NO;
+        self.collectionView.showsHorizontalScrollIndicator = NO;
         
         [self.collectionView registerNib:[UINib nibWithNibName:@"GDGridViewCell" bundle:nil] forCellWithReuseIdentifier:GMGridViewCellIdentifier];
         
-        self.collectionView.contentInset = UIEdgeInsetsMake(_minimumInteritemSpacing, 0, 0, 0);
+        self.collectionView.contentInset = UIEdgeInsetsMake(self.picker.minimumInteritemSpacing, 0, 0, 0);
         
     }
     return self;
+}
+
+#pragma mark - Rotation
+
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return;
+    }
+    
+    UICollectionViewFlowLayout *layout = [self collectionViewFlowLayoutForOrientation:toInterfaceOrientation];
+    
+    //Update the AssetGridThumbnailSize:
+    CGFloat scale = [UIScreen mainScreen].scale;
+    AssetGridThumbnailSize = CGSizeMake(layout.itemSize.width * scale, layout.itemSize.height * scale);
+    
+    [self resetCachedAssets];
+    //This is optional. Reload visible thumbnails:
+    for (GDGridViewCell *cell in [self.collectionView visibleCells]) {
+        NSInteger currentTag = cell.tag;
+        __weak typeof(GDGridViewCell *) weakCell = cell;
+        [[GDAssetManager manager].cachingImageManager requestImageForAsset:cell.assetModel.asset
+                                     targetSize:AssetGridThumbnailSize
+                                    contentMode:PHImageContentModeAspectFill
+                                        options:nil
+                                  resultHandler:^(UIImage *result, NSDictionary *info)
+         {
+             __weak typeof(GDGridViewCell *) strongCell = weakCell;
+             if (strongCell.tag == currentTag) {
+                 [strongCell.imageView setImage:result];
+             }
+         }];
+    }
+    
+    [self.collectionView setCollectionViewLayout:layout animated:YES];
 }
 
 #pragma mark - Collection View Layout
@@ -203,12 +317,12 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
         if(!portraitLayout)
         {
             portraitLayout = [[UICollectionViewFlowLayout alloc] init];
-            portraitLayout.minimumInteritemSpacing = self.minimumInteritemSpacing;
-            int cellTotalUsableWidth = screenWidth - (self.colsInPortrait-1)*self.minimumInteritemSpacing;
-            portraitLayout.itemSize = CGSizeMake(cellTotalUsableWidth/self.colsInPortrait, cellTotalUsableWidth/self.colsInPortrait);
-            double cellTotalUsedWidth = (double)portraitLayout.itemSize.width*self.colsInPortrait;
+            portraitLayout.minimumInteritemSpacing = self.picker.minimumInteritemSpacing;
+            int cellTotalUsableWidth = screenWidth - (self.picker.colsInVertical-1)*self.picker.minimumInteritemSpacing;
+            portraitLayout.itemSize = CGSizeMake(cellTotalUsableWidth/self.picker.colsInVertical, cellTotalUsableWidth/self.picker.colsInVertical);
+            double cellTotalUsedWidth = (double)portraitLayout.itemSize.width*self.picker.colsInVertical;
             double spaceTotalWidth = (double)screenWidth-cellTotalUsedWidth;
-            double spaceWidth = spaceTotalWidth/(double)(self.colsInPortrait-1);
+            double spaceWidth = spaceTotalWidth/(double)(self.picker.colsInVertical-1);
             portraitLayout.minimumLineSpacing = spaceWidth;
         }
         return portraitLayout;
@@ -220,12 +334,12 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
             if(!landscapeLayout)
             {
                 landscapeLayout = [[UICollectionViewFlowLayout alloc] init];
-                landscapeLayout.minimumInteritemSpacing = self.minimumInteritemSpacing;
-                int cellTotalUsableWidth = screenHeight - (self.colsInLandscape-1)*self.minimumInteritemSpacing;
-                landscapeLayout.itemSize = CGSizeMake(cellTotalUsableWidth/self.colsInLandscape, cellTotalUsableWidth/self.colsInLandscape);
-                double cellTotalUsedWidth = (double)landscapeLayout.itemSize.width*self.colsInLandscape;
+                landscapeLayout.minimumInteritemSpacing = self.picker.minimumInteritemSpacing;
+                int cellTotalUsableWidth = screenHeight - (self.picker.colsInLandscape-1)*self.picker.minimumInteritemSpacing;
+                landscapeLayout.itemSize = CGSizeMake(cellTotalUsableWidth/self.picker.colsInLandscape, cellTotalUsableWidth/self.picker.colsInLandscape);
+                double cellTotalUsedWidth = (double)landscapeLayout.itemSize.width*self.picker.colsInLandscape;
                 double spaceTotalWidth = (double)screenHeight-cellTotalUsedWidth;
-                double spaceWidth = spaceTotalWidth/(double)(self.colsInLandscape-1);
+                double spaceWidth = spaceTotalWidth/(double)(self.picker.colsInLandscape-1);
                 landscapeLayout.minimumLineSpacing = spaceWidth;
             }
             return landscapeLayout;
@@ -235,12 +349,12 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
             if(!portraitLayout)
             {
                 portraitLayout = [[UICollectionViewFlowLayout alloc] init];
-                portraitLayout.minimumInteritemSpacing = self.minimumInteritemSpacing;
-                int cellTotalUsableWidth = screenWidth - (self.colsInPortrait-1)*self.minimumInteritemSpacing;
-                portraitLayout.itemSize = CGSizeMake(cellTotalUsableWidth/self.colsInPortrait, cellTotalUsableWidth/self.colsInPortrait);
-                double cellTotalUsedWidth = (double)portraitLayout.itemSize.width*self.colsInPortrait;
+                portraitLayout.minimumInteritemSpacing = self.picker.minimumInteritemSpacing;
+                int cellTotalUsableWidth = screenWidth - (self.picker.colsInVertical-1)*self.picker.minimumInteritemSpacing;
+                portraitLayout.itemSize = CGSizeMake(cellTotalUsableWidth/self.picker.colsInVertical, cellTotalUsableWidth/self.picker.colsInVertical);
+                double cellTotalUsedWidth = (double)portraitLayout.itemSize.width*self.picker.colsInVertical;
                 double spaceTotalWidth = (double)screenWidth-cellTotalUsedWidth;
-                double spaceWidth = spaceTotalWidth/(double)(self.colsInPortrait-1);
+                double spaceWidth = spaceTotalWidth/(double)(self.picker.colsInVertical-1);
                 portraitLayout.minimumLineSpacing = spaceWidth;
             }
             return portraitLayout;
@@ -302,6 +416,23 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self updateCachedAssets];
+    
+    self.collectionIsScrollEnd = NO;
+    CGPoint offset = scrollView.contentOffset;
+    CGRect bounds = scrollView.bounds;
+    CGSize size = scrollView.contentSize;
+    UIEdgeInsets inset = scrollView.contentInset;
+    CGFloat currentOffset = offset.y + bounds.size.height - inset.bottom;
+    CGFloat maximumOffset = size.height;
+    if(currentOffset==maximumOffset)
+        
+    {
+        
+        self.collectionIsScrollEnd = YES;
+        
+    }
+    
+
 }
 
 #pragma mark - Asset Caching
@@ -329,16 +460,16 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
     NSInteger currentTag = cell.tag + 1;
     cell.tag = currentTag;
     
-    PHAsset *asset = self.assetsFetchResult[indexPath.item];
-    
+    GDAssetModel *assetModel = self.allAsset[indexPath.item];
     
     {
-        
-        [[GDAssetManager manager] getThumbnailPhotoWithAsset:asset
+        __weak typeof(GDGridViewCell *) weakCell = cell;
+        [[GDAssetManager manager] getThumbnailPhotoWithAsset:assetModel.asset
                                                         size:AssetGridThumbnailSize
                                                   completion:^(UIImage *photo, NSDictionary *info) {
-                                                      if (cell.tag == currentTag) {
-                                                          [cell.imageView setImage:photo];
+                                                      __weak typeof(GDGridViewCell *) strongCell = weakCell;
+                                                      if (strongCell.tag == currentTag) {
+                                                          [strongCell.imageView setImage:photo];
                                                       }
                                                   }];
         
@@ -353,8 +484,13 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger count = self.assetsFetchResult.count;
+    NSInteger count = self.allAsset.count;
     return count;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self showToolBar];
 }
 
 
@@ -437,9 +573,20 @@ NSString * const GMGridViewCellIdentifier = @"GMGridViewCellIdentifier";
         PHAsset *asset = self.assetsFetchResult[indexPath.item];
         [assets addObject:asset];
     }
+    
     return assets;
 }
 
+#pragma mark -- getter
 
+- (UIView *)toolBar
+{
+    if (!_toolBar) {
+        _toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, collectionSize.height, SCREEN_WIDTH, TOOL_BAR_HEIGHT)];
+        _toolBar.backgroundColor = self.picker.navBackgroundColor;
+        _toolBarIsShow = NO;
+    }
+    return _toolBar;
+}
 
 @end

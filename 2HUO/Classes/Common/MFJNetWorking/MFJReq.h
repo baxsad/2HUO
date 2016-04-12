@@ -16,6 +16,8 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 
 @interface MFJReq : NSObject
 
+/** 错误码返回 */
+@property(nonatomic,strong,nullable)NSString                   * requestID;
 /** DATA 数据 */
 @property(nonatomic,strong,nullable)NSData                     * outputData;
 /** 序列化后的数据 */
@@ -46,6 +48,8 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 @property(nonatomic,strong,nullable)NSString                   * HOST;
 /** 请求路径 */
 @property(nonatomic,strong,nullable)NSString                   * PATH;
+/** 其他路径 */
+@property(nonatomic,strong,nullable)NSString                   * STATICPATH;
 /** 提交方式 (GET/POST)*/
 @property(nonatomic,assign)MFJRequestMethodType                  METHOD;
 /** 是否需要检查错误码 */
@@ -68,12 +72,11 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 @property(nonatomic,assign)BOOL                                  isTimeout;
 /** 是否第一次加载 */
 @property(nonatomic,assign)BOOL                                  isFirstRequest;
-
+/** 缓存策略 */
+@property (nonatomic,assign)MFJRequestCachePolicy                cachePolicy;
 
 /** 上传文件列表 */
 @property(nonatomic,strong,nullable)NSDictionary               * requestFiles;
-/** 上传/下载进度 */
-@property(nonatomic,assign)double                                progress;
 /** 已上传数据大小 */
 @property(nonatomic,assign)long long                             totalBytesWritten;
 /** 全部需要上传的数据大小 */
@@ -125,5 +128,7 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 - (NSUInteger)hash;
 
 - (NSURLRequestCachePolicy)RequestCachePolicy;
+
+- (nonnull NSString *)joinToPath;
 
 @end

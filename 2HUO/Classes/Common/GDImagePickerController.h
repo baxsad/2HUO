@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GDImagePickerController : UINavigationController
+@interface GDImagePickerController : UIViewController
 
 - (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount;
+
+@property (nonatomic, assign) NSInteger maxImagesCount;
+@property (nonatomic, strong) NSArray* customSmartCollections;
+@property (nonatomic, strong) NSArray* mediaTypes;
+@property (nonatomic, assign) BOOL showCameraButton;
+@property (nonatomic, assign) NSInteger colsInVertical;
+@property (nonatomic, assign) NSInteger colsInLandscape;
+@property (nonatomic, assign) double minimumInteritemSpacing;
+@property (nonatomic, strong) UIColor *navBackgroundColor;
 
 @end

@@ -14,6 +14,11 @@
 #define iOS9Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.0f)
 #define iOS9_1Later ([UIDevice currentDevice].systemVersion.floatValue >= 9.1f)
 
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+
+#define TOOL_BAR_HEIGHT 45
+
 typedef NS_ENUM(NSUInteger, GDPhotoRequestType) {
     GDPhotoRequestTypeOriginl     = 0,
     GDPhotoRequestTypeThumbnail   = 1 << 0
@@ -23,7 +28,8 @@ typedef enum : NSUInteger {
     GDAssetModelMediaTypePhoto = 0,
     GDAssetModelMediaTypeLivePhoto,
     GDAssetModelMediaTypeVideo,
-    GDAssetModelMediaTypeAudio
+    GDAssetModelMediaTypeAudio,
+    GDAssetModelMediaTypePhotoHDR
 } GDAssetModelMediaType;
 
 @interface GDAlbumModel : NSObject
@@ -43,9 +49,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) GDAssetModelMediaType type;
 @property (nonatomic,   copy) NSString *timeLength;
 
-
-+ (instancetype)modelWithAsset:(id)asset type:(GDAssetModelMediaType)type;
-+ (instancetype)modelWithAsset:(id)asset type:(GDAssetModelMediaType)type timeLength:(NSString *)timeLength;
++ (instancetype)modelWithAsset:(id)asset;
 
 @end
 

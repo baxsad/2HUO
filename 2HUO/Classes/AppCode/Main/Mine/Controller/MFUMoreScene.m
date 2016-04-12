@@ -20,6 +20,8 @@
     [self add0SectionItems];
 //    [[AccountCenter shareInstance] logoutWithType:UMSocialSnsTypeSina];
     
+    
+    
 }
 
 #pragma mark 添加第0组的模型数据

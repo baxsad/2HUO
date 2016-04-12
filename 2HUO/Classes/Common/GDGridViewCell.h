@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class GDAssetModel;
+
 @interface GDGridViewCell : UICollectionViewCell
+
+@property (nonatomic, strong) GDAssetModel *assetModel;
 
 @property (nonatomic, weak) IBOutlet UIImageView * imageView;
 

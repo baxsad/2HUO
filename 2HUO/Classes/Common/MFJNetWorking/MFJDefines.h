@@ -33,7 +33,7 @@ static NSString* const kWebBaseUrl = @"http://www.caimiapp.com/";
 #define MFJ_REQUEST_RIGHT_CODE  0
 #define MFJ_ERROR_CODE_PATH     @"error_code"
 
-// 网络请求类型
+// 网络请求类型RequestCachePolicy
 typedef NS_ENUM(NSUInteger, MFJRequestMethodType) {
     MFJRequestMethodTypeGET     = 0 ,
     MFJRequestMethodTypePOST    = 1 << 0,
@@ -41,6 +41,13 @@ typedef NS_ENUM(NSUInteger, MFJRequestMethodType) {
     MFJRequestMethodTypePUT     = 3 << 0,
     MFJRequestMethodTypePATCH   = 1 << 2,
     MFJRequestMethodTypeDELETE  = 5 << 0
+};
+
+// RequestCachePolicy
+typedef NS_ENUM(NSUInteger, MFJRequestCachePolicy) {
+    MFJRequestCachePolicyNoCache           = 0 , /**< 不缓存    */
+    MFJRequestCachePolicyReadCache         = 1 << 0, /**< 缓存,每次都优先从缓存读取    */
+    MFJRequestCachePolicyReadCacheFirst    = 1 << 1 /**< 缓存,第一次从缓存读取以后不读缓存    */
 };
 
 // 网络请求状态

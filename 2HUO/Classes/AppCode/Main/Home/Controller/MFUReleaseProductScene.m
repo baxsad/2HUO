@@ -12,7 +12,6 @@
 #import "MFUSelectIamgeCollectionCell.h"
 #import "TZImagePickerController.h"
 
-#import "MFJPickerViewController.h"
 #import "GDImagePickerController.h"
 
 #define IMAGE_WIDTH (Screen_Width - 50)*(1.0/3.0)

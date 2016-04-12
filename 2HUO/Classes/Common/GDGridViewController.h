@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "GDAssetManager.h"
 
+@class GDImagePickerController;
+
 @interface GDGridViewController : UICollectionViewController
 
 @property (nonatomic, strong) GDAlbumModel * albumModel;
 
-- (instancetype)init;
+@property (nonatomic, strong) GDImagePickerController * picker;
+
+- (instancetype)initWithPicker:(GDImagePickerController*)picker;
 
 @end

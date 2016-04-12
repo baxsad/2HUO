@@ -9,6 +9,7 @@
 #import "MFJReqAction.h"
 #import "MFJReq.h"
 #import "MFJGroupReq.h"
+#import "TMCache.h"
 
 static dispatch_queue_t MFJ_req_task_creation_queue() {
     static dispatch_queue_t MFJ_req_task_creation_queue;
@@ -24,6 +25,8 @@ static MFJReqAction *instance       = nil;
 
 @interface MFJReqAction ()
 
+@property(nonatomic,assign)BOOL cacheEnable;
+@property(nonatomic,assign)BOOL dataFromCache;
 @property (nonatomic, strong) NSCache *sessionManagerCache;
 @property (nonatomic, strong) NSCache *sessionTasksCache;
 @property (nonatomic, copy  ) listenCallBack listenBlock;
@@ -46,9 +49,77 @@ static MFJReqAction *instance       = nil;
     return [[self alloc] init];
 }
 
+-(void)notUseCache
+{
+    _cacheEnable = NO;
+}
+
+-(void)useCache{
+    _cacheEnable = YES;
+}
+
+-(void)readFromCache{
+    _dataFromCache = YES;
+}
+-(void)notReadFromCache{
+    _dataFromCache = NO;
+}
+
+-(NSURLSessionDownloadTask *)Download:(MFJReq *)req{
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:req.downloadUrl]];
+    if (req.timeoutInterval != 0) {
+        request.timeoutInterval = req.timeoutInterval;
+    }
+    if(req.httpHeaderFields.isNotEmpty){
+        [req.httpHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+            [request setValue:value forHTTPHeaderField:key];
+        }];
+    }
+    
+    
+    __weak typeof(MFJReq *) weakReq = req;
+    NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:^(NSProgress * downloadProgress) {
+        __strong typeof(MFJReq *) strongReq = weakReq;
+        if (strongReq.requestProgressBlock) {
+            strongReq.requestProgressBlock(downloadProgress);
+        }
+    } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        __strong typeof(MFJReq *) strongReq = weakReq;
+        NSURL *documentsDirectoryURL = [NSURL URLWithString:strongReq.targetPath];
+        return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+    } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        __strong typeof(MFJReq *) strongReq = weakReq;
+        strongReq.error = error;
+        
+    }];
+    
+    req.url = task.currentRequest.URL;
+    
+    [task resume];
+    return task;
+}
+
+
 - (void)sendRequest:(nonnull MFJReq  *)req
 {
     NSParameterAssert(req);
+    if (req.cachePolicy != MFJRequestCachePolicyNoCache) {
+        [self useCache];
+    }
+    if (req.cachePolicy == MFJRequestCachePolicyReadCache) {
+        [self readFromCache];
+    }
+    if (req.cachePolicy == MFJRequestCachePolicyReadCacheFirst) {
+        if (req.isFirstRequest) {
+            [self readFromCache];
+        }else{
+            [self notReadFromCache];
+        }
+    }
     dispatch_async(MFJ_req_task_creation_queue(), ^{
         AFHTTPSessionManager *sessionManager = [self sessionManagerWithRequest:req];
         if (!sessionManager) {
@@ -125,6 +196,8 @@ static MFJReqAction *instance       = nil;
     NSParameterAssert(req);
     NSParameterAssert(sessionManager);
     
+    req.isFirstRequest = NO;
+    
     __weak typeof(self) weakSelf = self;
     
     NSString * requestUrlStr = req.PATH;
@@ -133,9 +206,9 @@ static MFJReqAction *instance       = nil;
     
     req.url = [self requestUrl:req];
     
-    NSString * hashKey       = [NSString stringWithFormat:@"%lu", (unsigned long)[req hash]];
+    req.requestID = [NSString stringWithFormat:@"%lu", (unsigned long)[req hash]];
     
-    if ([self.sessionTasksCache objectForKey:hashKey]) {
+    if ([self.sessionTasksCache objectForKey:req.requestID]) {
         // 请求正在执行中
         return;
     }
@@ -147,13 +220,27 @@ static MFJReqAction *instance       = nil;
         
         [self requestComplete:req obj:responseObject];
         
-        [strongSelf.sessionTasksCache removeObjectForKey:hashKey];
+        [strongSelf.sessionTasksCache removeObjectForKey:req.requestID];
         [self requestSucccess:req];
+        
+        if(_cacheEnable){
+            [[TMCache sharedCache] setObject:responseObject forKey:req.requestID block:^(TMCache *cache, NSString *key, id object) {
+                NSLog(@"%@ has cached",req.url.absoluteString);
+            }];
+        }
+        
         if (completionGroup) {
             dispatch_group_leave(completionGroup);
         }
     };
     
+    id obj = [[TMCache sharedCache] objectForKey:req.requestID];
+    if (_dataFromCache == YES && obj !=nil) {
+        dispatch_queue_t mainQueue = dispatch_get_main_queue();
+        dispatch_async(mainQueue, ^{
+            successBlock(nil,obj);
+        });
+    }
     
     void (^failureBlock)(NSURLSessionDataTask * task, NSError * error)
     = ^(NSURLSessionDataTask * task, NSError * error) {
@@ -161,7 +248,7 @@ static MFJReqAction *instance       = nil;
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         req.error = error;
         [self requestFaild:req];
-        [strongSelf.sessionTasksCache removeObjectForKey:hashKey];
+        [strongSelf.sessionTasksCache removeObjectForKey:req.requestID];
         if (completionGroup) {
             dispatch_group_leave(completionGroup);
         }
@@ -243,7 +330,7 @@ static MFJReqAction *instance       = nil;
         case MFJRequestMethodTypePOST:
         {
             NSDictionary *file = req.requestFiles;
-            if (!file.count>0) {
+            if (!(file.count>0)) {
                 dataTask =
                 [sessionManager POST:req.PATH
                           parameters:requestParams
@@ -285,7 +372,7 @@ static MFJReqAction *instance       = nil;
             break;
     }
     if (dataTask) {
-        [self.sessionTasksCache setObject:dataTask forKey:hashKey];
+        [self.sessionTasksCache setObject:dataTask forKey:req.requestID];
         req.task = dataTask;
     }
     
@@ -307,7 +394,7 @@ static MFJReqAction *instance       = nil;
         NSString * urlString = [NSString stringWithFormat:@"%@://%@/%@",req.SCHEME,req.HOST,req.PATH];
         return [NSURL URLWithString:urlString];
     }else{
-        NSString * urlString = [NSString stringWithFormat:@"%@://%@/%@/?%@",req.SCHEME,req.HOST,req.PATH,[req.params joinToPath]];
+        NSString * urlString = [NSString stringWithFormat:@"%@://%@/%@/?%@",req.SCHEME,req.HOST,req.PATH,[req joinToPath]];
         return [NSURL URLWithString:urlString];
     }
 }
@@ -354,7 +441,10 @@ static MFJReqAction *instance       = nil;
     NSParameterAssert(req);
     
     // 如果定义了自定义的Url, 则直接定义RequestUrl
-    if ([req HOST]) {
+    if (req.STATICPATH && req.STATICPATH.length>0) {
+        return req.STATICPATH;
+    }
+    if ([req HOST] && req.HOST.length>0) {
         if (![req SCHEME]) {
             req.SCHEME = @"http";
         }

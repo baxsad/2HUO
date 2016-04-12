@@ -24,7 +24,43 @@
 
 @implementation GDAssetModel
 
-
++ (instancetype)modelWithAsset:(id)asset
+{
+    GDAssetModel * obj = [[GDAssetModel alloc] init];
+    if (obj && asset) {
+        
+        PHAsset *phasset = (PHAsset *)asset;
+        obj.asset = phasset;
+        obj.isSelected = NO;
+        switch (phasset.mediaType) {
+            case PHAssetMediaTypeUnknown:
+                if (phasset.mediaSubtypes == PHAssetMediaSubtypePhotoLive) {
+                    obj.type = GDAssetModelMediaTypeLivePhoto;
+                }
+                if (phasset.mediaSubtypes == PHAssetMediaSubtypePhotoHDR) {
+                    obj.type = GDAssetModelMediaTypePhotoHDR;
+                }
+                break;
+            case PHAssetMediaTypeImage:
+                obj.type = GDAssetModelMediaTypePhoto;
+                break;
+            case PHAssetMediaTypeAudio:
+                obj.type = GDAssetModelMediaTypeAudio;
+                break;
+            case PHAssetMediaTypeVideo:
+                obj.type = GDAssetModelMediaTypeVideo;
+                break;
+                
+            default:
+                break;
+        }
+        
+        
+    }else{
+        return nil;
+    }
+    return obj;
+}
 
 @end
 

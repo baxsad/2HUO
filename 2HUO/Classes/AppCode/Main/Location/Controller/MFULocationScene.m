@@ -29,15 +29,23 @@
 {
     [super viewDidLoad];
     
-    self.req = [[MFJReq alloc] initRequest];
-    self.req.PATH = @"api/topics/hot.json";
-    self.req.requestNeedActive = YES;
-    [self.req listen:^(MFJReq *req) {
+    MFJReq * request = [[MFJReq alloc] initRequest];
+    request.SCHEME = @"http";
+    request.HOST = @"http://www.baomei.me/";
+    request.PATH = @"appme/uploadImage.do";
+    request.METHOD = MFJRequestMethodTypePOST;
+    request.needCheckCode = NO;
+    request.responseSerializer = MFJRequestSerializerTypeHTTP;
+    UIImage * image = [UIImage imageNamed:@"home_like"];
+    NSData * data = UIImageJPEGRepresentation(image, 0.5);;
+    request.requestFiles = @{@"file":data};
+    request.requestNeedActive = YES;
+    [request listen:^(MFJReq *req) {
         if (req.succeed) {
-//            NSLog(@"ooooook%@",req.output);
+            NSLog(@"ooooook%@",req.output);
         }
         if (req.failed) {
-//            NSLog(@"eeeeeer%@",req.error);
+            NSLog(@"eeeeeer%@",req.error);
         }
     }];
     

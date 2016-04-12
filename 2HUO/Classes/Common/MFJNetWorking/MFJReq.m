@@ -44,6 +44,7 @@
 
 - (void)loadRequest
 {
+    self.cachePolicy        = MFJRequestCachePolicyNoCache;
     self.outputData         = nil;
     self.output             = nil;
     self.params             = [NSMutableDictionary dictionary];
@@ -59,6 +60,7 @@
     self.SCHEME             = nil;
     self.HOST               = nil;
     self.PATH               = @"";
+    self.STATICPATH         = @"";
     self.METHOD             = MFJRequestMethodTypeGET;
     self.needCheckCode      = NO;
     self.requestSerializer  = MFJRequestSerializerTypeHTTP;
@@ -151,7 +153,7 @@
 }
 
 - (NSUInteger)hash {
-    NSAssert(self.url.isNotEmpty, @"url is empty");
+    NSAssert(self.url.absoluteString.length>0, @"url is empty");
     NSMutableString *hashStr = nil;
     if (self.params) {
         hashStr = [NSMutableString stringWithFormat:@"%li%@",
