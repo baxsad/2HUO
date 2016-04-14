@@ -29,16 +29,19 @@ typedef enum : NSUInteger {
     GDAssetModelMediaTypeLivePhoto,
     GDAssetModelMediaTypeVideo,
     GDAssetModelMediaTypeAudio,
-    GDAssetModelMediaTypePhotoHDR
+    GDAssetModelMediaTypePhotoHDR,
+    GDAssetModelMediaTypeCamera
 } GDAssetModelMediaType;
 
 @interface GDAlbumModel : NSObject
 
-@property (nonatomic, strong) PHFetchResult * result;
+@property (nonatomic, strong) PHFetchResult * results;
 @property (nonatomic, copy  ) NSString      * title;
 @property (nonatomic, assign) NSInteger       count;
 
 - (instancetype)initWithResult:(PHFetchResult *)result title:(NSString *)title;
+
+- (void)setResults:(PHFetchResult *)results;
 
 @end
 
@@ -60,6 +63,10 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) BOOL shouldFixOrientation;
 
 + (instancetype)manager;
+
+/// Return YES if Authorized 返回YES如果得到了授权
+- (BOOL)authorizationStatusAuthorized;
+
 /**
  *  请求所有相册列表
  *
@@ -80,6 +87,16 @@ typedef enum : NSUInteger {
  */
 - (void)getThumbnailPhotoWithAsset:(id)asset size:(CGSize)size completion:(void (^)(UIImage *photo,NSDictionary *info))completion;
 /**
+ *  异步请求 Asset 的缩略图，不会产生网络请求
+ *
+ *  @param model GDAssetModel
+ *  @param size  指定返回的缩略图的大小
+ *  @param completion 完成请求后调用的 block
+ *
+ *  @return no return
+ */
+- (void)getThumbnailPhotoWithAssetModel:(GDAssetModel*)model size:(CGSize)size completion:(void (^)(UIImage *photo,NSDictionary *info))completion;
+/**
  *  异步请求 Asset 的原图，不会产生网络请求
  *
  *  @param asset PHAsset资源
@@ -97,6 +114,14 @@ typedef enum : NSUInteger {
  *  @return no return
  */
 - (void)getPreviewlPhotoWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion;
+/**
+ *  根据数据长度获得数据所占内存大小
+ *
+ *  @param dataLength data数据的长度
+ *
+ *  @return 数据所占内存大小（15.7M,899KB,275B）
+ */
+- (NSString *)getBytesFromDataLength:(NSInteger)dataLength;
 
 @end
 

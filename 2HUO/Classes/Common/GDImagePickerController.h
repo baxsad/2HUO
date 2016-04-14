@@ -20,5 +20,6 @@
 @property (nonatomic, assign) NSInteger colsInLandscape;
 @property (nonatomic, assign) double minimumInteritemSpacing;
 @property (nonatomic, strong) UIColor *navBackgroundColor;
+@property (nonatomic, assign) BOOL observerPhotoChange;
 
 @end

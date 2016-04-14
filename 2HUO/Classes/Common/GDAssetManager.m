@@ -7,17 +7,24 @@
 //
 
 #import "GDAssetManager.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation GDAlbumModel
 
 - (instancetype)initWithResult:(PHFetchResult *)result title:(NSString *)title
 {
     if (self = [super init]) {
-        self.result = result;
+        self.results = result;
         self.title = title;
         self.count = result.count;
     }
     return self;
+}
+
+- (void)setResults:(PHFetchResult *)results
+{
+    _results = results;
+    self.count = results.count;
 }
 
 @end
@@ -55,12 +62,33 @@
                 break;
         }
         
+        NSString *timeLength = obj.type == GDAssetModelMediaTypeVideo ? [NSString stringWithFormat:@"%0.0f",phasset.duration] : @"";
+        obj.timeLength = [obj getNewTimeFromDurationSecond:timeLength.integerValue];
         
     }else{
         return nil;
     }
     return obj;
 }
+
+- (NSString *)getNewTimeFromDurationSecond:(NSInteger)duration {
+    NSString *newTime;
+    if (duration < 10) {
+        newTime = [NSString stringWithFormat:@"0:0%zd",duration];
+    } else if (duration < 60) {
+        newTime = [NSString stringWithFormat:@"0:%zd",duration];
+    } else {
+        NSInteger min = duration / 60;
+        NSInteger sec = duration - (min * 60);
+        if (sec < 10) {
+            newTime = [NSString stringWithFormat:@"%zd:0%zd",min,sec];
+        } else {
+            newTime = [NSString stringWithFormat:@"%zd:%zd",min,sec];
+        }
+    }
+    return newTime;
+}
+
 
 @end
 
@@ -76,6 +104,15 @@
 @end
 
 @implementation GDAssetManager
+
+- (BOOL)authorizationStatusAuthorized {
+    if (iOS8Later) {
+        if ([PHPhotoLibrary authorizationStatus] == PHAuthorizationStatusAuthorized) return YES;
+    } else {
+        if ([ALAssetsLibrary authorizationStatus] == ALAuthorizationStatusAuthorized) return YES;
+    }
+    return NO;
+}
 
 + (instancetype)manager {
     static GDAssetManager *manager;
@@ -124,7 +161,7 @@
     {
         PHFetchOptions *options = [[PHFetchOptions alloc] init];
         options.predicate = [NSPredicate predicateWithFormat:@"mediaType in %@", self.mediaTypes];
-        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+        options.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:NO]];
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsWithOptions:options];
         [allFetchResultArray addObject:assetsFetchResult];
         [allFetchResultLabel addObject:@"All photos"];
@@ -236,6 +273,15 @@
                                          
                                          
                                      }];
+}
+
+- (void)getThumbnailPhotoWithAssetModel:(GDAssetModel*)model size:(CGSize)size completion:(void (^)(UIImage *photo,NSDictionary *info))completion
+{
+    if (model.type == GDAssetModelMediaTypeCamera) {
+        completion((UIImage *)model.asset,@{@"name":@"Camera"});
+        return;
+    }
+    [self getThumbnailPhotoWithAsset:model.asset size:size completion:completion];
 }
 
 - (void)getThumbnailPhotoWithAsset:(id)asset size:(CGSize)size completion:(void (^)(UIImage *photo,NSDictionary *info))completion
@@ -362,6 +408,18 @@
     UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
+}
+
+- (NSString *)getBytesFromDataLength:(NSInteger)dataLength {
+    NSString *bytes;
+    if (dataLength >= 0.1 * (1024 * 1024)) {
+        bytes = [NSString stringWithFormat:@"%0.1fM",dataLength/1024/1024.0];
+    } else if (dataLength >= 1024) {
+        bytes = [NSString stringWithFormat:@"%0.0fK",dataLength/1024.0];
+    } else {
+        bytes = [NSString stringWithFormat:@"%zdB",dataLength];
+    }
+    return bytes;
 }
 
 @end

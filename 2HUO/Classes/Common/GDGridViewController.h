@@ -13,10 +13,6 @@
 
 @interface GDGridViewController : UICollectionViewController
 
-@property (nonatomic, strong) GDAlbumModel * albumModel;
-
-@property (nonatomic, strong) GDImagePickerController * picker;
-
 - (instancetype)initWithPicker:(GDImagePickerController*)picker;
 
 @end

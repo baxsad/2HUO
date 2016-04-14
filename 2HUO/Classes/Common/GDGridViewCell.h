@@ -16,4 +16,8 @@
 
 @property (nonatomic, weak) IBOutlet UIImageView * imageView;
 
+@property (nonatomic, weak) IBOutlet UIImageView * selectIcon;
+
+@property (nonatomic, weak) IBOutlet UIButton * selectButton;
+
 @end

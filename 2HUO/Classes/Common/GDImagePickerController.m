@@ -8,8 +8,13 @@
 
 #import "GDImagePickerController.h"
 #import "GDGridViewController.h"
+#import "GDAssetManager.h"
 
 @interface GDImagePickerController ()<UINavigationControllerDelegate>
+
+{
+    NSTimer *_timer;
+}
 
 @property (nonatomic, strong) UINavigationController *navigationController;
 
@@ -24,12 +29,13 @@
     if (self) {
         
         _maxImagesCount = maxImagesCount;
+        _observerPhotoChange = NO;
+        _showCameraButton = YES;
         
         // Grid 的一个配置参数
         _colsInVertical = 3;
         _colsInLandscape = 5;
         _minimumInteritemSpacing = 2.0;
-        
         
         _navBackgroundColor = [UIColor colorWithRed:245.0/255.0 green:243.0/255.0 blue:239.0/255.0 alpha:1];
         
@@ -47,13 +53,27 @@
                         @(PHAssetMediaTypeVideo),
                         @(PHAssetMediaTypeImage)];
         
-        [self setupNavigationController];
+        if (![[GDAssetManager manager] authorizationStatusAuthorized]) {
+            _timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(observeAuthrizationStatusChange) userInfo:nil repeats:YES];
+        }else{
+            [self setupNavigationController];
+        }
+        
     }
     return self;
 }
 
+- (void)observeAuthrizationStatusChange {
+    if ([[GDAssetManager manager] authorizationStatusAuthorized]) {
+        [self setupNavigationController];
+        [_timer invalidate];
+        _timer = nil;
+    }
+}
+
 - (void)setupNavigationController
 {
+    
     GDGridViewController * grid = [[GDGridViewController alloc] initWithPicker:self];
     _navigationController = [[UINavigationController alloc] initWithRootViewController:grid];
     _navigationController.delegate = self;
@@ -76,7 +96,6 @@
 {
     
     [super viewDidLoad];
-    
     
 }
 
