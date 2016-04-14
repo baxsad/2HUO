@@ -19,20 +19,20 @@
 
 + (nonnull instancetype)Request
 {
-    return [self RequestWithMethod:MFJRequestMethodTypeGET];
+    return [self RequestWithMethod:@"GET"];
 }
 
-+ (nonnull instancetype)RequestWithMethod:(MFJRequestMethodType)method
++ (nonnull instancetype)RequestWithMethod:(nonnull NSString *)method
 {
     return [[self alloc] initWithRequestMethod:method];
 }
 
 - (nonnull instancetype)initRequest
 {
-    return [self initWithRequestMethod:MFJRequestMethodTypeGET];
+    return [self initWithRequestMethod:@"GET"];
 }
 
-- (nonnull instancetype)initWithRequestMethod:(MFJRequestMethodType)method
+- (nonnull instancetype)initWithRequestMethod:(nonnull NSString *)method
 {
     self = [super init];
     if(self){
@@ -44,31 +44,30 @@
 
 - (void)loadRequest
 {
-    self.cachePolicy        = MFJRequestCachePolicyNoCache;
-    self.outputData         = nil;
-    self.output             = nil;
-    self.params             = [NSMutableDictionary dictionary];
-    self.soapMessage        = nil;
-    self.responseString     = nil;
-    self.error              = nil;
-    self.status             = MFJRequestStatusNotStart;
-    self.url                = nil;
-    self.message            = nil;
-    self.codeKey            = nil;
-    self.exactitudeKey      = MFJ_REQUEST_RIGHT_CODE;
-    self.exactitudeKeyPath  = MFJ_ERROR_CODE_PATH;
-    self.SCHEME             = nil;
-    self.HOST               = nil;
-    self.PATH               = @"";
-    self.STATICPATH         = @"";
-    self.METHOD             = MFJRequestMethodTypeGET;
-    self.needCheckCode      = NO;
-    self.requestSerializer  = MFJRequestSerializerTypeHTTP;
-    self.responseSerializer = MFJResponseSerializerTypeJSON;
-    self.timeoutInterval    = MFJ_API_REQUEST_TIME_OUT;
-    self.isFirstRequest     = YES;
-    self.isTimeout          = NO;
-    self.action             = [MFJReqAction action];
+    self.securityPolicy         = [self reqSecurityPolicy];
+    self.cachePolicy            = MFJRequestCachePolicyNoCache;
+    self.output                 = nil;
+    self.params                 = [NSMutableDictionary dictionary];
+    self.responseString         = nil;
+    self.error                  = nil;
+    self.status                 = MFJRequestStatusNotStart;
+    self.url                    = nil;
+    self.message                = nil;
+    self.codeKey                = nil;
+    self.exactitudeKey          = MFJ_REQUEST_RIGHT_CODE;
+    self.exactitudeKeyPath      = MFJ_ERROR_CODE_PATH;
+    self.SCHEME                 = nil;
+    self.HOST                   = nil;
+    self.PATH                   = @"";
+    self.STATICPATH             = @"";
+    self.needCheckCode          = NO;
+    self.responseSerializer     = MFJResponseSerializerTypeJSON;
+    self.timeoutInterval        = MFJ_API_REQUEST_TIME_OUT;
+    self.isFirstRequest         = YES;
+    self.isTimeout              = NO;
+    self.acceptableContentTypes = [self responseAcceptableContentTypes];
+    self.httpHeaderFields       = [self requestHTTPHeaderField];
+    self.action                 = [MFJReqAction action];
     [self loadActive];
     
 }
@@ -130,7 +129,7 @@
 - (void)start
 {
     if (self.action) {
-        [self.action sendRequest:self];
+        [self.action Send:self];
     }
 }
 
@@ -152,26 +151,81 @@
     return NSURLRequestUseProtocolCachePolicy;
 }
 
-- (NSUInteger)hash {
-    NSAssert(self.url.absoluteString.length>0, @"url is empty");
-    NSMutableString *hashStr = nil;
-    if (self.params) {
-        hashStr = [NSMutableString stringWithFormat:@"%li%@",
-                                    [self METHOD], [self url]];
-    }else{
-        hashStr = [NSMutableString stringWithFormat:@"%li%@%@",
-                                    [self METHOD], [self url], [self joinToPath]];
-    }
-    return [hashStr hash];
+- (nullable MFJSecurityPolicy *)reqSecurityPolicy {
+    MFJSecurityPolicy *securityPolicy;
+#ifdef DEBUG
+    securityPolicy = [MFJSecurityPolicy policyWithPinningMode:MFJSSLPinningModeNone];
+#else
+    securityPolicy = [MFJSecurityPolicy policyWithPinningMode:MFJSSLPinningModePublicKey];
+#endif
+    return securityPolicy;
 }
 
-- (NSString *)joinToPath{
-    NSMutableArray *array = [NSMutableArray array];
-    [self.params enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL *stop) {
-        NSString *str = [NSString stringWithFormat:@"%@=%@",key,value];
-        [array addObject:str];
-    }];
-    return [array componentsJoinedByString:@"&"];
+- (nullable NSDictionary *)requestHTTPHeaderField {
+    return @{
+             @"Content-Type" : @"application/json; charset=utf-8",
+             };
 }
+
+- (nullable NSSet *)responseAcceptableContentTypes{
+    return [NSSet setWithObjects:@"text/plain" ,
+            @"application/json",
+            @"text/json",
+            @"text/javascript",
+            @"text/html",
+            @"image/png",
+            @"image/jpeg",
+            @"application/rtf",
+            @"image/gif",
+            @"application/zip",
+            @"audio/x-wav",
+            @"image/tiff",
+            @" 	application/x-shockwave-flash",
+            @"application/vnd.ms-powerpoint",
+            @"video/mpeg",
+            @"video/quicktime",
+            @"application/x-javascript",
+            @"application/x-gzip",
+            @"application/x-gtar",
+            @"application/msword",
+            @"text/css",
+            @"video/x-msvideo",
+            @"text/xml", nil];
+}
+
+-(NSString *)appendPathInfo{
+    __block NSString *pathInfo = self.pathInfo;
+    if(pathInfo.isNotEmpty){
+        [self.params enumerateKeysAndObjectsUsingBlock:^(NSString* key, id value, BOOL *stop) {
+            NSString *par = [NSString stringWithFormat:@"(\\{%@\\})",key];
+            NSString *str = [NSString stringWithFormat:@"%@",value];
+            
+            pathInfo = [[[NSRegularExpression alloc] initWithPattern:par options:0 error:nil] stringByReplacingMatchesInString:pathInfo options:0 range:NSMakeRange(0, pathInfo.length) withTemplate:str];
+        }];
+    }
+    return pathInfo;
+}
+
+-(NSString *)pathInfo{
+    return nil;
+}
+
+- (nullable NSString*)requestID{
+    NSAssert(self.url.isNotEmpty, @"url is empty");
+    if (_requestID) {
+        return _requestID;
+    }
+    NSString * ID = @"";
+    if([self.METHOD isEqualToString:@"GET"]){
+        ID = self.url.absoluteString.MD5;
+    }else if(self.params.isNotEmpty){
+        ID = [NSString stringWithFormat:@"%@%@",self.url,[self.params joinToPath]].MD5;
+    }else{
+        ID = [NSString stringWithFormat:@"%@",self.url].MD5;
+    }
+    _requestID = ID;
+    return ID;
+}
+
 
 @end

@@ -10,6 +10,7 @@
 #import "MFJReq.h"
 #import "MFJGroupReq.h"
 #import "TMCache.h"
+#import "MFJSecurityPolicy.h"
 
 static dispatch_queue_t MFJ_req_task_creation_queue() {
     static dispatch_queue_t MFJ_req_task_creation_queue;
@@ -65,21 +66,97 @@ static MFJReqAction *instance       = nil;
     _dataFromCache = NO;
 }
 
+
+-(NSURLSessionDataTask *)Upload:(MFJReq *)req{
+    NSString *url = [self requesturlFromMFJRequest:req];
+    NSDictionary *requestParams = nil;
+    
+    if(req.appendPathInfo.isNotEmpty){
+        url = [url stringByAppendingString:req.appendPathInfo];
+    }else{
+        requestParams = req.params;
+    }
+    
+#ifdef DEBUG
+    NSLog(@"upload url: %@", url);
+#endif
+    
+    req.url = [NSURL URLWithString:url];
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    manager.responseSerializer = [self responseSerializerForRequest:req];
+    
+    NSDictionary *file = req.requestFiles;
+    NSError * error;
+    
+    void (^block)(id<AFMultipartFormData>) = ^void(id<AFMultipartFormData> formData) {
+        [file enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+            if([obj isKindOfClass:[NSURL class]]){
+                [formData appendPartWithFileURL:obj name:key error:nil];
+            }else if([obj isKindOfClass:[NSData class]]){
+                [formData appendPartWithFormData:obj name:key];
+            }else if([obj isKindOfClass:[NSString class]]){
+                [formData appendPartWithFileURL:[NSURL fileURLWithPath:obj] name:key error:nil];
+            }else if ([obj isKindOfClass:[UIImage class]]){
+                NSData * imageData = UIImageJPEGRepresentation([file objectForKey:key], 0.5);
+                [formData appendPartWithFileData:imageData
+                                            name:key
+                                        fileName:[NSString stringWithFormat:@"%@.jpg", key]
+                                        mimeType:@"image/jpeg"];
+            }
+        }];
+    };
+    
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:@"POST" URLString:url parameters:requestParams constructingBodyWithBlock:block error:&error];
+    
+    if(req.httpHeaderFields.isNotEmpty){
+        [req.httpHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+            [request setValue:value forHTTPHeaderField:key];
+        }];
+    }
+    if (req.timeoutInterval != 0) {
+        request.timeoutInterval = req.timeoutInterval;
+    }
+    
+    NSURLSessionDataTask *task = [manager uploadTaskWithStreamedRequest:request progress:^(NSProgress * uploadProgress) {
+        if (req.requestProgressBlock) {
+            req.requestProgressBlock(uploadProgress);
+        }
+    } completionHandler:^(NSURLResponse * response, NSDictionary*responseObject, NSError * error) {
+        
+        if (error == nil) {
+            req.output = responseObject;
+            [self checkCode:req];
+        }else{
+            req.error = error;
+            [self requestFaild:req];
+        }
+    }];
+    
+    req.task = task;
+    
+    [task resume];
+    return task;
+}
+
+
 -(NSURLSessionDownloadTask *)Download:(MFJReq *)req{
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:req.downloadUrl]];
+    
     if (req.timeoutInterval != 0) {
         request.timeoutInterval = req.timeoutInterval;
     }
+    
     if(req.httpHeaderFields.isNotEmpty){
         [req.httpHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
             [request setValue:value forHTTPHeaderField:key];
         }];
     }
-    
     
     __weak typeof(MFJReq *) weakReq = req;
     NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:^(NSProgress * downloadProgress) {
@@ -88,25 +165,38 @@ static MFJReqAction *instance       = nil;
             strongReq.requestProgressBlock(downloadProgress);
         }
     } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        
         __strong typeof(MFJReq *) strongReq = weakReq;
         NSURL *documentsDirectoryURL = [NSURL URLWithString:strongReq.targetPath];
         return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+        
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        
         __strong typeof(MFJReq *) strongReq = weakReq;
         strongReq.error = error;
         
     }];
-    
-    req.url = task.currentRequest.URL;
     
     [task resume];
     return task;
 }
 
 
-- (void)sendRequest:(nonnull MFJReq  *)req
+- (void)Send:(nonnull MFJReq  *)req
 {
     NSParameterAssert(req);
+    
+    if (req.downloadUrl.isNotEmpty && req.targetPath.isNotEmpty) {
+        // 下载
+        [self Download:req];
+        return;
+    }
+    if (req.requestFiles.isNotEmpty) {
+        // 上传
+        [self Upload:req];
+        return;
+    }
+    
     if (req.cachePolicy != MFJRequestCachePolicyNoCache) {
         [self useCache];
     }
@@ -120,8 +210,12 @@ static MFJReqAction *instance       = nil;
             [self notReadFromCache];
         }
     }
+    
     dispatch_async(MFJ_req_task_creation_queue(), ^{
-        AFHTTPSessionManager *sessionManager = [self sessionManagerWithRequest:req];
+        
+        NSMutableURLRequest *request = [self managerRequestWithRequest:req];
+        AFURLSessionManager *sessionManager = [self sessionManagerWithRequest:req];
+        
         if (!sessionManager) {
             return;
         }
@@ -132,7 +226,7 @@ static MFJReqAction *instance       = nil;
                 [self requestNotStrat:req];
             });
         }
-        [self _sendSingleRequest:req withSessionManager:sessionManager];
+        [self _send:req request:request manager:sessionManager];
     });
 }
 
@@ -149,16 +243,15 @@ static MFJReqAction *instance       = nil;
         dispatch_group_enter(batch_api_group);
         
         __strong typeof (weakSelf) strongSelf = weakSelf;
-        AFHTTPSessionManager *sessionManager = [strongSelf sessionManagerWithRequest:req];
+        AFURLSessionManager *sessionManager = [strongSelf sessionManagerWithRequest:req];
+        NSMutableURLRequest *request = [self managerRequestWithRequest:req];
         if (!sessionManager) {
             *stop = YES;
             dispatch_group_leave(batch_api_group);
         }
         sessionManager.completionGroup = batch_api_group;
+        [self _send:req request:request manager:sessionManager andCompletionGroup:batch_api_group];
         
-        [strongSelf _sendSingleAPIRequest:req
-                       withSessionManager:sessionManager
-                       andCompletionGroup:batch_api_group];
     }];
     dispatch_group_notify(batch_api_group, dispatch_get_main_queue(), ^{
         if (groupreq.delegate) {
@@ -167,101 +260,53 @@ static MFJReqAction *instance       = nil;
     });
 }
 
-- (void)cancelRequest:(nonnull MFJReq  *)req
+-(NSURLSessionDataTask *)_send:(MFJReq *)req request:(NSMutableURLRequest *)request manager:(AFURLSessionManager *)manager{
+    return [self _send:req request:request manager:manager andCompletionGroup:nil];
+}
+
+-(NSURLSessionDataTask *)_send:(MFJReq *)req request:(NSMutableURLRequest *)request manager:(AFURLSessionManager *)manager andCompletionGroup:(dispatch_group_t)completionGroup
 {
-    dispatch_async(MFJ_req_task_creation_queue(), ^{
-        NSString *hashKey = [NSString stringWithFormat:@"%lu", (unsigned long)[req hash]];
-        NSURLSessionDataTask *dataTask = [self.sessionTasksCache objectForKey:hashKey];
-        [self.sessionTasksCache removeObjectForKey:hashKey];
-        if (dataTask) {
-            [dataTask cancel];
-            [self requestCancle:req];
-        }
-    });
-}
-
-- (NSDictionary *)requestParamsWithRequest:(MFJReq *)req
-{
-    return nil;
-}
-
-- (void)_sendSingleRequest:(MFJReq *)req withSessionManager:(AFHTTPSessionManager *)sessionManager {
-    [self _sendSingleAPIRequest:req withSessionManager:sessionManager andCompletionGroup:nil];
-}
-
-- (void)_sendSingleAPIRequest:(MFJReq *)req
-           withSessionManager:(AFHTTPSessionManager *)sessionManager
-           andCompletionGroup:(dispatch_group_t)completionGroup {
-    
     NSParameterAssert(req);
-    NSParameterAssert(sessionManager);
-    
+    NSParameterAssert(manager);
     req.isFirstRequest = NO;
-    
-    __weak typeof(self) weakSelf = self;
-    
-    NSString * requestUrlStr = req.PATH;
-    
-    id requestParams         = [self requestParamsWithRequest:req];
-    
-    req.url = [self requestUrl:req];
-    
-    req.requestID = [NSString stringWithFormat:@"%lu", (unsigned long)[req hash]];
     
     if ([self.sessionTasksCache objectForKey:req.requestID]) {
         // 请求正在执行中
-        return;
+        return nil;
     }
     
-    void (^successBlock)(NSURLSessionDataTask *task, id responseObject)
-    = ^(NSURLSessionDataTask * task, id responseObject) {
+    __weak typeof(self) weakSelf = self;
+    
+    void (^completion)(NSURLResponse * response, NSDictionary *responseObject, NSError * error)
+    = ^(NSURLResponse * response, NSDictionary *responseObject, NSError * error) {
+        
         __strong typeof (weakSelf) strongSelf = weakSelf;
+        
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         
-        [self requestComplete:req obj:responseObject];
-        
+        if(error == nil){
+            req.output = responseObject;
+            if(_cacheEnable && [strongSelf doCheckCode:req]){
+                [[TMCache sharedCache] setObject:responseObject forKey:req.requestID block:^(TMCache *cache, NSString *key, id object) {
+                    NSLog(@"%@ has cached",request.URL);
+                }];
+            }
+            [strongSelf checkCode:req];
+            if (completionGroup) {
+                dispatch_group_leave(completionGroup);
+            }
+        }else{
+            // error
+            req.error = error;
+            [self requestFaild:req];
+            if (completionGroup) {
+                dispatch_group_leave(completionGroup);
+            }
+        }
         [strongSelf.sessionTasksCache removeObjectForKey:req.requestID];
-        [self requestSucccess:req];
         
-        if(_cacheEnable){
-            [[TMCache sharedCache] setObject:responseObject forKey:req.requestID block:^(TMCache *cache, NSString *key, id object) {
-                NSLog(@"%@ has cached",req.url.absoluteString);
-            }];
-        }
-        
-        if (completionGroup) {
-            dispatch_group_leave(completionGroup);
-        }
     };
     
-    id obj = [[TMCache sharedCache] objectForKey:req.requestID];
-    if (_dataFromCache == YES && obj !=nil) {
-        dispatch_queue_t mainQueue = dispatch_get_main_queue();
-        dispatch_async(mainQueue, ^{
-            successBlock(nil,obj);
-        });
-    }
-    
-    void (^failureBlock)(NSURLSessionDataTask * task, NSError * error)
-    = ^(NSURLSessionDataTask * task, NSError * error) {
-        __strong typeof (weakSelf) strongSelf = weakSelf;
-        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-        req.error = error;
-        [self requestFaild:req];
-        [strongSelf.sessionTasksCache removeObjectForKey:req.requestID];
-        if (completionGroup) {
-            dispatch_group_leave(completionGroup);
-        }
-    };
-    
-    void (^requestProgressBlock)(NSProgress *progress)
-    = req.requestProgressBlock ?
-    ^(NSProgress *progress) {
-        if (progress.totalUnitCount <= 0) {
-            return;
-        }
-        req.requestProgressBlock(progress);
-    } : nil;
     
     if ([[NSThread currentThread] isMainThread]) {
         // will send
@@ -275,105 +320,11 @@ static MFJReqAction *instance       = nil;
     
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
-    NSURLSessionDataTask *dataTask;
-    switch ([req METHOD]) {
-        case MFJRequestMethodTypeGET:
-        {
-            dataTask =
-            [sessionManager GET:requestUrlStr
-                     parameters:requestParams
-                       progress:requestProgressBlock
-                        success:successBlock
-                        failure:failureBlock];
-        }
-            break;
-        case MFJRequestMethodTypeDELETE:
-        {
-            dataTask =
-            [sessionManager DELETE:requestUrlStr
-                        parameters:requestParams
-                           success:successBlock
-                           failure:failureBlock];
-        }
-            break;
-        case MFJRequestMethodTypePATCH:
-        {
-            dataTask =
-            [sessionManager PATCH:requestUrlStr
-                       parameters:requestParams
-                          success:successBlock
-                          failure:failureBlock];
-        }
-            break;
-        case MFJRequestMethodTypePUT:
-        {
-            dataTask =
-            [sessionManager PUT:requestUrlStr
-                     parameters:requestParams
-                        success:successBlock
-                        failure:failureBlock];
-        }
-            break;
-        case MFJRequestMethodTypeHEAD:
-        {
-            dataTask =
-            [sessionManager HEAD:requestUrlStr
-                      parameters:requestParams
-                         success:^(NSURLSessionDataTask * _Nonnull task) {
-                             if (successBlock) {
-                                 successBlock(task, nil);
-                             }
-                         }
-                         failure:failureBlock];
-        }
-            break;
-        case MFJRequestMethodTypePOST:
-        {
-            NSDictionary *file = req.requestFiles;
-            if (!(file.count>0)) {
-                dataTask =
-                [sessionManager POST:req.PATH
-                          parameters:requestParams
-                            progress:requestProgressBlock
-                             success:successBlock
-                             failure:failureBlock];
-            } else {
-                void (^block)(id <AFMultipartFormData> formData)
-                = ^(id <AFMultipartFormData> formData) {
-                    
-                    if([file count]>0){
-                        for (NSString *key in [file allKeys]) {
-                            [formData appendPartWithFileData:[file objectForKey:key]
-                                                        name:key
-                                                    fileName:[NSString stringWithFormat:@"%@.jpg", key]
-                                                    mimeType:@"image/jpeg"];
-                            
-                        }
-                    }
-                    
-                };
-                dataTask =
-                [sessionManager POST:requestUrlStr
-                          parameters:requestParams
-           constructingBodyWithBlock:block
-                            progress:requestProgressBlock
-                             success:successBlock
-                             failure:failureBlock];
-            }
-        }
-            break;
-        default:
-            dataTask =
-            [sessionManager GET:requestUrlStr
-                     parameters:requestParams
-                       progress:requestProgressBlock
-                        success:successBlock
-                        failure:failureBlock];
-            break;
-    }
-    if (dataTask) {
-        [self.sessionTasksCache setObject:dataTask forKey:req.requestID];
-        req.task = dataTask;
+    NSURLSessionDataTask *task = [manager dataTaskWithRequest:request completionHandler:completion];
+    
+    if (task) {
+        [self.sessionTasksCache setObject:task forKey:req.requestID];
+        req.task = task;
     }
     
     if ([[NSThread currentThread] isMainThread]) {
@@ -383,95 +334,88 @@ static MFJReqAction *instance       = nil;
             [self requestSending:req];
         });
     }
+    
+    req.output = [[TMCache sharedCache] objectForKey:req.requestID];
+    if (_dataFromCache == YES && req.output !=nil) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self checkCode:req];
+        });
+    }
+    [task resume];
+    return task;
 }
 
-- (NSURL *)requestUrl:(MFJReq *)req
+
+- (void)cancelRequest:(nonnull MFJReq  *)req
 {
-    if (req.METHOD == MFJRequestMethodTypePOST) {
-        if ([req.PATH hasPrefix:@"/"]) {
-            req.PATH = [req.PATH substringFromIndex:0];
+    dispatch_async(MFJ_req_task_creation_queue(), ^{
+        NSURLSessionDataTask *dataTask = [self.sessionTasksCache objectForKey:req.requestID];
+        [self.sessionTasksCache removeObjectForKey:req.requestID];
+        if (dataTask) {
+            [dataTask cancel];
+            [self requestCancle:req];
         }
-        NSString * urlString = [NSString stringWithFormat:@"%@://%@/%@",req.SCHEME,req.HOST,req.PATH];
-        return [NSURL URLWithString:urlString];
+    });
+}
+
+- (NSMutableURLRequest *)managerRequestWithRequest:(MFJReq *)req
+{
+    
+    NSString *url = [self requesturlFromMFJRequest:req];
+    NSDictionary *requestParams = nil;
+    
+    if(req.appendPathInfo.isNotEmpty){
+        url = [url stringByAppendingString:req.appendPathInfo];
     }else{
-        NSString * urlString = [NSString stringWithFormat:@"%@://%@/%@/?%@",req.SCHEME,req.HOST,req.PATH,[req joinToPath]];
-        return [NSURL URLWithString:urlString];
+        requestParams = req.params;
     }
+    
+#ifdef DEBUG
+    NSLog(@"request url: %@", url);
+#endif
+    
+    req.url = [NSURL URLWithString:url];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:req.METHOD URLString:url parameters:requestParams error:nil];
+    
+    if(req.httpHeaderFields.isNotEmpty){
+        [req.httpHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+            [request setValue:value forHTTPHeaderField:key];
+        }];
+    }
+    if (req.timeoutInterval != 0) {
+        request.timeoutInterval = req.timeoutInterval;
+    }
+    
+    return request;
 }
 
 #pragma mark - AFSessionManager
-- (AFHTTPSessionManager *)sessionManagerWithRequest:(MFJReq *)req {
+- (AFURLSessionManager *)sessionManagerWithRequest:(MFJReq *)req {
     NSParameterAssert(req);
-    AFHTTPRequestSerializer *requestSerializer = [self requestSerializerForRequest:req];
-    if (!requestSerializer) {
-        // Serializer Error, just return;
-        return nil;
-    }
     
-    // Response Part
+   // responseSerializer
     AFHTTPResponseSerializer *responseSerializer = [self responseSerializerForRequest:req];
     
-    NSString *baseUrlStr = [self requestBaseUrlStringWithRequest:req];
-    
-    // AFHTTPSession
-    AFHTTPSessionManager *sessionManager;
-    sessionManager = [self.sessionManagerCache objectForKey:baseUrlStr];
+    // AFURLSessionManager
+    AFURLSessionManager *sessionManager;
+    sessionManager = [self.sessionManagerCache objectForKey:req.requestID];
     if (!sessionManager) {
-        sessionManager = [self newSessionManagerWithBaseUrlStr:baseUrlStr];
-        [self.sessionManagerCache setObject:sessionManager forKey:baseUrlStr];
+        sessionManager = [self newSessionManagerWithBaseUrlStr:req.requestID];
+        [self.sessionManagerCache setObject:sessionManager forKey:req.requestID];
     }
     
-    sessionManager.requestSerializer     = requestSerializer;
     sessionManager.responseSerializer    = responseSerializer;
-    // ssl安全之类的
-    // sessionManager.securityPolicy        = [self securityPolicyWithAPI:api];
+    sessionManager.securityPolicy        = [self securityPolicyWithAPI:req];
     
     return sessionManager;
 }
 
-- (AFHTTPSessionManager *)newSessionManagerWithBaseUrlStr:(NSString *)baseUrlStr {
+- (AFURLSessionManager *)newSessionManagerWithBaseUrlStr:(NSString *)baseUrlStr {
     NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration ephemeralSessionConfiguration];
     sessionConfig.HTTPMaximumConnectionsPerHost = MAX_HTTP_CONNECTION_PER_HOST;
-    return [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:baseUrlStr]
-                                    sessionConfiguration:sessionConfig];
+    return [[AFURLSessionManager alloc] initWithSessionConfiguration:sessionConfig];
 }
 
-#pragma mark - Request Invoke Organize
-- (NSString *)requestBaseUrlStringWithRequest:(MFJReq *)req {
-    NSParameterAssert(req);
-    
-    // 如果定义了自定义的Url, 则直接定义RequestUrl
-    if (req.STATICPATH && req.STATICPATH.length>0) {
-        return req.STATICPATH;
-    }
-    if ([req HOST] && req.HOST.length>0) {
-        if (![req SCHEME]) {
-            req.SCHEME = @"http";
-        }
-        if ([req.HOST componentsSeparatedByString:@"://"].count == 2) {
-            NSString * host = [req.HOST componentsSeparatedByString:@"://"][1];
-            if (![host hasSuffix:@"/"]) {
-                host = [host stringByAppendingString:@"/"];
-            }
-            req.HOST = host;
-        }
-        NSURL *url  = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@",req.SCHEME,req.HOST]];
-        return [NSString stringWithFormat:@"%@", url.absoluteString];
-    }
-    
-    NSAssert(kHostPath != nil,
-             @"api baseURL can't be nil together");
-    
-    NSString *baseUrl = kHostPath;
-    if (![baseUrl hasPrefix:@"http"]) {
-        baseUrl = [@"http://" stringByAppendingString:baseUrl];
-    }
-    
-    NSURL *theUrl = [NSURL URLWithString:baseUrl];
-    req.SCHEME = theUrl.scheme;
-    req.HOST   = theUrl.host;
-    return [NSString stringWithFormat:@"%@", theUrl.absoluteString];
-}
 
 - (AFHTTPResponseSerializer *)responseSerializerForRequest:(MFJReq *)req {
     NSParameterAssert(req);
@@ -485,26 +429,70 @@ static MFJReqAction *instance       = nil;
     return responseSerializer;
 }
 
-#pragma mark - Serializer
-- (AFHTTPRequestSerializer *)requestSerializerForRequest:(MFJReq *)req {
-    NSParameterAssert(req);
-    AFHTTPRequestSerializer *requestSerializer;
-    if ([req requestSerializer] == MFJRequestSerializerTypeJSON) {
-        requestSerializer = [AFJSONRequestSerializer serializer];
-    } else {
-        requestSerializer = [AFHTTPRequestSerializer serializer];
+- (AFSecurityPolicy *)securityPolicyWithAPI:(MFJReq *)req {
+    NSUInteger pinningMode                  = req.securityPolicy.SSLPinningMode;
+    AFSecurityPolicy *securityPolicy        = [AFSecurityPolicy policyWithPinningMode:pinningMode];
+    securityPolicy.allowInvalidCertificates = req.securityPolicy.allowInvalidCertificates;
+    securityPolicy.validatesDomainName      = req.securityPolicy.validatesDomainName;
+    return securityPolicy;
+}
+
+- (NSString *)requesturlFromMFJRequest:(MFJReq *)req
+{
+    NSString * url = @"";
+    if(req.STATICPATH.isNotEmpty){
+        url = req.STATICPATH;
+        if (![url hasPrefix:@"http"]) {
+            url = [@"http://" stringByAppendingString:url];
+        }
+    }else if(req.HOST.isNotEmpty){
+        NSString * host = req.HOST,*path = req.PATH,*scheme;
+        if (![host hasSuffix:@"/"]) {
+             host = [host stringByAppendingString:@"/"];
+        }
+        if ([path hasPrefix:@"/"]) {
+            path = [path substringFromIndex:1];
+        }
+        if (req.SCHEME.isNotEmpty) {
+            scheme = req.SCHEME;
+        }else{
+            scheme = @"http";
+        }
+        if ([host hasPrefix:@"http://"]) {
+            scheme = @"http";
+            host = [host substringFromIndex:7];
+        }
+        if ([host hasPrefix:@"https://"]) {
+            scheme = @"https";
+            host = [host substringFromIndex:8];
+        }
+        url = [NSString stringWithFormat:@"%@://%@%@",scheme,host,path];
+    }else{
+        NSString * host = kHostPath,*path = req.PATH,*scheme = @"http";
+        if ([host hasPrefix:@"http://"]) {
+            scheme = @"http";
+            host = [host substringFromIndex:7];
+        }
+        if ([host hasPrefix:@"https://"]) {
+            scheme = @"https";
+            host = [host substringFromIndex:8];
+        }
+        if (![host hasSuffix:@"/"]) {
+            host = [host stringByAppendingString:@"/"];
+        }
+        if ([path hasPrefix:@"/"]) {
+            path = [path substringFromIndex:0];
+        }
+        url = [NSString stringWithFormat:@"%@://%@%@",scheme,host,path];
     }
-    
-    requestSerializer.cachePolicy          = [req RequestCachePolicy];
-    requestSerializer.timeoutInterval      = [req timeoutInterval];
-    NSDictionary *requestHeaderFieldParams = req.httpHeaderFields;
-    if (requestHeaderFieldParams) {
-        [requestHeaderFieldParams enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            [requestSerializer setValue:obj forHTTPHeaderField:key];
-        }];
+    return url;
+}
+
+- (NSCache *)sessionManagerCache {
+    if (!_sessionManagerCache) {
+        _sessionManagerCache = [[NSCache alloc] init];
     }
-    
-    return requestSerializer;
+    return _sessionManagerCache;
 }
 
 - (NSCache *)sessionTasksCache {
@@ -518,37 +506,31 @@ static MFJReqAction *instance       = nil;
 {
     if (responseobject == nil) {
         req.output     = nil;
-        req.outputData = nil;
     }
     if ([responseobject isKindOfClass:[NSString class]]) {
-        req.outputData = [((NSString *)responseobject) dataUsingEncoding:NSUTF8StringEncoding];
+        NSData * data = [((NSString *)responseobject) dataUsingEncoding:NSUTF8StringEncoding];
         NSError *error = nil;
-        id output = [NSJSONSerialization JSONObjectWithData:req.outputData options:kNilOptions error:&error];
+        id output = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
         if (error) {
             NSLog(@"url:%@ response error:%@",req.url, error);
         }
         req.output = output;
-        req.responseString = [[NSString alloc] initWithData:req.outputData encoding:NSUTF8StringEncoding];
+        req.responseString = responseobject;
     }
     if ([responseobject isKindOfClass:[NSData class]]) {
-        req.outputData = responseobject;
         NSError *error = nil;
-        id output = [NSJSONSerialization JSONObjectWithData:req.outputData options:kNilOptions error:&error];
+        id output = [NSJSONSerialization JSONObjectWithData:responseobject options:kNilOptions error:&error];
         if (error) {
             NSLog(@"url:%@ response error:%@",req.url, error);
         }
         req.output = output;
-        req.responseString = [[NSString alloc] initWithData:req.outputData encoding:NSUTF8StringEncoding];
+        req.responseString = [[NSString alloc] initWithData:responseobject encoding:NSUTF8StringEncoding];
     }
     if ([responseobject isKindOfClass:[NSArray class]]) {
-        req.outputData = [NSKeyedArchiver archivedDataWithRootObject:responseobject];
         req.output     = @{@"data":responseobject};
-        req.responseString = [[NSString alloc] initWithData:req.outputData encoding:NSUTF8StringEncoding];
     }
     if ([responseobject isKindOfClass:[NSDictionary class]]) {
-        req.outputData = [NSKeyedArchiver archivedDataWithRootObject:responseobject];
         req.output     = responseobject;
-        req.responseString = [[NSString alloc] initWithData:req.outputData encoding:NSUTF8StringEncoding];
     }
 }
 
@@ -559,86 +541,83 @@ static MFJReqAction *instance       = nil;
     }
 }
 
+- (void)request:(MFJReq *)req statusHaveChanged:(MFJRequestStatus)status
+{
+    req.status = status;
+    [self listenRequest:req];
+}
+
 - (void)requestNotStrat:(MFJReq *)req
 {
-    req.status = MFJRequestStatusNotStart;
-    [self listenRequest:req];
+    [self request:req statusHaveChanged:MFJRequestStatusNotStart];
 }
 
 - (void)requestStartSend:(MFJReq *)req
 {
-    req.status = MFJRequestStatusStart;
-    [self listenRequest:req];
-    
+    [self request:req statusHaveChanged:MFJRequestStatusStart];
 }
 
 - (void)requestSending:(MFJReq *)req
 {
-    req.status = MFJRequestStatusSending;
-    [self listenRequest:req];
-    
+    [self request:req statusHaveChanged:MFJRequestStatusSending];
 }
 
 - (void)requestSucccess:(MFJReq *)req
 {
-    if (req.needCheckCode) {
-        [self requestCheckCode:req];
-    }
-    req.status = MFJRequestStatusSuccess;
-    [self listenRequest:req];
+    [self request:req statusHaveChanged:MFJRequestStatusSuccess];
 }
 
 - (void)requestCancle:(MFJReq *)req
 {
-    req.status = MFJRequestStatusCancle;
-    [self listenRequest:req];
+    [self request:req statusHaveChanged:MFJRequestStatusCancle];
 }
 
 - (void)requestFaild:(MFJReq *)req
 {
     if(req.error.userInfo!= nil){
         req.message = [req.error.userInfo objectForKey:@"NSLocalizedDescription"];
-        req.status  = MFJRequestStatusFailed;
+        [self request:req statusHaveChanged:MFJRequestStatusFailed];
     }
     if (req.error.code == -1001) {
         req.isTimeout = YES;
-        req.status    = MFJRequestStatusTimeOut;
+        [self request:req statusHaveChanged:MFJRequestStatusTimeOut];
     }else{
-        req.status = MFJRequestStatusFailed;
+        [self request:req statusHaveChanged:MFJRequestStatusFailed];
     }
-    [self listenRequest:req];
 }
-
-
 
 - (void)requestError:(MFJReq *)req
 {
-    req.status = MFJRequestStatusError;
-    [self listenRequest:req];
+    [self request:req statusHaveChanged:MFJRequestStatusError];
 }
 
-- (void)requestCheckCode:(MFJReq *)req
+- (void)checkCode:(MFJReq *)req
 {
-    NSString * exactitudeKey      = req.exactitudeKey;
-    NSString * exactitudeKeyPath  = req.exactitudeKeyPath;
-    if ([req.output isKindOfClass:[NSData class]]) {
-        NSError *error = nil;
-        id output = [NSJSONSerialization JSONObjectWithData:(NSData *)req.output options:kNilOptions error:&error];
-        if (error) {
-            NSLog(@"url:%@ response error:%@",req.url, error);
-            [self requestError:req];
-            return;
-        }
-        req.output = output;
-    }
-    req.codeKey = [req.output objectForKey:exactitudeKeyPath];
-    if([req.output objectForKey:exactitudeKeyPath] && [[req.output objectForKey:exactitudeKeyPath] intValue] == [exactitudeKey integerValue]){
-        req.status = MFJRequestStatusSuccess;
-        [self listenRequest:req];
+    if([self doCheckCode:req]){
+        [self requestSucccess:req];
     }else{
         [self requestError:req];
     }
     
+}
+
+-(BOOL)doCheckCode:(MFJReq *)req{
+    if (req.needCheckCode) {
+        NSString * exactitudeKey      = req.exactitudeKey;
+        NSString * exactitudeKeyPath  = req.exactitudeKeyPath;
+        NSString * code = [req.output objectAtPath:exactitudeKeyPath];
+        if ([code isKindOfClass:[NSNumber class]]) {
+            code = [(NSNumber *)code stringValue];
+        }
+        req.codeKey = code;
+        if(code && [code isEqualToString:exactitudeKey]){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return true;
+    }
 }
 
 - (void)listen:(listenCallBack)block

@@ -111,6 +111,9 @@
 		A0AE935F1CB78238001C9CB2 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AE935E1CB78238001C9CB2 /* libstdc++.tbd */; };
 		A0AF9B221CAF8D390081907C /* MFJGroupReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A0AF9B211CAF8D390081907C /* MFJGroupReq.m */; };
 		A0BF1CCE1CB3CB5D004CCFF6 /* libAVOSCloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */; };
+		A0E26D601CBDEFE600974807 /* NSObject+MFJExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26D5F1CBDEFE600974807 /* NSObject+MFJExtend.m */; };
+		A0E26D641CBDF99700974807 /* NSDictionary+MFJExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26D631CBDF99700974807 /* NSDictionary+MFJExtend.m */; };
+		A0E26D671CBE1E7600974807 /* MFJSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26D661CBE1E7600974807 /* MFJSecurityPolicy.m */; };
 		A0E6F8461CA3BE1B00182976 /* MFJBaseSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F8451CA3BE1B00182976 /* MFJBaseSettingViewController.m */; };
 		A0E6F8511CA3BE7800182976 /* MFJSettingGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F84E1CA3BE7800182976 /* MFJSettingGroup.m */; };
 		A0E6F8521CA3BE7800182976 /* MFJSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F8501CA3BE7800182976 /* MFJSettingItem.m */; };
@@ -138,6 +141,7 @@
 		A0FF6DC81CBCD50E0013DE4D /* TMCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FF6DC21CBCD50E0013DE4D /* TMCache.m */; };
 		A0FF6DC91CBCD50E0013DE4D /* TMDiskCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FF6DC51CBCD50E0013DE4D /* TMDiskCache.m */; };
 		A0FF6DCA1CBCD50E0013DE4D /* TMMemoryCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FF6DC71CBCD50E0013DE4D /* TMMemoryCache.m */; };
+		A0FF6DCD1CBD01870013DE4D /* GCDQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = A0FF6DCC1CBD01870013DE4D /* GCDQueue.m */; };
 		CC7E20DCF24E609C42AEB5E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D39ACA7EAA68589B2ED1BE1 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -375,6 +379,13 @@
 		A0AF9B201CAF8D390081907C /* MFJGroupReq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJGroupReq.h; sourceTree = "<group>"; };
 		A0AF9B211CAF8D390081907C /* MFJGroupReq.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJGroupReq.m; sourceTree = "<group>"; };
 		A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAVOSCloud.a; path = Pods/AVOSCloud/libAVOSCloud.a; sourceTree = "<group>"; };
+		A0E26D5E1CBDEFE600974807 /* NSObject+MFJExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MFJExtend.h"; sourceTree = "<group>"; };
+		A0E26D5F1CBDEFE600974807 /* NSObject+MFJExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MFJExtend.m"; sourceTree = "<group>"; };
+		A0E26D611CBDEFFE00974807 /* MFJKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MFJKit.h; sourceTree = "<group>"; };
+		A0E26D621CBDF99700974807 /* NSDictionary+MFJExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+MFJExtend.h"; sourceTree = "<group>"; };
+		A0E26D631CBDF99700974807 /* NSDictionary+MFJExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+MFJExtend.m"; sourceTree = "<group>"; };
+		A0E26D651CBE1E7600974807 /* MFJSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJSecurityPolicy.h; sourceTree = "<group>"; };
+		A0E26D661CBE1E7600974807 /* MFJSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJSecurityPolicy.m; sourceTree = "<group>"; };
 		A0E6F8441CA3BE1B00182976 /* MFJBaseSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJBaseSettingViewController.h; sourceTree = "<group>"; };
 		A0E6F8451CA3BE1B00182976 /* MFJBaseSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJBaseSettingViewController.m; sourceTree = "<group>"; };
 		A0E6F84D1CA3BE7800182976 /* MFJSettingGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJSettingGroup.h; sourceTree = "<group>"; };
@@ -425,6 +436,8 @@
 		A0FF6DC51CBCD50E0013DE4D /* TMDiskCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMDiskCache.m; sourceTree = "<group>"; };
 		A0FF6DC61CBCD50E0013DE4D /* TMMemoryCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMMemoryCache.h; sourceTree = "<group>"; };
 		A0FF6DC71CBCD50E0013DE4D /* TMMemoryCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMMemoryCache.m; sourceTree = "<group>"; };
+		A0FF6DCB1CBD01870013DE4D /* GCDQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCDQueue.h; sourceTree = "<group>"; };
+		A0FF6DCC1CBD01870013DE4D /* GCDQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCDQueue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -772,6 +785,10 @@
 				A05920CB1CAE104700454ED8 /* MFJReqAction.m */,
 				A0AF9B201CAF8D390081907C /* MFJGroupReq.h */,
 				A0AF9B211CAF8D390081907C /* MFJGroupReq.m */,
+				A0FF6DCB1CBD01870013DE4D /* GCDQueue.h */,
+				A0FF6DCC1CBD01870013DE4D /* GCDQueue.m */,
+				A0E26D651CBE1E7600974807 /* MFJSecurityPolicy.h */,
+				A0E26D661CBE1E7600974807 /* MFJSecurityPolicy.m */,
 				A0FF6DBF1CBCD50E0013DE4D /* Classes */,
 			);
 			name = MFJNetWorking;
@@ -972,6 +989,18 @@
 				A0AE93431CB77F89001C9CB2 /* WXApiObject.h */,
 			);
 			path = Wechat;
+			sourceTree = "<group>";
+		};
+		A0E26D5D1CBDEFE600974807 /* MFJKit */ = {
+			isa = PBXGroup;
+			children = (
+				A0E26D611CBDEFFE00974807 /* MFJKit.h */,
+				A0E26D5E1CBDEFE600974807 /* NSObject+MFJExtend.h */,
+				A0E26D5F1CBDEFE600974807 /* NSObject+MFJExtend.m */,
+				A0E26D621CBDF99700974807 /* NSDictionary+MFJExtend.h */,
+				A0E26D631CBDF99700974807 /* NSDictionary+MFJExtend.m */,
+			);
+			path = MFJKit;
 			sourceTree = "<group>";
 		};
 		A0E6F8401CA3BDD100182976 /* MFJSetting */ = {
@@ -1213,6 +1242,7 @@
 		A0FF6DBF1CBCD50E0013DE4D /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A0E26D5D1CBDEFE600974807 /* MFJKit */,
 				A0FF6DC01CBCD50E0013DE4D /* TMCache */,
 			);
 			path = Classes;
@@ -1450,6 +1480,7 @@
 				A04E99721CA2911400B0ABB5 /* UIScrollView+HYSCat.m in Sources */,
 				A0A6F0821CB672B30059AE77 /* MFUSelectIamgeCollectionCell.m in Sources */,
 				A0F25A971CB9F2A6003AB803 /* GDAssetManager.m in Sources */,
+				A0E26D641CBDF99700974807 /* NSDictionary+MFJExtend.m in Sources */,
 				A04E99631CA2911400B0ABB5 /* O2HBaseTableViewCell.m in Sources */,
 				A04E99601CA2911400B0ABB5 /* IHBaseViewController.m in Sources */,
 				A0E6F8521CA3BE7800182976 /* MFJSettingItem.m in Sources */,
@@ -1484,6 +1515,7 @@
 				A04E99871CA2911400B0ABB5 /* WrSystemInfo.mm in Sources */,
 				A0FF6DC91CBCD50E0013DE4D /* TMDiskCache.m in Sources */,
 				A02F97651CA64A4A008D02E3 /* CALayer+MFJExtent.m in Sources */,
+				A0E26D671CBE1E7600974807 /* MFJSecurityPolicy.m in Sources */,
 				A04E99861CA2911400B0ABB5 /* Util.m in Sources */,
 				A0A6F05F1CB615E60059AE77 /* User.m in Sources */,
 				A0A6F06F1CB656590059AE77 /* MFJTextView.m in Sources */,
@@ -1491,6 +1523,7 @@
 				A0A6F06C1CB640960059AE77 /* AccountCenter.m in Sources */,
 				A0E6F8AC1CA3FA4800182976 /* MFULocationScene.m in Sources */,
 				A0AF9B221CAF8D390081907C /* MFJGroupReq.m in Sources */,
+				A0E26D601CBDEFE600974807 /* NSObject+MFJExtend.m in Sources */,
 				A08E82271CACC5A900B485A6 /* MFJReq.m in Sources */,
 				A05920CC1CAE104700454ED8 /* MFJReqAction.m in Sources */,
 				A04E996F1CA2911400B0ABB5 /* UIControl+HYSCat.m in Sources */,
@@ -1513,6 +1546,7 @@
 				A0A6F0621CB615F80059AE77 /* Tag.m in Sources */,
 				A0A333631C97E1FF000C03C2 /* main.m in Sources */,
 				A04E99701CA2911400B0ABB5 /* UIDevice+HYSCat.m in Sources */,
+				A0FF6DCD1CBD01870013DE4D /* GCDQueue.m in Sources */,
 				A04E996D1CA2911400B0ABB5 /* UITextField+HYSCat.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

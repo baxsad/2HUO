@@ -22,7 +22,7 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 
 + (nonnull instancetype)action;
 
-- (void)sendRequest:(nonnull MFJReq  *)req;
+- (void)Send:(nonnull MFJReq  *)req;
 
 - (void)sendRequests:(nonnull MFJGroupReq *)groupreq;
 

@@ -90,6 +90,7 @@
                                            @(PHAssetCollectionSubtypeSmartAlbumTimelapses),
                                            @(PHAssetCollectionSubtypeSmartAlbumBursts),
                                            @(PHAssetCollectionSubtypeSmartAlbumPanoramas)];
+        manager.shouldFixOrientation = NO;
     });
     return manager;
 }
@@ -215,7 +216,22 @@
                                          BOOL downloadFinined = ![[info objectForKey:PHImageCancelledKey] boolValue] && ![info objectForKey:PHImageErrorKey] && ![[info objectForKey:PHImageResultIsDegradedKey] boolValue];
                                          
                                          if (result && downloadFinined) {
+                                             result = [self fixOrientation:result];
                                              if (completion) completion(result,info);
+                                         }
+                                         
+                                         // 从iCloud下载图片
+                                         if ([info objectForKey:PHImageResultIsInCloudKey] && !result) {
+                                             PHImageRequestOptions *option = [[PHImageRequestOptions alloc]init];
+                                             option.networkAccessAllowed = YES;
+                                             [[PHImageManager defaultManager] requestImageDataForAsset:asset options:option resultHandler:^(NSData * _Nullable imageData, NSString * _Nullable dataUTI, UIImageOrientation orientation, NSDictionary * _Nullable info) {
+                                                 UIImage *resultImage = [UIImage imageWithData:imageData scale:0.1];
+                                                 resultImage = [self scaleImage:resultImage toSize:size];
+                                                 if (resultImage) {
+                                                     resultImage = [self fixOrientation:resultImage];
+                                                     if (completion) completion(resultImage,info);
+                                                 }
+                                             }];
                                          }
                                          
                                          
@@ -225,6 +241,7 @@
 - (void)getThumbnailPhotoWithAsset:(id)asset size:(CGSize)size completion:(void (^)(UIImage *photo,NSDictionary *info))completion
 {
     PHImageRequestOptions * option = [[PHImageRequestOptions alloc] init];
+    option.synchronous = NO;
     option.resizeMode = PHImageRequestOptionsResizeModeFast;
     
     [self getPhotoWithAsset:asset
@@ -237,7 +254,7 @@
 - (void)getOriginlPhotoWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion
 {
     PHImageRequestOptions * option = [[PHImageRequestOptions alloc] init];
-    option.synchronous = NO;
+    option.synchronous = YES;
     
     [self getPhotoWithAsset:asset
            requestPhtotType:GDPhotoRequestTypeOriginl
@@ -249,7 +266,7 @@
 - (void)getPreviewlPhotoWithAsset:(id)asset completion:(void (^)(UIImage *photo,NSDictionary *info))completion
 {
     PHImageRequestOptions * option = [[PHImageRequestOptions alloc] init];
-    option.synchronous = NO;
+    option.synchronous = YES;
     CGSize previewSize = [UIScreen mainScreen].bounds.size;
     
     [self getPhotoWithAsset:asset
@@ -257,6 +274,94 @@
                  targetSize:previewSize
                     options:option
                  completion:completion];
+}
+
+
+- (UIImage *)fixOrientation:(UIImage *)aImage {
+    if (!self.shouldFixOrientation) return aImage;
+    
+    // No-op if the orientation is already correct
+    if (aImage.imageOrientation == UIImageOrientationUp)
+        return aImage;
+    
+    // We need to calculate the proper transformation to make the image upright.
+    // We do it in 2 steps: Rotate if Left/Right/Down, and then flip if Mirrored.
+    CGAffineTransform transform = CGAffineTransformIdentity;
+    
+    switch (aImage.imageOrientation) {
+        case UIImageOrientationDown:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, aImage.size.height);
+            transform = CGAffineTransformRotate(transform, M_PI);
+            break;
+            
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
+            transform = CGAffineTransformRotate(transform, M_PI_2);
+            break;
+            
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, 0, aImage.size.height);
+            transform = CGAffineTransformRotate(transform, -M_PI_2);
+            break;
+        default:
+            break;
+    }
+    
+    switch (aImage.imageOrientation) {
+        case UIImageOrientationUpMirrored:
+        case UIImageOrientationDownMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.width, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+            
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+            transform = CGAffineTransformTranslate(transform, aImage.size.height, 0);
+            transform = CGAffineTransformScale(transform, -1, 1);
+            break;
+        default:
+            break;
+    }
+    
+    // Now we draw the underlying CGImage into a new context, applying the transform
+    // calculated above.
+    CGContextRef ctx = CGBitmapContextCreate(NULL, aImage.size.width, aImage.size.height,
+                                             CGImageGetBitsPerComponent(aImage.CGImage), 0,
+                                             CGImageGetColorSpace(aImage.CGImage),
+                                             CGImageGetBitmapInfo(aImage.CGImage));
+    CGContextConcatCTM(ctx, transform);
+    switch (aImage.imageOrientation) {
+        case UIImageOrientationLeft:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRight:
+        case UIImageOrientationRightMirrored:
+            // Grr...
+            CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.height,aImage.size.width), aImage.CGImage);
+            break;
+            
+        default:
+            CGContextDrawImage(ctx, CGRectMake(0,0,aImage.size.width,aImage.size.height), aImage.CGImage);
+            break;
+    }
+    
+    // And now we just create a new UIImage from the drawing context
+    CGImageRef cgimg = CGBitmapContextCreateImage(ctx);
+    UIImage *img = [UIImage imageWithCGImage:cgimg];
+    CGContextRelease(ctx);
+    CGImageRelease(cgimg);
+    return img;
+}
+
+
+- (UIImage *)scaleImage:(UIImage *)image toSize:(CGSize)size {
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return newImage;
 }
 
 @end

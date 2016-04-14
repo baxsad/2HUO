@@ -10,6 +10,7 @@
 #define MFJNETDefines_h
 
 #import <AFNetworking/AFNetworking.h>
+#import "MFJKit.h"
 
 #ifdef isTest
 
@@ -33,16 +34,6 @@ static NSString* const kWebBaseUrl = @"http://www.caimiapp.com/";
 #define MFJ_REQUEST_RIGHT_CODE  0
 #define MFJ_ERROR_CODE_PATH     @"error_code"
 
-// 网络请求类型RequestCachePolicy
-typedef NS_ENUM(NSUInteger, MFJRequestMethodType) {
-    MFJRequestMethodTypeGET     = 0 ,
-    MFJRequestMethodTypePOST    = 1 << 0,
-    MFJRequestMethodTypeHEAD    = 1 << 1,
-    MFJRequestMethodTypePUT     = 3 << 0,
-    MFJRequestMethodTypePATCH   = 1 << 2,
-    MFJRequestMethodTypeDELETE  = 5 << 0
-};
-
 // RequestCachePolicy
 typedef NS_ENUM(NSUInteger, MFJRequestCachePolicy) {
     MFJRequestCachePolicyNoCache           = 0 , /**< 不缓存    */
@@ -60,12 +51,6 @@ typedef NS_ENUM(NSInteger, MFJRequestStatus) {
     MFJRequestStatusTimeOut = 5,       /**< 请求超时      */
     MFJRequestStatusNotStart= 6,       /**< 请求未开始    */
     MFJRequestStatusStart   = 7        /**< 开始请求      */
-};
-
-// 请求的序列化格式
-typedef NS_ENUM(NSUInteger, MFJRequestSerializerType) {
-    MFJRequestSerializerTypeHTTP    = 0,
-    MFJRequestSerializerTypeJSON    = 1 << 0
 };
 
 // 请求返回的序列化格式

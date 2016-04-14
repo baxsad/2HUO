@@ -57,6 +57,8 @@ typedef enum : NSUInteger {
 
 @property (nonatomic, strong) PHCachingImageManager *cachingImageManager;
 
+@property (nonatomic, assign) BOOL shouldFixOrientation;
+
 + (instancetype)manager;
 /**
  *  请求所有相册列表

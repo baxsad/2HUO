@@ -7,25 +7,23 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "MFJSecurityPolicy.h"
 #import "MFJDefines.h"
 
-
+@class MFJSecurityPolicy;
 @class MFJReq;
 
 typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 
 @interface MFJReq : NSObject
-
+/** 安全协议设置 */
+@property (nonatomic,strong,nullable) MFJSecurityPolicy        * securityPolicy;
 /** 错误码返回 */
 @property(nonatomic,strong,nullable)NSString                   * requestID;
-/** DATA 数据 */
-@property(nonatomic,strong,nullable)NSData                     * outputData;
 /** 序列化后的数据 */
 @property(nonatomic,strong,nullable)NSDictionary               * output;
 /** 请求使用字典参数 */
 @property(nonatomic,strong,nullable)NSMutableDictionary        * params;
-/** wcf请求需要的参数 */
-@property(nonatomic,strong,nullable)NSString                   * soapMessage;
 /** 获取的字符串数据 */
 @property(nonatomic,strong,nullable)NSString                   * responseString;
 /** 请求的错误 */
@@ -51,11 +49,9 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 /** 其他路径 */
 @property(nonatomic,strong,nullable)NSString                   * STATICPATH;
 /** 提交方式 (GET/POST)*/
-@property(nonatomic,assign)MFJRequestMethodType                  METHOD;
+@property(nonatomic,copy,nullable)NSString                     * METHOD;
 /** 是否需要检查错误码 */
 @property(nonatomic,assign)BOOL                                  needCheckCode;
-/** 请求数据格式 */
-@property(nonatomic,assign)MFJRequestSerializerType              requestSerializer;
 /** 返回数据格式 */
 @property(nonatomic,assign)MFJResponseSerializerType             responseSerializer;
 /** 可接受的序列化返回数据的格式 */
@@ -64,8 +60,10 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 @property(nonatomic,strong,nullable)NSDictionary               * httpHeaderFields;
 /** 是否启动发送请求(为MVVM设计) */
 @property(nonatomic,assign)BOOL                                  requestNeedActive;
-/** AFN返回的AFHTTPRequestOperation */
+/** AFN返回的NSURLSessionDataTask */
 @property(nonatomic,strong,nullable)NSURLSessionDataTask       * task;
+/** AFN返回的NSURLSessionDownloadTask */
+@property(nonatomic,strong,nullable)NSURLSessionDownloadTask   * downloadTask;
 /** 设置请求超时时间，默认是60S。*/
 @property (nonatomic, assign) NSTimeInterval                     timeoutInterval;
 /** 请求是否超时 */
@@ -101,11 +99,11 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 
 + (nonnull instancetype)Request;
 
-+ (nonnull instancetype)RequestWithMethod:(MFJRequestMethodType)method;
++ (nonnull instancetype)RequestWithMethod:(nonnull NSString *)method;
 
 - (nonnull instancetype)initRequest;
 
-- (nonnull instancetype)initWithRequestMethod:(MFJRequestMethodType)method;
+- (nonnull instancetype)initWithRequestMethod:(nonnull NSString *)method;
 
 - (BOOL)succeed;
 
@@ -125,10 +123,10 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 
 - (void)listen:(nonnull listenCallBack)block;
 
-- (NSUInteger)hash;
+- (nullable NSString*)requestID;
 
 - (NSURLRequestCachePolicy)RequestCachePolicy;
 
-- (nonnull NSString *)joinToPath;
+- (nullable NSString *)appendPathInfo;
 
 @end
