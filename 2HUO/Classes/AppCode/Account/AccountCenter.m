@@ -70,7 +70,7 @@
         UMSocialAccountEntity* snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:platforName];
         
         if (snsAccount.accessToken.length == 0) {
-            [O2HUD showMessage:@"授权失败，请稍后再试" timeout:1];
+            [GDHUD showMessage:@"授权失败，请稍后再试" timeout:1];
             return;
         }
         
@@ -99,7 +99,7 @@
                 UMSocialAccountEntity *snsAccount = [[UMSocialAccountManager socialAccountDictionary] valueForKey:platforName];
                 
                 if (snsAccount.accessToken.length == 0) {
-                    [O2HUD showMessage:@"授权失败，请稍后再试" timeout:1];
+                    [GDHUD showMessage:@"授权失败，请稍后再试" timeout:1];
                     return;
                 }
                 

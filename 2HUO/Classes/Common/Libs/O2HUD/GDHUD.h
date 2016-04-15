@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "MBProgressHUD.h"
 
-@interface O2HUD : NSObject
+@interface GDHUD : NSObject
 
 
 +(MBProgressHUD*)showUIBlockingIndicator;

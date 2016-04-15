@@ -98,7 +98,11 @@
 
 -(void)rightButtonTouch{
     
-    [[MFJRouter sharedInstance] show:@"mfj://addProduct" completion:nil];
+    if (!ISLOGIN) {
+        [GDHUD showMessage:@"not login!" timeout:1];
+        return;
+    }
+    [[GDRouter sharedInstance] show:@"mfj://addProduct" completion:nil];
     
 }
 

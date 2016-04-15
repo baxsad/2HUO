@@ -1,5 +1,5 @@
 //
-//  MFJRouterDefault.h
+//  GDRouterDefault.h
 //  2HUO
 //
 //  Created by iURCoder on 4/15/16.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MFJRouterDefault : NSObject
+@interface GDRouterDefault : NSObject
 
 - (void)notFound:(id)sender;
 

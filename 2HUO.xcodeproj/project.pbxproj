@@ -53,11 +53,9 @@
 		A04E99771CA2911400B0ABB5 /* UIViewController+HYSCat.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E992D1CA2911400B0ABB5 /* UIViewController+HYSCat.m */; };
 		A04E99811CA2911400B0ABB5 /* O2HAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E994C1CA2911400B0ABB5 /* O2HAlert.m */; };
 		A04E99841CA2911400B0ABB5 /* O2HCache.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99551CA2911400B0ABB5 /* O2HCache.m */; };
-		A04E99851CA2911400B0ABB5 /* O2HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99581CA2911400B0ABB5 /* O2HUD.m */; };
+		A04E99851CA2911400B0ABB5 /* GDHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99581CA2911400B0ABB5 /* GDHUD.m */; };
 		A04E99861CA2911400B0ABB5 /* Util.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E995C1CA2911400B0ABB5 /* Util.m */; };
 		A04E99871CA2911400B0ABB5 /* WrSystemInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = A04E995F1CA2911400B0ABB5 /* WrSystemInfo.mm */; };
-		A04E998C1CA2914100B0ABB5 /* MFJRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99891CA2914100B0ABB5 /* MFJRouter.m */; };
-		A04E998D1CA2914100B0ABB5 /* MFJRouterReger.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E998B1CA2914100B0ABB5 /* MFJRouterReger.m */; };
 		A04E99A81CA299AC00B0ABB5 /* NJKScrollFullScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99A51CA299AC00B0ABB5 /* NJKScrollFullScreen.m */; };
 		A04E99A91CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = A04E99A71CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m */; };
 		A07DDF641CB358A000BB2852 /* YDog.m in Sources */ = {isa = PBXBuildFile; fileRef = A07DDF631CB358A000BB2852 /* YDog.m */; };
@@ -109,7 +107,6 @@
 		A0AE935F1CB78238001C9CB2 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = A0AE935E1CB78238001C9CB2 /* libstdc++.tbd */; };
 		A0BF1CCE1CB3CB5D004CCFF6 /* libAVOSCloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */; };
 		A0E26D731CBF7F1E00974807 /* GDCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26D721CBF7F1E00974807 /* GDCameraViewController.m */; };
-		A0E26D791CBF924800974807 /* MFJRouterCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26D781CBF924800974807 /* MFJRouterCenter.m */; };
 		A0E26E521CC0BD8B00974807 /* NSDictionary+GDExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E391CC0BD8B00974807 /* NSDictionary+GDExtend.m */; };
 		A0E26E531CC0BD8B00974807 /* NSObject+GDExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E3B1CC0BD8B00974807 /* NSObject+GDExtend.m */; };
 		A0E26E541CC0BD8B00974807 /* NSString+GDExtend.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E3D1CC0BD8B00974807 /* NSString+GDExtend.m */; };
@@ -121,10 +118,13 @@
 		A0E26E5A1CC0BD8B00974807 /* GDReq.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E4D1CC0BD8B00974807 /* GDReq.m */; };
 		A0E26E5B1CC0BD8B00974807 /* GDAction.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E4F1CC0BD8B00974807 /* GDAction.m */; };
 		A0E26E5C1CC0BD8B00974807 /* GDSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E511CC0BD8B00974807 /* GDSecurityPolicy.m */; };
-		A0E26E601CC0C91900974807 /* GDClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E5F1CC0C91900974807 /* GDClassInfo.m */; };
-		A0E26E631CC0C94400974807 /* GDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E621CC0C94400974807 /* GDModel.m */; };
-		A0E26E661CC0C98A00974807 /* GDModelMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E651CC0C98A00974807 /* GDModelMeta.m */; };
-		A0E26E691CC0DE9500974807 /* MFJRouterDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E681CC0DE9500974807 /* MFJRouterDefault.m */; };
+		A0E26E7A1CC0EDA700974807 /* GDRouter.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E6C1CC0EDA700974807 /* GDRouter.m */; };
+		A0E26E7B1CC0EDA700974807 /* GDRouterCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E6E1CC0EDA700974807 /* GDRouterCenter.m */; };
+		A0E26E7C1CC0EDA700974807 /* GDRouterDefault.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E701CC0EDA700974807 /* GDRouterDefault.m */; };
+		A0E26E7D1CC0EDA700974807 /* GDRouterReger.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E721CC0EDA700974807 /* GDRouterReger.m */; };
+		A0E26E7E1CC0EDA700974807 /* GDClassInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E751CC0EDA700974807 /* GDClassInfo.m */; };
+		A0E26E7F1CC0EDA700974807 /* GDModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E771CC0EDA700974807 /* GDModel.m */; };
+		A0E26E801CC0EDA700974807 /* GDModelMeta.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E791CC0EDA700974807 /* GDModelMeta.m */; };
 		A0E6F8461CA3BE1B00182976 /* MFJBaseSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F8451CA3BE1B00182976 /* MFJBaseSettingViewController.m */; };
 		A0E6F8511CA3BE7800182976 /* MFJSettingGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F84E1CA3BE7800182976 /* MFJSettingGroup.m */; };
 		A0E6F8521CA3BE7800182976 /* MFJSettingItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E6F8501CA3BE7800182976 /* MFJSettingItem.m */; };
@@ -254,17 +254,13 @@
 		A04E994C1CA2911400B0ABB5 /* O2HAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = O2HAlert.m; sourceTree = "<group>"; };
 		A04E99541CA2911400B0ABB5 /* O2HCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = O2HCache.h; sourceTree = "<group>"; };
 		A04E99551CA2911400B0ABB5 /* O2HCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = O2HCache.m; sourceTree = "<group>"; };
-		A04E99571CA2911400B0ABB5 /* O2HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = O2HUD.h; sourceTree = "<group>"; };
-		A04E99581CA2911400B0ABB5 /* O2HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = O2HUD.m; sourceTree = "<group>"; };
+		A04E99571CA2911400B0ABB5 /* GDHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDHUD.h; sourceTree = "<group>"; };
+		A04E99581CA2911400B0ABB5 /* GDHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDHUD.m; sourceTree = "<group>"; };
 		A04E995B1CA2911400B0ABB5 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Util.h; sourceTree = "<group>"; };
 		A04E995C1CA2911400B0ABB5 /* Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Util.m; sourceTree = "<group>"; };
 		A04E995D1CA2911400B0ABB5 /* WrSingleton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrSingleton.h; sourceTree = "<group>"; };
 		A04E995E1CA2911400B0ABB5 /* WrSystemInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrSystemInfo.h; sourceTree = "<group>"; };
 		A04E995F1CA2911400B0ABB5 /* WrSystemInfo.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WrSystemInfo.mm; sourceTree = "<group>"; };
-		A04E99881CA2914100B0ABB5 /* MFJRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJRouter.h; sourceTree = "<group>"; };
-		A04E99891CA2914100B0ABB5 /* MFJRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJRouter.m; sourceTree = "<group>"; };
-		A04E998A1CA2914100B0ABB5 /* MFJRouterReger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJRouterReger.h; sourceTree = "<group>"; };
-		A04E998B1CA2914100B0ABB5 /* MFJRouterReger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJRouterReger.m; sourceTree = "<group>"; };
 		A04E99A41CA299AC00B0ABB5 /* NJKScrollFullScreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKScrollFullScreen.h; sourceTree = "<group>"; };
 		A04E99A51CA299AC00B0ABB5 /* NJKScrollFullScreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKScrollFullScreen.m; sourceTree = "<group>"; };
 		A04E99A61CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NJKFullScreenSupport.h"; sourceTree = "<group>"; };
@@ -380,8 +376,6 @@
 		A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAVOSCloud.a; path = Pods/AVOSCloud/libAVOSCloud.a; sourceTree = "<group>"; };
 		A0E26D711CBF7F1E00974807 /* GDCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCameraViewController.h; sourceTree = "<group>"; };
 		A0E26D721CBF7F1E00974807 /* GDCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCameraViewController.m; sourceTree = "<group>"; };
-		A0E26D771CBF924800974807 /* MFJRouterCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJRouterCenter.h; sourceTree = "<group>"; };
-		A0E26D781CBF924800974807 /* MFJRouterCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJRouterCenter.m; sourceTree = "<group>"; };
 		A0E26E371CC0BD8B00974807 /* GDKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDKit.h; sourceTree = "<group>"; };
 		A0E26E381CC0BD8B00974807 /* NSDictionary+GDExtend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+GDExtend.h"; sourceTree = "<group>"; };
 		A0E26E391CC0BD8B00974807 /* NSDictionary+GDExtend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+GDExtend.m"; sourceTree = "<group>"; };
@@ -408,14 +402,20 @@
 		A0E26E4F1CC0BD8B00974807 /* GDAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDAction.m; sourceTree = "<group>"; };
 		A0E26E501CC0BD8B00974807 /* GDSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDSecurityPolicy.h; sourceTree = "<group>"; };
 		A0E26E511CC0BD8B00974807 /* GDSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDSecurityPolicy.m; sourceTree = "<group>"; };
-		A0E26E5E1CC0C91900974807 /* GDClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDClassInfo.h; sourceTree = "<group>"; };
-		A0E26E5F1CC0C91900974807 /* GDClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDClassInfo.m; sourceTree = "<group>"; };
-		A0E26E611CC0C94400974807 /* GDModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDModel.h; sourceTree = "<group>"; };
-		A0E26E621CC0C94400974807 /* GDModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDModel.m; sourceTree = "<group>"; };
-		A0E26E641CC0C98A00974807 /* GDModelMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDModelMeta.h; sourceTree = "<group>"; };
-		A0E26E651CC0C98A00974807 /* GDModelMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDModelMeta.m; sourceTree = "<group>"; };
-		A0E26E671CC0DE9500974807 /* MFJRouterDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJRouterDefault.h; sourceTree = "<group>"; };
-		A0E26E681CC0DE9500974807 /* MFJRouterDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJRouterDefault.m; sourceTree = "<group>"; };
+		A0E26E6B1CC0EDA700974807 /* GDRouter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDRouter.h; sourceTree = "<group>"; };
+		A0E26E6C1CC0EDA700974807 /* GDRouter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDRouter.m; sourceTree = "<group>"; };
+		A0E26E6D1CC0EDA700974807 /* GDRouterCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDRouterCenter.h; sourceTree = "<group>"; };
+		A0E26E6E1CC0EDA700974807 /* GDRouterCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDRouterCenter.m; sourceTree = "<group>"; };
+		A0E26E6F1CC0EDA700974807 /* GDRouterDefault.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDRouterDefault.h; sourceTree = "<group>"; };
+		A0E26E701CC0EDA700974807 /* GDRouterDefault.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDRouterDefault.m; sourceTree = "<group>"; };
+		A0E26E711CC0EDA700974807 /* GDRouterReger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDRouterReger.h; sourceTree = "<group>"; };
+		A0E26E721CC0EDA700974807 /* GDRouterReger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDRouterReger.m; sourceTree = "<group>"; };
+		A0E26E741CC0EDA700974807 /* GDClassInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDClassInfo.h; sourceTree = "<group>"; };
+		A0E26E751CC0EDA700974807 /* GDClassInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDClassInfo.m; sourceTree = "<group>"; };
+		A0E26E761CC0EDA700974807 /* GDModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDModel.h; sourceTree = "<group>"; };
+		A0E26E771CC0EDA700974807 /* GDModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDModel.m; sourceTree = "<group>"; };
+		A0E26E781CC0EDA700974807 /* GDModelMeta.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDModelMeta.h; sourceTree = "<group>"; };
+		A0E26E791CC0EDA700974807 /* GDModelMeta.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDModelMeta.m; sourceTree = "<group>"; };
 		A0E6F8441CA3BE1B00182976 /* MFJBaseSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJBaseSettingViewController.h; sourceTree = "<group>"; };
 		A0E6F8451CA3BE1B00182976 /* MFJBaseSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJBaseSettingViewController.m; sourceTree = "<group>"; };
 		A0E6F84D1CA3BE7800182976 /* MFJSettingGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJSettingGroup.h; sourceTree = "<group>"; };
@@ -576,6 +576,7 @@
 		A04E98F81CA2911400B0ABB5 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A0E26E6A1CC0EDA700974807 /* GDRouter */,
 				A0E26E341CC0BD8B00974807 /* GDNetWorking */,
 				A0F25A911CB9F1B7003AB803 /* GDImagePickerController */,
 				A07DDF611CB3588500BB2852 /* YDog */,
@@ -583,7 +584,6 @@
 				A04E99041CA2911400B0ABB5 /* Category */,
 				A04E992E1CA2911400B0ABB5 /* Core */,
 				A04E99491CA2911400B0ABB5 /* Libs */,
-				A04E99591CA2911400B0ABB5 /* MFJRouter */,
 				A0E6F8401CA3BDD100182976 /* MFJSetting */,
 				A0E6F8BD1CA5093300182976 /* MFJActionSheet */,
 				A0E6F8CA1CA5B00600182976 /* MFJPhotoGroupView */,
@@ -724,26 +724,10 @@
 		A04E99561CA2911400B0ABB5 /* O2HUD */ = {
 			isa = PBXGroup;
 			children = (
-				A04E99571CA2911400B0ABB5 /* O2HUD.h */,
-				A04E99581CA2911400B0ABB5 /* O2HUD.m */,
+				A04E99571CA2911400B0ABB5 /* GDHUD.h */,
+				A04E99581CA2911400B0ABB5 /* GDHUD.m */,
 			);
 			path = O2HUD;
-			sourceTree = "<group>";
-		};
-		A04E99591CA2911400B0ABB5 /* MFJRouter */ = {
-			isa = PBXGroup;
-			children = (
-				A04E99881CA2914100B0ABB5 /* MFJRouter.h */,
-				A04E99891CA2914100B0ABB5 /* MFJRouter.m */,
-				A0E26D771CBF924800974807 /* MFJRouterCenter.h */,
-				A0E26D781CBF924800974807 /* MFJRouterCenter.m */,
-				A0E26E671CC0DE9500974807 /* MFJRouterDefault.h */,
-				A0E26E681CC0DE9500974807 /* MFJRouterDefault.m */,
-				A04E998A1CA2914100B0ABB5 /* MFJRouterReger.h */,
-				A04E998B1CA2914100B0ABB5 /* MFJRouterReger.m */,
-				A0E26E5D1CC0C91900974807 /* lib */,
-			);
-			path = MFJRouter;
 			sourceTree = "<group>";
 		};
 		A04E995A1CA2911400B0ABB5 /* UtilClass */ = {
@@ -1053,15 +1037,31 @@
 			path = TMCache;
 			sourceTree = "<group>";
 		};
-		A0E26E5D1CC0C91900974807 /* lib */ = {
+		A0E26E6A1CC0EDA700974807 /* GDRouter */ = {
 			isa = PBXGroup;
 			children = (
-				A0E26E611CC0C94400974807 /* GDModel.h */,
-				A0E26E621CC0C94400974807 /* GDModel.m */,
-				A0E26E641CC0C98A00974807 /* GDModelMeta.h */,
-				A0E26E651CC0C98A00974807 /* GDModelMeta.m */,
-				A0E26E5E1CC0C91900974807 /* GDClassInfo.h */,
-				A0E26E5F1CC0C91900974807 /* GDClassInfo.m */,
+				A0E26E6B1CC0EDA700974807 /* GDRouter.h */,
+				A0E26E6C1CC0EDA700974807 /* GDRouter.m */,
+				A0E26E6D1CC0EDA700974807 /* GDRouterCenter.h */,
+				A0E26E6E1CC0EDA700974807 /* GDRouterCenter.m */,
+				A0E26E6F1CC0EDA700974807 /* GDRouterDefault.h */,
+				A0E26E701CC0EDA700974807 /* GDRouterDefault.m */,
+				A0E26E711CC0EDA700974807 /* GDRouterReger.h */,
+				A0E26E721CC0EDA700974807 /* GDRouterReger.m */,
+				A0E26E731CC0EDA700974807 /* lib */,
+			);
+			path = GDRouter;
+			sourceTree = "<group>";
+		};
+		A0E26E731CC0EDA700974807 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				A0E26E741CC0EDA700974807 /* GDClassInfo.h */,
+				A0E26E751CC0EDA700974807 /* GDClassInfo.m */,
+				A0E26E761CC0EDA700974807 /* GDModel.h */,
+				A0E26E771CC0EDA700974807 /* GDModel.m */,
+				A0E26E781CC0EDA700974807 /* GDModelMeta.h */,
+				A0E26E791CC0EDA700974807 /* GDModelMeta.m */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -1508,18 +1508,16 @@
 			files = (
 				A04E99771CA2911400B0ABB5 /* UIViewController+HYSCat.m in Sources */,
 				A0E6F8C31CA51CE100182976 /* MFJActionSheet.m in Sources */,
-				A0E26E691CC0DE9500974807 /* MFJRouterDefault.m in Sources */,
 				A04E99671CA2911400B0ABB5 /* NSDate+HYSCat.m in Sources */,
 				A0E6F8CD1CA5B02000182976 /* MFJPhotoGroupView.m in Sources */,
-				A04E998C1CA2914100B0ABB5 /* MFJRouter.m in Sources */,
 				A0E6F8551CA3BEA500182976 /* MFJSettingCell.m in Sources */,
 				A0E6F8A81CA3FA4800182976 /* MFUHomeViewController.m in Sources */,
-				A0E26E661CC0C98A00974807 /* GDModelMeta.m in Sources */,
 				A0F25A901CB94EFB003AB803 /* YYWeakProxy.m in Sources */,
+				A0E26E7A1CC0EDA700974807 /* GDRouter.m in Sources */,
 				A0E26E5C1CC0BD8B00974807 /* GDSecurityPolicy.m in Sources */,
 				A0F25A941CB9F202003AB803 /* GDImagePickerController.m in Sources */,
 				A02F975F1CA649B0008D02E3 /* UIView+MFJExtent.m in Sources */,
-				A0E26E601CC0C91900974807 /* GDClassInfo.m in Sources */,
+				A0E26E7E1CC0EDA700974807 /* GDClassInfo.m in Sources */,
 				A02F976E1CA6CD2D008D02E3 /* MFJImageView.m in Sources */,
 				A0A6F07E1CB670380059AE77 /* MFJDragCellCollectionView.m in Sources */,
 				A0F25A8D1CB94E3D003AB803 /* FPSLable.m in Sources */,
@@ -1532,6 +1530,7 @@
 				A04E99601CA2911400B0ABB5 /* IHBaseViewController.m in Sources */,
 				A0E26E531CC0BD8B00974807 /* NSObject+GDExtend.m in Sources */,
 				A0E6F8521CA3BE7800182976 /* MFJSettingItem.m in Sources */,
+				A0E26E801CC0EDA700974807 /* GDModelMeta.m in Sources */,
 				A08E821C1CAA82C100B485A6 /* MFJUserDefaults.m in Sources */,
 				A0A6F0531CB4B9420059AE77 /* BannerModel.m in Sources */,
 				A04E99711CA2911400B0ABB5 /* UIImage+HYSCat.m in Sources */,
@@ -1541,7 +1540,6 @@
 				A0A6F0681CB638290059AE77 /* MFUReleaseProductScene.m in Sources */,
 				A0E6F8A91CA3FA4800182976 /* MFUHomeScene.m in Sources */,
 				A04E99A81CA299AC00B0ABB5 /* NJKScrollFullScreen.m in Sources */,
-				A0E26D791CBF924800974807 /* MFJRouterCenter.m in Sources */,
 				A04E99681CA2911400B0ABB5 /* NSDictionary+HYSCat.m in Sources */,
 				A04E99731CA2911400B0ABB5 /* UITableView+HYSCat.m in Sources */,
 				A04E99611CA2911400B0ABB5 /* IHBaseWebViewController.m in Sources */,
@@ -1551,8 +1549,8 @@
 				A04E996E1CA2911400B0ABB5 /* UIColor+HYSCat.m in Sources */,
 				A0A6F0651CB6161F0059AE77 /* Product.m in Sources */,
 				A04E99741CA2911400B0ABB5 /* UITableViewCell+HYSCat.m in Sources */,
+				A0E26E7F1CC0EDA700974807 /* GDModel.m in Sources */,
 				A04E99621CA2911400B0ABB5 /* IHNavigationController.m in Sources */,
-				A0E26E631CC0C94400974807 /* GDModel.m in Sources */,
 				A0E26E5A1CC0BD8B00974807 /* GDReq.m in Sources */,
 				A08E82061CAA36BB00B485A6 /* MFUHomeMenuCell.m in Sources */,
 				A0E6F8511CA3BE7800182976 /* MFJSettingGroup.m in Sources */,
@@ -1560,6 +1558,7 @@
 				A04E99751CA2911400B0ABB5 /* UIView+EZGesture.m in Sources */,
 				A0E26D731CBF7F1E00974807 /* GDCameraViewController.m in Sources */,
 				A04E99651CA2911400B0ABB5 /* NSArray+HYSCat.m in Sources */,
+				A0E26E7C1CC0EDA700974807 /* GDRouterDefault.m in Sources */,
 				A0E26E5B1CC0BD8B00974807 /* GDAction.m in Sources */,
 				A0E6F8BC1CA4311500182976 /* MFJStatusButton.m in Sources */,
 				A0E6F8AF1CA3FA4800182976 /* MFUMoreScene.m in Sources */,
@@ -1577,12 +1576,14 @@
 				A0E6F8AC1CA3FA4800182976 /* MFULocationScene.m in Sources */,
 				A04E996F1CA2911400B0ABB5 /* UIControl+HYSCat.m in Sources */,
 				A04E99841CA2911400B0ABB5 /* O2HCache.m in Sources */,
+				A0E26E7D1CC0EDA700974807 /* GDRouterReger.m in Sources */,
 				A02F97681CA64B52008D02E3 /* MFJPhotoGroupItem.m in Sources */,
 				A02F976B1CA64BD6008D02E3 /* MFJPhotoGroupCell.m in Sources */,
 				A04E99761CA2911400B0ABB5 /* UIView+HYSCat.m in Sources */,
-				A04E99851CA2911400B0ABB5 /* O2HUD.m in Sources */,
+				A04E99851CA2911400B0ABB5 /* GDHUD.m in Sources */,
 				A04E99661CA2911400B0ABB5 /* NSData+HYSCat.m in Sources */,
 				A0F25A9D1CBA024E003AB803 /* GDGridViewCell.m in Sources */,
+				A0E26E7B1CC0EDA700974807 /* GDRouterCenter.m in Sources */,
 				A0E6F8461CA3BE1B00182976 /* MFJBaseSettingViewController.m in Sources */,
 				A04E996B1CA2911400B0ABB5 /* NSString+HYSCat.m in Sources */,
 				A04E99811CA2911400B0ABB5 /* O2HAlert.m in Sources */,
@@ -1590,7 +1591,6 @@
 				A04E99691CA2911400B0ABB5 /* NSNumber+HYSCat.m in Sources */,
 				A04E996C1CA2911400B0ABB5 /* NSTimer+HYSCat.m in Sources */,
 				A02F97621CA649FA008D02E3 /* UIImage+MFJExtent.m in Sources */,
-				A04E998D1CA2914100B0ABB5 /* MFJRouterReger.m in Sources */,
 				A0E26E521CC0BD8B00974807 /* NSDictionary+GDExtend.m in Sources */,
 				A0E26E551CC0BD8B00974807 /* TMCache.m in Sources */,
 				A0A6F0621CB615F80059AE77 /* Tag.m in Sources */,

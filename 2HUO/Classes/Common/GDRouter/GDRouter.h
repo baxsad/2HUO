@@ -22,7 +22,7 @@
  * ━━━━━━感觉萌萌哒━━━━━━
  */
 //
-//  MFJRouter.h
+//  GDRouter.h
 //
 //  Created by iURCoder on 3/21/16.
 //  Copyright © 2016 iUR. All rights reserved.
@@ -47,14 +47,14 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "MFJRouterReger.h"
+#import "GDRouterReger.h"
 
 @class UPRouter;
 
 /**
  *  过期提醒
  */
-#define MFJRouterDeprecated(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
+#define GDRouterDeprecated(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
 
 /**
  *  回调（定义）
@@ -286,7 +286,7 @@ typedef void (^RouterCompletion)();
 
 @end
 
-@interface MFJRouter : UPRouter
+@interface GDRouter : UPRouter
 
 /**
  *  应用启动的是时候注册路由表（url 和 params 的映射）
@@ -306,6 +306,6 @@ typedef void (^RouterCompletion)();
 /**
  *  实例化一个新的路由对象
  */
-+ (instancetype)newRouter MFJRouterDeprecated("## 请使用 sharedInstance ##");;
++ (instancetype)newRouter GDRouterDeprecated("## 请使用 sharedInstance ##");;
 
 @end

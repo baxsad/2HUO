@@ -1,5 +1,5 @@
 //
-//  MFJRouterCenter.h
+//  GDRouterCenter.h
 //  2HUO
 //
 //  Created by iURCoder on 4/14/16.
@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 
-@class MFJAction;
+@class GDRouterAction;
 
-@interface MFJAction : NSObject
+@interface GDRouterAction : NSObject
 
 @property (nonatomic, strong)NSDictionary *params;
 @property (nonatomic) Class target;
@@ -19,13 +19,13 @@
 
 @end
 
-@interface MFJRouterCenter : NSObject
+@interface GDRouterCenter : NSObject
 
 @property (nonatomic, copy)NSString *scheme;
 
 + (instancetype)defaultCenter;
 
-- (MFJAction *)actionOfPath:(NSString *)path;
+- (GDRouterAction *)actionOfPath:(NSString *)path;
 
 - (NSMutableDictionary *)queryItemsInPath:(NSString *)path;
 

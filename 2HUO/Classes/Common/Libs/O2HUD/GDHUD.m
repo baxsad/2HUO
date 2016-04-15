@@ -6,7 +6,7 @@
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "O2HUD.h"
+#import "GDHUD.h"
 #import "QuartzCore/QuartzCore.h"
 
 static UIView* lastViewWithHUD = nil;
@@ -58,7 +58,7 @@ static UIView* lastViewWithHUD = nil;
 
 @end
 
-@implementation O2HUD
+@implementation GDHUD
 
 +(UIView*)rootView
 {
@@ -172,7 +172,7 @@ static UIView* lastViewWithHUD = nil;
 
 +(MBProgressHUD*)showAlertWithTitle:(NSString*)titleText text:(NSString*)text target:(id)t action:(SEL)sel
 {
-    [O2HUD hideUIBlockingIndicator];
+    [GDHUD hideUIBlockingIndicator];
     
     //show the HUD
     UIView* targetView = [self rootView];
@@ -220,7 +220,7 @@ static UIView* lastViewWithHUD = nil;
 
 +(MBProgressHUD*)showUIBlockingProgressIndicatorWithText:(NSString*)str andProgress:(float)progress
 {
-    [O2HUD hideUIBlockingIndicator];
+    [GDHUD hideUIBlockingIndicator];
     
     //show the HUD
     UIView* targetView = [self rootView];

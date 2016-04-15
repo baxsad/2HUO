@@ -1,48 +1,48 @@
 //
-//  MFJRouterCenter.m
+//  GDRouterCenter.m
 //  2HUO
 //
 //  Created by iURCoder on 4/14/16.
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "MFJRouterCenter.h"
-#import "MFJRouterReger.h"
+#import "GDRouterCenter.h"
+#import "GDRouterReger.h"
 #import "GDModel.h"
 
 #define DN_REGEX_PARAMS_SUFFIX @"(\\?[\\w- .&=]+)$"
 #define DN_REGEX_PARAMS_UNIT @"([\\w- ]+)(=)([\\w- ]+)$"
 
-@implementation MFJAction
+@implementation GDRouterAction
 
 @end
 
-@interface MFJRouterCenter()
+@interface GDRouterCenter()
 
 @property (nonatomic, strong)NSMutableDictionary *pathActionMapping;
 @property (nonatomic, strong)NSMutableDictionary *pathTargetMapping;
 
 @end
 
-@implementation MFJRouterCenter
+@implementation GDRouterCenter
 
 + (instancetype)defaultCenter
 {
-    static MFJRouterCenter *defaultCenter;
+    static GDRouterCenter *defaultCenter;
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
         defaultCenter = [[self.class alloc]init];
         defaultCenter.pathTargetMapping =
-        (NSMutableDictionary *)[MFJRouterReger targetMap];
+        (NSMutableDictionary *)[GDRouterReger targetMap];
         defaultCenter.pathActionMapping =
-        (NSMutableDictionary *)[MFJRouterReger actionMap];
+        (NSMutableDictionary *)[GDRouterReger actionMap];
     });
     
     return defaultCenter;
 }
 
-- (MFJAction *)actionOfPath:(NSString *)path
+- (GDRouterAction *)actionOfPath:(NSString *)path
 {
     NSString *clearPath = [self clearPath:path];
     if (!clearPath) {
@@ -76,7 +76,7 @@
     }
     
     // 没有mapped并且url中的不可以用就用默认
-    if (!targetString) targetString = @"MFJRouterDefault";
+    if (!targetString) targetString = @"GDRouterDefault";
     if (!actionString) actionString = @"notFound:";
     
     Class target = NSClassFromString(targetString);
@@ -84,7 +84,7 @@
     
     NSDictionary *params = [self queryItemsInPath:clearPath];
     
-    MFJAction *actionObj = [[MFJAction alloc] init];
+    GDRouterAction *actionObj = [[GDRouterAction alloc] init];
     actionObj.target = target;
     actionObj.action = action;
     actionObj.params = params;

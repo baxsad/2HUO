@@ -8,7 +8,7 @@
 
 #import "MFUMoreScene.h"
 #import "AccountCenter.h"
-#import "MFJRouter.h"
+
 
 @implementation MFUMoreScene
 
@@ -41,7 +41,7 @@
     //开关事件
     shake.switchBlock = ^(BOOL on) {
         NSDictionary * dic =@{@"girls":@[@1,@2,@3],@"image":[UILabel new]};
-        [[MFJRouter sharedInstance] open:@"caimi://temai/add?age=27&name=wangrui" extraParams:dic];
+        [[GDRouter sharedInstance] open:@"caimi://temai/add?age=27&name=wangrui" extraParams:dic];
     };
     
     // 1.2.声音提示
@@ -53,14 +53,14 @@
     ff.selected = ^{
         
         if (ISLOGIN) {
-            [O2HUD showMessage:@"已经登陆" timeout:1];
+            [GDHUD showMessage:@"已经登陆" timeout:1];
             NSLog(@"%@",[AccountCenter shareInstance].user);
             return ;
         }
         
         [[AccountCenter shareInstance] login:UMSocialSnsTypeSina viewController:self complete:^(BOOL success) {
             if (success) {
-                [O2HUD showMessage:@"登陆成功" timeout:1];
+                [GDHUD showMessage:@"登陆成功" timeout:1];
             }
         }];
     };

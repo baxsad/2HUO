@@ -1,5 +1,5 @@
 //
-//  MFJRouter.m
+//  GDRouter.m
 //  2HUO
 //
 /**
@@ -26,33 +26,33 @@
  *　　　　　　　　　　┗┻┛　┗┻┛+ + + +
  */
 
-#import "MFJRouter.h"
-#import "MFJRouterCenter.h"
+#import "GDRouter.h"
+#import "GDRouterCenter.h"
 
 ///-------------------------------
 /// @name 打开方式
-/// @name MFJOpendTypePush：push跳转
-/// @name MFJOpendTypeModal：模态跳转
+/// @name GDOpendTypePush：push跳转
+/// @name GDOpendTypeModal：模态跳转
 ///-------------------------------
 
-typedef NS_ENUM(NSInteger, MFJOpendType) {
-    MFJOpendTypePush,
-    MFJOpendTypeModal
+typedef NS_ENUM(NSInteger, GDOpendType) {
+    GDOpendTypePush,
+    GDOpendTypeModal
 };
 
 ///-------------------------------
 /// @name NSString类目实现md5加密
 ///-------------------------------
 
-@interface NSString(MFJExtent)
+@interface NSString(GDExtent)
 
 -(BOOL)isNotNull;
 
-- (NSString *)MFJMD5;
+- (NSString *)GDMD5;
 
 @end
 
-@implementation NSString(MFJExtent)
+@implementation NSString(GDExtent)
 -(BOOL)isNotNull
 {
     
@@ -63,7 +63,7 @@ typedef NS_ENUM(NSInteger, MFJOpendType) {
     
 }
 
-- (NSString *)MFJMD5
+- (NSString *)GDMD5
 {
     NSData * value;
     
@@ -114,16 +114,16 @@ typedef NS_ENUM(NSInteger, MFJOpendType) {
 /// @desc 路由类的单利，创建路由对象，注册路由表方法
 ///-------------------------------
 
-@implementation MFJRouter
+@implementation GDRouter
 
 #pragma mark - public methods
 
 + (instancetype)sharedInstance
 {
-    static MFJRouter *router;
+    static GDRouter *router;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        router = [[MFJRouter alloc] init];
+        router = [[GDRouter alloc] init];
     });
     return router;
 }
@@ -135,12 +135,12 @@ typedef NS_ENUM(NSInteger, MFJOpendType) {
 
 - (void)reg
 {
-    [MFJRouterReger reg];
+    [GDRouterReger reg];
 }
 
 - (void)clearCache
 {
-    [MFJRouterReger clearCache];
+    [GDRouterReger clearCache];
 }
 
 
@@ -154,7 +154,7 @@ typedef NS_ENUM(NSInteger, MFJOpendType) {
 @interface RouterParams : NSObject
 
 /**
- *  URL<e.g. mfj://productDetail/?pid=997>
+ *  URL<e.g. GD://productDetail/?pid=997>
  */
 @property (readonly , nonatomic, strong) NSString               * url;
 
@@ -249,7 +249,7 @@ typedef NS_ENUM(NSInteger, MFJOpendType) {
 {
     NSAssert(self.url.isNotNull, @"url is empty");
     NSURL * url = [NSURL URLWithString:self.url];
-    return url.host.MFJMD5;
+    return url.host.GDMD5;
 }
 @end
 
@@ -281,7 +281,7 @@ typedef NS_ENUM(NSInteger, MFJOpendType) {
 
 - (void)cacheClear
 {
-    [[MFJRouter sharedInstance].cachedRoutes removeAllObjects];
+    [[GDRouter sharedInstance].cachedRoutes removeAllObjects];
 }
 
 #pragma mark  通过 block 注册 url
@@ -372,7 +372,7 @@ navController:(UINavigationController* )navController
     [self open:url
       animated:animated
    extraParams:extraParams
-         style:MFJOpendTypeModal
+         style:GDOpendTypeModal
     completion:completion];
 }
 
@@ -398,7 +398,7 @@ navController:(UINavigationController* )navController
     [self open:url
       animated:animated
    extraParams:extraParams
-         style:MFJOpendTypePush
+         style:GDOpendTypePush
     completion:nil];
 }
 
@@ -406,14 +406,14 @@ navController:(UINavigationController* )navController
 - (void)open:(NSString *)url
     animated:(BOOL)animated
  extraParams:(NSDictionary *)extraParams
-       style:(MFJOpendType)type
+       style:(GDOpendType)type
   completion:(RouterCompletion)completion
 {
     CGFloat occupancy = self.cachedRoutes.count/self.routes.count;
     occupancy > 0.9 ? [self cacheClear] : NO;
     NSURL * Url = [NSURL URLWithString:url];
     NSMutableDictionary * completeParams = [self paramsForUrl:url extraParams:extraParams];
-    RouterParams *params = [self routerParamsForUrl:Url.host.MFJMD5 extraParams:completeParams];
+    RouterParams *params = [self routerParamsForUrl:Url.host.GDMD5 extraParams:completeParams];
     
     // 如果传入的 URL 没有映射到对应的数据说明此 URL 没有注册或者 URL 错误
     if (!params || params == nil) {
@@ -433,9 +433,9 @@ navController:(UINavigationController* )navController
     if (!self.navigationController) {
         UIViewController       * currentVc = [self currentViewController];
         UINavigationController * navC = currentVc.navigationController;
-        if (navC && type == MFJOpendTypePush) {
+        if (navC && type == GDOpendTypePush) {
             self.navigationController = navC;
-        }else if (currentVc && type == MFJOpendTypeModal){
+        }else if (currentVc && type == GDOpendTypeModal){
             self.controller = currentVc;
         }else{
             if (!_openException) {
@@ -458,7 +458,7 @@ navController:(UINavigationController* )navController
         return;
     }
     
-    if (type == MFJOpendTypePush) {
+    if (type == GDOpendTypePush) {
         if (self.navigationController.presentedViewController) {
             [self.navigationController dismissViewControllerAnimated:animated completion:nil];
         }
@@ -480,9 +480,17 @@ navController:(UINavigationController* )navController
         
         if (nav) {
             nav.viewControllers = @[vc];
-            [self.controller presentViewController:nav animated:animated completion:completion];
+            if (self.navigationController) {
+                [self.navigationController presentViewController:nav animated:animated completion:completion];
+            }else{
+                [self.controller presentViewController:nav animated:animated completion:completion];
+            }
         }else{
-            [self.controller presentViewController:vc animated:animated completion:completion];
+            if (self.navigationController) {
+                [self.navigationController presentViewController:vc animated:animated completion:completion];
+            }else{
+                [self.controller presentViewController:vc animated:animated completion:completion];
+            }
         }
         
     }
@@ -498,7 +506,7 @@ navController:(UINavigationController* )navController
 - (void)go:(NSString *)url animated:(BOOL)animated params:(NSDictionary *)params completion:(RouterCompletion)completion
 {
     
-    MFJAction * Action = [[MFJRouterCenter defaultCenter] actionOfPath:url];
+    GDRouterAction * Action = [[GDRouterCenter defaultCenter] actionOfPath:url];
     
     Class targetClass = Action.target;
     SEL action = Action.action;
@@ -627,7 +635,7 @@ navController:(UINavigationController* )navController
                    extraParams:(NSDictionary *)extraParams
 {
     
-    NSMutableDictionary *params = [[MFJRouterCenter defaultCenter] queryItemsInPath:url];
+    NSMutableDictionary *params = [[GDRouterCenter defaultCenter] queryItemsInPath:url];
     if (extraParams) {
         [params addEntriesFromDictionary:extraParams];
     }
@@ -721,14 +729,14 @@ navController:(UINavigationController* )navController
 
 - (id)setParams:(NSDictionary *)params forObject:(id)object
 {
-    [[MFJRouterCenter defaultCenter] model:object params:params];
+    [[GDRouterCenter defaultCenter] model:object params:params];
     return object;
 }
 
 - (void)def:(id)obj
 {
     // 无响应处理
-    Class defTargetClass = NSClassFromString(@"MFJRouterDefault");
+    Class defTargetClass = NSClassFromString(@"GDRouterDefault");
     id defTarget = [[defTargetClass alloc] init];
     SEL defAction = NSSelectorFromString(@"notFound:");
 #pragma clang diagnostic push

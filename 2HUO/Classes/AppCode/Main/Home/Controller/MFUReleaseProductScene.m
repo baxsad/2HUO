@@ -225,7 +225,7 @@
 - (void)leftButtonTouch
 {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
-    [[MFJRouter sharedInstance] pop];
+    [[GDRouter sharedInstance] pop];
 }
 
 #pragma mark - <CollectionViewDelegate>

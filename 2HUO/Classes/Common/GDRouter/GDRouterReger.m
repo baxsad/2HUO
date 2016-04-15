@@ -1,19 +1,19 @@
 //
-//  MFJRouter+Extent.m
+//  GDRouter+Extent.m
 //  2HUO
 //
 //  Created by iURCoder on 3/22/16.
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "MFJRouterReger.h"
-#import "MFJRouter.h"
+#import "GDRouterReger.h"
+#import "GDRouter.h"
 
-@implementation MFJRouterReger
+@implementation GDRouterReger
 
 + (void)reg
 {
-    [[MFJRouter sharedInstance] reg:@"mfj://addProduct" toClass:NSClassFromString(@"MFUReleaseProductScene") navClass:NSClassFromString(@"IHNavigationController")];
+    [[GDRouter sharedInstance] reg:@"GD://addProduct" toClass:NSClassFromString(@"MFUReleaseProductScene") navClass:NSClassFromString(@"IHNavigationController")];
     
     
 }

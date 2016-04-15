@@ -8,7 +8,6 @@
 
 #import "AppDelegate.h"
 #import "MFUHomeViewController.h"
-#import "MFJRouter.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "UMSocial.h"
 #import "UMSocialSinaSSOHandler.h"
@@ -38,8 +37,8 @@
 //    fps.centerY = 25;
 //    [self.window addSubview:fps];
     
-    [MFJRouter sharedInstance].openException = YES;
-    [[MFJRouter sharedInstance] reg];
+    [GDRouter sharedInstance].openException = YES;
+    [[GDRouter sharedInstance] reg];
     
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;

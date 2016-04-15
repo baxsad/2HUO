@@ -1,5 +1,5 @@
 //
-//  MFJRouter+Extent.h
+//  GDRouter+Extent.h
 //  2HUO
 //
 //  Created by iURCoder on 3/22/16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MFJRouterReger : NSObject
+@interface GDRouterReger : NSObject
 
 + (void)reg;
 
