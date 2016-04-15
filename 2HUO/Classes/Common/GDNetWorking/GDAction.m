@@ -25,6 +25,7 @@ static GDAction *instance       = nil;
 
 @interface GDAction ()
 
+@property (nonatomic,strong) TMCache * requestCache;
 @property(nonatomic,assign)BOOL cacheEnable;
 @property(nonatomic,assign)BOOL dataFromCache;
 @property (nonatomic, strong) NSCache *sessionManagerCache;
@@ -40,6 +41,7 @@ static GDAction *instance       = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         instance = [[self alloc] init];
+        instance.requestCache = [[TMCache alloc] initWithName:GD_CACHE_NAME];
     });
     return instance;
 }
@@ -286,7 +288,7 @@ static GDAction *instance       = nil;
         if(error == nil){
             req.output = responseObject;
             if(_cacheEnable && [strongSelf doCheckCode:req]){
-                [[TMCache sharedCache] setObject:responseObject forKey:req.requestID block:^(TMCache *cache, NSString *key, id object) {
+                [[GDAction shareInstance].requestCache setObject:responseObject forKey:req.requestID block:^(TMCache *cache, NSString *key, id object) {
                     NSLog(@"%@ has cached",request.URL);
                 }];
             }
@@ -334,7 +336,7 @@ static GDAction *instance       = nil;
         });
     }
     
-    req.output = [[TMCache sharedCache] objectForKey:req.requestID];
+    req.output = [[GDAction shareInstance].requestCache objectForKey:req.requestID];
     if (_dataFromCache == YES && req.output !=nil) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self checkCode:req];
@@ -624,6 +626,24 @@ static GDAction *instance       = nil;
     if (block) {
         self.listenBlock = block;
     }
+}
+
+- (id)getCacheFromUrl:(nonnull GDReq *)req
+{
+    NSString * cacheKey = req.requestID;
+    id cacheObject = [[GDAction shareInstance].requestCache objectForKey:cacheKey];
+    return cacheObject;
+}
+
+- (void)clearAllCache
+{
+    [[GDAction shareInstance].requestCache removeAllObjects];
+}
+
+- (void)clearCacheFromUrl:(nonnull GDReq *)req
+{
+    NSString * cacheKey = req.requestID;
+    [[GDAction shareInstance].requestCache removeObjectForKey:cacheKey];
 }
 
 @end

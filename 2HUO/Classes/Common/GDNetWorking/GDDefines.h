@@ -36,6 +36,8 @@ static NSString* const kWebBaseUrl = @"http://www.caimiapp.com/";
 #define GD_REQUEST_RIGHT_CODE  0
 #define GD_ERROR_CODE_PATH     @"error_code"
 
+#define GD_CACHE_NAME  @"gd.request.url.cache.disk.biubiubiu"
+
 // RequestCachePolicy
 typedef NS_ENUM(NSUInteger, GDRequestCachePolicy) {
     GDRequestCachePolicyNoCache           = 0 , /**< 不缓存    */
