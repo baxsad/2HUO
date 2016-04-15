@@ -32,7 +32,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    NSLog(@"%li",self.age);
+    NSLog(@"我是%@,今年%li岁,%@,%@",self.name,self.age,self.image,self.girls);
 }
 
 - (void)viewDidLoad

@@ -10,6 +10,9 @@
 #import "NJKScrollFullScreen.h"
 @interface MFUHomeScene : IHBaseViewController
 
+@property (nonatomic,copy)NSString * name;
 @property (nonatomic,assign)NSInteger age;
+@property (nonatomic,copy)NSArray * girls;
+@property (nonatomic,strong)UIImage * image;
 
 @end

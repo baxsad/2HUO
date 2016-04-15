@@ -417,6 +417,7 @@ navController:(UINavigationController* )navController
     
     // 如果传入的 URL 没有映射到对应的数据说明此 URL 没有注册或者 URL 错误
     if (!params || params == nil) {
+        // 没有注册的url走这一步，例如：taobao://target/action?id=667
         [self go:url animated:animated params:extraParams completion:completion];
         return;
     }
@@ -453,6 +454,7 @@ navController:(UINavigationController* )navController
     
     if (!vc || vc == nil) {
         NSLog(@"没有要跳转的视图控制器！");
+        [self def:self];
         return;
     }
     
@@ -498,18 +500,31 @@ navController:(UINavigationController* )navController
     
     MFJAction * Action = [[MFJRouterCenter defaultCenter] actionOfPath:url];
     
-    Class target = Action.target;
+    Class targetClass = Action.target;
     SEL action = Action.action;
     
     UIViewController       * currentVc = [self currentViewController];
     UINavigationController * navC = currentVc.navigationController;
     self.navigationController = navC;
     
-    UIViewController * controller = [[target alloc] init];
+    id target = [[targetClass alloc] init];
     
-    [self setParams:Action.params forObject:controller];
+    NSMutableDictionary * fullParams = [NSMutableDictionary dictionary];
     
-    [self.navigationController pushViewController:controller animated:animated];
+    if (Action.params && Action.params.count>0)
+        [fullParams addEntriesFromDictionary:Action.params];
+    if (params && params.count > 0)
+        [fullParams addEntriesFromDictionary:params];
+    
+    [self setParams:fullParams forObject:target];
+    
+    if ([target isKindOfClass:[UIViewController class]]||
+        [target isKindOfClass:[UINavigationController class]]||
+        [target isKindOfClass:[UITabBarController class]]||
+        [target isKindOfClass:[UITableViewController class]]||
+        [target isKindOfClass:[UICollectionViewController class]]) {
+        [self.navigationController pushViewController:target animated:animated];
+    }
     
     if ([target respondsToSelector:action]) {
 #pragma clang diagnostic push
@@ -519,6 +534,7 @@ navController:(UINavigationController* )navController
     } else {
         
         // 无响应处理
+        [self def:target];
         return;
         
     }
@@ -705,14 +721,22 @@ navController:(UINavigationController* )navController
 
 - (id)setParams:(NSDictionary *)params forObject:(id)object
 {
-    
     [[MFJRouterCenter defaultCenter] model:object params:params];
-    
-    
-    
     return object;
 }
 
+- (void)def:(id)obj
+{
+    // 无响应处理
+    Class defTargetClass = NSClassFromString(@"MFJRouterDefault");
+    id defTarget = [[defTargetClass alloc] init];
+    SEL defAction = NSSelectorFromString(@"notFound:");
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    [defTarget performSelector:defAction withObject:obj];
+#pragma clang diagnostic pop
+    
+}
 @end
 
 

@@ -40,7 +40,8 @@
     
     //开关事件
     shake.switchBlock = ^(BOOL on) {
-        [[MFJRouter sharedInstance] open:@"caimi://temai/add?age=27"];
+        NSDictionary * dic =@{@"girls":@[@1,@2,@3],@"image":[UILabel new]};
+        [[MFJRouter sharedInstance] open:@"caimi://temai/add?age=27&name=wangrui" extraParams:dic];
     };
     
     // 1.2.声音提示

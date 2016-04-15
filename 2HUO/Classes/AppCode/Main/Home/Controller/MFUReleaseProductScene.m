@@ -288,7 +288,8 @@
     
 }
 
-- (void)dragCellCollectionViewCellEndMoving:(MFJDragCellCollectionView *)collectionView{
+- (void)dragCellCollectionViewCellEndMoving:(MFJDragCellCollectionView *)collectionView
+{
     
 }
 

@@ -117,7 +117,7 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
     [_allAsset removeAllObjects];
     if (_picker.showCameraButton) {
         GDAssetModel * CameraAssetModel = [[GDAssetModel alloc] init];
-        CameraAssetModel.asset = [UIImage imageNamed:@""];
+        CameraAssetModel.asset = [UIImage imageNamed:@"camera"];
         CameraAssetModel.type = GDAssetModelMediaTypeCamera;
         [_allAsset addObject:CameraAssetModel];
     }
