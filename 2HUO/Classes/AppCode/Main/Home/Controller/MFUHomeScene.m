@@ -32,6 +32,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    NSLog(@"%li",self.age);
 }
 
 - (void)viewDidLoad

@@ -1,14 +1,14 @@
 //
-//  NSString+MFJExtent.m
+//  NSString+GDExtent.m
 //  2HUO
 //
 //  Created by iURCoder on 4/13/16.
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "NSObject+MFJExtend.h"
+#import "NSObject+GDExtend.h"
 
-@implementation NSObject (MFJExtend)
+@implementation NSObject (GDExtend)
 
 -(BOOL)isNotEmpty{
     return !(self == nil

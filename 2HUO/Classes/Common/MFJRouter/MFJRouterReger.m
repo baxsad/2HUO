@@ -32,4 +32,14 @@
     
 }
 
++ (NSDictionary *)targetMap
+{
+    return @{@"temai":@"MFUHomeScene"};
+}
+
++ (NSDictionary *)actionMap
+{
+    return @{@"add":@"rightButtonTouch"};
+}
+
 @end

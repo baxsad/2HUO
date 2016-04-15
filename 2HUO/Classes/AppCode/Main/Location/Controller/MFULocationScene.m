@@ -7,13 +7,13 @@
 //
 
 #import "MFULocationScene.h"
-#import "MFJNetWorking.h"
+#import "GDNetWorking.h"
 #import "YDog.h"
 #import <AVOSCloud/AVOSCloud.h>
 
 @interface MFULocationScene ()
 
-@property (nonatomic, strong) MFJReq * req;
+@property (nonatomic, strong) GDReq * req;
 
 @end
 
@@ -29,13 +29,13 @@
 {
     [super viewDidLoad];
     
-    MFJReq * request = [[MFJReq alloc] initRequest];
+    GDReq * request = [[GDReq alloc] initRequest];
     request.HOST = @"https://x.mouto.org/";
     request.PATH = @"/wb/x.php?up";
     request.METHOD = @"POST";
     request.STATICPATH = @"https://www.baidu.com";
     request.needCheckCode = NO;
-    request.responseSerializer = MFJResponseSerializerTypeHTTP;
+    request.responseSerializer = GDResponseSerializerTypeHTTP;
     UIImage * image = [UIImage imageNamed:@"home_like"];
     
     request.requestFiles = @{@"filenamevbb":image};
@@ -43,7 +43,7 @@
     request.requestProgressBlock = ^(NSProgress * s){
         NSLog(@"%f",s.fractionCompleted);
     };
-    [request listen:^(MFJReq *req) {
+    [request listen:^(GDReq *req) {
         if (req.succeed) {
             NSLog(@"ooooook%@",((NSData*)req.output).utf8String);
         }

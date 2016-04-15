@@ -1,5 +1,5 @@
 //
-//  MFJReq.h
+//  GDReq.h
 //  2HUO
 //
 //  Created by iURCoder on 3/31/16.
@@ -7,17 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MFJSecurityPolicy.h"
-#import "MFJDefines.h"
+#import "GDSecurityPolicy.h"
+#import "GDDefines.h"
 
-@class MFJSecurityPolicy;
-@class MFJReq;
+@class GDSecurityPolicy;
+@class GDReq;
 
-typedef void(^listenCallBack)(MFJReq * _Nonnull req);
+typedef void(^listenCallBack)(GDReq * _Nonnull req);
 
-@interface MFJReq : NSObject
+@interface GDReq : NSObject
 /** 安全协议设置 */
-@property (nonatomic,strong,nullable) MFJSecurityPolicy        * securityPolicy;
+@property (nonatomic,strong,nullable) GDSecurityPolicy        * securityPolicy;
 /** 错误码返回 */
 @property(nonatomic,strong,nullable)NSString                   * requestID;
 /** 序列化后的数据 */
@@ -29,7 +29,7 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 /** 请求的错误 */
 @property(nonatomic,strong,nullable)NSError                    * error;
 /** /Request状态 */
-@property(nonatomic,assign)MFJRequestStatus                      status;
+@property(nonatomic,assign)GDRequestStatus                      status;
 /** 请求的链接 */
 @property(nonatomic,strong,nullable)NSURL                      * url;
 /** 错误消息或者服务器返回的MSG */
@@ -53,7 +53,7 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 /** 是否需要检查错误码 */
 @property(nonatomic,assign)BOOL                                  needCheckCode;
 /** 返回数据格式 */
-@property(nonatomic,assign)MFJResponseSerializerType             responseSerializer;
+@property(nonatomic,assign)GDResponseSerializerType             responseSerializer;
 /** 可接受的序列化返回数据的格式 */
 @property(nonatomic,strong,nullable)NSSet                      * acceptableContentTypes;
 /** Http头参数设置 */
@@ -71,7 +71,7 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 /** 是否第一次加载 */
 @property(nonatomic,assign)BOOL                                  isFirstRequest;
 /** 缓存策略 */
-@property (nonatomic,assign)MFJRequestCachePolicy                cachePolicy;
+@property (nonatomic,assign)GDRequestCachePolicy                cachePolicy;
 
 /** 上传文件列表 */
 @property(nonatomic,strong,nullable)NSDictionary               * requestFiles;

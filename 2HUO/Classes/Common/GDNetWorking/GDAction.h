@@ -1,5 +1,5 @@
 //
-//  MFJRequestManager.h
+//  GDRequestManager.h
 //  2HUO
 //
 //  Created by iURCoder on 4/1/16.
@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class MFJReq,MFJGroupReq;
+@class GDReq,GDGroupReq;
 
-typedef void(^listenCallBack)(MFJReq * _Nonnull req);
+typedef void(^listenCallBack)(GDReq * _Nonnull req);
 
-@interface MFJReqAction : NSObject
+@interface GDAction : NSObject
 
 - (nonnull instancetype)init UNAVAILABLE_ATTRIBUTE;
 
@@ -22,11 +22,11 @@ typedef void(^listenCallBack)(MFJReq * _Nonnull req);
 
 + (nonnull instancetype)action;
 
-- (void)Send:(nonnull MFJReq  *)req;
+- (void)Send:(nonnull GDReq  *)req;
 
-- (void)sendRequests:(nonnull MFJGroupReq *)groupreq;
+- (void)sendRequests:(nonnull GDGroupReq *)groupreq;
 
-- (void)cancelRequest:(nonnull MFJReq  *)req;
+- (void)cancelRequest:(nonnull GDReq  *)req;
 
 - (void)listen:(nonnull listenCallBack)block;
 

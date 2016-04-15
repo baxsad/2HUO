@@ -1,21 +1,21 @@
 //
-//  MFJReq.m
+//  GDReq.m
 //  2HUO
 //
 //  Created by iURCoder on 3/31/16.
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "MFJReq.h"
-#import "MFJReqAction.h"
+#import "GDReq.h"
+#import "GDAction.h"
 
-@interface MFJReq ()
+@interface GDReq ()
 
-@property (nonatomic, strong) MFJReqAction * action;
+@property (nonatomic, strong) GDAction * action;
 
 @end
 
-@implementation MFJReq
+@implementation GDReq
 
 + (nonnull instancetype)Request
 {
@@ -45,29 +45,29 @@
 - (void)loadRequest
 {
     self.securityPolicy         = [self reqSecurityPolicy];
-    self.cachePolicy            = MFJRequestCachePolicyNoCache;
+    self.cachePolicy            = GDRequestCachePolicyNoCache;
     self.output                 = nil;
     self.params                 = [NSMutableDictionary dictionary];
     self.responseString         = nil;
     self.error                  = nil;
-    self.status                 = MFJRequestStatusNotStart;
+    self.status                 = GDRequestStatusNotStart;
     self.url                    = nil;
     self.message                = nil;
     self.codeKey                = nil;
-    self.exactitudeKey          = MFJ_REQUEST_RIGHT_CODE;
-    self.exactitudeKeyPath      = MFJ_ERROR_CODE_PATH;
+    self.exactitudeKey          = GD_REQUEST_RIGHT_CODE;
+    self.exactitudeKeyPath      = GD_ERROR_CODE_PATH;
     self.SCHEME                 = nil;
     self.HOST                   = nil;
     self.PATH                   = @"";
     self.STATICPATH             = @"";
     self.needCheckCode          = NO;
-    self.responseSerializer     = MFJResponseSerializerTypeJSON;
-    self.timeoutInterval        = MFJ_API_REQUEST_TIME_OUT;
+    self.responseSerializer     = GDResponseSerializerTypeJSON;
+    self.timeoutInterval        = GD_API_REQUEST_TIME_OUT;
     self.isFirstRequest         = YES;
     self.isTimeout              = NO;
     self.acceptableContentTypes = [self responseAcceptableContentTypes];
     self.httpHeaderFields       = [self requestHTTPHeaderField];
-    self.action                 = [MFJReqAction action];
+    self.action                 = [GDAction action];
     [self loadActive];
     
 }
@@ -91,39 +91,47 @@
     }
 }
 
+- (void)setParams:(NSMutableDictionary *)params
+{
+    if ([params isKindOfClass:[NSDictionary class]]) {
+        _params = [params mutableCopy];return;
+    }
+    _params = params;
+}
+
 - (BOOL)succeed
 {
     if(self.output == nil){
         return NO;
     }
-    return MFJRequestStatusSuccess == self.status ? YES : NO;
+    return GDRequestStatusSuccess == self.status ? YES : NO;
 }
 
 - (BOOL)sending
 {
-    return MFJRequestStatusSending == self.status ? YES : NO;
+    return GDRequestStatusSending == self.status ? YES : NO;
 }
 
 - (BOOL)failed
 {
-    return (MFJRequestStatusFailed == self.status
-            || MFJRequestStatusError == self.status)
+    return (GDRequestStatusFailed == self.status
+            || GDRequestStatusError == self.status)
     ? YES : NO;
 }
 
 - (BOOL)Error
 {
-    return MFJRequestStatusError == self.status ? YES : NO;
+    return GDRequestStatusError == self.status ? YES : NO;
 }
 
 - (BOOL)cancled
 {
-    return MFJRequestStatusCancle == self.status ? YES : NO;
+    return GDRequestStatusCancle == self.status ? YES : NO;
 }
 
 - (BOOL)timeOut
 {
-    return MFJRequestStatusTimeOut == self.status ? YES : NO;
+    return GDRequestStatusTimeOut == self.status ? YES : NO;
 }
 
 - (void)start
@@ -151,12 +159,12 @@
     return NSURLRequestUseProtocolCachePolicy;
 }
 
-- (nullable MFJSecurityPolicy *)reqSecurityPolicy {
-    MFJSecurityPolicy *securityPolicy;
+- (nullable GDSecurityPolicy *)reqSecurityPolicy {
+    GDSecurityPolicy *securityPolicy;
 #ifdef DEBUG
-    securityPolicy = [MFJSecurityPolicy policyWithPinningMode:MFJSSLPinningModeNone];
+    securityPolicy = [GDSecurityPolicy policyWithPinningMode:GDSSLPinningModeNone];
 #else
-    securityPolicy = [MFJSecurityPolicy policyWithPinningMode:MFJSSLPinningModePublicKey];
+    securityPolicy = [GDSecurityPolicy policyWithPinningMode:GDSSLPinningModePublicKey];
 #endif
     return securityPolicy;
 }

@@ -8,7 +8,7 @@
 
 #import "MFUMoreScene.h"
 #import "AccountCenter.h"
-
+#import "MFJRouter.h"
 
 @implementation MFUMoreScene
 
@@ -40,7 +40,7 @@
     
     //开关事件
     shake.switchBlock = ^(BOOL on) {
-        NSLog(@"声音提示%zd",on);
+        [[MFJRouter sharedInstance] open:@"caimi://temai/add?age=27"];
     };
     
     // 1.2.声音提示

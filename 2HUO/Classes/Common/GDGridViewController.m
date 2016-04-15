@@ -9,6 +9,7 @@
 #import "GDGridViewController.h"
 #import "GDImagePickerController.h"
 #import "GDGridViewCell.h"
+#import "GDCameraViewController.h"
 
 @implementation NSIndexSet (Convenience)
 - (NSArray *)aapl_indexPathsFromIndexesWithSection:(NSUInteger)section {

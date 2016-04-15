@@ -1,5 +1,5 @@
 //
-//  MFJSecurityPolicy.h
+//  GDSecurityPolicy.h
 //  2HUO
 //
 //  Created by iURCoder on 4/13/16.
@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MFJDefines.h"
+#import "GDDefines.h"
 
-@interface MFJSecurityPolicy : NSObject
+@interface GDSecurityPolicy : NSObject
 
 /**
  *  SSL Pinning证书的校验模式
  *  默认为 DRDSSLPinningModeNone
  */
-@property (readonly, nonatomic, assign) MFJSSLPinningMode SSLPinningMode;
+@property (readonly, nonatomic, assign) GDSSLPinningMode SSLPinningMode;
 
 /**
  *  是否允许使用Invalid 证书
@@ -36,6 +36,6 @@
  *
  *  @return 新的SecurityPolicy
  */
-+ (instancetype)policyWithPinningMode:(MFJSSLPinningMode)pinningMode;
++ (instancetype)policyWithPinningMode:(GDSSLPinningMode)pinningMode;
 
 @end

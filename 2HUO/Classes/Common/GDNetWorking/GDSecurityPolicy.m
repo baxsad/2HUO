@@ -1,23 +1,23 @@
 //
-//  MFJSecurityPolicy.m
+//  GDSecurityPolicy.m
 //  2HUO
 //
 //  Created by iURCoder on 4/13/16.
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "MFJSecurityPolicy.h"
+#import "GDSecurityPolicy.h"
 
-@interface MFJSecurityPolicy ()
+@interface GDSecurityPolicy ()
 
-@property (readwrite, nonatomic, assign) MFJSSLPinningMode SSLPinningMode;
+@property (readwrite, nonatomic, assign) GDSSLPinningMode SSLPinningMode;
 
 @end
 
-@implementation MFJSecurityPolicy
+@implementation GDSecurityPolicy
 
-+ (instancetype)policyWithPinningMode:(MFJSSLPinningMode)pinningMode {
-    MFJSecurityPolicy *securityPolicy = [[MFJSecurityPolicy alloc] init];
++ (instancetype)policyWithPinningMode:(GDSSLPinningMode)pinningMode {
+    GDSecurityPolicy *securityPolicy = [[GDSecurityPolicy alloc] init];
     if (securityPolicy) {
         securityPolicy.SSLPinningMode           = pinningMode;
         securityPolicy.allowInvalidCertificates = NO;

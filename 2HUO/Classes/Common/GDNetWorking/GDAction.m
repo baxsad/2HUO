@@ -1,30 +1,29 @@
 //
-//  MFJReqAction.m
+//  GDReqAction.m
 //  2HUO
 //
 //  Created by iURCoder on 4/1/16.
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "MFJReqAction.h"
-#import "MFJReq.h"
-#import "MFJGroupReq.h"
-#import "TMCache.h"
-#import "MFJSecurityPolicy.h"
+#import "GDAction.h"
+#import "GDReq.h"
+#import "GDGroupReq.h"
+#import "GDSecurityPolicy.h"
 
-static dispatch_queue_t MFJ_req_task_creation_queue() {
-    static dispatch_queue_t MFJ_req_task_creation_queue;
+static dispatch_queue_t GD_req_task_creation_queue() {
+    static dispatch_queue_t GD_req_task_creation_queue;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        MFJ_req_task_creation_queue =
+        GD_req_task_creation_queue =
         dispatch_queue_create("me.iur.cool.networking.durandal.req.creation", DISPATCH_QUEUE_SERIAL);
     });
-    return MFJ_req_task_creation_queue;
+    return GD_req_task_creation_queue;
 }
 
-static MFJReqAction *instance       = nil;
+static GDAction *instance       = nil;
 
-@interface MFJReqAction ()
+@interface GDAction ()
 
 @property(nonatomic,assign)BOOL cacheEnable;
 @property(nonatomic,assign)BOOL dataFromCache;
@@ -34,7 +33,7 @@ static MFJReqAction *instance       = nil;
 
 @end
 
-@implementation MFJReqAction
+@implementation GDAction
 
 + (nonnull instancetype)shareInstance
 {
@@ -67,8 +66,8 @@ static MFJReqAction *instance       = nil;
 }
 
 
--(NSURLSessionDataTask *)Upload:(MFJReq *)req{
-    NSString *url = [self requesturlFromMFJRequest:req];
+-(NSURLSessionDataTask *)Upload:(GDReq *)req{
+    NSString *url = [self requesturlFromGDRequest:req];
     NSDictionary *requestParams = nil;
     
     if(req.appendPathInfo.isNotEmpty){
@@ -141,7 +140,7 @@ static MFJReqAction *instance       = nil;
 }
 
 
--(NSURLSessionDownloadTask *)Download:(MFJReq *)req{
+-(NSURLSessionDownloadTask *)Download:(GDReq *)req{
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
     AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
@@ -158,21 +157,21 @@ static MFJReqAction *instance       = nil;
         }];
     }
     
-    __weak typeof(MFJReq *) weakReq = req;
+    __weak typeof(GDReq *) weakReq = req;
     NSURLSessionDownloadTask *task = [manager downloadTaskWithRequest:request progress:^(NSProgress * downloadProgress) {
-        __strong typeof(MFJReq *) strongReq = weakReq;
+        __strong typeof(GDReq *) strongReq = weakReq;
         if (strongReq.requestProgressBlock) {
             strongReq.requestProgressBlock(downloadProgress);
         }
     } destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
         
-        __strong typeof(MFJReq *) strongReq = weakReq;
+        __strong typeof(GDReq *) strongReq = weakReq;
         NSURL *documentsDirectoryURL = [NSURL URLWithString:strongReq.targetPath];
         return [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
         
     } completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
         
-        __strong typeof(MFJReq *) strongReq = weakReq;
+        __strong typeof(GDReq *) strongReq = weakReq;
         strongReq.error = error;
         
     }];
@@ -182,7 +181,7 @@ static MFJReqAction *instance       = nil;
 }
 
 
-- (void)Send:(nonnull MFJReq  *)req
+- (void)Send:(nonnull GDReq  *)req
 {
     NSParameterAssert(req);
     
@@ -197,13 +196,13 @@ static MFJReqAction *instance       = nil;
         return;
     }
     
-    if (req.cachePolicy != MFJRequestCachePolicyNoCache) {
+    if (req.cachePolicy != GDRequestCachePolicyNoCache) {
         [self useCache];
     }
-    if (req.cachePolicy == MFJRequestCachePolicyReadCache) {
+    if (req.cachePolicy == GDRequestCachePolicyReadCache) {
         [self readFromCache];
     }
-    if (req.cachePolicy == MFJRequestCachePolicyReadCacheFirst) {
+    if (req.cachePolicy == GDRequestCachePolicyReadCacheFirst) {
         if (req.isFirstRequest) {
             [self readFromCache];
         }else{
@@ -211,7 +210,7 @@ static MFJReqAction *instance       = nil;
         }
     }
     
-    dispatch_async(MFJ_req_task_creation_queue(), ^{
+    dispatch_async(GD_req_task_creation_queue(), ^{
         
         NSMutableURLRequest *request = [self managerRequestWithRequest:req];
         AFURLSessionManager *sessionManager = [self sessionManagerWithRequest:req];
@@ -230,7 +229,7 @@ static MFJReqAction *instance       = nil;
     });
 }
 
-- (void)sendRequests:(nonnull MFJGroupReq *)groupreq
+- (void)sendRequests:(nonnull GDGroupReq *)groupreq
 {
     NSParameterAssert(groupreq);
     
@@ -260,11 +259,11 @@ static MFJReqAction *instance       = nil;
     });
 }
 
--(NSURLSessionDataTask *)_send:(MFJReq *)req request:(NSMutableURLRequest *)request manager:(AFURLSessionManager *)manager{
+-(NSURLSessionDataTask *)_send:(GDReq *)req request:(NSMutableURLRequest *)request manager:(AFURLSessionManager *)manager{
     return [self _send:req request:request manager:manager andCompletionGroup:nil];
 }
 
--(NSURLSessionDataTask *)_send:(MFJReq *)req request:(NSMutableURLRequest *)request manager:(AFURLSessionManager *)manager andCompletionGroup:(dispatch_group_t)completionGroup
+-(NSURLSessionDataTask *)_send:(GDReq *)req request:(NSMutableURLRequest *)request manager:(AFURLSessionManager *)manager andCompletionGroup:(dispatch_group_t)completionGroup
 {
     NSParameterAssert(req);
     NSParameterAssert(manager);
@@ -346,9 +345,9 @@ static MFJReqAction *instance       = nil;
 }
 
 
-- (void)cancelRequest:(nonnull MFJReq  *)req
+- (void)cancelRequest:(nonnull GDReq  *)req
 {
-    dispatch_async(MFJ_req_task_creation_queue(), ^{
+    dispatch_async(GD_req_task_creation_queue(), ^{
         NSURLSessionDataTask *dataTask = [self.sessionTasksCache objectForKey:req.requestID];
         [self.sessionTasksCache removeObjectForKey:req.requestID];
         if (dataTask) {
@@ -358,10 +357,10 @@ static MFJReqAction *instance       = nil;
     });
 }
 
-- (NSMutableURLRequest *)managerRequestWithRequest:(MFJReq *)req
+- (NSMutableURLRequest *)managerRequestWithRequest:(GDReq *)req
 {
     
-    NSString *url = [self requesturlFromMFJRequest:req];
+    NSString *url = [self requesturlFromGDRequest:req];
     NSDictionary *requestParams = nil;
     
     if(req.appendPathInfo.isNotEmpty){
@@ -390,7 +389,7 @@ static MFJReqAction *instance       = nil;
 }
 
 #pragma mark - AFSessionManager
-- (AFURLSessionManager *)sessionManagerWithRequest:(MFJReq *)req {
+- (AFURLSessionManager *)sessionManagerWithRequest:(GDReq *)req {
     NSParameterAssert(req);
     
    // responseSerializer
@@ -417,10 +416,10 @@ static MFJReqAction *instance       = nil;
 }
 
 
-- (AFHTTPResponseSerializer *)responseSerializerForRequest:(MFJReq *)req {
+- (AFHTTPResponseSerializer *)responseSerializerForRequest:(GDReq *)req {
     NSParameterAssert(req);
     AFHTTPResponseSerializer *responseSerializer;
-    if ([req responseSerializer] == MFJResponseSerializerTypeHTTP) {
+    if ([req responseSerializer] == GDResponseSerializerTypeHTTP) {
         responseSerializer = [AFHTTPResponseSerializer serializer];
     } else {
         responseSerializer = [AFJSONResponseSerializer serializer];
@@ -429,7 +428,7 @@ static MFJReqAction *instance       = nil;
     return responseSerializer;
 }
 
-- (AFSecurityPolicy *)securityPolicyWithAPI:(MFJReq *)req {
+- (AFSecurityPolicy *)securityPolicyWithAPI:(GDReq *)req {
     NSUInteger pinningMode                  = req.securityPolicy.SSLPinningMode;
     AFSecurityPolicy *securityPolicy        = [AFSecurityPolicy policyWithPinningMode:pinningMode];
     securityPolicy.allowInvalidCertificates = req.securityPolicy.allowInvalidCertificates;
@@ -437,7 +436,7 @@ static MFJReqAction *instance       = nil;
     return securityPolicy;
 }
 
-- (NSString *)requesturlFromMFJRequest:(MFJReq *)req
+- (NSString *)requesturlFromGDRequest:(GDReq *)req
 {
     NSString * url = @"";
     if(req.STATICPATH.isNotEmpty){
@@ -502,7 +501,7 @@ static MFJReqAction *instance       = nil;
     return _sessionTasksCache;
 }
 
-- (void)requestComplete:(MFJReq *)req obj:(id)responseobject
+- (void)requestComplete:(GDReq *)req obj:(id)responseobject
 {
     if (responseobject == nil) {
         req.output     = nil;
@@ -534,64 +533,64 @@ static MFJReqAction *instance       = nil;
     }
 }
 
-- (void)listenRequest:(MFJReq *)req
+- (void)listenRequest:(GDReq *)req
 {
     if (self.listenBlock) {
         self.listenBlock(req);
     }
 }
 
-- (void)request:(MFJReq *)req statusHaveChanged:(MFJRequestStatus)status
+- (void)request:(GDReq *)req statusHaveChanged:(GDRequestStatus)status
 {
     req.status = status;
     [self listenRequest:req];
 }
 
-- (void)requestNotStrat:(MFJReq *)req
+- (void)requestNotStrat:(GDReq *)req
 {
-    [self request:req statusHaveChanged:MFJRequestStatusNotStart];
+    [self request:req statusHaveChanged:GDRequestStatusNotStart];
 }
 
-- (void)requestStartSend:(MFJReq *)req
+- (void)requestStartSend:(GDReq *)req
 {
-    [self request:req statusHaveChanged:MFJRequestStatusStart];
+    [self request:req statusHaveChanged:GDRequestStatusStart];
 }
 
-- (void)requestSending:(MFJReq *)req
+- (void)requestSending:(GDReq *)req
 {
-    [self request:req statusHaveChanged:MFJRequestStatusSending];
+    [self request:req statusHaveChanged:GDRequestStatusSending];
 }
 
-- (void)requestSucccess:(MFJReq *)req
+- (void)requestSucccess:(GDReq *)req
 {
-    [self request:req statusHaveChanged:MFJRequestStatusSuccess];
+    [self request:req statusHaveChanged:GDRequestStatusSuccess];
 }
 
-- (void)requestCancle:(MFJReq *)req
+- (void)requestCancle:(GDReq *)req
 {
-    [self request:req statusHaveChanged:MFJRequestStatusCancle];
+    [self request:req statusHaveChanged:GDRequestStatusCancle];
 }
 
-- (void)requestFaild:(MFJReq *)req
+- (void)requestFaild:(GDReq *)req
 {
     if(req.error.userInfo!= nil){
         req.message = [req.error.userInfo objectForKey:@"NSLocalizedDescription"];
-        [self request:req statusHaveChanged:MFJRequestStatusFailed];
+        [self request:req statusHaveChanged:GDRequestStatusFailed];
     }
     if (req.error.code == -1001) {
         req.isTimeout = YES;
-        [self request:req statusHaveChanged:MFJRequestStatusTimeOut];
+        [self request:req statusHaveChanged:GDRequestStatusTimeOut];
     }else{
-        [self request:req statusHaveChanged:MFJRequestStatusFailed];
+        [self request:req statusHaveChanged:GDRequestStatusFailed];
     }
 }
 
-- (void)requestError:(MFJReq *)req
+- (void)requestError:(GDReq *)req
 {
-    [self request:req statusHaveChanged:MFJRequestStatusError];
+    [self request:req statusHaveChanged:GDRequestStatusError];
 }
 
-- (void)checkCode:(MFJReq *)req
+- (void)checkCode:(GDReq *)req
 {
     if([self doCheckCode:req]){
         [self requestSucccess:req];
@@ -601,7 +600,7 @@ static MFJReqAction *instance       = nil;
     
 }
 
--(BOOL)doCheckCode:(MFJReq *)req{
+-(BOOL)doCheckCode:(GDReq *)req{
     if (req.needCheckCode) {
         NSString * exactitudeKey      = req.exactitudeKey;
         NSString * exactitudeKeyPath  = req.exactitudeKeyPath;

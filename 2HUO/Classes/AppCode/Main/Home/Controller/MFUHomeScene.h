@@ -10,6 +10,6 @@
 #import "NJKScrollFullScreen.h"
 @interface MFUHomeScene : IHBaseViewController
 
-
+@property (nonatomic,assign)NSInteger age;
 
 @end

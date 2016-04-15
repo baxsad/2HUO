@@ -1,5 +1,5 @@
 //
-//  NSString+MFJExtent.h
+//  NSString+GDExtent.h
 //  2HUO
 //
 //  Created by iURCoder on 4/13/16.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSObject (MFJExtend)
+@interface NSObject (GDExtend)
 
 -(BOOL)isNotEmpty;
 

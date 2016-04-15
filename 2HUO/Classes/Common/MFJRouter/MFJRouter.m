@@ -27,6 +27,7 @@
  */
 
 #import "MFJRouter.h"
+#import "MFJRouterCenter.h"
 
 ///-------------------------------
 /// @name 打开方式
@@ -416,7 +417,7 @@ navController:(UINavigationController* )navController
     
     // 如果传入的 URL 没有映射到对应的数据说明此 URL 没有注册或者 URL 错误
     if (!params || params == nil) {
-        NSLog(@" ⚠️ 无效的 URL ！");
+        [self go:url animated:animated params:extraParams completion:completion];
         return;
     }
     
@@ -490,6 +491,38 @@ navController:(UINavigationController* )navController
     if (params.params && params.params.count>0) {
         [params.params removeAllObjects];
     }
+}
+
+- (void)go:(NSString *)url animated:(BOOL)animated params:(NSDictionary *)params completion:(RouterCompletion)completion
+{
+    
+    MFJAction * Action = [[MFJRouterCenter defaultCenter] actionOfPath:url];
+    
+    Class target = Action.target;
+    SEL action = Action.action;
+    
+    UIViewController       * currentVc = [self currentViewController];
+    UINavigationController * navC = currentVc.navigationController;
+    self.navigationController = navC;
+    
+    UIViewController * controller = [[target alloc] init];
+    
+    [self setParams:Action.params forObject:controller];
+    
+    [self.navigationController pushViewController:controller animated:animated];
+    
+    if ([target respondsToSelector:action]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [target performSelector:action withObject:params] ;
+#pragma clang diagnostic pop
+    } else {
+        
+        // 无响应处理
+        return;
+        
+    }
+    
 }
 
 - (NSDictionary*)paramsOfUrl:(NSString*)url
@@ -578,21 +611,7 @@ navController:(UINavigationController* )navController
                    extraParams:(NSDictionary *)extraParams
 {
     
-    NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    NSRange range = [url rangeOfString:@"?"];
-    NSString *propertys = [url substringFromIndex:(int)(range.location+1)];
-    NSArray *subArray = [propertys componentsSeparatedByString:@"&"];
-    NSMutableDictionary *tempDic = [NSMutableDictionary dictionaryWithCapacity:4];
-    
-    for (int j = 0 ; j < subArray.count; j++)
-    {
-        NSArray *dicArray = [subArray[j] componentsSeparatedByString:@"="];
-        if (dicArray.count == 1) {
-            continue;
-        }
-        [tempDic setObject:dicArray[1] forKey:dicArray[0]];
-    }
-    [params addEntriesFromDictionary:tempDic];
+    NSMutableDictionary *params = [[MFJRouterCenter defaultCenter] queryItemsInPath:url];
     if (extraParams) {
         [params addEntriesFromDictionary:extraParams];
     }
@@ -682,6 +701,16 @@ navController:(UINavigationController* )navController
     }
     free(properties);
     return propertyNamesArray;
+}
+
+- (id)setParams:(NSDictionary *)params forObject:(id)object
+{
+    
+    [[MFJRouterCenter defaultCenter] model:object params:params];
+    
+    
+    
+    return object;
 }
 
 @end

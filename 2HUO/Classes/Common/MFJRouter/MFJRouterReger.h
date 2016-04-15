@@ -14,4 +14,8 @@
 
 + (void)clearCache;
 
++ (NSDictionary *)targetMap;
+
++ (NSDictionary *)actionMap;
+
 @end

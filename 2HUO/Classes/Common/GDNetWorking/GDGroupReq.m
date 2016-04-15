@@ -1,22 +1,22 @@
 //
-//  MFJGroupReq.m
+//  GDGroupReq.m
 //  2HUO
 //
 //  Created by iURCoder on 4/2/16.
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "MFJGroupReq.h"
-#import "MFJReq.h"
-#import "MFJReqAction.h"
+#import "GDGroupReq.h"
+#import "GDReq.h"
+#import "GDAction.h"
 
-@interface MFJGroupReq ()
+@interface GDGroupReq ()
 
 @property (nonatomic, strong, readwrite) NSMutableSet *requestsSet;
 
 @end
 
-@implementation MFJGroupReq
+@implementation GDGroupReq
 
 #pragma mark - Init
 - (instancetype)init {
@@ -28,10 +28,10 @@
 }
 
 #pragma mark - Add Requests
-- (void)addRequest:(MFJReq *)req {
+- (void)addRequest:(GDReq *)req {
     NSParameterAssert(req);
-    NSAssert([req isKindOfClass:[MFJReq class]],
-             @"Rqe should be kind of MFJRqe");
+    NSAssert([req isKindOfClass:[GDReq class]],
+             @"Rqe should be kind of GDRqe");
     if ([self.requestsSet containsObject:req]) {
 #ifdef DEBUG
         NSLog(@"Add SAME Req into Group set");
@@ -45,12 +45,12 @@
     NSParameterAssert(reqs);
     NSAssert([reqs count] > 0, @"Reqs amounts should greater than ZERO");
     [reqs enumerateObjectsUsingBlock:^(id  obj, BOOL * stop) {
-        if ([obj isKindOfClass:[MFJReq class]]) {
+        if ([obj isKindOfClass:[GDReq class]]) {
             [self.requestsSet addObject:obj];
         } else {
             __unused NSString *hintStr = [NSString stringWithFormat:@"%@ %@",
                                           [[obj class] description],
-                                          @"Req should be kind of MFJReq"];
+                                          @"Req should be kind of GDReq"];
             NSAssert(NO, hintStr);
             return ;
         }
@@ -59,7 +59,7 @@
 
 - (void)start {
     NSAssert([self.requestsSet count] != 0, @"Group API Amount can't be 0");
-    [[MFJReqAction shareInstance] sendRequests:self];
+    [[GDAction shareInstance] sendRequests:self];
 }
 
 
