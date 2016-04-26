@@ -109,4 +109,8 @@
                           borderColor:(UIColor *)borderColor
                        borderLineJoin:(CGLineJoin)borderLineJoin;
 
+- (UIImage *)imageByResizeToSize:(CGSize)size contentMode:(UIViewContentMode)contentMode;
+
+- (NSString *)bytes;
+
 @end

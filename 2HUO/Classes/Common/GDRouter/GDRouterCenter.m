@@ -49,7 +49,35 @@
         return nil;
     }
     
-    NSArray *subPath = [clearPath componentsSeparatedByString:@"/"];
+    // 1. luxun://bangumis/day?id=10023
+    // 2. luxun://bangumis/day/?id=10023
+    // 3. luxun://bangumis?id=10023
+    // 4. luxun://bangumis/?id=10023
+    // 5. luxun://bangumis
+    // 6. luxun://bangumis/
+    // 7. luxun://bangumis/av/av34345456
+    
+    BOOL isHaveQuestionMark = [clearPath isIncloud:@"?"];
+    if (isHaveQuestionMark) {
+        BOOL isHaveQuestionMarkAndLine = [clearPath isIncloud:@"/?"];
+        if (!isHaveQuestionMarkAndLine) {
+            clearPath = [clearPath stringByReplacingOccurrencesOfString:@"?" withString:@"/?"];
+        }
+    }
+    if (![clearPath hasSuffix:@"/"]) {
+        clearPath = [clearPath stringByAppendingString:@"/"];
+    }
+    
+    NSString *pathPath,*paramsPath;
+    if (isHaveQuestionMark) {
+        pathPath = [clearPath componentsSeparatedByString:@"?"][0];
+        paramsPath = clearPath;
+    }else{
+        pathPath = clearPath;
+        paramsPath = clearPath;
+    }
+    
+    NSArray *subPath = [pathPath componentsSeparatedByString:@"/"];
     if (subPath.count<2) return nil;
     
     NSString * targetKey = subPath[0];
@@ -82,7 +110,7 @@
     Class target = NSClassFromString(targetString);
     SEL action = NSSelectorFromString(actionString);
     
-    NSDictionary *params = [self queryItemsInPath:clearPath];
+    NSDictionary *params = [self queryItemsInPath:paramsPath];
     
     GDRouterAction *actionObj = [[GDRouterAction alloc] init];
     actionObj.target = target;
@@ -101,7 +129,7 @@
     
     
     
-    if(paramsRange.location == NSNotFound) return nil;
+    if(paramsRange.location == NSNotFound) return [NSMutableDictionary dictionary];
     
     NSMutableString *mParams = [[path substringWithRange:paramsRange] mutableCopy];
     
@@ -131,7 +159,7 @@
         }
     }
     
-    if(queryItems.allKeys.count == 0) return nil;
+    if(queryItems.allKeys.count == 0) return [NSMutableDictionary dictionary];
     
     return [queryItems mutableCopy];
 }

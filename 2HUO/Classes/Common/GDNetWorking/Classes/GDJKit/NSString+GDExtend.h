@@ -10,4 +10,5 @@
 
 @interface NSString (GDExtend)
 - (NSString*)MD5;
+- (NSString*)urlEncode;
 @end

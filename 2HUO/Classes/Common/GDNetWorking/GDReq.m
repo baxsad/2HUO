@@ -59,6 +59,7 @@
     self.SCHEME                 = nil;
     self.HOST                   = nil;
     self.PATH                   = @"";
+    self.APPENDPATH             = @"";
     self.STATICPATH             = @"";
     self.needCheckCode          = NO;
     self.responseSerializer     = GDResponseSerializerTypeJSON;
@@ -115,7 +116,9 @@
 - (BOOL)failed
 {
     return (GDRequestStatusFailed == self.status
-            || GDRequestStatusError == self.status)
+            || GDRequestStatusError == self.status
+            || GDRequestStatusTimeOut == self.status
+            || GDRequestStatusCancle == self.status)
     ? YES : NO;
 }
 

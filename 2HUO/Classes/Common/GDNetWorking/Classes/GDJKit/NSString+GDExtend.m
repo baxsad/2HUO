@@ -56,4 +56,9 @@
     }
 }
 
+- (NSString *)urlEncode
+{
+    return [self stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLHostAllowedCharacterSet]];
+}
+
 @end

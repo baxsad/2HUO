@@ -17,7 +17,7 @@ typedef void(^listenCallBack)(GDReq * _Nonnull req);
 
 @interface GDReq : NSObject
 /** 安全协议设置 */
-@property (nonatomic,strong,nullable) GDSecurityPolicy        * securityPolicy;
+@property (nonatomic,strong,nullable) GDSecurityPolicy         * securityPolicy;
 /** 错误码返回 */
 @property(nonatomic,strong,nullable)NSString                   * requestID;
 /** 序列化后的数据 */
@@ -29,7 +29,7 @@ typedef void(^listenCallBack)(GDReq * _Nonnull req);
 /** 请求的错误 */
 @property(nonatomic,strong,nullable)NSError                    * error;
 /** /Request状态 */
-@property(nonatomic,assign)GDRequestStatus                      status;
+@property(nonatomic,assign)GDRequestStatus                       status;
 /** 请求的链接 */
 @property(nonatomic,strong,nullable)NSURL                      * url;
 /** 错误消息或者服务器返回的MSG */
@@ -46,6 +46,8 @@ typedef void(^listenCallBack)(GDReq * _Nonnull req);
 @property(nonatomic,strong,nullable)NSString                   * HOST;
 /** 请求路径 */
 @property(nonatomic,strong,nullable)NSString                   * PATH;
+/** 追加的路径 */
+@property(nonatomic,strong,nullable)NSString                   * APPENDPATH;
 /** 其他路径 */
 @property(nonatomic,strong,nullable)NSString                   * STATICPATH;
 /** 提交方式 (GET/POST)*/
@@ -53,7 +55,7 @@ typedef void(^listenCallBack)(GDReq * _Nonnull req);
 /** 是否需要检查错误码 */
 @property(nonatomic,assign)BOOL                                  needCheckCode;
 /** 返回数据格式 */
-@property(nonatomic,assign)GDResponseSerializerType             responseSerializer;
+@property(nonatomic,assign)GDResponseSerializerType              responseSerializer;
 /** 可接受的序列化返回数据的格式 */
 @property(nonatomic,strong,nullable)NSSet                      * acceptableContentTypes;
 /** Http头参数设置 */
@@ -71,7 +73,7 @@ typedef void(^listenCallBack)(GDReq * _Nonnull req);
 /** 是否第一次加载 */
 @property(nonatomic,assign)BOOL                                  isFirstRequest;
 /** 缓存策略 */
-@property (nonatomic,assign)GDRequestCachePolicy                cachePolicy;
+@property (nonatomic,assign)GDRequestCachePolicy                 cachePolicy;
 
 /** 上传文件列表 */
 @property(nonatomic,strong,nullable)NSDictionary               * requestFiles;

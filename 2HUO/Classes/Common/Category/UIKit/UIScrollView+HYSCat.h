@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "MJRefresh.h"
 @interface UIScrollView (HYSCat)
 
+- (void)setDefaultGifRefreshWithHeader:(MJRefreshGifHeader *)gifHeader;
+
+- (void)setDefaultGifRefreshWithFooter:(MJRefreshAutoGifFooter *)gifFooter;
 
 - (void)scrollToTop;
 

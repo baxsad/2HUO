@@ -10,6 +10,49 @@
 
 @implementation UIScrollView (HYSCat)
 
+- (void)setDefaultGifRefreshWithHeader:(MJRefreshGifHeader *)gifHeader{
+    NSMutableArray *idleImages = [NSMutableArray array];
+    for (NSUInteger i = 1; i<=1; i++) {
+        UIImage *image = [UIImage imageNamed:@"loading 1"];
+        [idleImages addObject:image];
+    }
+    NSMutableArray *refreshingImages = [NSMutableArray array];
+    for (NSUInteger i = 1; i<=24; i++) {
+        
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"loading %zd", i]];
+        [refreshingImages addObject:image];
+    }
+    if (gifHeader) {
+        [gifHeader setImages:idleImages forState:MJRefreshStateIdle];
+        [gifHeader setImages:refreshingImages forState:MJRefreshStatePulling];
+        [gifHeader setImages:refreshingImages forState:MJRefreshStateRefreshing];
+        gifHeader.lastUpdatedTimeLabel.hidden = YES;
+        gifHeader.stateLabel.hidden = YES;
+    }
+    
+}
+
+- (void)setDefaultGifRefreshWithFooter:(MJRefreshAutoGifFooter *)gifFooter{
+    NSMutableArray *idleImages = [NSMutableArray array];
+    for (NSUInteger i = 1; i<=1; i++) {
+        UIImage *image = [UIImage imageNamed:@"loading 1"];
+        [idleImages addObject:image];
+    }
+    NSMutableArray *refreshingImages = [NSMutableArray array];
+    for (NSUInteger i = 1; i<=24; i++) {
+        
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"loading %zd", i]];
+        [refreshingImages addObject:image];
+    }
+    if (gifFooter) {
+        [gifFooter setImages:refreshingImages forState:MJRefreshStateRefreshing];
+        gifFooter.refreshingTitleHidden = YES;
+        [gifFooter setTitle:@"" forState:MJRefreshStateIdle];
+        [gifFooter setTitle:@"" forState:MJRefreshStateRefreshing];
+        [gifFooter setTitle:@"没有更多啦OAQ" forState:MJRefreshStateNoMoreData];
+    }
+    
+}
 
 - (void)scrollToTop {
     [self scrollToTopAnimated:YES];

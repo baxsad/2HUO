@@ -49,7 +49,18 @@
 #import <UIKit/UIKit.h>
 #import "GDRouterReger.h"
 
+
 @class UPRouter;
+
+@interface NSString(GDExtent)
+
+- (BOOL)isNotNull;
+
+- (BOOL)isIncloud:(NSString *)str;
+
+- (NSString *)GDMD5;
+
+@end
 
 /**
  *  过期提醒

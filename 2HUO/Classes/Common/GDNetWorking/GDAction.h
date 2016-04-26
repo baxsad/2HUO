@@ -30,7 +30,7 @@ typedef void(^listenCallBack)(GDReq * _Nonnull req);
 
 - (void)listen:(nonnull listenCallBack)block;
 
-- (id)getCacheFromUrl:(nonnull GDReq *)req;
+- (nullable id)getCacheFromUrl:(nonnull GDReq *)req;
 
 - (void)clearAllCache;
 

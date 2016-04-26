@@ -28,6 +28,7 @@
 
 #import "GDRouter.h"
 #import "GDRouterCenter.h"
+#import <CommonCrypto/CommonDigest.h>
 
 ///-------------------------------
 /// @name 打开方式
@@ -43,14 +44,6 @@ typedef NS_ENUM(NSInteger, GDOpendType) {
 ///-------------------------------
 /// @name NSString类目实现md5加密
 ///-------------------------------
-
-@interface NSString(GDExtent)
-
--(BOOL)isNotNull;
-
-- (NSString *)GDMD5;
-
-@end
 
 @implementation NSString(GDExtent)
 -(BOOL)isNotNull
@@ -104,6 +97,15 @@ typedef NS_ENUM(NSInteger, GDOpendType) {
     else
     {
         return nil;
+    }
+}
+
+- (BOOL)isIncloud:(NSString *)str
+{
+    if ([self rangeOfString:str].location != NSNotFound) {
+        return YES;
+    }else{
+        return NO;
     }
 }
 

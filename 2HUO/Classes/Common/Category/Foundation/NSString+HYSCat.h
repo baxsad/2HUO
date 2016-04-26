@@ -7,8 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+extern const NSInteger SECOND;
+extern const NSInteger MINUTE;
+extern const NSInteger HOUR;
+extern const NSInteger DAY;
+extern const NSInteger WEEK;
+extern const NSInteger MONTH;
+extern const NSInteger YEAR;
 
 @interface NSString (HYSCat)
+@property (nonatomic, readonly) NSInteger	year;
+@property (nonatomic, readonly) NSInteger	month;
+@property (nonatomic, readonly) NSInteger	day;
+@property (nonatomic, readonly) NSInteger	hour;
+@property (nonatomic, readonly) NSInteger	minute;
+@property (nonatomic, readonly) NSInteger	second;
+@property (nonatomic, readonly) NSInteger	weekday;
 
 /**
  * @brief  字符串进行 MD5 加密
@@ -180,4 +194,6 @@
  *  @return e.g. iPhone 5S
  */
 + (NSString*)deviceVersion;
+
+- (NSString *)timeAgo;
 @end

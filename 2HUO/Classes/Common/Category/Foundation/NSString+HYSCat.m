@@ -11,6 +11,14 @@
 #import "NSData+HYSCat.h"
 #import "sys/utsname.h"
 
+const NSInteger SECOND = 1;
+const NSInteger MINUTE = 60 * SECOND;
+const NSInteger HOUR = 60 * MINUTE;
+const NSInteger DAY = 24 * HOUR;
+const NSInteger WEEK = 7 * HOUR;
+const NSInteger MONTH = 30 * DAY;
+const NSInteger YEAR = 12 * MONTH;
+
 @interface NSString_stripHtml_XMLParsee : NSObject<NSXMLParserDelegate> {
 @private
     NSMutableArray* strings;
@@ -33,6 +41,13 @@
 @end
 
 @implementation NSString (HYSCat)
+@dynamic year;
+@dynamic month;
+@dynamic day;
+@dynamic hour;
+@dynamic minute;
+@dynamic second;
+@dynamic weekday;
 
 -(NSString *)md5{
     const char *original_str = [self UTF8String];
@@ -470,4 +485,69 @@
     
     return deviceString;
 }
+
+- (NSString *)timeAgo
+{
+    NSDate * nowDate = [NSDate date];
+    NSDate * oldDate = [NSDate dateWithTimeIntervalSince1970:[self integerValue]];
+    
+    NSTimeInterval nowStamp = [nowDate timeIntervalSince1970];
+    NSTimeInterval oldStamp = [oldDate timeIntervalSince1970];
+    
+    NSInteger delta = nowStamp - oldStamp;
+    
+    int year = (int)([self getYear:nowDate] - [self getYear:oldDate]);
+    
+    if (delta <= 0) {
+        return @"刚刚";
+    }
+    else if (delta < 1 * MINUTE) {
+        return [NSString stringWithFormat:@"%li秒前",delta];
+    }
+    else if (delta < 60 * MINUTE) {
+        int minutes = floor((double)delta / MINUTE);
+        return [NSString stringWithFormat:@"%d分钟前", minutes];
+    }
+    else if (delta < 24 * HOUR) {
+        int hours = floor((double)delta / HOUR);
+        return [NSString stringWithFormat:@"%d小时前", hours];
+    }
+    else if (delta < 7 * DAY) {
+        int days = floor((double)delta / DAY);
+        return [NSString stringWithFormat:@"%d天前", days];
+    }
+    else if (delta < 2 * WEEK) {
+        int months = floor((double)delta / WEEK);
+        return [NSString stringWithFormat:@"%d周前", months];
+    }
+    else if (year == 0) {
+        return [self getTime:oldDate];
+    }else{
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        [formatter setDateFormat:@"YY年MM月dd日"];
+        NSString *time = [formatter stringFromDate:oldDate];
+        return time;
+        
+    }
+    
+    
+}
+
+- (NSInteger)getYear:(NSDate *)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"YYYY"];
+    NSString *year = [formatter stringFromDate:date];
+    return [year integerValue];
+}
+
+- (NSString *)getTime:(NSDate *)date
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MM月dd日"];
+    NSString *time = [formatter stringFromDate:date];
+    return time;
+}
+
 @end

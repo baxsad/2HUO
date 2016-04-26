@@ -486,6 +486,16 @@ static GDAction *instance       = nil;
         }
         url = [NSString stringWithFormat:@"%@://%@%@",scheme,host,path];
     }
+    
+    if (req.APPENDPATH.isNotEmpty) {
+        if ([url hasSuffix:@"/"]) {
+            url = [url stringByAppendingString:req.APPENDPATH];
+        }else{
+            url = [url stringByAppendingString:[NSString stringWithFormat:@"/%@",req.APPENDPATH]];
+        }
+        
+    }
+    
     return url;
 }
 

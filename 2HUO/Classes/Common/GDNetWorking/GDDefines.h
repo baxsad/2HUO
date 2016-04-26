@@ -21,7 +21,7 @@
 #define kFileUpload @"182.92.180.73"
 static  NSString* const kWebBaseUrl = @"http://10.0.1.12:8081/iLikeTest/";
 
-#define kHostPath @"10.0.1.12:8081/iLikeTest/"
+#define kHostPath @"http://0.luxun.pro:12580"
 
 #else
 
@@ -29,7 +29,7 @@ static  NSString* const kWebBaseUrl = @"http://10.0.1.12:8081/iLikeTest/";
 #define kFileUpload @"182.92.180.73"
 static NSString* const kWebBaseUrl = @"http://www.caimiapp.com/";
 
-#define kHostPath @"www.caimiapp.com/api_260/"
+#define kHostPath @"http://0.luxun.pro:12580"
 
 #endif
 
