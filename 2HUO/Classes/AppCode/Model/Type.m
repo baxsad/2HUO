@@ -8,6 +8,20 @@
 
 #import "Type.h"
 
+@implementation ProductType
+
++ (BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
+
+@end
+
 @implementation Type
+
++ (BOOL)propertyIsOptional:(NSString*)propertyName
+{
+    return YES;
+}
 
 @end

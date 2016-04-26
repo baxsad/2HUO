@@ -9,14 +9,13 @@
 #import "GDRouterReger.h"
 #import "GDRouter.h"
 
-#import "LXPlayScene.h"
 
 @implementation GDRouterReger
 
 + (void)reg
 {
-    LXPlayScene * playerScene = [[LXPlayScene alloc] init];
-    [[GDRouter sharedInstance] reg:@"luxun://player" toController:playerScene];
+    [[GDRouter sharedInstance] reg:@"GD://addProduct" toClass:NSClassFromString(@"MFUReleaseProductScene") navClass:NSClassFromString(@"IHNavigationController")];
+    
 }
 
 + (void)clearCache

@@ -74,9 +74,9 @@
 //                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1enlbc2m25lj20p00xcdjb",
 //                         @"http://ww2.sinaimg.cn/bmiddle/a15b4afegw1enoi58suy0j20m80xcq7k"];
 //    NSArray * tags = @[@{@"tagName":@"硬件",@"tagId":@100001},@{@"tagName":@"硬件",@"tagId":@100002},@{@"tagName":@"智能设备",@"tagId":@100003},@{@"tagName":@"手机",@"tagId":@100004},@{@"tagName":@"iphone 6s",@"tagId":@100005}];
-//    NSDictionary * data = @{@"pid":@24234,@"user":user,@"createTime":@1459998586,@"updateTime":@1459999586,@"images":images,@"title":@"我是标题我是标题我是标题我是标题我是标题",@"content":@"昨晚坐MU5160从北京飞往上海把卡包落在了飞机上（黑色卡包，里面有各大银行各式各样的黑卡），哪位好心人捡到了请联系我助理 15101143311 思聪必有重谢。😭😭😭",@"tags":tags,@"likeCount":@672,@"location":@"北京市",@"school":@"北京电影学院",@"presentPrice":@49900,@"originalPrice":@129000,@"transactionMode":@"online",@"type":@"sale"};
+//    NSDictionary * data = @{@"mid":@10004,@"icon":@"http://ww2.sinaimg.cn/large/a15b4afegw1ewxczuufr6j20xc0xcdmm.jpg",@"name":@"",@"type":@"hot"};
 //    
-//    [[[YDog alloc] init] insertInto:@"Products" values:data complete:^(BOOL succeeded, NSError *error) {
+//    [[[YDog alloc] init] insertInto:@"Type" values:data complete:^(BOOL succeeded, NSError *error) {
 //        if (succeeded) {
 //            NSLog(@"上传成功！！");
 //        }
@@ -139,7 +139,7 @@
 {
     return indexPath.section ? [tableView fd_heightForCellWithIdentifier:@"MFUHomeTBCell" cacheByIndexPath:indexPath configuration:^(MFUHomeTBCell * cell) {
         [cell configModel:[self.productModel.list objectAtIndex:indexPath.row]];
-    }] : Screen_Width*0.5;
+    }] : 145;
     
 }
 

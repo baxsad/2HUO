@@ -29,6 +29,7 @@
 #import <HYSCategories/UITextField+HYSCat.h>
 #import <HYSCategories/UITableViewCell+HYSCat.h>
 #import <HYSCategories/UIImageView+CornerRadius.h>
+#import <HYSCategories/NSMutableAttributedString+HYSCat.h>
 
 #else
 
@@ -51,5 +52,6 @@
 #import "UITextField+HYSCat.h"
 #import "UITableViewCell+HYSCat.h"
 #import "UIImageView+CornerRadius.h"
+#import "NSMutableAttributedString+HYSCat.h"
 
 #endif

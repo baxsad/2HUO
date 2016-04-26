@@ -8,6 +8,19 @@
 
 #import <JSONModel/JSONModel.h>
 
+@protocol  Type;
+
+@interface ProductType : JSONModel
+
+@property (nonatomic, copy) NSArray<Type> * list;
+
+@end
+
 @interface Type : JSONModel
+
+@property (nonatomic, assign) NSInteger mid;
+@property (nonatomic, copy) NSString * name;
+@property (nonatomic, copy) NSString * icon;
+@property (nonatomic, copy) NSString * type;
 
 @end

@@ -108,8 +108,10 @@
     [self setUpImageCollection];
     [self.imageViews removeAllObjects];
     [self.imagesCollection reloadData];
-    self.desc.text = model.content;
-    self.date.text = [NSString stringWithFormat:@"%li from %@",model.createTime,[NSString deviceVersion]];
+    
+    self.desc.attributedText = [NSMutableAttributedString attributedStringWithString:model.content font:[UIFont systemFontOfSize:15] LineSpacing:3 fontColor:[UIColor blackColor]];
+    
+    self.date.text = [NSString stringWithFormat:@"%@ from %@",[NSString stringWithFormat:@"%li",model.createTime].timeAgo,[NSString deviceVersion]];
     self.nick.text = self.model.user.nick;
     [self.userIcon yy_setImageWithURL:[NSURL URLWithString:model.user.avatar] options:YYWebImageOptionUseNSURLCache];
     [self.likeOrNoButton configureStatus:model.isLike text:[NSString stringWithFormat:@"%li",model.likeCount] animated:YES];

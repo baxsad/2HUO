@@ -10,4 +10,6 @@
 
 @interface MFUMenuButtonCell : UICollectionViewCell
 
+@property (nonatomic, weak) IBOutlet UIImageView * icon;
+
 @end

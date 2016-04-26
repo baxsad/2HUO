@@ -24,6 +24,7 @@
 #import "GDHUD.h"
 #import "AccountCenter.h"
 #import "User.h"
+#import <YYWebImage/YYWebImage.h>
 
 #endif
 
