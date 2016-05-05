@@ -25,6 +25,9 @@
 #import "AccountCenter.h"
 #import "User.h"
 #import <YYWebImage/YYWebImage.h>
+#import "GDNetWorking.h"
+#import "GDRequest.h"
+#import "DataCenter.h"
 
 #endif
 
@@ -50,6 +53,7 @@
 #define NAVCOLOR UIColorHex(0xF9F7F4)
 #define TEMCOLOR UIColorHex(0xD2B203)
 #define ISLOGIN ([AccountCenter shareInstance].token && [AccountCenter shareInstance].token.length > 5)
+#define USER [AccountCenter shareInstance].user
 
 //用户信息的缓存key
 #define kUSERCACHE @"kUSERCACHE"

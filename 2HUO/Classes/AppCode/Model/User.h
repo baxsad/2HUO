@@ -12,10 +12,10 @@
 
 @property (nonatomic, copy  ) NSString * uid;
 @property (nonatomic, copy  ) NSString * nick;
-@property (nonatomic, copy  ) NSString * school;
+@property (nonatomic, assign) NSInteger  sid;
 @property (nonatomic, copy  ) NSString * desc;
 @property (nonatomic, copy  ) NSString * avatar;
-@property (nonatomic, assign) NSInteger  sex;// 0 - 女,1 - 男,2 - 未知
+@property (nonatomic, copy  ) NSString * sex;// 0 - 女,1 - 男,2 - 未知
 @property (nonatomic, assign) NSInteger  type;// 0 - 普通，1 - 认证
 @property (nonatomic, copy  ) NSString * platName;
 @property (nonatomic, copy  ) NSString * token;

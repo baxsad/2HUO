@@ -376,7 +376,7 @@ static GDAction *instance       = nil;
 #endif
     
     req.url = [NSURL URLWithString:url];
-    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:req.METHOD URLString:url parameters:requestParams error:nil];
+    NSMutableURLRequest *request = [[AFHTTPRequestSerializer serializer] requestWithMethod:req.METHOD URLString:url parameters:[requestParams copy] error:nil];
     
     if(req.httpHeaderFields.isNotEmpty){
         [req.httpHeaderFields enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {

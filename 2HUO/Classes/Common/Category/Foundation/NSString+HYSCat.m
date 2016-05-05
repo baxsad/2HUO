@@ -550,4 +550,27 @@ const NSInteger YEAR = 12 * MONTH;
     return time;
 }
 
+- (BOOL)isPureInt:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    int val;
+    return[scan scanInt:&val] && [scan isAtEnd];
+}
+
+//判断是否为浮点形：
+
+- (BOOL)isPureFloat:(NSString*)string{
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    float val;
+    return[scan scanFloat:&val] && [scan isAtEnd];
+}
+
+- (BOOL)isNumber
+{
+    if( ![self isPureInt:self] || ![self isPureFloat:self])
+    {
+        return NO;
+    }
+    return YES;
+}
+
 @end

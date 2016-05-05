@@ -30,7 +30,7 @@
         
         _maxImagesCount = maxImagesCount;
         _observerPhotoChange = NO;
-        _showCameraButton = YES;
+        _showCameraButton = NO;
         
         // Grid 的一个配置参数
         _colsInVertical = 3;

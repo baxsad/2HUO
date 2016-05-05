@@ -173,9 +173,7 @@
 }
 
 - (nullable NSDictionary *)requestHTTPHeaderField {
-    return @{
-             @"Content-Type" : @"application/json; charset=utf-8",
-             };
+    return nil;
 }
 
 - (nullable NSSet *)responseAcceptableContentTypes{

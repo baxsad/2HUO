@@ -52,9 +52,7 @@
         }
     }];
     
-    for (int i = 0; i<99; i++) {
-        self.req.requestNeedActive = YES;
-    }
+    
     
     
 }

@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^Complete)(NSArray * imageArray);
+
 @interface GDImagePickerController : UIViewController
 
 - (instancetype)initWithMaxImagesCount:(NSInteger)maxImagesCount;
@@ -21,5 +23,6 @@
 @property (nonatomic, assign) double minimumInteritemSpacing;
 @property (nonatomic, strong) UIColor *navBackgroundColor;
 @property (nonatomic, assign) BOOL observerPhotoChange;
+@property (nonatomic, copy  ) Complete complete;
 
 @end

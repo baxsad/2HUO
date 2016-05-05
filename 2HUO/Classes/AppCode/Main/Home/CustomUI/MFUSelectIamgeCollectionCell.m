@@ -7,10 +7,17 @@
 //
 
 #import "MFUSelectIamgeCollectionCell.h"
+#import "CALayer+MFJExtent.h"
+
+@implementation DataModel
+
+
+@end
 
 @interface MFUSelectIamgeCollectionCell ()
 
 @property (nonatomic, weak) IBOutlet UIImageView * image;
+@property (nonatomic,   strong) UILabel  * progressLable;
 
 @end
 
@@ -18,14 +25,34 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
+    _progressLable = [[UILabel alloc] init];
+    [self.image addSubview:_progressLable];
+    [_progressLable mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(UIEdgeInsetsMake(0, 0, 0, 0));
+    }];
+    _progressLable.textAlignment = NSTextAlignmentCenter;
+    _progressLable.font = [UIFont systemFontOfSize:12];
+    _progressLable.textColor = [UIColor whiteColor];
+
 }
 
-- (void)setData:(NSData *)data
+- (void)setProgress:(float)progress
+{
+    NSLog(@"%f",progress);
+    _progress = progress;
+    _progressLable.text = [NSString stringWithFormat:@"%f",progress];
+    if (progress>=1) {
+        _progressLable.hidden = YES;
+        _data.isUpload = YES;
+    }
+    
+}
+
+- (void)setData:(DataModel *)data
 {
     _data = data;
     if (data) {
-        [self.image setImage:[UIImage imageWithData:data]];
+        [self.image setImage:[UIImage imageWithData:data.data]];
     }
 }
 

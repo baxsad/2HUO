@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@class GDAssetModel;
+@class GDAssetModel,GDGridViewCell;
+
+typedef void(^selectCallBack)(GDGridViewCell * cell);
 
 @interface GDGridViewCell : UICollectionViewCell
 
@@ -19,5 +21,9 @@
 @property (nonatomic, weak) IBOutlet UIImageView * selectIcon;
 
 @property (nonatomic, weak) IBOutlet UIButton * selectButton;
+
+@property (nonatomic, copy) selectCallBack selectBlock;
+
+@property (nonatomic, strong) NSIndexPath * indexPath;
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "MFUHomeViewController.h"
 #import <AVOSCloud/AVOSCloud.h>
 #import "UMSocial.h"
 #import "UMSocialSinaSSOHandler.h"
@@ -15,7 +14,7 @@
 #import "UMSocialQQHandler.h"
 #import "UMSocialWechatHandler.h"
 #import "TMCache.h"
-#import "FPSLable.h"
+#import "MainScene.h"
 
 @interface AppDelegate ()
 
@@ -29,34 +28,18 @@
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
     
-    MFUHomeViewController * home = [[MFUHomeViewController alloc] init];
+    MainScene * home = [[MainScene alloc] init];
     self.window.rootViewController = home;
     [self.window makeKeyAndVisible];
-    
-//    FPSLable *fps = [FPSLable new];
-//    fps.centerY = 25;
-//    [self.window addSubview:fps];
-    
+
+    /* 注册路由 */
     [GDRouter sharedInstance].openException = YES;
     [[GDRouter sharedInstance] reg];
     
+    /* 键盘管理器 */
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     
-    [[UIBarButtonItem appearance] setBackButtonTitlePositionAdjustment:UIOffsetMake(0, -60) forBarMetrics:UIBarMetricsDefault];
-    NSDictionary *attributes = @{NSFontAttributeName:[UIFont systemFontOfSize:17],NSForegroundColorAttributeName:UIColorHex(0x333333)};
-    [[UINavigationBar appearance] setTitleTextAttributes:attributes];
-    [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
-    UIImage *backButtonImage = [[UIImage imageNamed:@"arrow_left"] imageWithAlignmentRectInsets:UIEdgeInsetsMake(0, 0, 0, 0)]; ;
-    backButtonImage = [backButtonImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    [[UINavigationBar appearance] setBackIndicatorImage:backButtonImage];
-    [[UINavigationBar appearance] setBackIndicatorTransitionMaskImage:backButtonImage];
-    [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc]init] forBarMetrics:UIBarMetricsDefault];
-    [[UINavigationBar appearance] setShadowImage:[[UIImage alloc] init]];
-    [UINavigationBar appearance].layer.opacity = 1;
-    [[UINavigationBar appearance] setBarTintColor:UIColorHex(0xF9F7F4)];
-    [[UINavigationBar appearance] setTintColor:UIColorHex(0xF9F7F4)];
-    [[UINavigationBar appearance] setTranslucent:NO];
     
     [AVOSCloud setApplicationId:@"FM9OAvPJzXtzIVFp8G39AdCG-gzGzoHsz"
                       clientKey:@"bSnxSKtyJaKCocdbXCum4XfR"];
@@ -69,9 +52,9 @@
 
     [UMSocialQQHandler setQQWithAppId:@"100424468" appKey:@"c7394704798a158208a74ab60104f0ba" url:@"http://www.umeng.com/social"];
     
-    
     [UMSocialWechatHandler setWXAppId:@"wx34395ba624fb9c7c" appSecret:@"589bc13601292147f9df4f84ace91b19" url:@"http://www.umeng.com/social"];
     
+    /* 先从缓存取用户信息（注销或者未登录的话 user ＝ nil） */
     id obj = [[TMCache sharedCache] objectForKey:kUSERCACHE];
     NSDictionary *dic = [obj toDictionary];
     User * user = [[User alloc] initWithDictionary:dic error:NULL];

@@ -6,35 +6,17 @@
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#ifndef GDNETDefines_h
-#define GDNETDefines_h
+
 
 #import <AFNetworking/AFNetworking.h>
 #import "GDKit.h"
 #import "TMCache.h"
 #import "GCDQueue.h"
 
-#ifdef isTest
+#define kHostPath @"http://teaser.host.smartgslb.com/"
 
-//测试接口
-
-#define kFileUpload @"182.92.180.73"
-static  NSString* const kWebBaseUrl = @"http://10.0.1.12:8081/iLikeTest/";
-
-#define kHostPath @"http://0.luxun.pro:12580"
-
-#else
-
-//正式接口
-#define kFileUpload @"182.92.180.73"
-static NSString* const kWebBaseUrl = @"http://www.caimiapp.com/";
-
-#define kHostPath @"http://0.luxun.pro:12580"
-
-#endif
-
-#define GD_REQUEST_RIGHT_CODE  0
-#define GD_ERROR_CODE_PATH     @"error_code"
+#define GD_REQUEST_RIGHT_CODE  @"0"
+#define GD_ERROR_CODE_PATH     @"error"
 
 #define GD_CACHE_NAME  @"gd.request.url.cache.disk.biubiubiu"
 
@@ -90,4 +72,4 @@ typedef void (^GDRequestBlock)(void);
 #define MAX_HTTP_CONNECTION_PER_HOST 5
 
 
-#endif /* GDNETDefines_h */
+

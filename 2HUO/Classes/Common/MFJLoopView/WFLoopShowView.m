@@ -209,7 +209,8 @@ static CGFloat const kPageControlHeigth = 18;
     
     for (int i = 0; i < [imagesData count]; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        imageView.contentMode = UIViewContentModeScaleToFill;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
         NSString *imageUrl = imagesData[i];
         if ([imageUrl hasPrefix:@"http"]) {
             [imageView yy_setImageWithURL:[NSURL URLWithString:imageUrl] options:YYWebImageOptionUseNSURLCache];

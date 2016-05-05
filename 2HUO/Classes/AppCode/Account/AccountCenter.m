@@ -11,6 +11,12 @@
 #import "TMCache.h"
 #import <YYWebImage/YYWebImage.h>
 
+@interface AccountCenter ()
+
+@property (nonatomic, strong) GDReq * userLoginRequest;
+
+@end
+
 @implementation AccountCenter
 
 + (instancetype)shareInstance
@@ -19,6 +25,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         account = [[AccountCenter alloc] init];
+        account.userLoginRequest = [GDRequest userLoginRequest];
     });
     return account;
 }
@@ -61,6 +68,20 @@
 - (void)loginWithType:(UMSocialSnsType)type viewController:(UIViewController*)viewController data:(UserLoginResultBlock)complete
 {
     
+    [self.userLoginRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            User * user = [[User alloc] initWithDictionary:req.output[@"data"] error:nil];
+            if (user) {
+                complete(YES,user);
+            }else{
+                complete(NO,nil);
+            }
+        }
+        if (req.failed) {
+            complete(NO,nil);
+        }
+        
+    }];
     
     NSString * platforName = [UMSocialSnsPlatformManager getSnsPlatformString:type];
     
@@ -76,19 +97,9 @@
         
         if (complete) {
             
-            [[YDog shareInstance] selectFrom:@"V_User" type:SearchTypeEqualTo where:@"uid" is:snsAccount.usid page:nil complete:^(NSArray *objects, NSError *error) {
-                if (objects.count>0) {
-                    NSDictionary * info = objects[0];
-                    User * user = [[User alloc] initWithDictionary:info error:nil];
-                    if (complete) {
-                        complete(YES,user);
-                    }
-                }else{
-                    if (complete) {
-                        complete(NO,nil);
-                    }
-                }
-            }];
+            // 登录
+            [self loginWithParams:snsAccount];
+            
         }
     }else {
         
@@ -103,17 +114,9 @@
                     return;
                 }
                 
-                [[YDog dog] selectFrom:@"V_User" type:SearchTypeEqualTo where:@"uid" is:snsAccount.usid page:nil complete:^(NSArray *objects, NSError *error) {
-                    if (objects.count > 0) {
-                        NSDictionary * info = objects[0];
-                        User * user = [[User alloc] initWithDictionary:info error:nil];
-                        if (complete) {
-                            complete(YES,user);
-                        }
-                    }else{
-                        [self reg:snsAccount complete:complete];
-                    }
-                }];
+                // 登录
+                
+                [self loginWithParams:snsAccount];
                 
             }else{
                 if (complete) {
@@ -124,33 +127,21 @@
     }
 }
 
-- (void)reg:(UMSocialAccountEntity*)snsAccount complete:(UserLoginResultBlock)complete
+- (void)loginWithParams:(UMSocialAccountEntity*)snsAccount
 {
     
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    NSString *currentDateStr = [dateFormatter stringFromDate:[NSDate date]];
     
     NSDictionary * info = @{@"nick":snsAccount.userName,
-                            @"uid":snsAccount.usid,
-                            @"token":snsAccount.accessToken.MD5,
+                            @"platId":snsAccount.usid,
                             @"avatar":snsAccount.iconURL,
-                            @"createDate":currentDateStr,
-                            @"lastTimeLogin":currentDateStr,
                             @"platName":snsAccount.platformName};
+    [self.userLoginRequest.params setValue:info[@"nick"] forKey:@"nick"];
+    [self.userLoginRequest.params setValue:info[@"platId"] forKey:@"platId"];
+    [self.userLoginRequest.params setValue:info[@"avatar"] forKey:@"avatar"];
+    [self.userLoginRequest.params setValue:info[@"platName"] forKey:@"platName"];
+    self.userLoginRequest.requestNeedActive = YES;
     
-    [[YDog dog] insertInto:@"V_User" values:info complete:^(BOOL succeeded, NSError *error) {
-        if (succeeded) {
-            User * user = [[User alloc] initWithDictionary:info error:nil];
-            if (complete) {
-                complete(YES,user);
-            }
-        }else{
-            if (complete) {
-                complete(NO,nil);
-            }
-        }
-    }];
+    
 }
 
 - (void)logout

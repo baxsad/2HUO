@@ -10,8 +10,7 @@
 #import "IHNavigationController.h"
 
 #import "MFULocationScene.h"
-#import "MFUMoreScene.h"
-#import "MFUHomeScene.h"
+#import "EHHomeScene.h"
 
 
 @interface MFUHomeViewController ()<UITabBarControllerDelegate>
@@ -52,14 +51,12 @@
 
 - (void)addAllChildViewControllers
 {
-    MFUHomeScene * homeScene = [[MFUHomeScene alloc] init];
+    EHHomeScene * homeScene = [[EHHomeScene alloc] init];
     [self addChildViewController:homeScene title:@"Home" image:@"home_normal" selectedImage:@"home_highlight"];
     
     MFULocationScene * locationScene = [[MFULocationScene alloc] init];
     [self addChildViewController:locationScene title:@"Location" image:@"mycity_normal" selectedImage:@"mycity_highlight"];
     
-    MFUMoreScene * mineScene = [[MFUMoreScene alloc] init];
-    [self addChildViewController:mineScene title:@"Mine" image:@"account_normal" selectedImage:@"account_highlight"];
 }
 
 

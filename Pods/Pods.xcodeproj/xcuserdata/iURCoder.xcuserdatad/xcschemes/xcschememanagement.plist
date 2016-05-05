@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>LGAlertView.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -34,22 +39,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>PXAlertView.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
 		<key>ReactiveCocoa.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>TZImagePickerController.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -82,22 +77,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>02340FEC2D95D1F0B1A11F8F07C98349</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>09FA060F1A0492FB25232F489AC4E573</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>1550B6F669C029333FB6972A52438389</key>
+		<key>0DB649F81FF93E4180C49E23462286F9</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3E53C7FF82D1750292CA2851592FDBC8</key>
+		<key>22EF013F2C2E72C2D8361E577DEB424A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3847E3367D52D2928DD3A38A5FBB4850</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>510AEED812328EEB9DE2189A0FB2BEB4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,6 +112,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>6E5532F7C5BC349F9AF5156744F34B49</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>8F74D9EA91F4C43190670066BAC37D44</key>
 		<dict>
 			<key>primary</key>
@@ -122,32 +127,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BEFC62232E0551428D53482774998C60</key>
+		<key>D485EB3AC17C6EE7290C6CF2DDB87F14</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>CE327FFD0E12A85514AE85C5B29575E8</key>
+		<key>DF8F94DA4EB0D7729A83424D458C406D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DC7585771A2C7C1ECD1779BE2471D77F</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E3294AA305ADE4B3183E8DF27478CC1C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E886850D32477E91E85B03631D11332A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>EDABCC27F447D8453F7A861E3A2797B9</key>
+		<key>F66FAF3A6DFA9BFE7B8DB4BC07DE4288</key>
 		<dict>
 			<key>primary</key>
 			<true/>

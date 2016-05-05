@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Ylt-sW-bSM" customClass="EHSchoolCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ylt-sW-bSM" id="oph-MK-jax">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7P-I9-WGK">
+                        <rect key="frame" x="15" y="13" width="38" height="18"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fi8-iR-L5S">
+                        <rect key="frame" x="15" y="0.0" width="305" height="1"/>
+                        <color key="backgroundColor" red="0.90588235289999997" green="0.90588235289999997" blue="0.90588235289999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="v6M-0f-upO"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="fi8-iR-L5S" firstAttribute="leading" secondItem="oph-MK-jax" secondAttribute="leadingMargin" constant="7" id="2R2-9v-daH"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="fi8-iR-L5S" secondAttribute="bottom" constant="-8" id="PEk-hk-Dza"/>
+                    <constraint firstItem="v7P-I9-WGK" firstAttribute="leading" secondItem="oph-MK-jax" secondAttribute="leadingMargin" constant="7" id="Rvh-Dt-HcO"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="fi8-iR-L5S" secondAttribute="trailing" constant="-8" id="UyF-Fe-vv9"/>
+                    <constraint firstItem="v7P-I9-WGK" firstAttribute="centerY" secondItem="oph-MK-jax" secondAttribute="centerY" id="ies-FP-1WK"/>
+                    <constraint firstItem="fi8-iR-L5S" firstAttribute="top" secondItem="oph-MK-jax" secondAttribute="topMargin" constant="-8" id="tVw-ZR-YRB"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="PEk-hk-Dza"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="bottomLineHeight" destination="v6M-0f-upO" id="hBa-6V-SRs"/>
+                <outlet property="name" destination="v7P-I9-WGK" id="SEs-Da-jtL"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

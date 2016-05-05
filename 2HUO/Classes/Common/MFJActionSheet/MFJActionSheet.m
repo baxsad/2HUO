@@ -298,7 +298,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapped:)];
         tap.delegate = self;
         [self addGestureRecognizer:tap];
-        self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.45f];
+        self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.0f];
         
         _sections = sections;
         
@@ -363,16 +363,18 @@
     if (!animated) {
         
         completion();
-        self.scrollView.frame = self.showFrame;
-        self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.45f];
         
+        self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.45f];
+        self.scrollView.frame = self.showFrame;
     }
     else {
         CGFloat duration = kAnimationDurationForSectionCount(self.sections.count);
         
         [UIView animateWithDuration:duration animations:^{
-            self.scrollView.frame = self.showFrame;
+            
             self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.45f];
+            self.scrollView.frame = self.showFrame;
+            
         } completion:^(BOOL finished) {
             completion();
         }];

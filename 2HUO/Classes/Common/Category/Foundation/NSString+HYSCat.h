@@ -196,4 +196,6 @@ extern const NSInteger YEAR;
 + (NSString*)deviceVersion;
 
 - (NSString *)timeAgo;
+
+- (BOOL)isNumber;
 @end

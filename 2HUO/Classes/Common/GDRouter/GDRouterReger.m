@@ -14,7 +14,19 @@
 
 + (void)reg
 {
-    [[GDRouter sharedInstance] reg:@"GD://addProduct" toClass:NSClassFromString(@"MFUReleaseProductScene") navClass:NSClassFromString(@"IHNavigationController")];
+    [[GDRouter sharedInstance] reg:@"GD://addPost" toClass:NSClassFromString(@"EHReleaseScene") navClass:NSClassFromString(@"IHNavigationController")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://postList" toClass:NSClassFromString(@"EHCommunityPostsScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://mine" toClass:NSClassFromString(@"EHMineScene") navClass:NSClassFromString(@"IHNavigationController")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://selectType" toClass:NSClassFromString(@"EHCommunitySelectScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://selectPrice" toClass:NSClassFromString(@"EHPriceSelectScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://userInfo" toClass:NSClassFromString(@"EHUserInfoScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://school" toClass:NSClassFromString(@"EHSchoolScene")];
     
 }
 

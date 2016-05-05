@@ -54,13 +54,11 @@
 
 @property (nonatomic,assign) BOOL           collectionIsScrollEnd;
 
-@property (nonatomic,assign) BOOL           toolBarIsShow;
-
 // UI
 
 @property (nonatomic, strong) UIButton     *nextButton;
 
-@property (nonatomic, strong) UIView       *toolBar;
+@property (nonatomic, strong) NSMutableDictionary * selectAssets;
 
 @property CGRect previousPreheatRect;
 
@@ -72,6 +70,11 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
 
 @implementation GDGridViewController
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.collectionView reloadData];
+}
 
 - (void)viewDidLoad
 {
@@ -110,6 +113,16 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
     
     [self resetCachedAssets];
     
+    self.selectAssets = [NSMutableDictionary dictionary];
+    
+    [RACObserve(self.selectAssets, count) subscribeNext:^(id count) {
+        if ([count integerValue] == 0) {
+            
+        }else{
+            
+        }
+    }];
+    
 }
 
 - (void)maskeupAssetModelWithAlbumModel:(GDAlbumModel *)model
@@ -142,8 +155,8 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
         self.navigationController.interactivePopGestureRecognizer.delegate = nil;
     }
     UIButton * selectAlbumButton = [[UIButton alloc] init];
-    [selectAlbumButton setTitle:@"be a motherfucker" forState:UIControlStateNormal];
-    [selectAlbumButton setTitleColor:UIColorHex(0x555555) forState:UIControlStateNormal];
+    [selectAlbumButton setTitle:@"Photos" forState:UIControlStateNormal];
+    [selectAlbumButton setTitleColor:UIColorHex(0x333333) forState:UIControlStateNormal];
     [selectAlbumButton sizeToFit];
     selectAlbumButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     self.navigationItem.titleView = selectAlbumButton;
@@ -166,53 +179,27 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
 
 }
 
-- (void)setupToolBar
-{
-    [self.view addSubview:self.toolBar];
-    [self hidenToolBar];
-}
-
-- (void)hidenToolBar
-{
-    if (!_toolBarIsShow) {
-        return;
-    }
-    CGRect hidenRect = CGRectMake(0, collectionSize.height, SCREEN_WIDTH, TOOL_BAR_HEIGHT);
-    [UIView animateWithDuration:0.25 animations:^{
-        
-        self.collectionView.height = collectionSize.height;
-        self.toolBar.frame = hidenRect;
-        
-    } completion:^(BOOL finished) {
-        _toolBarIsShow = NO;
-    }];
-}
-
-- (void)showToolBar
-{
-    if (_toolBarIsShow) {
-        return;
-    }
-    CGRect showRect = CGRectMake(0, collectionSize.height - TOOL_BAR_HEIGHT, SCREEN_WIDTH, TOOL_BAR_HEIGHT);
-    [UIView animateWithDuration:0.25 animations:^{
-        
-        self.toolBar.frame = showRect;
-        
-    } completion:^(BOOL finished) {
-        self.collectionView.height = collectionSize.height - TOOL_BAR_HEIGHT;
-        if (_collectionIsScrollEnd) {
-            CGPoint off = self.collectionView.contentOffset;
-            off.y = self.collectionView.contentSize.height - self.collectionView.bounds.size.height + self.collectionView.contentInset.bottom;
-            [self.collectionView setContentOffset:off animated:YES];
-        }
-        _toolBarIsShow = YES;
-    }];
-    
-}
-
 - (void)nextAction
 {
-    [self hidenToolBar];
+    if (self.selectAssets.count>0) {
+        NSMutableArray * imageArray = [NSMutableArray array];
+        for (NSString * key in self.selectAssets) {
+            GDAssetModel * asset = self.selectAssets[key];
+            asset.isSelected = NO;
+            [[GDAssetManager manager] getOriginlPhotoWithAsset:asset.asset completion:^(UIImage *photo, NSDictionary *info) {
+                [imageArray addObject:UIImagePNGRepresentation(photo)];
+            }];
+        }
+        if (self.picker.complete) {
+            self.picker.complete([imageArray mutableCopy]);
+            [imageArray removeAllObjects];
+            dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
+            dispatch_async(queue, ^{
+                [imageArray class];
+            });
+        }
+        [self leftButtonTouch];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -220,7 +207,6 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
     [super viewDidAppear:animated];
     [self updateCachedAssets];
     collectionSize = self.view.frame.size;
-    [self setupToolBar];
 }
 
 - (void)dealloc
@@ -232,7 +218,9 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
 - (void)leftButtonTouch
 {
     [self resetCachedAssets];
-    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        [self.selectAssets removeAllObjects];
+    }];
 }
 
 
@@ -469,8 +457,28 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
     
     NSInteger currentTag = cell.tag + 1;
     cell.tag = currentTag;
+    cell.indexPath = indexPath;
     
     GDAssetModel *assetModel = self.allAsset[indexPath.item];
+    cell.assetModel = assetModel;
+    
+    cell.selectBlock = ^(GDGridViewCell *scell){
+        
+        scell.assetModel.isSelected = !scell.assetModel.isSelected;
+        NSIndexPath * path = scell.indexPath;
+        if (assetModel.isSelected) {
+            if (self.selectAssets.count == self.picker.maxImagesCount) {
+                scell.assetModel.isSelected = !scell.assetModel.isSelected;
+                return ;
+            }
+            [self.selectAssets setValue:self.allAsset[path.item] forKey:[NSString stringWithFormat:@"%li",path.item]];
+            [scell.selectIcon setImage:[UIImage imageNamed:@"photo_sel_photoPickerVc"]];
+        }else{
+            [self.selectAssets removeObjectForKey:[NSString stringWithFormat:@"%li",path.item]];
+            [scell.selectIcon setImage:[UIImage imageNamed:@"photo_def_previewVc"]];
+        }
+        
+    };
     
     if (_picker.showCameraButton && indexPath.item == 0)
     {
@@ -487,7 +495,13 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
                                                       [strongCell.imageView setImage:photo];
                                                   }
                                               }];
-        
+    
+    if (assetModel.isSelected) {
+        [cell.selectIcon setImage:[UIImage imageNamed:@"photo_sel_photoPickerVc"]];
+    }else{
+        [cell.selectIcon setImage:[UIImage imageNamed:@"photo_def_previewVc"]];
+    }
+    
     return cell;
 }
 
@@ -501,7 +515,7 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self showToolBar];
+    [collectionView reloadItemsAtIndexPaths:@[indexPath]];
 }
 
 
@@ -591,14 +605,6 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
 
 #pragma mark -- getter
 
-- (UIView *)toolBar
-{
-    if (!_toolBar) {
-        _toolBar = [[UIView alloc] initWithFrame:CGRectMake(0, collectionSize.height, SCREEN_WIDTH, TOOL_BAR_HEIGHT)];
-        _toolBar.backgroundColor = self.picker.navBackgroundColor;
-        _toolBarIsShow = NO;
-    }
-    return _toolBar;
-}
+
 
 @end

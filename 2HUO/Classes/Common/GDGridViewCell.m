@@ -7,6 +7,7 @@
 //
 
 #import "GDGridViewCell.h"
+#import "GDAssetManager.h"
 
 @implementation GDGridViewCell
 
@@ -20,10 +21,19 @@
     _imageView.clipsToBounds = YES;
     _imageView.translatesAutoresizingMaskIntoConstraints = NO;
     _imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    
+    __weak typeof(self) weakSelf = self;
+    [self.selectButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id sender) {
+        __strong typeof(self) strongSelf = weakSelf;
+        if (strongSelf.selectBlock) {
+            strongSelf.selectBlock(strongSelf);
+        }
+    }];
 }
 
 - (void)setAssetModel:(GDAssetModel *)assetModel
 {
+    
     _assetModel = assetModel;
 }
 

@@ -135,7 +135,7 @@
     
     NSMutableString *mPath = [path mutableCopy];
     [mPath deleteCharactersInRange:paramsRange];
-    path = mPath;
+    
     
     while (mParams.length > 0) {
         NSRange r = [mParams rangeOfString:DN_REGEX_PARAMS_UNIT

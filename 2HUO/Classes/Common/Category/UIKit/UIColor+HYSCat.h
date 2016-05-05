@@ -10,6 +10,11 @@
 
 @interface UIColor (HYSCat)
 
+#define RGBA(r, g, b, a)                                                       \
+[UIColor colorWithRed:(r) / 255.0f                                           \
+green:(g) / 255.0f                                           \
+blue:(b) / 255.0f                                           \
+alpha:(a)]
 
 #ifndef UIColorHex
 #define UIColorHex(_hex_)   [UIColor colorWithHexString:((__bridge NSString *)CFSTR(#_hex_))]
