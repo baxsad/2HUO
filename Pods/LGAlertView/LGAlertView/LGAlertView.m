@@ -944,11 +944,11 @@ LGAlertViewType;
 
     _titleTextColor     = (kLGAlertViewTitleTextColor ? kLGAlertViewTitleTextColor : (_style == LGAlertViewStyleAlert ? [UIColor blackColor] : [UIColor grayColor]));
     _titleTextAlignment = (kLGAlertViewTitleTextAlignment != NSNotFound ? kLGAlertViewTitleTextAlignment : NSTextAlignmentCenter);
-    _titleFont          = (kLGAlertViewTitleFont ? kLGAlertViewTitleFont : (_style == LGAlertViewStyleAlert ? [UIFont boldSystemFontOfSize:18.f] : [UIFont boldSystemFontOfSize:14.f]));
+    _titleFont          = (kLGAlertViewTitleFont ? kLGAlertViewTitleFont : (_style == LGAlertViewStyleAlert ? [UIFont boldSystemFontOfSize:16.f] : [UIFont boldSystemFontOfSize:14.f]));
 
-    _messageTextColor     = (kLGAlertViewMessageTextColor ? kLGAlertViewMessageTextColor : (_style == LGAlertViewStyleAlert ? [UIColor blackColor] : [UIColor grayColor]));
+    _messageTextColor     = (kLGAlertViewMessageTextColor ? kLGAlertViewMessageTextColor : (_style == LGAlertViewStyleAlert ? [UIColor grayColor] : [UIColor grayColor]));
     _messageTextAlignment = (kLGAlertViewMessageTextAlignment != NSNotFound ? kLGAlertViewMessageTextAlignment : NSTextAlignmentCenter);
-    _messageFont          = (kLGAlertViewMessageFont ? kLGAlertViewMessageFont : (_style == LGAlertViewStyleAlert ? [UIFont systemFontOfSize:14.f] : [UIFont systemFontOfSize:14.f]));
+    _messageFont          = (kLGAlertViewMessageFont ? kLGAlertViewMessageFont : (_style == LGAlertViewStyleAlert ? [UIFont systemFontOfSize:13.f] : [UIFont systemFontOfSize:14.f]));
 
     _tintColor = (kLGAlertViewTintColor ? kLGAlertViewTintColor : [UIColor colorWithRed:0.f green:0.5 blue:1.f alpha:1.f]);
 
@@ -956,7 +956,7 @@ LGAlertViewType;
     _buttonsTitleColorHighlighted      = (kLGAlertViewButtonsTitleColorHighlighted ? kLGAlertViewButtonsTitleColorHighlighted : [UIColor whiteColor]);
     _buttonsTitleColorDisabled         = (kLGAlertViewButtonsTitleColorDisabled ? kLGAlertViewButtonsTitleColorDisabled : [UIColor grayColor]);
     _buttonsTextAlignment              = (kLGAlertViewButtonsTextAlignment != NSNotFound ? kLGAlertViewButtonsTextAlignment : NSTextAlignmentCenter);
-    _buttonsFont                       = (kLGAlertViewButtonsFont ? kLGAlertViewButtonsFont : [UIFont systemFontOfSize:18.f]);
+    _buttonsFont                       = (kLGAlertViewButtonsFont ? kLGAlertViewButtonsFont : [UIFont systemFontOfSize:15.f]);
     _buttonsNumberOfLines              = (kLGAlertViewButtonsNumberOfLines != NSNotFound ? kLGAlertViewButtonsNumberOfLines : 1);
     _buttonsLineBreakMode              = (kLGAlertViewButtonsLineBreakMode != NSNotFound ? kLGAlertViewButtonsLineBreakMode : NSLineBreakByTruncatingMiddle);
     _buttonsAdjustsFontSizeToFitWidth  = (kLGAlertViewButtonsAdjustsFontSizeToFitWidth ? kLGAlertViewButtonsAdjustsFontSizeToFitWidth.boolValue : YES);
@@ -970,7 +970,7 @@ LGAlertViewType;
     _cancelButtonTitleColorHighlighted      = (kLGAlertViewCancelButtonTitleColorHighlighted ? kLGAlertViewCancelButtonTitleColorHighlighted : [UIColor whiteColor]);
     _cancelButtonTitleColorDisabled         = (kLGAlertViewCancelButtonTitleColorDisabled ? kLGAlertViewCancelButtonTitleColorDisabled : [UIColor grayColor]);
     _cancelButtonTextAlignment              = (kLGAlertViewCancelButtonTextAlignment != NSNotFound ? kLGAlertViewCancelButtonTextAlignment : NSTextAlignmentCenter);
-    _cancelButtonFont                       = (kLGAlertViewCancelButtonFont ? kLGAlertViewCancelButtonFont : [UIFont boldSystemFontOfSize:18.f]);
+    _cancelButtonFont                       = (kLGAlertViewCancelButtonFont ? kLGAlertViewCancelButtonFont : [UIFont boldSystemFontOfSize:16.f]);
     _cancelButtonNumberOfLines              = (kLGAlertViewCancelButtonNumberOfLines != NSNotFound ? kLGAlertViewCancelButtonNumberOfLines : 1);
     _cancelButtonLineBreakMode              = (kLGAlertViewCancelButtonLineBreakMode != NSNotFound ? kLGAlertViewCancelButtonLineBreakMode : NSLineBreakByTruncatingMiddle);
     _cancelButtonAdjustsFontSizeToFitWidth  = (kLGAlertViewCancelButtonAdjustsFontSizeToFitWidth ? kLGAlertViewCancelButtonAdjustsFontSizeToFitWidth.boolValue : YES);
@@ -984,7 +984,7 @@ LGAlertViewType;
     _destructiveButtonTitleColorHighlighted      = (kLGAlertViewDestructiveButtonTitleColorHighlighted ? kLGAlertViewDestructiveButtonTitleColorHighlighted : [UIColor whiteColor]);
     _destructiveButtonTitleColorDisabled         = (kLGAlertViewDestructiveButtonTitleColorDisabled ? kLGAlertViewDestructiveButtonTitleColorDisabled : [UIColor grayColor]);
     _destructiveButtonTextAlignment              = (kLGAlertViewDestructiveButtonTextAlignment != NSNotFound ? kLGAlertViewDestructiveButtonTextAlignment : NSTextAlignmentCenter);
-    _destructiveButtonFont                       = (kLGAlertViewDestructiveButtonFont ? kLGAlertViewDestructiveButtonFont : [UIFont systemFontOfSize:18.f]);
+    _destructiveButtonFont                       = (kLGAlertViewDestructiveButtonFont ? kLGAlertViewDestructiveButtonFont : [UIFont systemFontOfSize:16.f]);
     _destructiveButtonNumberOfLines              = (kLGAlertViewDestructiveButtonNumberOfLines != NSNotFound ? kLGAlertViewDestructiveButtonNumberOfLines : 1);
     _destructiveButtonLineBreakMode              = (kLGAlertViewDestructiveButtonLineBreakMode != NSNotFound ? kLGAlertViewDestructiveButtonLineBreakMode : NSLineBreakByTruncatingMiddle);
     _destructiveButtonAdjustsFontSizeToFitWidth  = (kLGAlertViewDestructiveButtonAdjustsFontSizeToFitWidth ? kLGAlertViewDestructiveButtonAdjustsFontSizeToFitWidth.boolValue : YES);

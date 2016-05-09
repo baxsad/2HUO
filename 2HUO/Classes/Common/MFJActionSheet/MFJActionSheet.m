@@ -354,7 +354,7 @@
     // 开始布局
     [self layoutSheet];
     
-    void (^completion)(void) = ^{
+    void (^completion)(BOOL finished) = ^(BOOL finished){
         [[UIApplication sharedApplication] endIgnoringInteractionEvents];
     };
     
@@ -362,22 +362,26 @@
     
     if (!animated) {
         
-        completion();
+        completion(YES);
         
         self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.45f];
         self.scrollView.frame = self.showFrame;
     }
     else {
-        CGFloat duration = kAnimationDurationForSectionCount(self.sections.count);
+        //CGFloat duration = kAnimationDurationForSectionCount(self.sections.count);
         
-        [UIView animateWithDuration:duration animations:^{
-            
+        void (^Animated)() = ^{
             self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.45f];
             self.scrollView.frame = self.showFrame;
-            
-        } completion:^(BOOL finished) {
-            completion();
-        }];
+        };
+        
+        [UIView animateWithDuration:0.5
+                              delay:0.0
+             usingSpringWithDamping:1.f
+              initialSpringVelocity:0.5
+                            options:0
+                         animations:Animated
+                         completion:completion];
         
     }
     _visible = YES;
@@ -514,15 +518,26 @@
 
 - (void)dismissAnimated:(BOOL)animated
 {
-    CGFloat duration = animated ? kAnimationDurationForSectionCount(self.sections.count) : 0;
+    //CGFloat duration = animated ? kAnimationDurationForSectionCount(self.sections.count) : 0;
     
-    [UIView animateWithDuration:duration animations:^{
-        self.scrollView.frame = self.hidenFrame;
-        self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.0f];
-    } completion:^(BOOL finished) {
+    void (^complete)(BOOL) = ^(BOOL finished){
         [self removeFromSuperview];
         _visible = NO;
-    }];
+    };
+    
+    void (^Animated)() = ^{
+        self.scrollView.frame = self.hidenFrame;
+        self.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.0f];
+    };
+    
+    [UIView animateWithDuration:0.5
+                          delay:0.0
+         usingSpringWithDamping:1.f
+          initialSpringVelocity:0.5
+                        options:0
+                     animations:Animated
+                     completion:complete];
+    
 }
 
 @end

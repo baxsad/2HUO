@@ -36,6 +36,8 @@
     [super viewDidLoad];
     self.view.backgroundColor = UIColorHex(0xf2f2f2);
     [self showBarButton:NAV_RIGHT title:@"Edit" fontColor:UIColorHex(0xD2B203)];
+    self.title = self.ptitle;
+    
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([EHPostCell class]) bundle:nil] forCellReuseIdentifier:@"EHPostCell"];
     [self.view addSubview:self.tableView];
@@ -52,16 +54,34 @@
     
     self.getPostListRequest = [GDRequest getPostListRequest];
     [self.getPostListRequest.params setValue:@(self.cid) forKey:@"cid"];
-    self.getPostListRequest.requestNeedActive = YES;
     [self.getPostListRequest listen:^(GDReq * _Nonnull req) {
         if (req.succeed) {
             self.postModel = [[Post alloc] initWithDictionary:req.output error:nil];
+            if (self.tableView.mj_header.isRefreshing) {
+                [self.tableView.mj_header endRefreshing];
+            }
+        }
+        if (req.failed) {
+            if (self.tableView.mj_header.isRefreshing) {
+                [self.tableView.mj_header endRefreshing];
+            }
         }
     }];
     
     [RACObserve(self, postModel) subscribeNext:^(id x) {
         [self.tableView reloadData];
     }];
+    
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    [self.tableView setDefaultGifRefreshWithHeader:header];
+    self.tableView.mj_header = header;
+    [self.tableView.mj_header beginRefreshing];
+    
+}
+
+- (void)loadNewData
+{
+    self.getPostListRequest.requestNeedActive = YES;
 }
 
 -(void)rightButtonTouch{

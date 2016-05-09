@@ -28,6 +28,7 @@
 #import "GDNetWorking.h"
 #import "GDRequest.h"
 #import "DataCenter.h"
+#import "UIViewController+Extend.h"
 
 #endif
 

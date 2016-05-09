@@ -12,6 +12,8 @@
 #import "EHTitleCell.h"
 #import "identityCardCell.h"
 #import "LGAlertView.h"
+#import "School.h"
+#import "SellerModel.h"
 
 @interface EHUserInfoScene ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
 {
@@ -28,12 +30,16 @@
 @property (strong, nonatomic) RACSubject *addressSignal;
 @property (strong, nonatomic) RACSubject *IDCardSignal;
 
-@property (nonatomic, copy) NSString *name; // 姓名
-@property (nonatomic, copy) NSString *phone; // 电话
-@property (nonatomic, copy) NSString *school; // 学校
-@property (nonatomic, copy) NSString *address;// 详细地址
-@property (nonatomic, copy) NSString *IDCard;// 学号
+@property (nonatomic,   copy) NSString *name; // 姓名
+@property (nonatomic,   copy) NSString *phone; // 电话
+@property (nonatomic, strong) School   *school; // 学校
+@property (nonatomic,   copy) NSString *address;// 详细地址
+@property (nonatomic,   copy) NSString *IDCard;// 学号
 
+@property (nonatomic, strong) GDReq    * addAddressRequest;
+@property (nonatomic, strong) GDReq    * updateAddressRequest;
+@property (nonatomic, strong) GDReq    * deleteAddressRequest;
+@property (nonatomic, assign) BOOL userInteractionEnabled;
 
 @end
 
@@ -44,6 +50,29 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.title = @"卖家信息";
+    if (self.sellerModel) {
+        self.school = self.sellerModel.school;
+    }
+    
+    [RACObserve(self, status) subscribeNext:^(id x) {
+        if (self.status == AddressStatusNone) {
+            [self showBarButton:NAV_RIGHT title:@"编辑" fontColor:UIColorHex(0xff5a5f)];
+        }
+        if (self.status == AddressStatusUpdate) {
+            [self showBarButton:NAV_RIGHT title:@"完成" fontColor:UIColorHex(0xff5a5f)];
+            [self.saveButton setTitle:@"删除" forState:UIControlStateNormal];
+        }
+        if (self.status == AddressStatusAdd) {
+            [self.saveButton setTitle:@"确认" forState:UIControlStateNormal];
+        }
+        self.userInteractionEnabled = (self.status == 1 || self.status == 2) ? YES : NO;
+    }];
+    
+    self.userInteractionEnabled = (self.status == 1 || self.status == 2) ? YES : NO;
+    
+    [RACObserve(self, userInteractionEnabled) subscribeNext:^(id x) {
+        self.saveButton.hidden = !_userInteractionEnabled;
+    }];
     
     self.saveButton.layer.cornerRadius = 3.0;
     self.saveButton.layer.masksToBounds = YES;
@@ -59,7 +88,14 @@
     self.tableView.showsHorizontalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    _placeholders = @[@"卖家姓名",@"手机号码",@"学校",@"详细地址",@"您的学号信息将被加密，请放心填写"];
+    if (!_userInteractionEnabled && self.sellerModel) {
+        _placeholders = @[_sellerModel.userName,_sellerModel.phone,_sellerModel.school.name,_sellerModel.location,_sellerModel.numberCard];
+    }else{
+        _placeholders = @[@"卖家姓名",@"手机号码",@"学校",@"详细地址",@"您的学号信息将被加密，请放心填写"];
+    }
+    
+    
+    
     _nameSignal = [RACSubject subject];
     _telephoneSignal = [RACSubject subject];
     _addressSignal = [RACSubject subject];
@@ -70,6 +106,40 @@
     RAC(self,address) = [self.addressSignal startWith:@""];
     RAC(self,IDCard) = [self.IDCardSignal startWith:@""];
     
+    self.addAddressRequest = [GDRequest addAddressRequest];
+    [self.addAddressRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            [[GDRouter sharedInstance] pop];
+        }
+        if (req.failed) {
+            [GDHUD showMessage:req.output[@"message"] timeout:1];
+        }
+    }];
+    
+    self.updateAddressRequest = [GDRequest updateAddressRequest];
+    [self.updateAddressRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            [GDHUD hideUIBlockingIndicator];
+            [[GDRouter sharedInstance] pop];
+        }
+        if (req.failed) {
+            [GDHUD hideUIBlockingIndicator];
+            [GDHUD showMessage:req.output[@"message"] timeout:1];
+        }
+    }];
+    
+    self.deleteAddressRequest = [GDRequest deleteAddressRequest];
+    [self.deleteAddressRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            [GDHUD hideUIBlockingIndicator];
+            [[GDRouter sharedInstance] pop];
+        }
+        if (req.failed) {
+            [GDHUD hideUIBlockingIndicator];
+            [GDHUD showMessage:req.output[@"message"] timeout:1];
+        }
+    }];
+    
     /** 监听键盘是否弹出 */
     [[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIKeyboardDidShowNotification object:nil] subscribeNext:^(id x) {
         keyboardIsVisible = YES;
@@ -79,16 +149,72 @@
     }];
     
     self.saveButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input){
+        
+        if (self.status == AddressStatusUpdate) {
+            [GDHUD showUIBlockingIndicator];
+            [self.deleteAddressRequest.params setObject:@(self.sellerModel.aid) forKey:@"aid"];
+            [self.deleteAddressRequest.params setObject:USER.uid forKey:@"uid"];
+            self.deleteAddressRequest.requestNeedActive = YES;
+            return [RACSignal empty];
+        }
+        
         if (keyboardIsVisible) {
             [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
         }
         if ([self validity]){
             
+            self.addAddressRequest.params = @{@"uid":USER.uid,
+                                              @"sid":@(self.school.id),
+                                              @"name":self.name,
+                                              @"phone":self.phone,
+                                              @"location":self.address,
+                                              @"numberCard":self.IDCard}.mutableCopy;
+            self.addAddressRequest.requestNeedActive = YES;
         }
         
         return [RACSignal empty];
     }];
     
+    
+}
+
+- (void)rightButtonTouch
+{
+    if (self.status == AddressStatusNone) {
+        self.status = AddressStatusUpdate;
+        if (self.school && self.sellerModel) {
+            self.school = self.sellerModel.school;
+        }
+
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0],
+                                                 [NSIndexPath indexPathForRow:1 inSection:0],
+                                                 [NSIndexPath indexPathForRow:2 inSection:0],
+                                                 [NSIndexPath indexPathForRow:3 inSection:0],
+                                                 [NSIndexPath indexPathForRow:4 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+        return;
+    }
+    if (self.status == AddressStatusUpdate) {
+        
+        // 编辑完成？
+        NSLog(@"编辑完成？");
+        if (keyboardIsVisible) {
+            [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+        }
+        if ([self validity]){
+            
+            [GDHUD showUIBlockingIndicator];
+            self.updateAddressRequest.params = @{@"aid":@(self.sellerModel.aid),
+                                                 @"uid":USER.uid,
+                                                 @"sid":@(self.school.id),
+                                                 @"name":self.name,
+                                                 @"phone":self.phone,
+                                                 @"location":self.address,
+                                                 @"numberCard":self.IDCard}.mutableCopy;
+            self.updateAddressRequest.requestNeedActive = YES;
+            
+        }
+        return;
+    }
     
 }
 
@@ -99,7 +225,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 90.0;
+    return 90;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -131,44 +257,71 @@
     switch (indexPath.row) {
         case 0:{
             EHTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EHTextFieldCell"];
+            cell.text = @"";
             cell.placeholder = _placeholders[indexPath.row];
+            if (self.userInteractionEnabled && self.sellerModel) {
+                cell.text = _placeholders[indexPath.row];
+            }
             [cell bindSignal:self.nameSignal];
+            cell.userInteractionEnabled = _userInteractionEnabled;
             return cell;
             break;
         }
         case 1:{
             EHTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EHTextFieldCell"];
+            cell.text = @"";
             cell.placeholder = _placeholders[indexPath.row];
+            if (self.userInteractionEnabled && self.sellerModel) {
+                cell.text = _placeholders[indexPath.row];
+            }
             [cell setKeyBoardType:UIKeyboardTypePhonePad];
             [cell bindSignal:self.telephoneSignal];
+            cell.userInteractionEnabled = _userInteractionEnabled;
             return cell;
             break;
         }
         case 2:{
             EHTitleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EHTitleCell"];
-            [cell setTitle:_placeholders[indexPath.row]];
+            if (self.userInteractionEnabled && !self.sellerModel) {
+                [cell setTitle:_school ? _school.name : _placeholders[indexPath.row]];
+            }else{
+                if (self.userInteractionEnabled) {
+                    [cell setTitle:_school ? _school.name : _placeholders[indexPath.row]];
+                }else{
+                    [cell setTitle:_placeholders[indexPath.row]];
+                }
+            }
             [cell setTitleColor:RGBA(102.0, 102.0, 102.0, 1)];
             [cell setTitleFont:[UIFont systemFontOfSize:15]];
             [cell setContenAlignment:NSTextAlignmentLeft];
             [cell setLeftMarginWith:15.0];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.userInteractionEnabled = _userInteractionEnabled;
             return cell;
             break;
         }
         case 3:{
             EHTextViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EHTextViewCell"];
+            [cell.textView setText:@""];
             cell.textView.placeholder = _placeholders[indexPath.row];
+            if (self.userInteractionEnabled && self.sellerModel) {
+                cell.textView.text = _placeholders[indexPath.row];
+            }
             [cell bindSignal:self.addressSignal];
-            
+            cell.userInteractionEnabled = _userInteractionEnabled;
             return cell;
             break;
         }
         case 4:{
             identityCardCell *cell = [tableView dequeueReusableCellWithIdentifier:@"identityCardCell"];
+            cell.text = @"";
             cell.placeholder = _placeholders[indexPath.row];
+            if (self.userInteractionEnabled && self.sellerModel) {
+                cell.text = _placeholders[indexPath.row];
+            }
             [cell setKeyBoardType:UIKeyboardTypeDefault];
             [cell bindSignal:self.IDCardSignal];
-            
+            cell.userInteractionEnabled = _userInteractionEnabled;
             return cell;
             break;
         }
@@ -259,7 +412,7 @@
                              }] showAnimated:YES completionHandler:nil];
         }
         return NO;
-    }else if(self.school.length==0 || self.school == nil){
+    }else if(!self.school){
         [[[LGAlertView alloc] initWithTitle:@"提示"
                                     message:@"请选择学校"
                                       style:LGAlertViewStyleAlert
@@ -325,10 +478,13 @@
     if (indexPath.row == 2) {
         if (keyboardIsVisible) {
             [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
-            
         }
         [[GDRouter sharedInstance] open:@"GD://school"];
-        
+        [GDRouter sharedInstance].receiveCallBack = ^(School * model){
+            self.school = model;
+            NSIndexPath * path = [NSIndexPath indexPathForRow:2 inSection:0];
+            [self.tableView reloadRowAtIndexPath:path withRowAnimation:UITableViewRowAnimationFade];
+        };
     }
 }
 

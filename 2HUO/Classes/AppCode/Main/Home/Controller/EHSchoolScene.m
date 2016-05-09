@@ -64,7 +64,6 @@
     [cell configModel:model];
     cell.backgroundColor = [UIColor clearColor];
     return cell;
-    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -88,8 +87,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //School * model = self.schoolData.data[indexPath.row];
+    School * model = self.schoolData.data[indexPath.row];
     [[GDRouter sharedInstance] pop];
+    [GDRouter sharedInstance].send(model);
+    
 }
 
 

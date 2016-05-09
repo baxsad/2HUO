@@ -28,6 +28,7 @@ PODS:
   - ReactiveCocoa/no-arc (2.4.7)
   - ReactiveCocoa/UI (2.4.7):
     - ReactiveCocoa/Core
+  - RZTransitions (1.2.1)
   - UITableView+FDTemplateLayoutCell (1.5.beta)
   - YYCache (1.0.3)
   - YYImage (1.0.1):
@@ -48,6 +49,7 @@ DEPENDENCIES:
   - MBProgressHUD (~> 0.9.2)
   - MJRefresh (~> 3.1.0)
   - ReactiveCocoa (~> 2.4.7)
+  - RZTransitions (~> 1.2.1)
   - UITableView+FDTemplateLayoutCell (~> 1.5.beta)
   - YYText (~> 1.0.3)
   - YYWebImage (~> 1.0)
@@ -62,6 +64,7 @@ SPEC CHECKSUMS:
   MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
   MJRefresh: 743e6404967d1c2c688472ea3ecfde247d872db4
   ReactiveCocoa: eb38dee0a0e698f73a9b25e5c1faea2bb4c79240
+  RZTransitions: 0e0013fda6989ee84dc5e44dca79fd539e1a975a
   UITableView+FDTemplateLayoutCell: 02b508ab1cb4cea16a8c17ac83d2cd1fd72124f9
   YYCache: 282f35b5b0990833d0b7a06d864a87141a021da2
   YYImage: b41b45bc5f32bfcdf67bdfb9c09da9e9832357c0

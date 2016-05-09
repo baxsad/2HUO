@@ -73,6 +73,10 @@
 
 - (void)leftButtonTouch
 {
+    if (!ISLOGIN) {
+        [self showSignScene];
+        return;
+    }
     [[GDRouter sharedInstance] show:@"GD://mine" animated:YES completion:nil];
 }
 
@@ -135,7 +139,7 @@
     if (indexPath.section) {
         Community * model = self.communityData.data[indexPath.row];
         NSString * url = [NSString stringWithFormat:@"GD://postList/?cid=%li",model.cid];
-        [[GDRouter sharedInstance] open:url animated:YES extraParams:nil];
+        [[GDRouter sharedInstance] open:url animated:YES extraParams:@{@"ptitle":model.c_name}];
     }
 }
 

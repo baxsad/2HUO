@@ -153,6 +153,18 @@
 		A0BA08121CDB644A0089BB72 /* EHSchoolScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA08111CDB644A0089BB72 /* EHSchoolScene.m */; };
 		A0BA08161CDB65230089BB72 /* EHSchoolCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA08141CDB65230089BB72 /* EHSchoolCell.m */; };
 		A0BA08171CDB65230089BB72 /* EHSchoolCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BA08151CDB65230089BB72 /* EHSchoolCell.xib */; };
+		A0BA081A1CDC3EC40089BB72 /* SellerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA08191CDC3EC40089BB72 /* SellerModel.m */; };
+		A0BA081E1CDC51990089BB72 /* EHAddressListScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA081C1CDC51990089BB72 /* EHAddressListScene.m */; };
+		A0BA081F1CDC51990089BB72 /* EHAddressListScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BA081D1CDC51990089BB72 /* EHAddressListScene.xib */; };
+		A0BA08231CDC52C20089BB72 /* EHAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA08211CDC52C20089BB72 /* EHAddressCell.m */; };
+		A0BA08241CDC52C20089BB72 /* EHAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BA08221CDC52C20089BB72 /* EHAddressCell.xib */; };
+		A0BA08281CDCA2320089BB72 /* EHSignScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA08261CDCA2320089BB72 /* EHSignScene.m */; };
+		A0BA08291CDCA2320089BB72 /* EHSignScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BA08271CDCA2320089BB72 /* EHSignScene.xib */; };
+		A0BA082C1CDCA25F0089BB72 /* UIViewController+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA082B1CDCA25F0089BB72 /* UIViewController+Extend.m */; };
+		A0BA08311CDCC5AB0089BB72 /* LoginItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA082F1CDCC5AB0089BB72 /* LoginItemView.m */; };
+		A0BA08321CDCC5AB0089BB72 /* LoginItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BA08301CDCC5AB0089BB72 /* LoginItemView.xib */; };
+		A0BA08371CDCCE4B0089BB72 /* EHTelLoginScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA08351CDCCE4B0089BB72 /* EHTelLoginScene.m */; };
+		A0BA08381CDCCE4B0089BB72 /* EHTelLoginScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BA08361CDCCE4B0089BB72 /* EHTelLoginScene.xib */; };
 		A0BF1CCE1CB3CB5D004CCFF6 /* libAVOSCloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */; };
 		A0E26D731CBF7F1E00974807 /* GDCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26D721CBF7F1E00974807 /* GDCameraViewController.m */; };
 		A0E26E881CC1DA9800974807 /* Type.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E871CC1DA9800974807 /* Type.m */; };
@@ -494,6 +506,25 @@
 		A0BA08131CDB65230089BB72 /* EHSchoolCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHSchoolCell.h; sourceTree = "<group>"; };
 		A0BA08141CDB65230089BB72 /* EHSchoolCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHSchoolCell.m; sourceTree = "<group>"; };
 		A0BA08151CDB65230089BB72 /* EHSchoolCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHSchoolCell.xib; sourceTree = "<group>"; };
+		A0BA08181CDC3EC40089BB72 /* SellerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SellerModel.h; sourceTree = "<group>"; };
+		A0BA08191CDC3EC40089BB72 /* SellerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SellerModel.m; sourceTree = "<group>"; };
+		A0BA081B1CDC51990089BB72 /* EHAddressListScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHAddressListScene.h; sourceTree = "<group>"; };
+		A0BA081C1CDC51990089BB72 /* EHAddressListScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHAddressListScene.m; sourceTree = "<group>"; };
+		A0BA081D1CDC51990089BB72 /* EHAddressListScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHAddressListScene.xib; sourceTree = "<group>"; };
+		A0BA08201CDC52C20089BB72 /* EHAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHAddressCell.h; sourceTree = "<group>"; };
+		A0BA08211CDC52C20089BB72 /* EHAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHAddressCell.m; sourceTree = "<group>"; };
+		A0BA08221CDC52C20089BB72 /* EHAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHAddressCell.xib; sourceTree = "<group>"; };
+		A0BA08251CDCA2320089BB72 /* EHSignScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EHSignScene.h; path = ../EHSignScene.h; sourceTree = "<group>"; };
+		A0BA08261CDCA2320089BB72 /* EHSignScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EHSignScene.m; path = ../EHSignScene.m; sourceTree = "<group>"; };
+		A0BA08271CDCA2320089BB72 /* EHSignScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = EHSignScene.xib; path = ../EHSignScene.xib; sourceTree = "<group>"; };
+		A0BA082A1CDCA25F0089BB72 /* UIViewController+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIViewController+Extend.h"; path = "../UIViewController+Extend.h"; sourceTree = "<group>"; };
+		A0BA082B1CDCA25F0089BB72 /* UIViewController+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+Extend.m"; path = "../UIViewController+Extend.m"; sourceTree = "<group>"; };
+		A0BA082E1CDCC5AB0089BB72 /* LoginItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginItemView.h; sourceTree = "<group>"; };
+		A0BA082F1CDCC5AB0089BB72 /* LoginItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginItemView.m; sourceTree = "<group>"; };
+		A0BA08301CDCC5AB0089BB72 /* LoginItemView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginItemView.xib; sourceTree = "<group>"; };
+		A0BA08341CDCCE4B0089BB72 /* EHTelLoginScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHTelLoginScene.h; sourceTree = "<group>"; };
+		A0BA08351CDCCE4B0089BB72 /* EHTelLoginScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHTelLoginScene.m; sourceTree = "<group>"; };
+		A0BA08361CDCCE4B0089BB72 /* EHTelLoginScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHTelLoginScene.xib; sourceTree = "<group>"; };
 		A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAVOSCloud.a; path = Pods/AVOSCloud/libAVOSCloud.a; sourceTree = "<group>"; };
 		A0E26D711CBF7F1E00974807 /* GDCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCameraViewController.h; sourceTree = "<group>"; };
 		A0E26D721CBF7F1E00974807 /* GDCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCameraViewController.m; sourceTree = "<group>"; };
@@ -1041,6 +1072,8 @@
 				A0E26E871CC1DA9800974807 /* Type.m */,
 				A0E3DB091CD32DFA00E84986 /* Communitys.h */,
 				A0E3DB0A1CD32DFA00E84986 /* Communitys.m */,
+				A0BA08181CDC3EC40089BB72 /* SellerModel.h */,
+				A0BA08191CDC3EC40089BB72 /* SellerModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1163,6 +1196,31 @@
 			path = Wechat;
 			sourceTree = "<group>";
 		};
+		A0BA082D1CDCC5AB0089BB72 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				A0BA082A1CDCA25F0089BB72 /* UIViewController+Extend.h */,
+				A0BA082B1CDCA25F0089BB72 /* UIViewController+Extend.m */,
+				A0BA082E1CDCC5AB0089BB72 /* LoginItemView.h */,
+				A0BA082F1CDCC5AB0089BB72 /* LoginItemView.m */,
+				A0BA08301CDCC5AB0089BB72 /* LoginItemView.xib */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		A0BA08331CDCCE260089BB72 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				A0BA08251CDCA2320089BB72 /* EHSignScene.h */,
+				A0BA08261CDCA2320089BB72 /* EHSignScene.m */,
+				A0BA08271CDCA2320089BB72 /* EHSignScene.xib */,
+				A0BA08341CDCCE4B0089BB72 /* EHTelLoginScene.h */,
+				A0BA08351CDCCE4B0089BB72 /* EHTelLoginScene.m */,
+				A0BA08361CDCCE4B0089BB72 /* EHTelLoginScene.xib */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		A0E6F8401CA3BDD100182976 /* MFJSetting */ = {
 			isa = PBXGroup;
 			children = (
@@ -1218,6 +1276,8 @@
 		A0E6F8891CA3FA4800182976 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				A0BA082D1CDCC5AB0089BB72 /* CustomUI */,
+				A0BA08331CDCCE260089BB72 /* Login */,
 				A0E6F88A1CA3FA4800182976 /* MFUHomeViewController.h */,
 				A0E6F88B1CA3FA4800182976 /* MFUHomeViewController.m */,
 				A0E3DB061CD311C500E84986 /* MainScene.h */,
@@ -1265,6 +1325,9 @@
 				A0BA07F91CDB303B0089BB72 /* EHUserInfoScene.xib */,
 				A0BA08101CDB644A0089BB72 /* EHSchoolScene.h */,
 				A0BA08111CDB644A0089BB72 /* EHSchoolScene.m */,
+				A0BA081B1CDC51990089BB72 /* EHAddressListScene.h */,
+				A0BA081C1CDC51990089BB72 /* EHAddressListScene.m */,
+				A0BA081D1CDC51990089BB72 /* EHAddressListScene.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1311,6 +1374,9 @@
 				A0BA08131CDB65230089BB72 /* EHSchoolCell.h */,
 				A0BA08141CDB65230089BB72 /* EHSchoolCell.m */,
 				A0BA08151CDB65230089BB72 /* EHSchoolCell.xib */,
+				A0BA08201CDC52C20089BB72 /* EHAddressCell.h */,
+				A0BA08211CDC52C20089BB72 /* EHAddressCell.m */,
+				A0BA08221CDC52C20089BB72 /* EHAddressCell.xib */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -1555,13 +1621,18 @@
 				A0A333711C97E1FF000C03C2 /* LaunchScreen.storyboard in Resources */,
 				A0E6F8B61CA3FEE500182976 /* EHPostImageCollectionCell.xib in Resources */,
 				A0AE93441CB77F89001C9CB2 /* UMSocialLocalizable.strings in Resources */,
+				A0BA08381CDCCE4B0089BB72 /* EHTelLoginScene.xib in Resources */,
 				A0BA08051CDB461D0089BB72 /* EHTextViewCell.xib in Resources */,
 				A0AE934A1CB77F89001C9CB2 /* UMShareEditViewControlleriPad.xib in Resources */,
 				A0AE93511CB77F89001C9CB2 /* WeiboSDK.bundle in Resources */,
 				A0BA07F31CD9FE140089BB72 /* EHPriceSelectScene.xib in Resources */,
 				A0BA080F1CDB48F30089BB72 /* identityCardCell.xib in Resources */,
+				A0BA08241CDC52C20089BB72 /* EHAddressCell.xib in Resources */,
 				A0BA07E31CD9ECE00089BB72 /* EHSelectMenuView.xib in Resources */,
+				A0BA08291CDCA2320089BB72 /* EHSignScene.xib in Resources */,
 				A0AE93461CB77F89001C9CB2 /* UMSCommentDetailController.xib in Resources */,
+				A0BA081F1CDC51990089BB72 /* EHAddressListScene.xib in Resources */,
+				A0BA08321CDCC5AB0089BB72 /* LoginItemView.xib in Resources */,
 				A0BA080A1CDB47180089BB72 /* EHTitleCell.xib in Resources */,
 				A0127E111CCF4FA900A44187 /* EHCommunityCell.xib in Resources */,
 				A0BA08171CDB65230089BB72 /* EHSchoolCell.xib in Resources */,
@@ -1662,6 +1733,7 @@
 				A0BA07DD1CD8C3130089BB72 /* EHMineMenuCell.m in Sources */,
 				A0E6F8A81CA3FA4800182976 /* MFUHomeViewController.m in Sources */,
 				A0BA07F21CD9FE140089BB72 /* EHPriceSelectScene.m in Sources */,
+				A0BA08231CDC52C20089BB72 /* EHAddressCell.m in Sources */,
 				A0F25A901CB94EFB003AB803 /* YYWeakProxy.m in Sources */,
 				A0F25A941CB9F202003AB803 /* GDImagePickerController.m in Sources */,
 				A02F975F1CA649B0008D02E3 /* UIView+MFJExtent.m in Sources */,
@@ -1684,6 +1756,7 @@
 				A0127DBD1CCDF5D600A44187 /* GDGroupReq.m in Sources */,
 				A0127DFB1CCF0D7D00A44187 /* UITextField+HYSCat.m in Sources */,
 				A0127DBF1CCDF5D600A44187 /* GDSecurityPolicy.m in Sources */,
+				A0BA08371CDCCE4B0089BB72 /* EHTelLoginScene.m in Sources */,
 				A0BA07D11CD88D8A0089BB72 /* School.m in Sources */,
 				A0BA07E11CD9ECC30089BB72 /* EHSelectMenuView.m in Sources */,
 				A0BA07FA1CDB303B0089BB72 /* EHUserInfoScene.m in Sources */,
@@ -1704,6 +1777,7 @@
 				A0127DBB1CCDF5D600A44187 /* GCDQueue.m in Sources */,
 				A0A333691C97E1FF000C03C2 /* ViewController.m in Sources */,
 				A0127DFA1CCF0D7D00A44187 /* NSTimer+HYSCat.m in Sources */,
+				A0BA082C1CDCA25F0089BB72 /* UIViewController+Extend.m in Sources */,
 				A0A6F0651CB6161F0059AE77 /* Post.m in Sources */,
 				A0127E0C1CCF4B4C00A44187 /* EHCommunityPostsScene.m in Sources */,
 				A0127DC61CCDF5D600A44187 /* GDModelMeta.m in Sources */,
@@ -1717,15 +1791,18 @@
 				A0BA07F61CDA0DF00089BB72 /* DataCenter.m in Sources */,
 				A0E6F8B51CA3FEE500182976 /* EHPostImageCollectionCell.m in Sources */,
 				A0E26D731CBF7F1E00974807 /* GDCameraViewController.m in Sources */,
+				A0BA081E1CDC51990089BB72 /* EHAddressListScene.m in Sources */,
 				A0127DC11CCDF5D600A44187 /* GDRouterCenter.m in Sources */,
 				A0E26E881CC1DA9800974807 /* Type.m in Sources */,
 				A0127DF91CCF0D7D00A44187 /* NSString+HYSCat.m in Sources */,
 				A0E6F8BC1CA4311500182976 /* MFJStatusButton.m in Sources */,
+				A0BA08311CDCC5AB0089BB72 /* LoginItemView.m in Sources */,
 				A0127DF51CCF0D7D00A44187 /* NSDate+HYSCat.m in Sources */,
 				A0E3DB0B1CD32DFA00E84986 /* Communitys.m in Sources */,
 				A0E6F8AA1CA3FA4800182976 /* EHPostCell.m in Sources */,
 				A0BA08121CDB644A0089BB72 /* EHSchoolScene.m in Sources */,
 				A0BA07FF1CDB44D20089BB72 /* EHTextFieldCell.m in Sources */,
+				A0BA081A1CDC3EC40089BB72 /* SellerModel.m in Sources */,
 				A07DDF641CB358A000BB2852 /* YDog.m in Sources */,
 				A04E99871CA2911400B0ABB5 /* WrSystemInfo.mm in Sources */,
 				A02F97651CA64A4A008D02E3 /* CALayer+MFJExtent.m in Sources */,
@@ -1756,6 +1833,7 @@
 				A0127DF41CCF0D7D00A44187 /* NSData+HYSCat.m in Sources */,
 				A0127DBE1CCDF5D600A44187 /* GDReq.m in Sources */,
 				A0A333661C97E1FF000C03C2 /* AppDelegate.m in Sources */,
+				A0BA08281CDCA2320089BB72 /* EHSignScene.m in Sources */,
 				A0127E0F1CCF4F9F00A44187 /* EHCommunityCell.m in Sources */,
 				A0BA07D71CD8BDB60089BB72 /* EHMineHeadCell.m in Sources */,
 				A0127DFE1CCF0D7D00A44187 /* UIDevice+HYSCat.m in Sources */,

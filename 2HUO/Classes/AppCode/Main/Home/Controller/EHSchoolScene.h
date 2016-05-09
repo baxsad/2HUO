@@ -8,6 +8,8 @@
 
 #import "IHBaseViewController.h"
 
+
 @interface EHSchoolScene : IHBaseViewController
+
 
 @end

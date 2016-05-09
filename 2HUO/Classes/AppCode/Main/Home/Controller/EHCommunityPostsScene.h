@@ -11,5 +11,6 @@
 @interface EHCommunityPostsScene : IHBaseViewController
 
 @property (nonatomic, assign) NSInteger cid;
+@property (nonatomic, copy  ) NSString * ptitle;
 
 @end

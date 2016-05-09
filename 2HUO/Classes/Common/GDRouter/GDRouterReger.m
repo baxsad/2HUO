@@ -24,7 +24,9 @@
     
     [[GDRouter sharedInstance] reg:@"GD://selectPrice" toClass:NSClassFromString(@"EHPriceSelectScene")];
     
-    [[GDRouter sharedInstance] reg:@"GD://userInfo" toClass:NSClassFromString(@"EHUserInfoScene")];
+    [[GDRouter sharedInstance] reg:@"GD://addressList" toClass:NSClassFromString(@"EHAddressListScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://addAddress" toClass:NSClassFromString(@"EHUserInfoScene")];
     
     [[GDRouter sharedInstance] reg:@"GD://school" toClass:NSClassFromString(@"EHSchoolScene")];
     

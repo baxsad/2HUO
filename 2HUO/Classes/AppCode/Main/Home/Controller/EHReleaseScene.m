@@ -13,6 +13,9 @@
 #import "EHSelectMenuView.h"
 #import "GDImagePickerController.h"
 #import "Communitys.h"
+#import "LGAlertView.h"
+#import "SellerModel.h"
+#import "School.h"
 
 typedef void(^Next)();
 typedef void(^Upload)();
@@ -36,6 +39,7 @@ typedef void(^Upload)();
 @property (nonatomic, copy  ) Next                        Next;
 @property (nonatomic, copy  ) Upload                      Upload;
 @property (nonatomic, strong) GDReq                     * addPostRequest;
+@property (nonatomic, strong) GDReq                     * getDefAddressRequest;
 
 #pragma mark - params
 
@@ -44,6 +48,7 @@ typedef void(^Upload)();
 @property (nonatomic, copy) NSString * p_typeId;
 @property (nonatomic, copy) NSString * p_price;
 @property (nonatomic, copy) NSString * p_orzPrice;
+@property (nonatomic, strong) SellerModel * address;
 
 @end
 
@@ -226,11 +231,40 @@ typedef void(^Upload)();
     };
     
     _transactionModeView.block = ^{
-        
+        LGAlertView *alertView = [[LGAlertView alloc] initWithTitle:@"Model"
+                                                            message:@"TransactionMode Style!"
+                                                              style:LGAlertViewStyleActionSheet
+                                                       buttonTitles:@[@"On Line",@"Out Line"]
+                                                  cancelButtonTitle:nil
+                                             destructiveButtonTitle:@"Destructive"
+                                                      actionHandler:nil
+                                                      cancelHandler:nil
+                                                 destructiveHandler:nil];
+        @strongify(self);
+        alertView.coverColor = [UIColor colorWithWhite:1.f alpha:0.9];
+        alertView.layerShadowColor = [UIColor colorWithWhite:0.f alpha:0.3];
+        alertView.layerShadowRadius = 4.f;
+        alertView.layerCornerRadius = 0.f;
+        alertView.layerBorderWidth = 1.f;
+        alertView.layerBorderColor = [UIColor lightGrayColor];
+        alertView.backgroundColor = [UIColor colorWithWhite:1.f alpha:0.7];
+        alertView.buttonsHeight = 44.f;
+        alertView.titleFont = [UIFont boldSystemFontOfSize:18.f];
+        alertView.titleTextColor = [UIColor blackColor];
+        alertView.messageTextColor = [UIColor grayColor];
+        alertView.width = MIN(self.view.bounds.size.width, self.view.bounds.size.height);
+        alertView.offsetVertical = 0.f;
+        alertView.cancelButtonOffsetY = 0.f;
+        alertView.titleTextAlignment = NSTextAlignmentLeft;
+        alertView.messageTextAlignment = NSTextAlignmentLeft;
+        alertView.buttonsTextAlignment = NSTextAlignmentRight;
+        alertView.cancelButtonTextAlignment = NSTextAlignmentRight;
+        alertView.destructiveButtonTextAlignment = NSTextAlignmentRight;
+        [alertView showAnimated:YES completionHandler:nil];
     };
     
     _locationView.block = ^{
-        [[GDRouter sharedInstance] open:@"GD://userInfo"];
+        [[GDRouter sharedInstance] open:@"GD://addressList"];
     };
     
     [_titleTextField becomeFirstResponder];
@@ -262,6 +296,30 @@ typedef void(^Upload)();
     self.addPostRequest = [GDRequest addPostListRequest];
     [self.addPostRequest.params setValue:USER.uid forKey:@"uid"];
     
+    
+    self.getDefAddressRequest = [GDRequest getDefAddressRequest];
+    [self.getDefAddressRequest.params setObject:USER.uid forKey:@"uid"];
+    [self.getDefAddressRequest.params setObject:@"1" forKey:@"def"];
+    self.getDefAddressRequest.requestNeedActive = YES;
+    [self.getDefAddressRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            SellerModels * model = [[SellerModels alloc] initWithDictionary:req.output error:nil];
+            if (model.data.count>0) {
+                self.address = model.data[0];
+            }
+        }
+        if (req.failed) {
+            self.address = nil;
+        }
+    }];
+    
+    [RACObserve(self, address) subscribeNext:^(id x) {
+        if (self.address) {
+            self.locationView.content = self.address.school.name;
+        }else{
+            self.locationView.content = @"详细信息";
+        }
+    }];
 }
 
 

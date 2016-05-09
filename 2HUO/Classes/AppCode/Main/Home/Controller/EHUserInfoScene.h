@@ -8,6 +8,18 @@
 
 #import "IHBaseViewController.h"
 
+
+@class SellerModel;
+
+typedef NS_ENUM(NSUInteger, AddressStatus) {
+    AddressStatusNone           = 0 ,
+    AddressStatusAdd            = 1,
+    AddressStatusUpdate         = 2
+};
+
 @interface EHUserInfoScene : IHBaseViewController
+
+@property (nonatomic, assign) AddressStatus   status;
+@property (nonatomic, strong) SellerModel   * sellerModel;
 
 @end

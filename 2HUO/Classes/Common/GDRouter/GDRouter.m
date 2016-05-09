@@ -586,6 +586,9 @@ navController:(UINavigationController* )navController
                                      userInfo:nil];
     }
     
+    if (self.receiveCallBack) {
+        self.send = self.receiveCallBack;
+    }
     
 }
 - (void)pop

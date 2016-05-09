@@ -72,6 +72,8 @@
  */
 typedef void (^RouterComponentBlock)(NSDictionary *params);
 
+typedef void (^POPCallBlock)();
+
 /**
  *  模态跳转回调（定义）
  */
@@ -93,6 +95,16 @@ typedef void (^RouterCompletion)();
  *  如果设置为 YES 的话将会正常抛出异常
  */
 @property (readwrite, nonatomic, assign) BOOL openException;
+
+/**
+ *  open回调
+ */
+@property (readwrite, nonatomic,   copy) POPCallBlock receiveCallBack;
+
+/**
+ *  pop回调
+ */
+@property (readwrite, nonatomic,   copy) POPCallBlock send;
 
 /**
  *  控制器返回操作，默认带动画效果（如果是模态跳转就 dismiss ，push 的话 就 pop）

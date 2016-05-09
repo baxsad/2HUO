@@ -30,6 +30,55 @@
     return req;
 }
 
++ (GDReq *)getAddressListRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"user/x.address.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
++ (GDReq *)addAddressRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"user/x.address.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
++ (GDReq *)updateAddressRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"user/x.address.update.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
++ (GDReq *)deleteAddressRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"user/x.address.delete.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
+
++ (GDReq *)getDefAddressRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"user/x.address.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
+
+/////////
+
 + (GDReq *)getCommunityListRequest
 {
     GDReq * req = [GDReq Request];

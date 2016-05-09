@@ -44,6 +44,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>RZTransitions.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>ReactiveCocoa.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -82,7 +87,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0DB649F81FF93E4180C49E23462286F9</key>
+		<key>16AC515AA073493717C444A749CD4EAF</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +97,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>3847E3367D52D2928DD3A38A5FBB4850</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>510AEED812328EEB9DE2189A0FB2BEB4</key>
+		<key>30FAAE043EBFD9BF4A854F41C9876E06</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -112,7 +112,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6E5532F7C5BC349F9AF5156744F34B49</key>
+		<key>7250895BD2D133235EB9A1E3BAA870CB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8E894C2D19C8BB7117150DAD51562463</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -127,17 +132,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>D485EB3AC17C6EE7290C6CF2DDB87F14</key>
+		<key>9B75A861437C93774CDD388991B5415C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DF8F94DA4EB0D7729A83424D458C406D</key>
+		<key>A84363942AC293842EBF4E98734655C3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F66FAF3A6DFA9BFE7B8DB4BC07DE4288</key>
+		<key>D5FF89528D16AF27F8AAE7DF72105E35</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EFAD01FE534904A4FC334CFF60040A2C</key>
 		<dict>
 			<key>primary</key>
 			<true/>
