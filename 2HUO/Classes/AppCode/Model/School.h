@@ -26,6 +26,7 @@
 @property (nonatomic,   copy) NSString  *campus;
 @property (nonatomic,   copy) NSString  *location;
 @property (nonatomic,   copy) NSString  *province;
+@property (nonatomic,   copy) NSString  *city;
 
 @end
 

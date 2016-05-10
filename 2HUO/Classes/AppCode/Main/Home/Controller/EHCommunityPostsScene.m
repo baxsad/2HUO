@@ -20,6 +20,7 @@
 @property (nonatomic, strong) MFJActionSheet       * sheet;
 @property (nonatomic, strong) Post                 * postModel;
 @property (nonatomic, strong) GDReq                * getPostListRequest;
+@property (nonatomic, strong) GDReq                * likePostRequest;
 
 @end
 
@@ -54,6 +55,11 @@
     
     self.getPostListRequest = [GDRequest getPostListRequest];
     [self.getPostListRequest.params setValue:@(self.cid) forKey:@"cid"];
+    if (ISLOGIN) {
+        [self.getPostListRequest.params setValue:USER.uid forKey:@"uid"];
+    }else{
+        [self.getPostListRequest.params removeObjectForKey:@"uid"];
+    }
     [self.getPostListRequest listen:^(GDReq * _Nonnull req) {
         if (req.succeed) {
             self.postModel = [[Post alloc] initWithDictionary:req.output error:nil];
@@ -70,6 +76,17 @@
     
     [RACObserve(self, postModel) subscribeNext:^(id x) {
         [self.tableView reloadData];
+    }];
+    
+    self.likePostRequest = [GDRequest likePostRequest];
+    [self.likePostRequest.params setValue:USER.uid forKey:@"uid"];
+    [self.likePostRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            NSLog(@"喜欢?不喜欢?成功");
+        }
+        if (req.failed) {
+            NSLog(@"喜欢?不喜欢?失败");
+        }
     }];
     
     MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
@@ -90,7 +107,7 @@
         [GDHUD showMessage:@"not login!" timeout:1];
         return;
     }
-    [[GDRouter sharedInstance] show:@"mfj://addPost" completion:nil];
+    [[GDRouter sharedInstance] show:@"mfj://addPost" extraParams:@{@"cid":[NSString stringWithFormat:@"%li",self.cid]} completion:nil];
     
 }
 
@@ -146,6 +163,30 @@
     return [[UIView alloc] initWithFrame:CGRectMake(0, 0, Screen_Width, 0.001)];
 }
 
+-(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // Remove seperator inset
+    if ([cell respondsToSelector:@selector(setSeparatorInset:)]) {
+        [cell setSeparatorInset:UIEdgeInsetsZero];
+    }
+    
+    // Prevent the cell from inheriting the Table View's margin settings
+    if ([cell respondsToSelector:@selector(setPreservesSuperviewLayoutMargins:)]) {
+        [cell setPreservesSuperviewLayoutMargins:NO];
+    }
+    
+    // Explictly set your cell's layout margins
+    if ([cell respondsToSelector:@selector(setLayoutMargins:)]) {
+        [cell setLayoutMargins:UIEdgeInsetsZero];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PostInfo * post = [self.postModel.data objectAtIndex:indexPath.row];
+    [[GDRouter sharedInstance] open:@"GD://postDetail" extraParams:@{@"post":post}];
+}
+
 #pragma mark - EHPostCellDelegate
 
 - (void)EHPostCell:(EHPostCell *)cell moreButtonDidSelect:(PostInfo *)model
@@ -157,7 +198,13 @@
 
 - (void)EHPostCell:(EHPostCell *)cell likeButtonDidSelect:(PostInfo *)model IsLike:(BOOL)like likeCount:(NSInteger)count
 {
-    
+    if (!ISLOGIN) {
+        [self showSignScene];
+        return;
+    }
+    [self.likePostRequest.params setValue:@(model.pid) forKey:@"pid"];
+    [self.likePostRequest.params setValue:@(like) forKey:@"isLike"];
+    self.likePostRequest.requestNeedActive = YES;
 }
 
 #pragma mark - getter

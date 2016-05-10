@@ -38,12 +38,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I3r-zI-Gwp">
-                                <rect key="frame" x="79" y="48.5" width="327" height="1"/>
+                                <rect key="frame" x="79" y="48" width="327" height="1"/>
                                 <color key="backgroundColor" red="0.94117647059999998" green="0.94117647059999998" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="1" id="hMV-hV-JnQ"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="69" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUd-bz-fGI">
+                                <rect key="frame" x="366" y="12.5" width="25.5" height="25"/>
+                                <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="25" id="gUh-uV-0hd"/>
+                                    <constraint firstAttribute="height" constant="25" id="sDz-QE-e0p"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -51,11 +62,13 @@
                             <constraint firstItem="KFK-s1-9lx" firstAttribute="bottom" secondItem="Ogn-EH-bCE" secondAttribute="bottom" constant="-7" id="5Tg-r4-FrV"/>
                             <constraint firstItem="I3r-zI-Gwp" firstAttribute="leading" secondItem="Ogn-EH-bCE" secondAttribute="trailing" constant="15" id="J6U-rg-xf2"/>
                             <constraint firstItem="Ger-vj-RLu" firstAttribute="leading" secondItem="Ogn-EH-bCE" secondAttribute="trailing" constant="15" id="NEQ-4l-Rom"/>
+                            <constraint firstAttribute="trailing" secondItem="HUd-bz-fGI" secondAttribute="trailing" constant="15" id="PY3-Zs-jfc"/>
                             <constraint firstAttribute="trailing" secondItem="I3r-zI-Gwp" secondAttribute="trailing" id="Riw-9i-hyX"/>
                             <constraint firstItem="Ogn-EH-bCE" firstAttribute="leading" secondItem="7Ze-1Y-31F" secondAttribute="leading" constant="15" id="SvP-jD-15B"/>
                             <constraint firstItem="KFK-s1-9lx" firstAttribute="leading" secondItem="Ogn-EH-bCE" secondAttribute="trailing" constant="15" id="XWJ-KF-mpU"/>
                             <constraint firstItem="Ogn-EH-bCE" firstAttribute="top" secondItem="7Ze-1Y-31F" secondAttribute="top" id="Xxn-j7-b0q"/>
                             <constraint firstAttribute="bottom" secondItem="I3r-zI-Gwp" secondAttribute="bottom" id="cjp-xn-GgC"/>
+                            <constraint firstItem="HUd-bz-fGI" firstAttribute="centerY" secondItem="7Ze-1Y-31F" secondAttribute="centerY" id="jkH-Yh-BTM"/>
                             <constraint firstAttribute="bottom" secondItem="Ogn-EH-bCE" secondAttribute="bottom" id="zol-Ac-X5T"/>
                         </constraints>
                     </view>
@@ -69,6 +82,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="bottomLineHeight" destination="hMV-hV-JnQ" id="Ciq-4r-zMh"/>
+                <outlet property="count" destination="HUd-bz-fGI" id="W3x-Db-PVg"/>
                 <outlet property="des" destination="KFK-s1-9lx" id="koq-ep-zIT"/>
                 <outlet property="icon" destination="Ogn-EH-bCE" id="eBN-uf-7Kg"/>
                 <outlet property="name" destination="Ger-vj-RLu" id="Jfd-4C-Msa"/>

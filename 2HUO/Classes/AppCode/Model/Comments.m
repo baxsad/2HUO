@@ -1,14 +1,16 @@
 //
-//  Product.m
+//  Comments.m
 //  2HUO
 //
-//  Created by iURCoder on 4/7/16.
+//  Created by iURCoder on 5/10/16.
 //  Copyright © 2016 iUR. All rights reserved.
 //
 
-#import "Post.h"
+#import "Comments.h"
 
-@implementation Post
+
+
+@implementation Comments
 
 + (BOOL)propertyIsOptional:(NSString*)propertyName
 {
@@ -17,16 +19,12 @@
 
 @end
 
-@implementation PostInfo
+@implementation Comment
 
 + (BOOL)propertyIsOptional:(NSString*)propertyName
 {
     return YES;
 }
 
-+ (JSONKeyMapper *)keyMapper
-{
-    return [[JSONKeyMapper alloc] initWithDictionary:@{@"p_type":@"type"}];
-}
-
 @end
+

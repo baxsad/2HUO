@@ -44,4 +44,14 @@
 // 发布商品
 + (GDReq *)addPostListRequest;
 
+// 喜欢商品
++ (GDReq *)likePostRequest;
+
+// 添加评论
++ (GDReq *)addCommentsRequest;
+
+// 获取评论
++ (GDReq *)getCommentsRequest;
+
+
 @end

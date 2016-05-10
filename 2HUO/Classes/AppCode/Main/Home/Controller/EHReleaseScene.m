@@ -45,9 +45,9 @@ typedef void(^Upload)();
 
 @property (nonatomic, copy) NSString * p_title;
 @property (nonatomic, copy) NSString * p_content;
-@property (nonatomic, copy) NSString * p_typeId;
 @property (nonatomic, copy) NSString * p_price;
 @property (nonatomic, copy) NSString * p_orzPrice;
+@property (nonatomic, copy) NSString * p_transModel;
 @property (nonatomic, strong) SellerModel * address;
 
 @end
@@ -178,27 +178,42 @@ typedef void(^Upload)();
         
     }];
     
-    [self.contentScrollView addSubview:self.typeView];
-    [_typeView mas_makeConstraints:^(MASConstraintMaker *make) {
-        
-        @strongify(self);
-        make.top.equalTo(self.imageCollection.mas_bottom).offset(15);
-        make.left.equalTo(self.imageCollection).offset(0);
-        make.right.equalTo(self.imageCollection).offset(0);
-        make.height.mas_equalTo(@45);
-        
-    }];
     
-    [self.contentScrollView addSubview:self.priceView];
-    [_priceView mas_makeConstraints:^(MASConstraintMaker *make) {
+    if (self.needSelectType) {
+        [self.contentScrollView addSubview:self.typeView];
+        [_typeView mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            @strongify(self);
+            make.top.equalTo(self.imageCollection.mas_bottom).offset(15);
+            make.left.equalTo(self.imageCollection).offset(0);
+            make.right.equalTo(self.imageCollection).offset(0);
+            make.height.mas_equalTo(@45);
+            
+        }];
         
-        @strongify(self);
-        make.top.equalTo(self.typeView.mas_bottom).offset(0);
-        make.left.equalTo(self.imageCollection).offset(0);
-        make.right.equalTo(self.imageCollection).offset(0);
-        make.height.mas_equalTo(@45);
         
-    }];
+        [self.contentScrollView addSubview:self.priceView];
+        [_priceView mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            @strongify(self);
+            make.top.equalTo(self.typeView.mas_bottom).offset(0);
+            make.left.equalTo(self.imageCollection).offset(0);
+            make.right.equalTo(self.imageCollection).offset(0);
+            make.height.mas_equalTo(@45);
+            
+        }];
+    }else{
+        [self.contentScrollView addSubview:self.priceView];
+        [_priceView mas_makeConstraints:^(MASConstraintMaker *make) {
+            
+            @strongify(self);
+            make.top.equalTo(self.imageCollection.mas_bottom).offset(15);
+            make.left.equalTo(self.imageCollection).offset(0);
+            make.right.equalTo(self.imageCollection).offset(0);
+            make.height.mas_equalTo(@45);
+            
+        }];
+    }
     
     [self.contentScrollView addSubview:self.transactionModeView];
     [self.transactionModeView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -233,33 +248,18 @@ typedef void(^Upload)();
     _transactionModeView.block = ^{
         LGAlertView *alertView = [[LGAlertView alloc] initWithTitle:@"Model"
                                                             message:@"TransactionMode Style!"
-                                                              style:LGAlertViewStyleActionSheet
+                                                              style:LGAlertViewStyleAlert
                                                        buttonTitles:@[@"On Line",@"Out Line"]
                                                   cancelButtonTitle:nil
                                              destructiveButtonTitle:@"Destructive"
-                                                      actionHandler:nil
+                                                      actionHandler:^(LGAlertView *alertView, NSString *title, NSUInteger index)
+                                  {
+                                      @strongify(self);
+                                      self.p_transModel = index ? @"outline" : @"online";
+                                  }
                                                       cancelHandler:nil
                                                  destructiveHandler:nil];
-        @strongify(self);
-        alertView.coverColor = [UIColor colorWithWhite:1.f alpha:0.9];
-        alertView.layerShadowColor = [UIColor colorWithWhite:0.f alpha:0.3];
-        alertView.layerShadowRadius = 4.f;
-        alertView.layerCornerRadius = 0.f;
-        alertView.layerBorderWidth = 1.f;
-        alertView.layerBorderColor = [UIColor lightGrayColor];
-        alertView.backgroundColor = [UIColor colorWithWhite:1.f alpha:0.7];
-        alertView.buttonsHeight = 44.f;
-        alertView.titleFont = [UIFont boldSystemFontOfSize:18.f];
-        alertView.titleTextColor = [UIColor blackColor];
-        alertView.messageTextColor = [UIColor grayColor];
-        alertView.width = MIN(self.view.bounds.size.width, self.view.bounds.size.height);
-        alertView.offsetVertical = 0.f;
-        alertView.cancelButtonOffsetY = 0.f;
-        alertView.titleTextAlignment = NSTextAlignmentLeft;
-        alertView.messageTextAlignment = NSTextAlignmentLeft;
-        alertView.buttonsTextAlignment = NSTextAlignmentRight;
-        alertView.cancelButtonTextAlignment = NSTextAlignmentRight;
-        alertView.destructiveButtonTextAlignment = NSTextAlignmentRight;
+        
         [alertView showAnimated:YES completionHandler:nil];
     };
     
@@ -275,8 +275,7 @@ typedef void(^Upload)();
         Community * model = noti.object;
         if (model) {
             self.typeView.content = model.c_name;
-            _p_typeId = [NSString stringWithFormat:@"%li",model.cid];
-            [self.addPostRequest.params setValue:_p_typeId forKey:@"cid"];
+            self.cid = [NSString stringWithFormat:@"%li",model.cid];
         }
     }];
     
@@ -295,8 +294,21 @@ typedef void(^Upload)();
     
     self.addPostRequest = [GDRequest addPostListRequest];
     [self.addPostRequest.params setValue:USER.uid forKey:@"uid"];
+    [self.addPostRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            NSLog(@"发布成功！");
+            [GDHUD hideUIBlockingIndicator];
+            [self leftButtonTouch];
+        }
+        if (req.failed) {
+            NSLog(@"发布失败！");
+            [GDHUD hideUIBlockingIndicator];
+            [GDHUD showMessage:@"上传失败" timeout:1];
+        }
+    }];
     
     
+    /* 获取默认地址 */
     self.getDefAddressRequest = [GDRequest getDefAddressRequest];
     [self.getDefAddressRequest.params setObject:USER.uid forKey:@"uid"];
     [self.getDefAddressRequest.params setObject:@"1" forKey:@"def"];
@@ -315,7 +327,7 @@ typedef void(^Upload)();
     
     [RACObserve(self, address) subscribeNext:^(id x) {
         if (self.address) {
-            self.locationView.content = self.address.school.name;
+            self.locationView.content = [NSString stringWithFormat:@"%@ %@",self.address.userName,self.address.school.name];
         }else{
             self.locationView.content = @"详细信息";
         }
@@ -334,12 +346,115 @@ typedef void(^Upload)();
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
 }
 
+- (BOOL)verificationParams
+{
+    if (!self.p_title.isNotEmpty) {
+        [[[LGAlertView alloc] initWithTitle:@"提示"
+                                    message:@"标题不能为空"
+                                      style:LGAlertViewStyleAlert
+                               buttonTitles:nil
+                          cancelButtonTitle:@"确定"
+                     destructiveButtonTitle:nil
+                              actionHandler:nil
+                              cancelHandler:nil
+                         destructiveHandler:nil]
+         showAnimated:YES completionHandler:nil];
+        return NO;
+    }
+    if (!self.p_content.isNotEmpty) {
+        [[[LGAlertView alloc] initWithTitle:@"提示"
+                                    message:@"内容不能为空"
+                                      style:LGAlertViewStyleAlert
+                               buttonTitles:nil
+                          cancelButtonTitle:@"确定"
+                     destructiveButtonTitle:nil
+                              actionHandler:nil
+                              cancelHandler:nil
+                         destructiveHandler:nil]
+         showAnimated:YES completionHandler:nil];
+        return NO;
+    }
+    if (!self.cid.isNotEmpty) {
+        [[[LGAlertView alloc] initWithTitle:@"提示"
+                                    message:@"分类不能为空"
+                                      style:LGAlertViewStyleAlert
+                               buttonTitles:nil
+                          cancelButtonTitle:@"确定"
+                     destructiveButtonTitle:nil
+                              actionHandler:nil
+                              cancelHandler:nil
+                         destructiveHandler:nil]
+         showAnimated:YES completionHandler:nil];
+        return NO;
+    }
+    if (!self.p_price.isNotEmpty || !self.p_orzPrice.isNotEmpty) {
+        [[[LGAlertView alloc] initWithTitle:@"提示"
+                                    message:@"价格不能为空"
+                                      style:LGAlertViewStyleAlert
+                               buttonTitles:nil
+                          cancelButtonTitle:@"确定"
+                     destructiveButtonTitle:nil
+                              actionHandler:nil
+                              cancelHandler:nil
+                         destructiveHandler:nil]
+         showAnimated:YES completionHandler:nil];
+        return NO;
+    }
+    if (!self.p_transModel.isNotEmpty) {
+        [[[LGAlertView alloc] initWithTitle:@"提示"
+                                    message:@"交易方式不能为空"
+                                      style:LGAlertViewStyleAlert
+                               buttonTitles:nil
+                          cancelButtonTitle:@"确定"
+                     destructiveButtonTitle:nil
+                              actionHandler:nil
+                              cancelHandler:nil
+                         destructiveHandler:nil]
+         showAnimated:YES completionHandler:nil];
+        return NO;
+    }
+    if (!self.address.isNotEmpty) {
+        [[[LGAlertView alloc] initWithTitle:@"提示"
+                                    message:@"卖家信息不能为空"
+                                      style:LGAlertViewStyleAlert
+                               buttonTitles:nil
+                          cancelButtonTitle:@"确定"
+                     destructiveButtonTitle:nil
+                              actionHandler:nil
+                              cancelHandler:nil
+                         destructiveHandler:nil]
+         showAnimated:YES completionHandler:nil];
+        return NO;
+    }
+    
+    
+    [self.addPostRequest.params setValue:self.cid forKey:@"cid"];
+    [self.addPostRequest.params setValue:@(self.address.school.id) forKey:@"sid"];
+    [self.addPostRequest.params setValue:@(self.address.aid) forKey:@"aid"];
+    return YES;
+}
+
 - (void)postAction
 {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+    
+    self.p_title = self.titleTextField.text;
+    self.p_content = self.contentView.text;
+    [self.addPostRequest.params setValue:self.p_title forKey:@"title"];
+    [self.addPostRequest.params setValue:self.p_content forKey:@"content"];
+    
+    [self verificationParams];
+    
+    [GDHUD showUIBlockingIndicator];
+    
     [self uploadIamges:^(BOOL over,int index){
         if (over) {
-            
+            NSString * images = @"";
+            if (self.imageUrls.isNotEmpty) {
+                images = [self.imageUrls componentsJoinedByString:@","];
+            }
+            [self.addPostRequest.params setValue:images forKey:@"images"];
+            self.addPostRequest.requestNeedActive = YES;
         }
     }];
 }

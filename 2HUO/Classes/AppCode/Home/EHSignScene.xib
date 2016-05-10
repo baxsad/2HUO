@@ -18,7 +18,7 @@
             <rect key="frame" x="0.0" y="0.0" width="396" height="565"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_meifujia" translatesAutoresizingMaskIntoConstraints="NO" id="74E-Pe-zVZ">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="74E-Pe-zVZ">
                     <rect key="frame" x="100" y="110" width="196" height="103"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="196" id="Ish-13-zkb"/>
@@ -56,30 +56,39 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="124@#$%^@%@^%#" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VR1-FX-EhC">
-                    <rect key="frame" x="127" y="238" width="142.5" height="18"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="挺好用的校园二手交易平台" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VR1-FX-EhC">
+                    <rect key="frame" x="108.5" y="238" width="180" height="18"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="校园二货" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTa-1M-Qjg">
+                    <rect key="frame" x="100" y="110" width="196" height="103"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                    <color key="textColor" red="0.098039215690000001" green="0.64705882349999999" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="FTa-1M-Qjg" firstAttribute="height" secondItem="74E-Pe-zVZ" secondAttribute="height" id="2MP-Sz-p3B"/>
+                <constraint firstItem="FTa-1M-Qjg" firstAttribute="centerX" secondItem="74E-Pe-zVZ" secondAttribute="centerX" id="5yw-2k-p7k"/>
                 <constraint firstItem="JBP-Rv-KUR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="30" id="Ed9-KM-IAK"/>
                 <constraint firstItem="74E-Pe-zVZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="110" id="Idy-Oz-Nm3"/>
+                <constraint firstItem="FTa-1M-Qjg" firstAttribute="centerY" secondItem="74E-Pe-zVZ" secondAttribute="centerY" id="QCi-mY-D1z"/>
                 <constraint firstItem="JXV-BT-Hig" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="XSd-bL-LBG"/>
                 <constraint firstItem="74E-Pe-zVZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="axm-eI-NCz"/>
                 <constraint firstItem="VR1-FX-EhC" firstAttribute="top" secondItem="74E-Pe-zVZ" secondAttribute="bottom" constant="25" id="fUK-1p-XQc"/>
+                <constraint firstItem="FTa-1M-Qjg" firstAttribute="width" secondItem="74E-Pe-zVZ" secondAttribute="width" id="nKA-jO-Ttw"/>
                 <constraint firstItem="VR1-FX-EhC" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="oQh-bx-Hve"/>
                 <constraint firstAttribute="trailing" secondItem="JBP-Rv-KUR" secondAttribute="trailing" id="rPN-b3-9kb"/>
                 <constraint firstAttribute="bottom" secondItem="JXV-BT-Hig" secondAttribute="bottom" constant="25" id="tcJ-s7-erc"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="264" y="94.5"/>
+            <point key="canvasLocation" x="235" y="58.5"/>
         </view>
     </objects>
     <resources>
         <image name="close" width="15" height="15"/>
-        <image name="login_meifujia" width="196" height="103"/>
     </resources>
 </document>

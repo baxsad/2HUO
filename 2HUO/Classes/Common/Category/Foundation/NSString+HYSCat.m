@@ -573,4 +573,21 @@ const NSInteger YEAR = 12 * MONTH;
     return YES;
 }
 
+- (NSString *)processingPrice
+{
+    
+    NSString *priceString = self;
+    NSArray *priceArr = [priceString componentsSeparatedByString:@"."];
+    if (priceArr.count == 2) {
+        if ([priceArr[1] isEqualToString:@"00"]) {
+            return [NSString stringWithFormat:@"%@",priceArr[0]];
+        }else{
+            return [NSString stringWithFormat:@"%@",priceString];
+        }
+    }else{
+        return [NSString stringWithFormat:@"%@",priceArr[0]];
+    }
+    
+}
+
 @end

@@ -8,7 +8,7 @@
 
 #import "MFJStatusButton.h"
 
-#define IMGSize CGSizeMake(20, 20)
+#define IMGSize CGSizeMake(15, 15)
 
 #define TITLEFont [UIFont systemFontOfSize:12]
 

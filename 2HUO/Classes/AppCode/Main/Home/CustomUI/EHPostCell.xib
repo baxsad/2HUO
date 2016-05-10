@@ -26,19 +26,6 @@
                                     <constraint firstAttribute="width" constant="35" id="g9U-vW-Ye0"/>
                                 </constraints>
                             </imageView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="YED-kL-i2O">
-                                <rect key="frame" x="0.0" y="55" width="444" height="120"/>
-                                <rect key="contentStretch" x="0.0" y="0.0" width="0.0" height="0.0"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="120" id="N95-bT-8Df"/>
-                                </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Tu1-BL-GpD">
-                                    <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                            </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z49-ee-gEb">
                                 <rect key="frame" x="0.0" y="241" width="444" height="45"/>
                                 <constraints>
@@ -77,37 +64,42 @@
                                     <constraint firstAttribute="width" constant="25" id="h7G-o8-WiK"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N6z-zj-A2a">
+                                <rect key="frame" x="0.0" y="55" width="444" height="120"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="dce-Ku-zW7"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <constraints>
                             <constraint firstItem="AOV-ai-Xa1" firstAttribute="leading" secondItem="sr3-CT-bVm" secondAttribute="leading" constant="15" id="8C6-FX-izE"/>
                             <constraint firstAttribute="bottom" secondItem="z49-ee-gEb" secondAttribute="bottom" id="8X1-8v-iyV"/>
                             <constraint firstItem="nUQ-cb-SMF" firstAttribute="leading" secondItem="sr3-CT-bVm" secondAttribute="leading" id="Eda-sc-Mlm"/>
-                            <constraint firstItem="y6J-Iv-ozw" firstAttribute="top" secondItem="YED-kL-i2O" secondAttribute="bottom" constant="10" id="HcS-cI-Hk5"/>
                             <constraint firstItem="7t0-fR-BBu" firstAttribute="leading" secondItem="AOV-ai-Xa1" secondAttribute="trailing" constant="10" id="Lkq-vp-TeH"/>
                             <constraint firstItem="nUQ-cb-SMF" firstAttribute="top" secondItem="z49-ee-gEb" secondAttribute="bottom" id="MCE-US-SLc"/>
                             <constraint firstItem="AOV-ai-Xa1" firstAttribute="top" secondItem="sr3-CT-bVm" secondAttribute="top" constant="10" id="OV6-Hg-Rjf"/>
                             <constraint firstItem="z49-ee-gEb" firstAttribute="leading" secondItem="sr3-CT-bVm" secondAttribute="leading" id="SZB-oL-o3Z"/>
-                            <constraint firstAttribute="trailing" secondItem="YED-kL-i2O" secondAttribute="trailing" id="V6H-ip-reJ"/>
                             <constraint firstAttribute="trailing" secondItem="nUQ-cb-SMF" secondAttribute="trailing" id="Y1L-Ex-jTP"/>
                             <constraint firstAttribute="trailing" secondItem="9dR-om-9Ah" secondAttribute="trailing" constant="15" id="YCA-lm-vdR"/>
                             <constraint firstItem="Cog-hg-oD8" firstAttribute="leading" secondItem="AOV-ai-Xa1" secondAttribute="trailing" constant="10" id="YQN-hL-7jd"/>
                             <constraint firstItem="AOV-ai-Xa1" firstAttribute="top" secondItem="sr3-CT-bVm" secondAttribute="top" constant="10" id="Yj1-sj-Jrd"/>
                             <constraint firstItem="7t0-fR-BBu" firstAttribute="centerY" secondItem="AOV-ai-Xa1" secondAttribute="centerY" constant="-7" id="cze-DF-0bs"/>
-                            <constraint firstItem="YED-kL-i2O" firstAttribute="top" secondItem="sr3-CT-bVm" secondAttribute="top" constant="69" id="eKd-m2-m4h"/>
                             <constraint firstAttribute="bottom" secondItem="nUQ-cb-SMF" secondAttribute="bottom" id="ekC-L9-ENS"/>
                             <constraint firstAttribute="trailing" secondItem="y6J-Iv-ozw" secondAttribute="trailing" constant="15" id="elG-o0-Qym"/>
+                            <constraint firstItem="N6z-zj-A2a" firstAttribute="leading" secondItem="sr3-CT-bVm" secondAttribute="leading" id="fBt-B1-Zb3"/>
+                            <constraint firstItem="N6z-zj-A2a" firstAttribute="top" secondItem="AOV-ai-Xa1" secondAttribute="bottom" constant="10" id="g80-xm-U7W"/>
                             <constraint firstItem="z49-ee-gEb" firstAttribute="top" secondItem="y6J-Iv-ozw" secondAttribute="bottom" constant="10" id="gPt-bb-Xmv"/>
-                            <constraint firstItem="YED-kL-i2O" firstAttribute="leading" secondItem="sr3-CT-bVm" secondAttribute="leading" id="gRg-jE-KMv"/>
+                            <constraint firstItem="y6J-Iv-ozw" firstAttribute="top" secondItem="N6z-zj-A2a" secondAttribute="bottom" constant="10" id="iaQ-FL-kwS"/>
                             <constraint firstItem="9dR-om-9Ah" firstAttribute="centerY" secondItem="AOV-ai-Xa1" secondAttribute="centerY" id="oD0-zL-F7P"/>
-                            <constraint firstItem="YED-kL-i2O" firstAttribute="top" secondItem="AOV-ai-Xa1" secondAttribute="bottom" constant="10" id="qMw-zG-SYq"/>
                             <constraint firstItem="y6J-Iv-ozw" firstAttribute="leading" secondItem="sr3-CT-bVm" secondAttribute="leading" constant="15" id="tjb-Vx-iaJ"/>
+                            <constraint firstAttribute="trailing" secondItem="N6z-zj-A2a" secondAttribute="trailing" id="wDr-WM-FTJ"/>
                             <constraint firstItem="Cog-hg-oD8" firstAttribute="centerY" secondItem="AOV-ai-Xa1" secondAttribute="centerY" constant="9" id="xqd-Om-Dzn"/>
                             <constraint firstAttribute="trailing" secondItem="z49-ee-gEb" secondAttribute="trailing" id="yBs-R7-o9j"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="OV6-Hg-Rjf"/>
-                                <exclude reference="eKd-m2-m4h"/>
                                 <exclude reference="8X1-8v-iyV"/>
                             </mask>
                         </variation>
@@ -121,10 +113,10 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="collectionHeight" destination="N95-bT-8Df" id="eHg-fV-Jjc"/>
+                <outlet property="collectionHeight" destination="dce-Ku-zW7" id="AQ2-DD-rbA"/>
                 <outlet property="date" destination="Cog-hg-oD8" id="HH1-Vf-XHp"/>
                 <outlet property="desc" destination="y6J-Iv-ozw" id="e9r-QV-rMM"/>
-                <outlet property="imagesCollection" destination="YED-kL-i2O" id="ppE-pf-Mky"/>
+                <outlet property="imagesCollectionBgView" destination="N6z-zj-A2a" id="eRl-uz-BYM"/>
                 <outlet property="moreButton" destination="9dR-om-9Ah" id="CCe-U5-uzc"/>
                 <outlet property="nick" destination="7t0-fR-BBu" id="kdF-ZT-kpa"/>
                 <outlet property="toolBar" destination="z49-ee-gEb" id="2dL-Ui-vYq"/>

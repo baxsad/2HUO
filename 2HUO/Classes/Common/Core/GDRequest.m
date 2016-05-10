@@ -73,7 +73,7 @@
     req.PATH = @"user/x.address.get.php";
     req.responseSerializer = GDResponseSerializerTypeJSON;
     req.needCheckCode = YES;
-    req.METHOD = @"POST";
+    req.METHOD = @"GET";
     return req;
 }
 
@@ -82,7 +82,7 @@
 + (GDReq *)getCommunityListRequest
 {
     GDReq * req = [GDReq Request];
-    req.PATH = @"community/index.php";
+    req.PATH = @"community/x.community.get.php";
     req.responseSerializer = GDResponseSerializerTypeJSON;
     req.METHOD = @"GET";
     return req;
@@ -91,7 +91,7 @@
 + (GDReq *)getPostListRequest
 {
     GDReq * req = [GDReq Request];
-    req.PATH = @"community/getCommunityPost.php";
+    req.PATH = @"community/x.getCommunityPost.get.php";
     req.responseSerializer = GDResponseSerializerTypeJSON;
     req.METHOD = @"GET";
     return req;
@@ -100,9 +100,39 @@
 + (GDReq *)addPostListRequest
 {
     GDReq * req = [GDReq Request];
-    req.PATH = @"community/addCommunityPost.php";
+    req.PATH = @"community/x.addCommunityPost.post.php";
     req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
     req.METHOD = @"POST";
+    return req;
+}
+
++ (GDReq *)likePostRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.likePost.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
+
++ (GDReq *)addCommentsRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.addComments.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
+
++ (GDReq *)getCommentsRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.getComments.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.METHOD = @"GET";
     return req;
 }
 

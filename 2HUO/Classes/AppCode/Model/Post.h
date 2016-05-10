@@ -10,6 +10,7 @@
 #import "User.h"
 #import "Tag.h"
 #import "School.h"
+#import "SellerModel.h"
 
 @protocol PostInfo,Tag;
 
@@ -29,14 +30,14 @@
 @property (nonatomic, assign) BOOL            isLike;
 @property (nonatomic, assign) NSInteger       createTime;
 @property (nonatomic, assign) NSInteger       updateTime;
-@property (nonatomic, assign) NSInteger       presentPrice;
-@property (nonatomic, assign) NSInteger       originalPrice;
+@property (nonatomic, assign) float           presentPrice;
+@property (nonatomic, assign) float           originalPrice;
 @property (nonatomic, strong) School        * school;
 @property (nonatomic, copy  ) NSString      * content;
 @property (nonatomic, copy  ) NSString      * transactionMode;
 @property (nonatomic, copy  ) NSString      * type;
 @property (nonatomic, copy  ) NSString      * title;
 @property (nonatomic, copy  ) NSArray       * images;
-
+@property (nonatomic, strong) SellerModel   * address;
 
 @end

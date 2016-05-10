@@ -30,6 +30,7 @@
     
     [[GDRouter sharedInstance] reg:@"GD://school" toClass:NSClassFromString(@"EHSchoolScene")];
     
+    [[GDRouter sharedInstance] reg:@"GD://postDetail" toClass:NSClassFromString(@"EHPostDetailScene")];
 }
 
 + (void)clearCache

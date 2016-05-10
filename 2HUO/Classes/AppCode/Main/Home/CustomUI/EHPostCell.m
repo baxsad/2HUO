@@ -25,7 +25,10 @@
 @property (nonatomic, weak) IBOutlet UIImageView      * userIcon;
 @property (nonatomic, weak) IBOutlet UILabel          * nick;
 @property (nonatomic, weak) IBOutlet UILabel          * date;
-@property (nonatomic, weak) IBOutlet UICollectionView * imagesCollection;
+
+@property (nonatomic, weak) IBOutlet UIView           * imagesCollectionBgView;
+@property (nonatomic, strong) UICollectionView        * imagesCollection;
+
 @property (nonatomic, weak) IBOutlet UILabel          * desc;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint * collectionHeight;
 
@@ -40,6 +43,8 @@
 
 @property (nonatomic, strong) NSMutableArray          * imageViews;
 @property (nonatomic, assign) CGSize                    imageSize;
+
+@property (nonatomic, strong) UICollectionViewFlowLayout * layout;
 
 @end
 
@@ -91,7 +96,7 @@
             [self.delegate EHPostCell:self likeButtonDidSelect:self.model IsLike:[islike boolValue] likeCount:[likecount integerValue]];
         }
     };
-    
+    [self.imagesCollectionBgView addSubview:self.imagesCollection];
 }
 
 - (void)configModel:(PostInfo *)model
@@ -102,12 +107,15 @@
     [self.imageViews removeAllObjects];
     [self.imagesCollection reloadData];
     
-    self.desc.attributedText = [NSMutableAttributedString attributedStringWithString:model.content font:[UIFont systemFontOfSize:13] LineSpacing:3 fontColor:UIColorHex(0x555555)];
+    self.desc.attributedText = [NSMutableAttributedString attributedStringWithString:model.title font:[UIFont systemFontOfSize:13] LineSpacing:3 fontColor:UIColorHex(0x555555)];
     
     self.date.text = [NSString stringWithFormat:@"%@ from %@",[NSString stringWithFormat:@"%li",model.createTime].timeAgo,model.school.name];
     self.nick.text = self.model.user.nick;
     [self.userIcon yy_setImageWithURL:[NSURL URLWithString:model.user.avatar] options:YYWebImageOptionUseNSURLCache];
     [self.likeOrNoButton configureStatus:model.isLike text:[NSString stringWithFormat:@"%li",model.likeCount] animated:YES];
+    [self.locationButton configureStatus:YES text:model.school.city animated:NO];
+    NSString * price = [NSString stringWithFormat:@"%.2f",model.presentPrice];
+    [self.commentsButton configureStatus:YES text:price.processingPrice animated:NO];
 }
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
@@ -122,7 +130,7 @@
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    EHPostImageCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"555" forIndexPath:indexPath];
+    EHPostImageCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"EHPostIamgeCell" forIndexPath:indexPath];
     [cell setProductIamge:self.model.images[indexPath.row] size:self.imageSize];
     [self.imageViews addObject:cell.image];
     return cell;
@@ -130,19 +138,19 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray * data = [NSMutableArray array];
-    for (int i = 0; i<self.imageViews.count; i++) {
-        MFJPhotoGroupItem * item = [[MFJPhotoGroupItem alloc] init];
-        MFJImageView * imageView = self.imageViews[i];
-        item.thumbView = imageView;
-        item.largeImageURL = [NSURL URLWithString:imageView.url];
-        [data addObject:item];
-    }
-    
-   NSInteger rr = indexPath.row;
-    
-    MFJPhotoGroupView * group = [[MFJPhotoGroupView alloc] initWithGroupItems:data];
-    [group presentFromImageView:self.imageViews[rr] toController:self.viewController animated:YES completion:nil];
+//    NSMutableArray * data = [NSMutableArray array];
+//    for (int i = 0; i<self.imageViews.count; i++) {
+//        MFJPhotoGroupItem * item = [[MFJPhotoGroupItem alloc] init];
+//        MFJImageView * imageView = self.imageViews[i];
+//        item.thumbView = imageView;
+//        item.largeImageURL = [NSURL URLWithString:imageView.url];
+//        [data addObject:item];
+//    }
+//    
+//   NSInteger rr = indexPath.row;
+//    
+//    MFJPhotoGroupView * group = [[MFJPhotoGroupView alloc] initWithGroupItems:data];
+//    [group presentFromImageView:self.imageViews[rr] toController:self.viewController animated:YES completion:nil];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -153,40 +161,35 @@
 
 - (void)setUpImageCollection
 {
+
     CGFloat cellWidth = Screen_Width;
     CGFloat imageCount = self.model.images.count;
     CGSize  itemSize = CGSizeZero;
+    CGFloat collectionHeight;
     
     if (imageCount == 0) {
-        self.collectionHeight.constant = 0;
+        collectionHeight = 0;
     }else if (imageCount == 1){
-        self.collectionHeight.constant = cellWidth;
+        collectionHeight = cellWidth;
         itemSize = CGSizeMake(cellWidth, cellWidth);
     }else if (imageCount == 2){
-        self.collectionHeight.constant = (cellWidth-kPadding)/2;
+        collectionHeight = (cellWidth-kPadding)/2;
         itemSize = CGSizeMake((cellWidth-kPadding)/2, (cellWidth-kPadding)/2);
     }else{
-        self.collectionHeight.constant = (cellWidth-kPadding*2)/3;
+        collectionHeight = (cellWidth-kPadding*2)/3;
         itemSize = CGSizeMake((cellWidth-kPadding*2)/3, (cellWidth-kPadding*2)/3);
     }
     
+    self.collectionHeight.constant = collectionHeight;
+    
+    [_imagesCollection setFrame:CGRectMake(0, 0, Screen_Width, collectionHeight)];
+    [_imagesCollection setContentSize:_imagesCollection.size];
+    
     _imageSize = itemSize;
-    _imagesCollection.showsHorizontalScrollIndicator = NO;
-    _imagesCollection.showsVerticalScrollIndicator = NO;
-    _imagesCollection.backgroundColor = [UIColor clearColor];
-    _imagesCollection.delegate = self;
-    _imagesCollection.dataSource = self;
-    _imagesCollection.showsHorizontalScrollIndicator = NO;
-    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
-    layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
-    layout.itemSize = itemSize;
-    layout.minimumLineSpacing = kPadding;
-    layout.minimumInteritemSpacing = kPadding;
+    
+    self.layout.itemSize = itemSize;
 
-    _imagesCollection.collectionViewLayout = layout;
-    [_imagesCollection registerNib:[UINib nibWithNibName:@"EHPostImageCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"555"];
 }
-
 
 - (void)setUpToolBar
 {
@@ -203,7 +206,7 @@
     if (!_locationButton) {
         CGRect rect = CGRectMake(0, 0.5, Screen_Width/3, 44.5);
         _locationButton = [[MFJStatusButton alloc] initWithFrame:rect
-                                                           image:@"home_location"
+                                                           image:@"post_location"
                                                      selectImage:@""
                                                             text:@"Bei Jing"
                                                             type:MFJStatusButtonTypeNormal];
@@ -217,7 +220,7 @@
     if (!_commentsButton) {
         CGRect rect = CGRectMake(Screen_Width/3, 0.5, Screen_Width/3, 44.5);
         _commentsButton = [[MFJStatusButton alloc] initWithFrame:rect
-                                                           image:@"home_comments"
+                                                           image:@"post_money"
                                                      selectImage:@""
                                                             text:@"Message"
                                                             type:MFJStatusButtonTypeNormal];
@@ -231,14 +234,42 @@
     if (!_likeOrNoButton) {
         CGRect rect = CGRectMake(Screen_Width/3*2, 0.5, Screen_Width/3, 44.5);
         _likeOrNoButton = [[MFJStatusButton alloc] initWithFrame:rect
-                                                           image:@"home_unlike"
-                                                     selectImage:@"home_like"
+                                                           image:@"post_like"
+                                                     selectImage:@"post_like_select"
                                                             text:@"Like"
                                                             type:MFJStatusButtonTypeLike];
         _likeOrNoButton.backgroundColor = UIColorHex(0xffffff);
+        _likeOrNoButton.model.imageSize = CGSizeMake(15, 15);
         
     }
     return _likeOrNoButton;
+}
+
+- (UICollectionView *)imagesCollection
+{
+    if (!_imagesCollection) {
+        _imagesCollection = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.layout];
+        _imagesCollection.showsHorizontalScrollIndicator = NO;
+        _imagesCollection.showsVerticalScrollIndicator = NO;
+        _imagesCollection.backgroundColor = [UIColor clearColor];
+        _imagesCollection.delegate = self;
+        _imagesCollection.dataSource = self;
+        _imagesCollection.showsHorizontalScrollIndicator = NO;
+        _imagesCollection.userInteractionEnabled = NO;
+        [_imagesCollection registerNib:[UINib nibWithNibName:@"EHPostImageCollectionCell" bundle:nil] forCellWithReuseIdentifier:@"EHPostIamgeCell"];
+    }
+    return _imagesCollection;
+}
+
+- (UICollectionViewFlowLayout *)layout
+{
+    if (!_layout) {
+        _layout = [[UICollectionViewFlowLayout alloc] init];
+        _layout.scrollDirection = UICollectionViewScrollDirectionVertical;
+        _layout.minimumLineSpacing = kPadding;
+        _layout.minimumInteritemSpacing = kPadding;
+    }
+    return _layout;
 }
 
 @end

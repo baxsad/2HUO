@@ -166,6 +166,18 @@
 		A0BA08371CDCCE4B0089BB72 /* EHTelLoginScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA08351CDCCE4B0089BB72 /* EHTelLoginScene.m */; };
 		A0BA08381CDCCE4B0089BB72 /* EHTelLoginScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BA08361CDCCE4B0089BB72 /* EHTelLoginScene.xib */; };
 		A0BF1CCE1CB3CB5D004CCFF6 /* libAVOSCloud.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */; };
+		A0D1A9991CE170CE00086E36 /* EHPostDetailScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1A9971CE170CE00086E36 /* EHPostDetailScene.m */; };
+		A0D1A99A1CE170CE00086E36 /* EHPostDetailScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D1A9981CE170CE00086E36 /* EHPostDetailScene.xib */; };
+		A0D1A99E1CE185FA00086E36 /* EHPostDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1A99C1CE185FA00086E36 /* EHPostDetailCell.m */; };
+		A0D1A99F1CE185FA00086E36 /* EHPostDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D1A99D1CE185FA00086E36 /* EHPostDetailCell.xib */; };
+		A0D1A9A31CE1A3C600086E36 /* EHPostDetailIamgeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1A9A11CE1A3C600086E36 /* EHPostDetailIamgeCell.m */; };
+		A0D1A9A41CE1A3C700086E36 /* EHPostDetailIamgeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D1A9A21CE1A3C600086E36 /* EHPostDetailIamgeCell.xib */; };
+		A0D1A9A71CE1B98D00086E36 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1A9A61CE1B98D00086E36 /* Comments.m */; };
+		A0D1A9AB1CE1BB2800086E36 /* EHCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1A9A91CE1BB2800086E36 /* EHCommentCell.m */; };
+		A0D1A9AC1CE1BB2800086E36 /* EHCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D1A9AA1CE1BB2800086E36 /* EHCommentCell.xib */; };
+		A0D1A9AF1CE1C5C800086E36 /* EHInputAccessoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1A9AE1CE1C5C800086E36 /* EHInputAccessoryView.m */; };
+		A0D1A9B11CE1C5D500086E36 /* EHInputAccessoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D1A9B01CE1C5D500086E36 /* EHInputAccessoryView.xib */; };
+		A0D1A9B41CE1DE2500086E36 /* EHUserButton.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1A9B31CE1DE2500086E36 /* EHUserButton.m */; };
 		A0E26D731CBF7F1E00974807 /* GDCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26D721CBF7F1E00974807 /* GDCameraViewController.m */; };
 		A0E26E881CC1DA9800974807 /* Type.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E26E871CC1DA9800974807 /* Type.m */; };
 		A0E3DB081CD311C500E84986 /* MainScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E3DB071CD311C500E84986 /* MainScene.m */; };
@@ -526,6 +538,25 @@
 		A0BA08351CDCCE4B0089BB72 /* EHTelLoginScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHTelLoginScene.m; sourceTree = "<group>"; };
 		A0BA08361CDCCE4B0089BB72 /* EHTelLoginScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHTelLoginScene.xib; sourceTree = "<group>"; };
 		A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAVOSCloud.a; path = Pods/AVOSCloud/libAVOSCloud.a; sourceTree = "<group>"; };
+		A0D1A9961CE170CE00086E36 /* EHPostDetailScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHPostDetailScene.h; sourceTree = "<group>"; };
+		A0D1A9971CE170CE00086E36 /* EHPostDetailScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHPostDetailScene.m; sourceTree = "<group>"; };
+		A0D1A9981CE170CE00086E36 /* EHPostDetailScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHPostDetailScene.xib; sourceTree = "<group>"; };
+		A0D1A99B1CE185FA00086E36 /* EHPostDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHPostDetailCell.h; sourceTree = "<group>"; };
+		A0D1A99C1CE185FA00086E36 /* EHPostDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHPostDetailCell.m; sourceTree = "<group>"; };
+		A0D1A99D1CE185FA00086E36 /* EHPostDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHPostDetailCell.xib; sourceTree = "<group>"; };
+		A0D1A9A01CE1A3C600086E36 /* EHPostDetailIamgeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHPostDetailIamgeCell.h; sourceTree = "<group>"; };
+		A0D1A9A11CE1A3C600086E36 /* EHPostDetailIamgeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHPostDetailIamgeCell.m; sourceTree = "<group>"; };
+		A0D1A9A21CE1A3C600086E36 /* EHPostDetailIamgeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHPostDetailIamgeCell.xib; sourceTree = "<group>"; };
+		A0D1A9A51CE1B98D00086E36 /* Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comments.h; sourceTree = "<group>"; };
+		A0D1A9A61CE1B98D00086E36 /* Comments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comments.m; sourceTree = "<group>"; };
+		A0D1A9A81CE1BB2800086E36 /* EHCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHCommentCell.h; sourceTree = "<group>"; };
+		A0D1A9A91CE1BB2800086E36 /* EHCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHCommentCell.m; sourceTree = "<group>"; };
+		A0D1A9AA1CE1BB2800086E36 /* EHCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHCommentCell.xib; sourceTree = "<group>"; };
+		A0D1A9AD1CE1C5C800086E36 /* EHInputAccessoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHInputAccessoryView.h; sourceTree = "<group>"; };
+		A0D1A9AE1CE1C5C800086E36 /* EHInputAccessoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHInputAccessoryView.m; sourceTree = "<group>"; };
+		A0D1A9B01CE1C5D500086E36 /* EHInputAccessoryView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHInputAccessoryView.xib; sourceTree = "<group>"; };
+		A0D1A9B21CE1DE2500086E36 /* EHUserButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHUserButton.h; sourceTree = "<group>"; };
+		A0D1A9B31CE1DE2500086E36 /* EHUserButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHUserButton.m; sourceTree = "<group>"; };
 		A0E26D711CBF7F1E00974807 /* GDCameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCameraViewController.h; sourceTree = "<group>"; };
 		A0E26D721CBF7F1E00974807 /* GDCameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCameraViewController.m; sourceTree = "<group>"; };
 		A0E26E861CC1DA9800974807 /* Type.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Type.h; sourceTree = "<group>"; };
@@ -875,6 +906,8 @@
 				A04E99011CA2911400B0ABB5 /* O2HBaseTableViewCell.m */,
 				A04E99021CA2911400B0ABB5 /* UIButton+IHBarButton.h */,
 				A04E99031CA2911400B0ABB5 /* UIButton+IHBarButton.m */,
+				A0D1A9B21CE1DE2500086E36 /* EHUserButton.h */,
+				A0D1A9B31CE1DE2500086E36 /* EHUserButton.m */,
 			);
 			path = BaseUI;
 			sourceTree = "<group>";
@@ -1074,6 +1107,8 @@
 				A0E3DB0A1CD32DFA00E84986 /* Communitys.m */,
 				A0BA08181CDC3EC40089BB72 /* SellerModel.h */,
 				A0BA08191CDC3EC40089BB72 /* SellerModel.m */,
+				A0D1A9A51CE1B98D00086E36 /* Comments.h */,
+				A0D1A9A61CE1B98D00086E36 /* Comments.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1328,6 +1363,9 @@
 				A0BA081B1CDC51990089BB72 /* EHAddressListScene.h */,
 				A0BA081C1CDC51990089BB72 /* EHAddressListScene.m */,
 				A0BA081D1CDC51990089BB72 /* EHAddressListScene.xib */,
+				A0D1A9961CE170CE00086E36 /* EHPostDetailScene.h */,
+				A0D1A9971CE170CE00086E36 /* EHPostDetailScene.m */,
+				A0D1A9981CE170CE00086E36 /* EHPostDetailScene.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1377,6 +1415,18 @@
 				A0BA08201CDC52C20089BB72 /* EHAddressCell.h */,
 				A0BA08211CDC52C20089BB72 /* EHAddressCell.m */,
 				A0BA08221CDC52C20089BB72 /* EHAddressCell.xib */,
+				A0D1A99B1CE185FA00086E36 /* EHPostDetailCell.h */,
+				A0D1A99C1CE185FA00086E36 /* EHPostDetailCell.m */,
+				A0D1A99D1CE185FA00086E36 /* EHPostDetailCell.xib */,
+				A0D1A9A01CE1A3C600086E36 /* EHPostDetailIamgeCell.h */,
+				A0D1A9A11CE1A3C600086E36 /* EHPostDetailIamgeCell.m */,
+				A0D1A9A21CE1A3C600086E36 /* EHPostDetailIamgeCell.xib */,
+				A0D1A9A81CE1BB2800086E36 /* EHCommentCell.h */,
+				A0D1A9A91CE1BB2800086E36 /* EHCommentCell.m */,
+				A0D1A9AA1CE1BB2800086E36 /* EHCommentCell.xib */,
+				A0D1A9AD1CE1C5C800086E36 /* EHInputAccessoryView.h */,
+				A0D1A9AE1CE1C5C800086E36 /* EHInputAccessoryView.m */,
+				A0D1A9B01CE1C5D500086E36 /* EHInputAccessoryView.xib */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -1625,11 +1675,13 @@
 				A0BA08051CDB461D0089BB72 /* EHTextViewCell.xib in Resources */,
 				A0AE934A1CB77F89001C9CB2 /* UMShareEditViewControlleriPad.xib in Resources */,
 				A0AE93511CB77F89001C9CB2 /* WeiboSDK.bundle in Resources */,
+				A0D1A9B11CE1C5D500086E36 /* EHInputAccessoryView.xib in Resources */,
 				A0BA07F31CD9FE140089BB72 /* EHPriceSelectScene.xib in Resources */,
 				A0BA080F1CDB48F30089BB72 /* identityCardCell.xib in Resources */,
 				A0BA08241CDC52C20089BB72 /* EHAddressCell.xib in Resources */,
 				A0BA07E31CD9ECE00089BB72 /* EHSelectMenuView.xib in Resources */,
 				A0BA08291CDCA2320089BB72 /* EHSignScene.xib in Resources */,
+				A0D1A9AC1CE1BB2800086E36 /* EHCommentCell.xib in Resources */,
 				A0AE93461CB77F89001C9CB2 /* UMSCommentDetailController.xib in Resources */,
 				A0BA081F1CDC51990089BB72 /* EHAddressListScene.xib in Resources */,
 				A0BA08321CDCC5AB0089BB72 /* LoginItemView.xib in Resources */,
@@ -1641,8 +1693,11 @@
 				A0AE93471CB77F89001C9CB2 /* UMSCommentInputController.xib in Resources */,
 				A0A3336E1C97E1FF000C03C2 /* Assets.xcassets in Resources */,
 				A0E6F8571CA3C46700182976 /* MFJSettingCell.xib in Resources */,
+				A0D1A9A41CE1A3C700086E36 /* EHPostDetailIamgeCell.xib in Resources */,
 				A0BA07DE1CD8C3130089BB72 /* EHMineMenuCell.xib in Resources */,
 				A0A3336C1C97E1FF000C03C2 /* Main.storyboard in Resources */,
+				A0D1A99F1CE185FA00086E36 /* EHPostDetailCell.xib in Resources */,
+				A0D1A99A1CE170CE00086E36 /* EHPostDetailScene.xib in Resources */,
 				A0AE934E1CB77F89001C9CB2 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				A0E6F8591CA3C78700182976 /* MFJSetting.bundle in Resources */,
 				A0BA07D91CD8BDC70089BB72 /* EHMineHeadCell.xib in Resources */,
@@ -1728,6 +1783,7 @@
 			files = (
 				A0E6F8C31CA51CE100182976 /* MFJActionSheet.m in Sources */,
 				A0127DF71CCF0D7D00A44187 /* NSNumber+HYSCat.m in Sources */,
+				A0D1A9AF1CE1C5C800086E36 /* EHInputAccessoryView.m in Sources */,
 				A0E6F8CD1CA5B02000182976 /* MFJPhotoGroupView.m in Sources */,
 				A0E6F8551CA3BEA500182976 /* MFJSettingCell.m in Sources */,
 				A0BA07DD1CD8C3130089BB72 /* EHMineMenuCell.m in Sources */,
@@ -1739,6 +1795,7 @@
 				A02F975F1CA649B0008D02E3 /* UIView+MFJExtent.m in Sources */,
 				A02F976E1CA6CD2D008D02E3 /* MFJImageView.m in Sources */,
 				A0BA07ED1CD9F6600089BB72 /* EHCommunitySelectCell.m in Sources */,
+				A0D1A9A71CE1B98D00086E36 /* Comments.m in Sources */,
 				A0A6F07E1CB670380059AE77 /* MFJDragCellCollectionView.m in Sources */,
 				A0F25A8D1CB94E3D003AB803 /* FPSLable.m in Sources */,
 				A0127DFC1CCF0D7D00A44187 /* UIColor+HYSCat.m in Sources */,
@@ -1751,6 +1808,7 @@
 				A088EE531CD45FE700A0AA97 /* GDRequest.m in Sources */,
 				A04E99631CA2911400B0ABB5 /* O2HBaseTableViewCell.m in Sources */,
 				A04E99601CA2911400B0ABB5 /* IHBaseViewController.m in Sources */,
+				A0D1A99E1CE185FA00086E36 /* EHPostDetailCell.m in Sources */,
 				A0127E061CCF0D7D00A44187 /* UIViewController+HYSCat.m in Sources */,
 				A0E6F8521CA3BE7800182976 /* MFJSettingItem.m in Sources */,
 				A0127DBD1CCDF5D600A44187 /* GDGroupReq.m in Sources */,
@@ -1766,6 +1824,7 @@
 				A0127E011CCF0D7D00A44187 /* UIScrollView+HYSCat.m in Sources */,
 				A04E99A91CA299AC00B0ABB5 /* UIViewController+NJKFullScreenSupport.m in Sources */,
 				A0127E091CCF0EF300A44187 /* NSMutableAttributedString+HYSCat.m in Sources */,
+				A0D1A9A31CE1A3C600086E36 /* EHPostDetailIamgeCell.m in Sources */,
 				A0A6F0561CB4C5200059AE77 /* WFLoopShowView.m in Sources */,
 				A0A6F0681CB638290059AE77 /* EHReleaseScene.m in Sources */,
 				A0E6F8A91CA3FA4800182976 /* EHHomeScene.m in Sources */,
@@ -1776,6 +1835,7 @@
 				A0127DF61CCF0D7D00A44187 /* NSDictionary+HYSCat.m in Sources */,
 				A0127DBB1CCDF5D600A44187 /* GCDQueue.m in Sources */,
 				A0A333691C97E1FF000C03C2 /* ViewController.m in Sources */,
+				A0D1A9991CE170CE00086E36 /* EHPostDetailScene.m in Sources */,
 				A0127DFA1CCF0D7D00A44187 /* NSTimer+HYSCat.m in Sources */,
 				A0BA082C1CDCA25F0089BB72 /* UIViewController+Extend.m in Sources */,
 				A0A6F0651CB6161F0059AE77 /* Post.m in Sources */,
@@ -1806,6 +1866,7 @@
 				A07DDF641CB358A000BB2852 /* YDog.m in Sources */,
 				A04E99871CA2911400B0ABB5 /* WrSystemInfo.mm in Sources */,
 				A02F97651CA64A4A008D02E3 /* CALayer+MFJExtent.m in Sources */,
+				A0D1A9B41CE1DE2500086E36 /* EHUserButton.m in Sources */,
 				A04E99861CA2911400B0ABB5 /* Util.m in Sources */,
 				A0A6F05F1CB615E60059AE77 /* User.m in Sources */,
 				A0A6F06F1CB656590059AE77 /* MFJTextView.m in Sources */,
@@ -1836,6 +1897,7 @@
 				A0BA08281CDCA2320089BB72 /* EHSignScene.m in Sources */,
 				A0127E0F1CCF4F9F00A44187 /* EHCommunityCell.m in Sources */,
 				A0BA07D71CD8BDB60089BB72 /* EHMineHeadCell.m in Sources */,
+				A0D1A9AB1CE1BB2800086E36 /* EHCommentCell.m in Sources */,
 				A0127DFE1CCF0D7D00A44187 /* UIDevice+HYSCat.m in Sources */,
 				A0127DC31CCDF5D600A44187 /* GDRouterReger.m in Sources */,
 				A0E3DB081CD311C500E84986 /* MainScene.m in Sources */,

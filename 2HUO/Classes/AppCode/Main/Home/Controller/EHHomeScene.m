@@ -11,7 +11,8 @@
 #import "BannerModel.h"
 #import "EHCommunityCell.h"
 #import "Communitys.h"
-
+#import <YYWebImage/YYWebImage.h>
+#import "EHUserButton.h"
 
 @interface EHHomeScene ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -20,6 +21,7 @@
 @property (nonatomic, strong) WFLoopShowView       * bannerView;
 @property (nonatomic, strong) Communitys           * communityData;
 @property (nonatomic, strong) GDReq                * getCommunityListRequest;
+@property (nonatomic, strong) EHUserButton         * userButton;
 
 @end
 
@@ -31,11 +33,27 @@
     NSLog(@"我是%@,今年%li岁,%@,%@",self.name,self.age,self.image,self.girls);
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if (self.userButton) {
+        if (ISLOGIN) {
+            [self.userButton.userIcon yy_setImageWithURL:[NSURL URLWithString:USER.avatar] options:YYWebImageOptionProgressiveBlur];
+        }else{
+            [self.userButton.userIcon setImage:[UIImage imageNamed:@"tab_me"]];
+        }
+    }
+}
+
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
-    [self showBarButton:NAV_LEFT imageName:@"mycity_highlight"];
-    self.title = @"二货";
+    
+    
+    [self showBarButton:NAV_LEFT button:self.userButton];
+    [self showBarButton:NAV_RIGHT title:@"add" fontColor:TEMCOLOR];
+    self.title = @"校园二货";
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"EHCommunityCell" bundle:nil] forCellReuseIdentifier:@"EHCommunityCell"];
@@ -67,8 +85,26 @@
             self.communityData = model;
             [[TMCache sharedCache] setObject:model forKey:@"Community"];
             [self.tableView reloadData];
+            if (_tableView.mj_header.isRefreshing) {
+                [_tableView.mj_header endRefreshing];
+            }
+        }
+        if (req.failed) {
+            if (_tableView.mj_header.isRefreshing) {
+                [_tableView.mj_header endRefreshing];
+            }
         }
     }];
+    
+    MJRefreshGifHeader *header = [MJRefreshGifHeader headerWithRefreshingTarget:self refreshingAction:@selector(loadNewData)];
+    [self.tableView setDefaultGifRefreshWithHeader:header];
+    self.tableView.mj_header = header;
+    [self.tableView.mj_header beginRefreshing];
+}
+
+- (void)loadNewData
+{
+    self.getCommunityListRequest.requestNeedActive = YES;
 }
 
 - (void)leftButtonTouch
@@ -78,6 +114,15 @@
         return;
     }
     [[GDRouter sharedInstance] show:@"GD://mine" animated:YES completion:nil];
+}
+
+- (void)rightButtonTouch
+{
+    if (!ISLOGIN) {
+        [self showSignScene];
+        return;
+    }
+    [[GDRouter sharedInstance] show:@"mfj://addPost" extraParams:@{@"needSelectType":@(1)} completion:nil];
 }
 
 
@@ -164,6 +209,29 @@
         
     }
     return _bannerView;
+}
+
+- (EHUserButton *)userButton
+{
+    if (!_userButton) {
+        _userButton = [[EHUserButton alloc] init];
+        _userButton.frame = CGRectMake(0, 0, 30, 30);
+        _userButton.layer.cornerRadius = 15;
+        _userButton.layer.masksToBounds = YES;
+        _userButton.clipsToBounds = YES;
+        
+        UIImageView * userIcon = [[UIImageView alloc] initWithFrame:_userButton.bounds];
+        [_userButton addSubview:userIcon];
+        _userButton.userIcon = userIcon;
+        
+        if (ISLOGIN) {
+            [_userButton.userIcon yy_setImageWithURL:[NSURL URLWithString:USER.avatar] options:YYWebImageOptionProgressiveBlur];
+        }else{
+            [_userButton.userIcon setImage:[UIImage imageNamed:@"tab_me"]];
+        }
+        
+    }
+    return _userButton;
 }
 
 

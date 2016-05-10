@@ -198,4 +198,6 @@ extern const NSInteger YEAR;
 - (NSString *)timeAgo;
 
 - (BOOL)isNumber;
+
+- (NSString *)processingPrice;
 @end
