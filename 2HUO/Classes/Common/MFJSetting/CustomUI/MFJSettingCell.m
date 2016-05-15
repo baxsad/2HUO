@@ -9,8 +9,6 @@
 #import "MFJSettingCell.h"
 #import "MFJSettingItem.h"
 
-#define MFJImgSrcName(file) [@"MFJSetting.bundle" stringByAppendingPathComponent:file]
-
 @interface MFJSettingCell()
 
 @property (nonatomic, weak) IBOutlet UIImageView * icon;

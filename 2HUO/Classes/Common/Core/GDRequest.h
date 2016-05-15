@@ -10,6 +10,15 @@
 
 @interface GDRequest : GDReq
 
+// 首页数据
++ (GDReq *)gethomeModelRequest;
+
+// 获取地区
++ (GDReq *)getAreaListRequest;
+
+// 获取地区+学校
++ (GDReq *)getAreaAndSchoolListRequest;
+
 #pragma mark 用户
 
 // 用户登录
@@ -32,6 +41,9 @@
 
 // 默认地址
 + (GDReq *)getDefAddressRequest;
+
+// 修改用户信息
++ (GDReq *)updateUserInfoRequest;
 
 #pragma mark  商品
 

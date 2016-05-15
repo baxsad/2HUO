@@ -20,13 +20,17 @@
 
 @property (nonatomic, assign) NSInteger id;
 @property (nonatomic, assign) NSInteger sid;
+@property (nonatomic, assign) NSInteger count;
 @property (nonatomic,   copy) NSString  *name;
+@property (nonatomic,   copy) NSString  *icon;
 @property (nonatomic,   copy) NSString  *type;
 @property (nonatomic,   copy) NSString  *nature;
 @property (nonatomic,   copy) NSString  *campus;
 @property (nonatomic,   copy) NSString  *location;
 @property (nonatomic,   copy) NSString  *province;
 @property (nonatomic,   copy) NSString  *city;
+@property (nonatomic, assign) NSInteger provinceId;
+@property (nonatomic, assign) NSInteger cityId;
 
 @end
 

@@ -15,4 +15,9 @@
     return YES;
 }
 
++ (JSONKeyMapper *)keyMapper
+{
+    return [[JSONKeyMapper alloc] initWithDictionary:@{@"des":@"desc"}];
+}
+
 @end

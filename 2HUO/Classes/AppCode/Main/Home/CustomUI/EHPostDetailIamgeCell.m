@@ -34,7 +34,7 @@
     if (model) {
         [_postImage yy_setImageWithURL:[NSURL URLWithString:model] placeholder:nil options:YYWebImageOptionProgressiveBlur completion:^(UIImage * _Nullable image, NSURL * _Nonnull url, YYWebImageFromType from, YYWebImageStage stage, NSError * _Nullable error) {
             
-            if (stage == YYWebImageStageFinished) {
+            if (stage == YYWebImageStageFinished && image) {
                 self.postImage.image = image;
                 CGSize size = image.size;
                 CGFloat w = size.width;

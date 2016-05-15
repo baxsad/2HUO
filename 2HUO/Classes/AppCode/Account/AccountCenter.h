@@ -17,6 +17,7 @@ typedef NS_ENUM(NSUInteger, UserLoginType) {
     
 };
 
+typedef void (^UpdateUserCallBack)(BOOL success);
 typedef void (^UserLoginCallBack)(BOOL success);
 typedef void (^UserLoginResultBlock)(BOOL success, User * user);
 typedef void (^UserLogoutCallBack)(BOOL success);
@@ -39,5 +40,7 @@ typedef void (^ClearCacheCallBack)(BOOL success,CGFloat progress);
 - (void)logoutWithType:(UMSocialSnsType)type;
 
 - (void)clearCache:(ClearCacheCallBack)callback;
+
+- (void)updateUserInfo:(NSDictionary *)info complete:(UpdateUserCallBack)complete;
 
 @end

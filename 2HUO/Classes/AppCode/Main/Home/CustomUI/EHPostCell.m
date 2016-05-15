@@ -15,7 +15,7 @@
 #import "MFJImageView.h"
 
 #import <YYWebImage/YYWebImage.h>
-#import "YDog.h"
+
 
 #define kPadding 2
 #define kMaxRow 9

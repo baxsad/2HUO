@@ -14,4 +14,6 @@
 
 @property (nonatomic, strong) NSMutableArray * allGroups;
 
+- (void)reloadData;
+
 @end

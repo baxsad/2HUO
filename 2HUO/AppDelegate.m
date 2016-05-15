@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import <AVOSCloud/AVOSCloud.h>
 #import "UMSocial.h"
 #import "UMSocialSinaSSOHandler.h"
 #import "IQKeyboardManager.h"
@@ -40,9 +39,6 @@
     [IQKeyboardManager sharedManager].enable = YES;
     [IQKeyboardManager sharedManager].enableAutoToolbar = NO;
     
-    
-    [AVOSCloud setApplicationId:@"FM9OAvPJzXtzIVFp8G39AdCG-gzGzoHsz"
-                      clientKey:@"bSnxSKtyJaKCocdbXCum4XfR"];
     
     [UMSocialData setAppKey:@"57074e7e67e58e35ca000c98"];
     [UMSocialConfig setFollowWeiboUids:@{UMShareToSina:@"521733123"}];

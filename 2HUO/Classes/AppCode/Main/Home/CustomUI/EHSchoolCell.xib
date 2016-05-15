@@ -28,13 +28,21 @@
                             <constraint firstAttribute="height" constant="1" id="v6M-0f-upO"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w3S-WR-IJk">
+                        <rect key="frame" x="269" y="13.5" width="36" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="fi8-iR-L5S" firstAttribute="leading" secondItem="oph-MK-jax" secondAttribute="leadingMargin" constant="7" id="2R2-9v-daH"/>
                     <constraint firstAttribute="bottomMargin" secondItem="fi8-iR-L5S" secondAttribute="bottom" constant="-8" id="PEk-hk-Dza"/>
                     <constraint firstItem="v7P-I9-WGK" firstAttribute="leading" secondItem="oph-MK-jax" secondAttribute="leadingMargin" constant="7" id="Rvh-Dt-HcO"/>
                     <constraint firstAttribute="trailingMargin" secondItem="fi8-iR-L5S" secondAttribute="trailing" constant="-8" id="UyF-Fe-vv9"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="w3S-WR-IJk" secondAttribute="trailing" constant="7" id="ghq-UU-2k7"/>
                     <constraint firstItem="v7P-I9-WGK" firstAttribute="centerY" secondItem="oph-MK-jax" secondAttribute="centerY" id="ies-FP-1WK"/>
+                    <constraint firstItem="w3S-WR-IJk" firstAttribute="centerY" secondItem="oph-MK-jax" secondAttribute="centerY" id="ne8-SD-RGB"/>
                     <constraint firstItem="fi8-iR-L5S" firstAttribute="top" secondItem="oph-MK-jax" secondAttribute="topMargin" constant="-8" id="tVw-ZR-YRB"/>
                 </constraints>
                 <variation key="default">
@@ -46,6 +54,7 @@
             <connections>
                 <outlet property="bottomLineHeight" destination="v6M-0f-upO" id="hBa-6V-SRs"/>
                 <outlet property="name" destination="v7P-I9-WGK" id="SEs-Da-jtL"/>
+                <outlet property="subName" destination="w3S-WR-IJk" id="FVT-ac-m6Y"/>
             </connections>
         </tableViewCell>
     </objects>

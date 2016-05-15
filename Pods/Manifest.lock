@@ -14,7 +14,6 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
-  - AVOSCloud (3.2.8)
   - IQKeyboardManager (3.2.4)
   - JSONModel (1.2.0)
   - LGAlertView (2.0.13)
@@ -41,7 +40,6 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking (~> 3.0.4)
-  - AVOSCloud (~> 3.2.7)
   - IQKeyboardManager (~> 3.2.3)
   - JSONModel (~> 1.2.0)
   - LGAlertView (~> 2.0.13)
@@ -56,7 +54,6 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
-  AVOSCloud: b789619942a4275e615f8f0782e7475675951b95
   IQKeyboardManager: 555b1231fefafb21b19278d7cca72986a27b748b
   JSONModel: 12523685c4b623553ccf844bbbf7007624317b2c
   LGAlertView: 9a5dcbf4f81b02b718083539d7f222280adc9547

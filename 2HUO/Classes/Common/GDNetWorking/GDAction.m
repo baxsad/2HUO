@@ -337,7 +337,7 @@ static GDAction *instance       = nil;
     }
     
     req.output = [[GDAction shareInstance].requestCache objectForKey:req.requestID];
-    if (_dataFromCache == YES && req.output !=nil) {
+    if (_dataFromCache == YES && req.output == nil) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (0.1f * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self checkCode:req];
         });

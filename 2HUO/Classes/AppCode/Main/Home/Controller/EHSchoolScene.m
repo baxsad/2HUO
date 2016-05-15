@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = UIColorHex(0xf2f2f2);
+    self.view.backgroundColor = BGCOLOR;
     self.title = @"学校";
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -40,6 +40,7 @@
     self.tableView.tableHeaderView = headerView;
     
     self.getSchoolListRequest = [GDRequest getSchoolListRequest];
+    [self.getSchoolListRequest.params setValue:@"all" forKey:@"type"];
     self.getSchoolListRequest.requestNeedActive = YES;
     [self.getSchoolListRequest listen:^(GDReq * _Nonnull req) {
         self.schoolData = [[SchooData alloc] initWithDictionary:req.output error:nil];
@@ -108,7 +109,7 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = UIColorHex(0xf2f2f2);
+        _tableView.backgroundColor = BGCOLOR;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsHorizontalScrollIndicator = NO;

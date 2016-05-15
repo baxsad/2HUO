@@ -26,8 +26,14 @@
     self.view = tableView;
 }
 
+- (void)reloadData
+{
+    [((UITableView *)self.view) reloadData];
+}
+
 - (void)viewDidLoad
 {
+    
     [super viewDidLoad];
     self.view.backgroundColor = UIColorHex(0xebebeb);
     _allGroups = [NSMutableArray array];
@@ -84,18 +90,72 @@
 {
     MFJSettingGroup *group = _allGroups[section];
     
-    return group.header;
+    if (group.header) {
+        return group.header;
+    }else{
+        return nil;
+    }
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    MFJSettingGroup *group = _allGroups[section];
+    if (group.headerView) {
+        return group.headerView;
+    }else{
+        return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    MFJSettingGroup *group = _allGroups[section];
+    if (group.headerView) {
+        return group.headerView.frame.size.height;
+    }else{
+        return 0.000001;
+    }
+}
+
 #pragma mark 返回每一组的footer标题
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section
 {
     MFJSettingGroup *group = _allGroups[section];
     
-    return group.footer;
+    if (group.footer) {
+        return group.footer;
+    }else{
+        return nil;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    MFJSettingGroup *group = _allGroups[section];
+    if (group.footerView) {
+        return group.footerView;
+    }else{
+        return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    MFJSettingGroup *group = _allGroups[section];
+    if (group.footerView) {
+        return group.footerView.frame.size.height;
+    }else{
+        return 0.000001;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    MFJSettingGroup *group = _allGroups[indexPath.section];
+    MFJSettingItem *item = group.items[indexPath.row];
+    if (item.itemHeight>0) {
+        return item.itemHeight;
+    }
     return 45;
 }
 

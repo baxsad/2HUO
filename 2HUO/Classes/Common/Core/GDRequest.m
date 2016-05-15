@@ -10,6 +10,38 @@
 
 @implementation GDRequest
 
++ (GDReq *)gethomeModelRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"index.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
+
++ (GDReq *)getAreaListRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"Location/x.getLocation.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.cachePolicy = GDRequestCachePolicyReadCache;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
+
++ (GDReq *)getAreaAndSchoolListRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"Location/x.getCityAndSchool.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.cachePolicy = GDRequestCachePolicyReadCache;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
+
 + (GDReq *)userLoginRequest
 {
     GDReq * req = [GDReq Request];
@@ -25,7 +57,7 @@
     GDReq * req = [GDReq Request];
     req.PATH = @"user/x.school.get.php";
     req.responseSerializer = GDResponseSerializerTypeJSON;
-    req.cachePolicy = GDRequestCachePolicyReadCache;
+    req.cachePolicy = GDRequestCachePolicyNoCache;
     req.METHOD = @"GET";
     return req;
 }
@@ -133,6 +165,16 @@
     req.PATH = @"community/x.getComments.get.php";
     req.responseSerializer = GDResponseSerializerTypeJSON;
     req.METHOD = @"GET";
+    return req;
+}
+
++ (GDReq *)updateUserInfoRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"user/x.updateUserInfo.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
     return req;
 }
 

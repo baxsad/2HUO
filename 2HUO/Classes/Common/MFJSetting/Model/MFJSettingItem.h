@@ -24,6 +24,8 @@ typedef NS_ENUM(NSInteger, MFJSettingItemType) {
 
 @property (nonatomic,   copy) NSString *subTitle;
 
+@property (nonatomic, assign) float     itemHeight;
+
 @property (nonatomic, assign) MFJSettingItemType type;// Cell的样式
 /** cell上开关的操作事件 */
 @property (nonatomic,   copy) void (^switchBlock)(BOOL on) ;

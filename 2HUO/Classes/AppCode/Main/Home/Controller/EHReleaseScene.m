@@ -73,20 +73,12 @@ typedef void(^Upload)();
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"发布信息";
     [self.view layoutIfNeeded];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
-    [self showBarButton:NAV_LEFT title:@"Cancle" fontColor:UIColorHex(0x5F5F5F)];
-    UIButton * sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    sendButton.frame = CGRectMake(0, 0, 45, 25);
-    [sendButton setTitle:@"Send" forState:UIControlStateNormal];
-    [sendButton setTitleColor:UIColorHex(0xffffff) forState:UIControlStateNormal];
-    [sendButton setBackgroundColor:UIColorHex(0xD2B203)];
-    [sendButton addTarget:self action:@selector(postAction) forControlEvents:UIControlEventTouchUpInside];
-    sendButton.titleLabel.font = [UIFont systemFontOfSize:13];
-    sendButton.layer.cornerRadius = 5;
-    sendButton.layer.masksToBounds = YES;
-    [self showBarButton:NAV_RIGHT button:sendButton];
+    [self showBarButton:NAV_LEFT title:@"取消" fontColor:UIColorHex(0x5F5F5F)];
+    [self showBarButton:NAV_RIGHT title:@"发布" fontColor:TEMCOLOR];
     
     @weakify(self);
     
@@ -297,6 +289,9 @@ typedef void(^Upload)();
     [self.addPostRequest listen:^(GDReq * _Nonnull req) {
         if (req.succeed) {
             NSLog(@"发布成功！");
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"ReloadPost" object:nil];
+            
             [GDHUD hideUIBlockingIndicator];
             [self leftButtonTouch];
         }
@@ -374,6 +369,19 @@ typedef void(^Upload)();
          showAnimated:YES completionHandler:nil];
         return NO;
     }
+    if ((self.selectImageData.count<1)) {
+        [[[LGAlertView alloc] initWithTitle:@"提示"
+                                    message:@"请至少选择一张图片"
+                                      style:LGAlertViewStyleAlert
+                               buttonTitles:nil
+                          cancelButtonTitle:@"确定"
+                     destructiveButtonTitle:nil
+                              actionHandler:nil
+                              cancelHandler:nil
+                         destructiveHandler:nil]
+         showAnimated:YES completionHandler:nil];
+        return NO;
+    }
     if (!self.cid.isNotEmpty) {
         [[[LGAlertView alloc] initWithTitle:@"提示"
                                     message:@"分类不能为空"
@@ -434,7 +442,7 @@ typedef void(^Upload)();
     return YES;
 }
 
-- (void)postAction
+- (void)rightButtonTouch
 {
     [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
     
@@ -443,10 +451,13 @@ typedef void(^Upload)();
     [self.addPostRequest.params setValue:self.p_title forKey:@"title"];
     [self.addPostRequest.params setValue:self.p_content forKey:@"content"];
     
-    [self verificationParams];
+    if (![self verificationParams]) {
+        return;
+    }
     
     [GDHUD showUIBlockingIndicator];
     
+    [self setTitle:@"上传数据" font:[UIFont systemFontOfSize:14] fontColor:UIColorHex(0x5F5F5F)];
     [self uploadIamges:^(BOOL over,int index){
         if (over) {
             NSString * images = @"";
@@ -455,6 +466,9 @@ typedef void(^Upload)();
             }
             [self.addPostRequest.params setValue:images forKey:@"images"];
             self.addPostRequest.requestNeedActive = YES;
+            [self setTitle:@"上传数据" font:[UIFont systemFontOfSize:14] fontColor:UIColorHex(0x5F5F5F)];
+        }else{
+            [self setTitle:[NSString stringWithFormat:@"上传图片(%d/%li)",index+1,self.selectImageData.count] font:[UIFont systemFontOfSize:14] fontColor:UIColorHex(0x5F5F5F)];
         }
     }];
 }
@@ -481,7 +495,10 @@ typedef void(^Upload)();
             complete(YES,0);
         }
         DataModel * model = [strongSelf.selectImageData objectAtIndex:i];
-        [[DataCenter defaultCenter] uploadPicture:[UIImage imageWithData:model.data] progress:^(float progress) {
+        
+        UIImage * upImage = [UIImage imageWithData:model.data];
+        
+        [[DataCenter defaultCenter] uploadPicture:upImage progress:^(float progress) {
             
         } response:^(NSString *imageName) {
             // 上传图片获取到图片的链接

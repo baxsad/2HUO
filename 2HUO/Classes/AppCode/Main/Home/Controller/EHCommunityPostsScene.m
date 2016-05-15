@@ -12,8 +12,19 @@
 #import "MFJActionSheet.h"
 #import "MFJPhotoGroupView.h"
 #import "Post.h"
+#import "JSDropDownMenu.h"
+#import "Communitys.h"
+#import "Area.h"
+#import "AeraAndSchool.h"
+#import "LGAlertView.h"
 
-@interface EHCommunityPostsScene ()<UITableViewDataSource,UITableViewDelegate,EHPostCellDelegate>
+@interface EHCommunityPostsScene ()<UITableViewDataSource,UITableViewDelegate,EHPostCellDelegate,JSDropDownMenuDataSource,JSDropDownMenuDelegate>
+
+{
+    NSInteger aeraSelectIndex;
+    NSInteger schoolSelectIndex;
+    NSInteger typeSelectIndex;
+}
 
 @property (nonatomic, strong) UITableView          * tableView;
 @property (nonatomic, strong) NSArray              * data;
@@ -21,6 +32,14 @@
 @property (nonatomic, strong) Post                 * postModel;
 @property (nonatomic, strong) GDReq                * getPostListRequest;
 @property (nonatomic, strong) GDReq                * likePostRequest;
+@property (nonatomic, strong) JSDropDownMenu       * dropMenu;
+
+@property (nonatomic, strong) GDReq                * getCommunitysRequest;
+@property (nonatomic, strong) GDReq                * getAllCityAndSchoolsRequest;
+@property (nonatomic, strong) Communitys           * communitys;
+@property (nonatomic, strong) AeraAndSchools       * aeraAndSchool;
+
+@property (nonatomic, strong) UIButton * sendPostButton;
 
 @end
 
@@ -35,9 +54,29 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.extendedLayoutIncludesOpaqueBars = YES;
     self.view.backgroundColor = UIColorHex(0xf2f2f2);
     [self showBarButton:NAV_RIGHT title:@"Edit" fontColor:UIColorHex(0xD2B203)];
     self.title = self.ptitle;
+    
+    [self.view addSubview:self.sendPostButton];
+    [self.sendPostButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.view).offset(0);
+        make.left.equalTo(self.view).offset(0);
+        make.right.equalTo(self.view).offset(0);
+        make.height.mas_equalTo(@45);
+    }];
+    
+    UIView * topLine = [[UIView alloc] init];
+    topLine.backgroundColor = UIColorHex(0xebebeb);
+    [self.sendPostButton addSubview:topLine];
+    [topLine mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.sendPostButton.mas_top).offset(0);
+        make.left.equalTo(self.view).offset(0);
+        make.right.equalTo(self.view).offset(0);
+        make.height.mas_equalTo(@(1/ScreenScale));
+    }];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:NSStringFromClass([EHPostCell class]) bundle:nil] forCellReuseIdentifier:@"EHPostCell"];
@@ -47,14 +86,19 @@
         @strongify(self);
         make.top.equalTo(self.view).offset(0);
         make.left.equalTo(self.view).offset(0);
-        make.bottom.equalTo(self.view).offset(0);
+        make.bottom.equalTo(self.sendPostButton.mas_top).offset(0);
         make.right.equalTo(self.view).offset(0);
     }];
     UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0.00001)];
     self.tableView.tableHeaderView = headerView;
     
     self.getPostListRequest = [GDRequest getPostListRequest];
-    [self.getPostListRequest.params setValue:@(self.cid) forKey:@"cid"];
+    if (self.cid != 0) {
+        [self.getPostListRequest.params setValue:@(self.cid) forKey:@"cid"];
+    }
+    if (self.sid != 0){
+        [self.getPostListRequest.params setValue:@(self.sid) forKey:@"sid"];
+    }
     if (ISLOGIN) {
         [self.getPostListRequest.params setValue:USER.uid forKey:@"uid"];
     }else{
@@ -94,6 +138,42 @@
     self.tableView.mj_header = header;
     [self.tableView.mj_header beginRefreshing];
     
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"ReloadPost" object:nil] subscribeNext:^(id x) {
+        self.getPostListRequest.requestNeedActive = YES;
+    }];
+    
+    //** 获取分类 **//
+    
+    self.getCommunitysRequest = [GDRequest getCommunityListRequest];
+    self.getCommunitysRequest.cachePolicy = GDRequestCachePolicyReadCache;
+    [self.getCommunitysRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            Communitys * model = [[Communitys alloc] initWithDictionary:req.output error:nil];
+            self.communitys = model;
+            [[TMCache sharedCache] setObject:model forKey:@"Community"];
+            
+        }
+        if (req.failed) {
+            
+        }
+    }];
+    
+    self.communitys = [[TMCache sharedCache] objectForKey:@"Community"];
+    self.getCommunitysRequest.requestNeedActive = YES;
+    
+    //** 获取地区和学校 **//
+    
+    self.getAllCityAndSchoolsRequest = [GDRequest getAreaAndSchoolListRequest];
+    [self.getAllCityAndSchoolsRequest listen:^(GDReq * _Nonnull req) {
+        if(req.succeed)
+        {
+            AeraAndSchools * model = [[AeraAndSchools alloc] initWithDictionary:req.output error:nil];
+            self.aeraAndSchool = model;
+            [[TMCache sharedCache] setObject:model forKey:@"AeraAndSchools"];
+        }
+    }];
+    self.aeraAndSchool = [[TMCache sharedCache] objectForKey:@"AeraAndSchools"];
+    self.getAllCityAndSchoolsRequest.requestNeedActive = YES;
 }
 
 - (void)loadNewData
@@ -101,13 +181,31 @@
     self.getPostListRequest.requestNeedActive = YES;
 }
 
--(void)rightButtonTouch{
+-(void)postAction{
     
-    if (!ISLOGIN) {
-        [GDHUD showMessage:@"not login!" timeout:1];
-        return;
+    if (LOGINandSETSCHOOL) {
+        [[GDRouter sharedInstance] show:@"mfj://addPost" extraParams:@{@"needSelectType":@(1)} completion:nil];
+    }else{
+        if (!ISLOGIN) {
+            [self showSignScene];
+        }else if (!ISSETSCHOOL){
+            [[[LGAlertView alloc] initWithTitle:@"提示"
+                                        message:@"请到个人信息页完善学校信息\n才能发布哦！"
+                                          style:LGAlertViewStyleAlert
+                                   buttonTitles:nil
+                              cancelButtonTitle:@"确定"
+                         destructiveButtonTitle:nil
+                                  actionHandler:^(LGAlertView *alertView, NSString *title, NSUInteger index) {
+                                      NSLog(@"actionHandler, %@, %lu", title, (long unsigned)index);
+                                  }
+                                  cancelHandler:^(LGAlertView *alertView) {
+                                      NSLog(@"cancelHandler");
+                                  }
+                             destructiveHandler:^(LGAlertView *alertView) {
+                                 NSLog(@"destructiveHandler");
+                             }] showAnimated:YES completionHandler:nil];
+        }
     }
-    [[GDRouter sharedInstance] show:@"mfj://addPost" extraParams:@{@"cid":[NSString stringWithFormat:@"%li",self.cid]} completion:nil];
     
 }
 
@@ -247,5 +345,153 @@
     return _sheet;
 }
 
+- (JSDropDownMenu *)dropMenu
+{
+    if (!_dropMenu) {
+        _dropMenu = [[JSDropDownMenu alloc] initWithOrigin:CGPointMake(0, -1) andHeight:35];
+        _dropMenu.indicatorColor = [UIColor colorWithRed:175.0f/255.0f green:175.0f/255.0f blue:175.0f/255.0f alpha:1.0];
+        _dropMenu.separatorColor = [UIColor clearColor];
+        _dropMenu.backgroundColor = NAVCOLOR;
+        _dropMenu.textColor = [UIColor colorWithRed:83.f/255.0f green:83.f/255.0f blue:83.f/255.0f alpha:1.0f];
+        _dropMenu.dataSource = self;
+        _dropMenu.delegate = self;
+    }
+    return _dropMenu;
+}
+
+- (UIButton *)sendPostButton
+{
+    if (!_sendPostButton) {
+        _sendPostButton = [[UIButton alloc] init];
+        _sendPostButton.backgroundColor = UIColorHex(0xffffff);
+        [_sendPostButton setTitle:@"发布" forState:UIControlStateNormal];
+        [_sendPostButton setTitleColor:TEMCOLOR forState:UIControlStateNormal];
+        _sendPostButton.titleLabel.font = [UIFont systemFontOfSize:15];
+        [_sendPostButton addTarget:self action:@selector(postAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _sendPostButton;
+}
+
+- (NSInteger)numberOfColumnsInMenu:(JSDropDownMenu *)menu {
+    
+    return 2;
+}
+
+-(BOOL)displayByCollectionViewInColumn:(NSInteger)column{
+    
+    return NO;
+}
+
+-(BOOL)haveRightTableViewInColumn:(NSInteger)column{
+    
+    if (column==0) {
+        return YES;
+    }
+    return NO;
+}
+
+-(CGFloat)widthRatioOfLeftColumn:(NSInteger)column{
+    
+    if (column==0) {
+        return 0.3;
+    }
+    
+    return 1;
+}
+
+
+- (NSInteger)menu:(JSDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column leftOrRight:(NSInteger)leftOrRight leftRow:(NSInteger)leftRow{
+    
+    if (column==0) {
+        if (leftOrRight==0) {
+            
+            return self.aeraAndSchool.data.count;
+            
+        } else{
+            
+            AeraAndSchool *model = [self.aeraAndSchool.data objectAtIndex:leftRow];
+            
+            return [model.school count];
+            
+        }
+    } else if (column==1){
+        
+        return self.communitys.data.count;
+        
+    }
+    
+    return 0;
+}
+
+- (NSString *)menu:(JSDropDownMenu *)menu titleForColumn:(NSInteger)column{
+    
+    switch (column) {
+        case 0: return @"学校";
+            break;
+        case 1: return @"分类";
+            break;
+        default:
+            return nil;
+            break;
+    }
+}
+
+- (NSString *)menu:(JSDropDownMenu *)menu titleForRowAtIndexPath:(JSIndexPath *)indexPath {
+    
+    if (indexPath.column==0) {
+        if (indexPath.leftOrRight==0) {
+            AeraAndSchool *model = [self.aeraAndSchool.data objectAtIndex:indexPath.row];
+            return model.cityName;
+        } else{
+            NSInteger leftRow = indexPath.leftRow;
+            AeraAndSchool *model = [self.aeraAndSchool.data objectAtIndex:leftRow];
+            School *school = model.school[indexPath.row];
+            return school.name;
+        }
+    } else if (indexPath.column==1) {
+        
+        Community * model = self.communitys.data[indexPath.row];
+        return model.c_name;
+        
+    } else {
+        
+        return nil;
+    }
+}
+
+-(NSInteger)currentLeftSelectedRow:(NSInteger)column{
+    
+    if (column==0) {
+        
+        return aeraSelectIndex;
+        
+    }
+    if (column==1) {
+        
+        return typeSelectIndex;
+    }
+    
+    return 0;
+}
+
+- (void)menu:(JSDropDownMenu *)menu didSelectRowAtIndexPath:(JSIndexPath *)indexPath {
+    if (indexPath.column == 0) {
+        
+        aeraSelectIndex = indexPath.leftRow;
+        
+        if(indexPath.leftOrRight==0){
+            
+            schoolSelectIndex = indexPath.row;
+            
+            return;
+        }
+        
+    } else{
+        
+        typeSelectIndex = indexPath.row;
+        
+    }
+    
+}
 
 @end

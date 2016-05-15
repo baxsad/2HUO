@@ -11,9 +11,6 @@
 
 @interface EHHomeScene : IHBaseViewController
 
-@property (nonatomic,copy)NSString * name;
-@property (nonatomic,assign)NSInteger age;
-@property (nonatomic,copy)NSArray * girls;
-@property (nonatomic,strong)UIImage * image;
+@property (nonatomic,copy)NSString * cityName;
 
 @end

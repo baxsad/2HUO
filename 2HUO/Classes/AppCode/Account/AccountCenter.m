@@ -14,6 +14,7 @@
 @interface AccountCenter ()
 
 @property (nonatomic, strong) GDReq * userLoginRequest;
+@property (nonatomic, strong) GDReq * updateUserInfoRequest;
 
 @end
 
@@ -24,8 +25,11 @@
     static AccountCenter *account;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
+        
         account = [[AccountCenter alloc] init];
         account.userLoginRequest = [GDRequest userLoginRequest];
+        account.updateUserInfoRequest = [GDRequest updateUserInfoRequest];
+        
     });
     return account;
 }
@@ -38,15 +42,17 @@
         self.user = nil;
         self.token =nil;
         self.userHeadFace = nil;
-        return;
+        
+    }else{
+        self.user = user;
+        self.token = user.token;
+        self.userHeadFace = [UIImage imageWithUrl:user.avatar];
+        [[TMCache sharedCache] setObject:self.user forKey:kUSERCACHE block:^(TMCache* cache, NSString* key, id object) {
+            
+        }];
     }
     
-    self.user = user;
-    self.token = user.token;
-    self.userHeadFace = [UIImage imageWithUrl:user.avatar];
-    [[TMCache sharedCache] setObject:self.user forKey:kUSERCACHE block:^(TMCache* cache, NSString* key, id object) {
-        
-    }];
+    
 }
 
 - (void)login:(UMSocialSnsType)type viewController:(UIViewController*)viewController complete:(UserLoginCallBack)complete
@@ -160,6 +166,34 @@
             [self save:nil];
         }];
     }
+}
+
+- (void)updateUserInfo:(NSDictionary *)info complete:(UpdateUserCallBack)complete
+{
+    [self.updateUserInfoRequest.params removeAllObjects];
+    [self.updateUserInfoRequest.params setValue:USER.uid forKey:@"uid"];
+    
+    for (NSString * key in info) {
+        [self.updateUserInfoRequest.params setValue:info[key] forKey:key];
+    }
+    
+    [self.updateUserInfoRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            User * user = [[User alloc] initWithDictionary:req.output[@"data"] error:nil];
+            if (user) {
+                [self save:user];
+                complete(YES);
+            }else{
+                complete(NO);
+            }
+        }
+        if (req.failed) {
+            complete(NO);
+        }
+    }];
+    
+    self.updateUserInfoRequest.requestNeedActive = YES;
+    
 }
 
 - (void)clearCache:(ClearCacheCallBack)callback

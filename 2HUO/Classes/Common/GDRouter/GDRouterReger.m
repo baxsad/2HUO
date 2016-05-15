@@ -31,6 +31,12 @@
     [[GDRouter sharedInstance] reg:@"GD://school" toClass:NSClassFromString(@"EHSchoolScene")];
     
     [[GDRouter sharedInstance] reg:@"GD://postDetail" toClass:NSClassFromString(@"EHPostDetailScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://setUserInfo" toClass:NSClassFromString(@"EHSettingUserInfoScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://updateUserNick" toClass:NSClassFromString(@"EHUpdateUserNickScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://updateUserDesc" toClass:NSClassFromString(@"EHUpdateUserDesScene")];
 }
 
 + (void)clearCache

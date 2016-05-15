@@ -46,7 +46,7 @@
             _count.hidden = NO;
             _count.text = [NSString stringWithFormat:@"%@",[NSString stringWithFormat:@"%li",model.count]];
             CGFloat width = [_count.text widthForFont:[UIFont systemFontOfSize:14]];
-            self.countWidth.constant = width+10;
+            self.countWidth.constant = width+20;
         }
     }
 }

@@ -41,7 +41,7 @@
         self.nikeLable.text = USER.nick;
         self.nikeLable.textColor = UIColorHex(0x515151);
         self.nikeBottomConstraint.constant = 4;//原来是4
-        self.praiseCountLable.text = @"宝贝 5 个，共赚取 17685.50 元";
+        self.praiseCountLable.text = USER.school!=nil ? [NSString stringWithFormat:@"就读于 %@",USER.school.name] : @"还未注册学校信息";
         [self.faceImageView yy_setImageWithURL:[NSURL URLWithString:USER.avatar] options:YYWebImageOptionProgressiveBlur];
     }
     if (USER.avatar.length == 0 && ISLOGIN) {

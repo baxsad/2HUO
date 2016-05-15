@@ -12,7 +12,7 @@
 
 @interface BannerModel : JSONModel
 
-@property (nonatomic, strong) NSArray <Banner> * list;
+@property (nonatomic, strong) NSArray <Banner> * data;
 
 @end
 

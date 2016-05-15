@@ -12,6 +12,7 @@
 @interface EHSchoolCell ()
 
 @property (nonatomic, weak) IBOutlet UILabel * name;
+@property (nonatomic, weak) IBOutlet UILabel * subName;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *bottomLineHeight;
 
 @end
@@ -34,6 +35,7 @@
 {
     if (model) {
         self.name.text = model.name;
+        self.subName.text = model.campus;
     }
 }
 

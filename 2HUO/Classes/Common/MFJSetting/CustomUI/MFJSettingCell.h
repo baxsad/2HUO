@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define MFJImgSrcName(file) [@"MFJSetting.bundle" stringByAppendingPathComponent:file]
+
 @class MFJSettingItem;
 
 @interface MFJSettingCell : UITableViewCell

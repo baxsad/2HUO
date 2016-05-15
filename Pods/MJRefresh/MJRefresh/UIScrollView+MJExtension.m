@@ -64,7 +64,7 @@
 {
     CGPoint offset = self.contentOffset;
     offset.x = mj_offsetX;
-    self.contentOffset = offset;
+    [self setContentOffset:offset animated:NO];
 }
 
 - (CGFloat)mj_offsetX
@@ -76,7 +76,7 @@
 {
     CGPoint offset = self.contentOffset;
     offset.y = mj_offsetY;
-    self.contentOffset = offset;
+    [self setContentOffset:offset animated:NO];
 }
 
 - (CGFloat)mj_offsetY

@@ -8,6 +8,7 @@
 
 #import "WFLoopShowView.h"
 #import <YYWebImage/YYWebImage.h>
+#import "HomeModel.h"
 #import "BannerModel.h"
 static CGFloat const kPageControlWidth = 100;
 static CGFloat const kPageControlHeigth = 18;
@@ -115,6 +116,8 @@ static CGFloat const kPageControlHeigth = 18;
         self.pageControl.userInteractionEnabled = YES;
         self.pageControl.numberOfPages = self.totalViewsCount;
         self.pageControl.currentPage = 0;
+        self.pageControl.currentPageIndicatorTintColor = TEMCOLOR;
+        self.pageControl.pageIndicatorTintColor = UIColorHex(0xebebeb);
         [self addSubview:self.pageControl];
     }
     return self;
@@ -209,7 +212,7 @@ static CGFloat const kPageControlHeigth = 18;
     
     for (int i = 0; i < [imagesData count]; i++) {
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.contentMode = UIViewContentModeScaleToFill;
         imageView.clipsToBounds = YES;
         NSString *imageUrl = imagesData[i];
         if ([imageUrl hasPrefix:@"http"]) {
@@ -227,11 +230,11 @@ static CGFloat const kPageControlHeigth = 18;
     self.totalViewsCount = [self.imageViews count];
 }
 
-- (void)loadImagesWithModel:(BannerModel *)model
+- (void)loadImagesWithModel:(HomeModel *)model
 {
     NSMutableArray * imageData = [NSMutableArray array];
     if (model) {
-        for (Banner * banner in model.list) {
+        for (Banner * banner in model.banner) {
             [imageData addObject:banner.image];
         }
     }

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class BannerModel;
+@class HomeModel;
 @protocol WFLoopShowViewDelegate;
 
 @interface WFLoopShowView : UIView
@@ -40,7 +40,7 @@
 
 - (void)loadImage:(NSArray *)imagesData;
 
-- (void)loadImagesWithModel:(BannerModel *)model;
+- (void)loadImagesWithModel:(HomeModel *)model;
 
 - (void)setAnimationDuration:(NSTimeInterval)animationDuration;
 @end

@@ -16,7 +16,7 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.94117647058823528" green="0.76470588235294112" blue="0.55686274509803924" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.82352941176470584" green="0.32941176470588235" blue="0.011764705882352941" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
