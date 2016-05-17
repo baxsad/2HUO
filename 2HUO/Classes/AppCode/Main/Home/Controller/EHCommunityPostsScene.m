@@ -184,7 +184,7 @@
 -(void)postAction{
     
     if (LOGINandSETSCHOOL) {
-        [[GDRouter sharedInstance] show:@"mfj://addPost" extraParams:@{@"needSelectType":@(1)} completion:nil];
+        [[GDRouter sharedInstance] show:@"mfj://addPost" extraParams:@{@"cid":@(self.cid),@"sid":@(self.sid)} completion:nil];
     }else{
         if (!ISLOGIN) {
             [self showSignScene];

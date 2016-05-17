@@ -11,6 +11,6 @@
 @interface EHReleaseScene : IHBaseViewController
 
 @property (nonatomic, copy) NSString * cid;
-@property (nonatomic,assign) BOOL needSelectType;
+@property (nonatomic, copy) NSString * sid;
 
 @end

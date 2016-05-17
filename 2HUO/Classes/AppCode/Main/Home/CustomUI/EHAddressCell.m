@@ -40,7 +40,7 @@
 - (void)selectAction
 {
     if (self.selectCallBack) {
-        self.selectCallBack((int)self.model.aid,self.model.defaultAddress);
+        self.selectCallBack(self.model,(int)self.model.aid,self.model.defaultAddress);
     }
 }
 

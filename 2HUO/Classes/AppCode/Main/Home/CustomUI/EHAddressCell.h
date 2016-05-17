@@ -8,9 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^SelectButtonClickCallBack)(int aid,BOOL def);
-
 @class SellerModel;
+
+typedef void(^SelectButtonClickCallBack)(SellerModel * model,int aid,BOOL def);
 
 @interface EHAddressCell : UITableViewCell
 

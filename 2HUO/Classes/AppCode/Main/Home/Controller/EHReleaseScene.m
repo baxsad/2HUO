@@ -171,7 +171,7 @@ typedef void(^Upload)();
     }];
     
     
-    if (self.needSelectType) {
+    if (!self.cid) {
         [self.contentScrollView addSubview:self.typeView];
         [_typeView mas_makeConstraints:^(MASConstraintMaker *make) {
             
@@ -327,6 +327,13 @@ typedef void(^Upload)();
             self.locationView.content = @"详细信息";
         }
     }];
+    
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"UpdateAddressInfo" object:nil] subscribeNext:^(id x) {
+        self.address = nil;
+        NSNotification * noti = (NSNotification *)x;
+        self.address = noti.object;
+    }];
+    
 }
 
 
@@ -434,7 +441,21 @@ typedef void(^Upload)();
          showAnimated:YES completionHandler:nil];
         return NO;
     }
-    
+    if (self.sid) {
+        if (!(self.address.school.id == [self.sid integerValue])) {
+            [[[LGAlertView alloc] initWithTitle:@"提示"
+                                        message:@"地址中的学校信息不一致！"
+                                          style:LGAlertViewStyleAlert
+                                   buttonTitles:nil
+                              cancelButtonTitle:@"确定"
+                         destructiveButtonTitle:nil
+                                  actionHandler:nil
+                                  cancelHandler:nil
+                             destructiveHandler:nil]
+             showAnimated:YES completionHandler:nil];
+            return NO;
+        }
+    }
     
     [self.addPostRequest.params setValue:self.cid forKey:@"cid"];
     [self.addPostRequest.params setValue:@(self.address.school.id) forKey:@"sid"];

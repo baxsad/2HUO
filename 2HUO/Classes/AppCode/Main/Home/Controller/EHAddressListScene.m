@@ -20,10 +20,13 @@
 @property (nonatomic, strong) GDReq                    * getAddressListRequest;
 @property (nonatomic, strong) GDReq                    * updateAddressListRequest;
 @property (nonatomic, strong) SellerModels             * sellerModels;
+@property (nonatomic, strong) SellerModel              * selectModel;
 
 @end
 
 @implementation EHAddressListScene
+
+
 
 - (void)viewDidAppear:(BOOL)animated
 {
@@ -63,10 +66,11 @@
     [self.updateAddressListRequest.params setValue:USER.uid forKey:@"uid"];
     [self.updateAddressListRequest listen:^(GDReq * _Nonnull req) {
         if (req.succeed) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateAddressInfo" object:self.selectModel];
             [[GDRouter sharedInstance] pop];
         }
         if (req.failed) {
-            NSLog(@"sss%@",req);
+            NSLog(@"sss%@",req.message);
         }
     }];
     
@@ -109,12 +113,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     EHAddressCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EHAddressCell"];
-    [cell reloadAddressInfo:self.sellerModels.data[indexPath.row]];
+    SellerModel * model = self.sellerModels.data[indexPath.row];
+    if (model.defaultAddress == 1) {
+        self.selectModel = model;
+    }
+    [cell reloadAddressInfo:model];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    cell.selectCallBack = ^(int aid,BOOL def)
+    cell.selectCallBack = ^(SellerModel * model,int aid,BOOL def)
     {
         if (!def) {
+            self.selectModel = model;
             [self.updateAddressListRequest.params setValue:@(aid) forKey:@"aid"];
             [self.updateAddressListRequest.params setValue:@(!def) forKey:@"defaultAddress"];
             self.updateAddressListRequest.requestNeedActive = YES;
