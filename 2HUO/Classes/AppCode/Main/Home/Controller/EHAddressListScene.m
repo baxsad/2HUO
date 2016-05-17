@@ -116,6 +116,7 @@
     SellerModel * model = self.sellerModels.data[indexPath.row];
     if (model.defaultAddress == 1) {
         self.selectModel = model;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateAddressInfo" object:self.selectModel];
     }
     [cell reloadAddressInfo:model];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

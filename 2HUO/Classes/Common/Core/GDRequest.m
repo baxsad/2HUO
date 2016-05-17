@@ -178,4 +178,34 @@
     return req;
 }
 
++ (GDReq *)checkIsOnSaleRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.placeOrder.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
+
++ (GDReq *)getOrderRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.getOrder.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
+
++ (GDReq *)makeOrderRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.makeOrder.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
+
 @end

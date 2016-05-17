@@ -60,6 +60,15 @@
 		A02F97681CA64B52008D02E3 /* MFJPhotoGroupItem.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F97671CA64B52008D02E3 /* MFJPhotoGroupItem.m */; };
 		A02F976B1CA64BD6008D02E3 /* MFJPhotoGroupCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F976A1CA64BD6008D02E3 /* MFJPhotoGroupCell.m */; };
 		A02F976E1CA6CD2D008D02E3 /* MFJImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = A02F976D1CA6CD2D008D02E3 /* MFJImageView.m */; };
+		A03E6DC51CEABB32006E0261 /* EHConfirmOrderScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A03E6DC31CEABB32006E0261 /* EHConfirmOrderScene.m */; };
+		A03E6DC61CEABB32006E0261 /* EHConfirmOrderScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03E6DC41CEABB32006E0261 /* EHConfirmOrderScene.xib */; };
+		A03E6DCA1CEABC6E006E0261 /* EHOrderAddressCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A03E6DC81CEABC6E006E0261 /* EHOrderAddressCell.m */; };
+		A03E6DCB1CEABC6E006E0261 /* EHOrderAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03E6DC91CEABC6E006E0261 /* EHOrderAddressCell.xib */; };
+		A03E6DCE1CEAE5B5006E0261 /* OrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A03E6DCD1CEAE5B5006E0261 /* OrderModel.m */; };
+		A03E6DD21CEAEFB2006E0261 /* EHOrderInfoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A03E6DD01CEAEFB2006E0261 /* EHOrderInfoCell.m */; };
+		A03E6DD31CEAEFB2006E0261 /* EHOrderInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03E6DD11CEAEFB2006E0261 /* EHOrderInfoCell.xib */; };
+		A03E6DD71CEB051C006E0261 /* EHShippingCountScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A03E6DD51CEB051C006E0261 /* EHShippingCountScene.m */; };
+		A03E6DD81CEB051C006E0261 /* EHShippingCountScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A03E6DD61CEB051C006E0261 /* EHShippingCountScene.xib */; };
 		A04E97671CA11EF400B0ABB5 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A04E97661CA11EF400B0ABB5 /* MobileCoreServices.framework */; };
 		A04E97691CA11F0000B0ABB5 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A04E97681CA11F0000B0ABB5 /* SystemConfiguration.framework */; };
 		A04E976B1CA11F0700B0ABB5 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A04E976A1CA11F0700B0ABB5 /* AVFoundation.framework */; };
@@ -352,6 +361,20 @@
 		A02F976A1CA64BD6008D02E3 /* MFJPhotoGroupCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJPhotoGroupCell.m; sourceTree = "<group>"; };
 		A02F976C1CA6CD2D008D02E3 /* MFJImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MFJImageView.h; sourceTree = "<group>"; };
 		A02F976D1CA6CD2D008D02E3 /* MFJImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MFJImageView.m; sourceTree = "<group>"; };
+		A03E6DC21CEABB32006E0261 /* EHConfirmOrderScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHConfirmOrderScene.h; sourceTree = "<group>"; };
+		A03E6DC31CEABB32006E0261 /* EHConfirmOrderScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHConfirmOrderScene.m; sourceTree = "<group>"; };
+		A03E6DC41CEABB32006E0261 /* EHConfirmOrderScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHConfirmOrderScene.xib; sourceTree = "<group>"; };
+		A03E6DC71CEABC6E006E0261 /* EHOrderAddressCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHOrderAddressCell.h; sourceTree = "<group>"; };
+		A03E6DC81CEABC6E006E0261 /* EHOrderAddressCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHOrderAddressCell.m; sourceTree = "<group>"; };
+		A03E6DC91CEABC6E006E0261 /* EHOrderAddressCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHOrderAddressCell.xib; sourceTree = "<group>"; };
+		A03E6DCC1CEAE5B5006E0261 /* OrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderModel.h; sourceTree = "<group>"; };
+		A03E6DCD1CEAE5B5006E0261 /* OrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderModel.m; sourceTree = "<group>"; };
+		A03E6DCF1CEAEFB2006E0261 /* EHOrderInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHOrderInfoCell.h; sourceTree = "<group>"; };
+		A03E6DD01CEAEFB2006E0261 /* EHOrderInfoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHOrderInfoCell.m; sourceTree = "<group>"; };
+		A03E6DD11CEAEFB2006E0261 /* EHOrderInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHOrderInfoCell.xib; sourceTree = "<group>"; };
+		A03E6DD41CEB051C006E0261 /* EHShippingCountScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHShippingCountScene.h; sourceTree = "<group>"; };
+		A03E6DD51CEB051C006E0261 /* EHShippingCountScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHShippingCountScene.m; sourceTree = "<group>"; };
+		A03E6DD61CEB051C006E0261 /* EHShippingCountScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHShippingCountScene.xib; sourceTree = "<group>"; };
 		A04E97661CA11EF400B0ABB5 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		A04E97681CA11F0000B0ABB5 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		A04E976A1CA11F0700B0ABB5 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1154,6 +1177,8 @@
 				A0D1A9C91CE33AE600086E36 /* AeraAndSchool.m */,
 				A0D1A9E91CE4DB1000086E36 /* HomeModel.h */,
 				A0D1A9EA1CE4DB1000086E36 /* HomeModel.m */,
+				A03E6DCC1CEAE5B5006E0261 /* OrderModel.h */,
+				A03E6DCD1CEAE5B5006E0261 /* OrderModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1430,6 +1455,12 @@
 				A0D1A9961CE170CE00086E36 /* EHPostDetailScene.h */,
 				A0D1A9971CE170CE00086E36 /* EHPostDetailScene.m */,
 				A0D1A9981CE170CE00086E36 /* EHPostDetailScene.xib */,
+				A03E6DC21CEABB32006E0261 /* EHConfirmOrderScene.h */,
+				A03E6DC31CEABB32006E0261 /* EHConfirmOrderScene.m */,
+				A03E6DC41CEABB32006E0261 /* EHConfirmOrderScene.xib */,
+				A03E6DD41CEB051C006E0261 /* EHShippingCountScene.h */,
+				A03E6DD51CEB051C006E0261 /* EHShippingCountScene.m */,
+				A03E6DD61CEB051C006E0261 /* EHShippingCountScene.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1507,6 +1538,12 @@
 				A0D1A9F11CE576C100086E36 /* EHHomeHeaderView.h */,
 				A0D1A9F21CE576C100086E36 /* EHHomeHeaderView.m */,
 				A0D1A9F41CE576CF00086E36 /* EHHomeHeaderView.xib */,
+				A03E6DC71CEABC6E006E0261 /* EHOrderAddressCell.h */,
+				A03E6DC81CEABC6E006E0261 /* EHOrderAddressCell.m */,
+				A03E6DC91CEABC6E006E0261 /* EHOrderAddressCell.xib */,
+				A03E6DCF1CEAEFB2006E0261 /* EHOrderInfoCell.h */,
+				A03E6DD01CEAEFB2006E0261 /* EHOrderInfoCell.m */,
+				A03E6DD11CEAEFB2006E0261 /* EHOrderInfoCell.xib */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -1755,6 +1792,7 @@
 				A0AE934C1CB77F89001C9CB2 /* UMSnsAccountViewController.xib in Resources */,
 				A0AE93491CB77F89001C9CB2 /* UMShareEditViewController.xib in Resources */,
 				A0A333711C97E1FF000C03C2 /* LaunchScreen.storyboard in Resources */,
+				A03E6DD81CEB051C006E0261 /* EHShippingCountScene.xib in Resources */,
 				A0E6F8B61CA3FEE500182976 /* EHPostImageCollectionCell.xib in Resources */,
 				A0AE93441CB77F89001C9CB2 /* UMSocialLocalizable.strings in Resources */,
 				A0BA08381CDCCE4B0089BB72 /* EHTelLoginScene.xib in Resources */,
@@ -1766,6 +1804,7 @@
 				A0D1A9B11CE1C5D500086E36 /* EHInputAccessoryView.xib in Resources */,
 				A0BA07F31CD9FE140089BB72 /* EHPriceSelectScene.xib in Resources */,
 				A0BA080F1CDB48F30089BB72 /* identityCardCell.xib in Resources */,
+				A03E6DCB1CEABC6E006E0261 /* EHOrderAddressCell.xib in Resources */,
 				A0D1A9F01CE4DD6B00086E36 /* EHNewPostCell.xib in Resources */,
 				A0D1A9F51CE576CF00086E36 /* EHHomeHeaderView.xib in Resources */,
 				A0BA08241CDC52C20089BB72 /* EHAddressCell.xib in Resources */,
@@ -1788,6 +1827,7 @@
 				A0BA07DE1CD8C3130089BB72 /* EHMineMenuCell.xib in Resources */,
 				A0A3336C1C97E1FF000C03C2 /* Main.storyboard in Resources */,
 				A0D1A99F1CE185FA00086E36 /* EHPostDetailCell.xib in Resources */,
+				A03E6DD31CEAEFB2006E0261 /* EHOrderInfoCell.xib in Resources */,
 				A0D1A99A1CE170CE00086E36 /* EHPostDetailScene.xib in Resources */,
 				A0AE934E1CB77F89001C9CB2 /* UMSocialSDKResourcesNew.bundle in Resources */,
 				A0E6F8591CA3C78700182976 /* MFJSetting.bundle in Resources */,
@@ -1795,6 +1835,7 @@
 				A0AE93481CB77F89001C9CB2 /* UMSCommentInputControlleriPad.xib in Resources */,
 				A0BA07FB1CDB303B0089BB72 /* EHUserInfoScene.xib in Resources */,
 				A0AE93541CB77F89001C9CB2 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
+				A03E6DC61CEABB32006E0261 /* EHConfirmOrderScene.xib in Resources */,
 				A0BA07EE1CD9F6600089BB72 /* EHCommunitySelectCell.xib in Resources */,
 				A0A6F0831CB672B30059AE77 /* MFUSelectIamgeCollectionCell.xib in Resources */,
 				A0BA08001CDB44D20089BB72 /* EHTextFieldCell.xib in Resources */,
@@ -1895,6 +1936,7 @@
 				A0127E031CCF0D7D00A44187 /* UITableViewCell+HYSCat.m in Sources */,
 				A0D1A9DD1CE38F1E00086E36 /* GDImageButton.m in Sources */,
 				A0127E001CCF0D7D00A44187 /* UIImageView+CornerRadius.m in Sources */,
+				A03E6DD71CEB051C006E0261 /* EHShippingCountScene.m in Sources */,
 				A0A6F0821CB672B30059AE77 /* MFUSelectIamgeCollectionCell.m in Sources */,
 				A0F25A971CB9F2A6003AB803 /* GDAssetManager.m in Sources */,
 				A0127DB51CCDF5D600A44187 /* NSDictionary+GDExtend.m in Sources */,
@@ -1913,6 +1955,7 @@
 				A0BA07D11CD88D8A0089BB72 /* School.m in Sources */,
 				A0BA07E11CD9ECC30089BB72 /* EHSelectMenuView.m in Sources */,
 				A0BA07FA1CDB303B0089BB72 /* EHUserInfoScene.m in Sources */,
+				A03E6DCA1CEABC6E006E0261 /* EHOrderAddressCell.m in Sources */,
 				A08E821C1CAA82C100B485A6 /* MFJUserDefaults.m in Sources */,
 				A0A6F0531CB4B9420059AE77 /* BannerModel.m in Sources */,
 				A04E99641CA2911400B0ABB5 /* UIButton+IHBarButton.m in Sources */,
@@ -1939,10 +1982,12 @@
 				A0D1A9EF1CE4DD6B00086E36 /* EHNewPostCell.m in Sources */,
 				A0127DC61CCDF5D600A44187 /* GDModelMeta.m in Sources */,
 				A0127DFF1CCF0D7D00A44187 /* UIImage+HYSCat.m in Sources */,
+				A03E6DCE1CEAE5B5006E0261 /* OrderModel.m in Sources */,
 				A0127DC51CCDF5D600A44187 /* GDModel.m in Sources */,
 				A0BA080E1CDB48F30089BB72 /* identityCardCell.m in Sources */,
 				A04E99621CA2911400B0ABB5 /* IHNavigationController.m in Sources */,
 				A0BA08091CDB47180089BB72 /* EHTitleCell.m in Sources */,
+				A03E6DD21CEAEFB2006E0261 /* EHOrderInfoCell.m in Sources */,
 				A0127DBC1CCDF5D600A44187 /* GDAction.m in Sources */,
 				A0E6F8511CA3BE7800182976 /* MFJSettingGroup.m in Sources */,
 				A0BA07F61CDA0DF00089BB72 /* DataCenter.m in Sources */,
@@ -1973,6 +2018,7 @@
 				A0D1A9DA1CE379D200086E36 /* JSDropDownMenu.m in Sources */,
 				A0E6F8AC1CA3FA4800182976 /* MFULocationScene.m in Sources */,
 				A0127DC41CCDF5D600A44187 /* GDClassInfo.m in Sources */,
+				A03E6DC51CEABB32006E0261 /* EHConfirmOrderScene.m in Sources */,
 				A0BA08041CDB461D0089BB72 /* EHTextViewCell.m in Sources */,
 				A04E99841CA2911400B0ABB5 /* O2HCache.m in Sources */,
 				A0BA07D41CD8BC020089BB72 /* EHMineScene.m in Sources */,

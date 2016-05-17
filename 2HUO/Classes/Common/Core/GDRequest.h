@@ -65,5 +65,13 @@
 // 获取评论
 + (GDReq *)getCommentsRequest;
 
+// 检查是否可以购买
++ (GDReq *)checkIsOnSaleRequest;
+
+// 获取订单信息
++ (GDReq *)getOrderRequest;
+
+// 确认订单
++ (GDReq *)makeOrderRequest;
 
 @end

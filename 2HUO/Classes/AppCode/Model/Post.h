@@ -32,6 +32,7 @@
 @property (nonatomic, assign) NSInteger       updateTime;
 @property (nonatomic, assign) float           presentPrice;
 @property (nonatomic, assign) float           originalPrice;
+@property (nonatomic, assign) float           shippingCount;
 @property (nonatomic, strong) School        * school;
 @property (nonatomic, copy  ) NSString      * content;
 @property (nonatomic, copy  ) NSString      * transactionMode;

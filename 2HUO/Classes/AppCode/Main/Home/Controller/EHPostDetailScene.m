@@ -14,6 +14,7 @@
 #import "Comments.h"
 #import "EHCommentCell.h"
 #import "EHInputAccessoryView.h"
+#import "LGAlertView.h"
 
 @interface EHPostDetailScene ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
@@ -24,6 +25,8 @@
 
 @property (nonatomic, strong) GDReq              * addCommentsRequest;
 @property (nonatomic, strong) GDReq              * getCommentsRequest;
+@property (nonatomic, strong) GDReq              * checkIsOnSaleRequest;
+
 @property (nonatomic, strong) Comments           * commentsData;
 @property (nonatomic, strong) NSMutableArray<Comment>     * commentsDataArray;
 
@@ -46,13 +49,31 @@
     self.textView.inputAccessoryView = self.inputAccessoryView;
     [self.view addSubview:self.textView];
     
-    _commentsDataArray = [NSMutableArray array];
+    _commentsDataArray = @[].mutableCopy;
     
     @weakify(self);
     [self.chujiaButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id sender) {
         @strongify(self);
-        [self.textView becomeFirstResponder];
-        [self.inputAccessoryView.contentTextView becomeFirstResponder];
+        if (!ISLOGIN) {
+            [self showSignScene];
+        }
+        else
+        {
+            [self.textView becomeFirstResponder];
+            [self.inputAccessoryView.contentTextView becomeFirstResponder];
+        }
+    }];
+    [self.xiangyaoButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id sender) {
+        @strongify(self);
+        if (!ISLOGIN) {
+            [self showSignScene];
+        }
+        else
+        {
+            [GDHUD showUIBlockingIndicator];
+            [self.checkIsOnSaleRequest.params setValue:USER.uid forKey:@"uid"];
+            self.checkIsOnSaleRequest.requestNeedActive = YES;
+        }
     }];
     
     self.tableView.delegate = self;
@@ -106,6 +127,37 @@
             NSLog(@"%@",req.output);
         }
     }];
+    
+    
+    self.checkIsOnSaleRequest = [GDRequest checkIsOnSaleRequest];
+    [self.checkIsOnSaleRequest.params setValue:@(self.post.pid) forKey:@"pid"];
+    [self.checkIsOnSaleRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            // 可以购买
+            [GDHUD hideUIBlockingIndicator];
+            [[GDRouter sharedInstance] open:[NSString stringWithFormat:@"GD://confirmOrder/?oid=%@",req.output[@"orderId"][@"oid"]]];
+        }
+        if (req.failed) {
+            // 不可以购买
+            [GDHUD hideUIBlockingIndicator];
+            [[[LGAlertView alloc] initWithTitle:@"提示"
+                                        message:@"宝贝已经落入他人之手～"
+                                          style:LGAlertViewStyleAlert
+                                   buttonTitles:nil
+                              cancelButtonTitle:@"确定"
+                         destructiveButtonTitle:nil
+                                  actionHandler:^(LGAlertView *alertView, NSString *title, NSUInteger index) {
+                                      NSLog(@"actionHandler, %@, %lu", title, (long unsigned)index);
+                                  }
+                                  cancelHandler:^(LGAlertView *alertView) {
+                                      NSLog(@"cancelHandler");
+                                  }
+                             destructiveHandler:^(LGAlertView *alertView) {
+                                 NSLog(@"destructiveHandler");
+                             }] showAnimated:YES completionHandler:nil];
+        }
+    }];
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView

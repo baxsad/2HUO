@@ -41,6 +41,8 @@ typedef void(^Upload)();
 @property (nonatomic, strong) GDReq                     * addPostRequest;
 @property (nonatomic, strong) GDReq                     * getDefAddressRequest;
 
+@property (nonatomic, strong) EHSelectMenuView          * shippingOrContactView;
+
 #pragma mark - params
 
 @property (nonatomic, copy) NSString * p_title;
@@ -48,6 +50,7 @@ typedef void(^Upload)();
 @property (nonatomic, copy) NSString * p_price;
 @property (nonatomic, copy) NSString * p_orzPrice;
 @property (nonatomic, copy) NSString * p_transModel;
+@property (nonatomic, copy) NSString * p_shippingCount;
 @property (nonatomic, strong) SellerModel * address;
 
 @end
@@ -67,7 +70,7 @@ typedef void(^Upload)();
 -(void)viewDidLayoutSubviews
 {
     [super viewDidLayoutSubviews];
-    self.contentScrollView.contentSize = CGSizeMake(Screen_Width, self.locationView.bottom+50);
+    self.contentScrollView.contentSize = CGSizeMake(Screen_Width, self.shippingOrContactView.bottom+50);
 }
 
 - (void)viewDidLoad {
@@ -229,6 +232,20 @@ typedef void(^Upload)();
         
     }];
     
+    [self.contentScrollView addSubview:self.shippingOrContactView];
+    [self.shippingOrContactView mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        @strongify(self);
+        make.top.equalTo(self.locationView.mas_bottom).offset(0);
+        make.left.equalTo(self.imageCollection).offset(0);
+        make.right.equalTo(self.imageCollection).offset(0);
+        make.height.mas_equalTo(@0);
+        
+    }];
+    _shippingOrContactView.block = ^{
+        [[GDRouter sharedInstance] open:@"GD://shippingCount"];
+    };
+    
     _typeView.block = ^{
         [[GDRouter sharedInstance] open:@"GD://selectType"];
     };
@@ -332,6 +349,39 @@ typedef void(^Upload)();
         self.address = nil;
         NSNotification * noti = (NSNotification *)x;
         self.address = noti.object;
+    }];
+    
+    [RACObserve(self, p_transModel) subscribeNext:^(id x) {
+        if ([self.p_transModel isEqualToString:@"online"]) {
+            [self.shippingOrContactView mas_updateConstraints:^(MASConstraintMaker *make) {
+                
+                @strongify(self);
+                make.top.equalTo(self.locationView.mas_bottom).offset(0);
+                make.left.equalTo(self.imageCollection).offset(0);
+                make.right.equalTo(self.imageCollection).offset(0);
+                make.height.mas_equalTo(@45);
+                
+            }];
+            self.shippingOrContactView.title = @"运费";
+            self.shippingOrContactView.content = self.p_shippingCount.isNotEmpty ? self.p_shippingCount : @"请填写运费";
+        }else{
+            [self.shippingOrContactView mas_updateConstraints:^(MASConstraintMaker *make) {
+                
+                @strongify(self);
+                make.top.equalTo(self.locationView.mas_bottom).offset(0);
+                make.left.equalTo(self.imageCollection).offset(0);
+                make.right.equalTo(self.imageCollection).offset(0);
+                make.height.mas_equalTo(@0);
+                
+            }];
+            self.shippingOrContactView.title = @"";
+        }
+    }];
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"ShippingCountSelect" object:nil] subscribeNext:^(id x) {
+        NSNotification * noti = (NSNotification *)x;
+        self.p_shippingCount = noti.object;
+        self.shippingOrContactView.content = [NSString stringWithFormat:@"¥%@",self.p_shippingCount];
+        [self.addPostRequest.params setValue:_p_shippingCount forKey:@"shippingCount"];
     }];
     
 }
@@ -457,6 +507,7 @@ typedef void(^Upload)();
         }
     }
     
+    [self.addPostRequest.params setValue:self.p_transModel forKey:@"transactionMode"];
     [self.addPostRequest.params setValue:self.cid forKey:@"cid"];
     [self.addPostRequest.params setValue:@(self.address.school.id) forKey:@"sid"];
     [self.addPostRequest.params setValue:@(self.address.aid) forKey:@"aid"];
@@ -728,6 +779,17 @@ typedef void(^Upload)();
         _locationView.backgroundColor = [UIColor whiteColor];
     }
     return _locationView;
+}
+
+- (EHSelectMenuView *)shippingOrContactView
+{
+    if (!_shippingOrContactView) {
+        _shippingOrContactView = [EHSelectMenuView viewFromNib];
+        _shippingOrContactView.title = @"";
+        _shippingOrContactView.content = @"";
+        _shippingOrContactView.backgroundColor = [UIColor whiteColor];
+    }
+    return _shippingOrContactView;
 }
 
 @end

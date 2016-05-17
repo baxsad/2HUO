@@ -16,24 +16,24 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="324" height="532"/>
+            <rect key="frame" x="0.0" y="0.0" width="324" height="563"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CjE-uL-6dY">
-                    <rect key="frame" x="0.0" y="0.0" width="324" height="487"/>
+                    <rect key="frame" x="0.0" y="0.0" width="324" height="518"/>
                     <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwL-ja-Zjs">
-                    <rect key="frame" x="0.0" y="487" width="324" height="45"/>
+                    <rect key="frame" x="0.0" y="518" width="324" height="45"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RY1-Vd-ra9">
-                            <rect key="frame" x="162" y="0.0" width="162" height="45"/>
+                            <rect key="frame" x="70" y="0.0" width="254" height="45"/>
                             <color key="backgroundColor" red="1" green="0.35294117650000001" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="100" id="eQ2-zz-ffM"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="想要">
+                            <state key="normal" title="购买">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <variation key="default">
@@ -43,14 +43,15 @@
                             </variation>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EZL-EV-eEf">
-                            <rect key="frame" x="0.0" y="0.0" width="162" height="45"/>
-                            <color key="backgroundColor" red="0.0" green="0.81960784310000001" blue="0.75686274509999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="0.0" y="0.0" width="70" height="45"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstAttribute="width" constant="70" id="qIc-kE-dTK"/>
                                 <constraint firstAttribute="width" constant="100" id="zrD-OJ-XvW"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="出价">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="titleColor" red="0.82352941180000006" green="0.3294117647" blue="0.01176470588" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <variation key="default">
                                 <mask key="constraints">
@@ -71,6 +72,11 @@
                         <constraint firstAttribute="bottom" secondItem="RY1-Vd-ra9" secondAttribute="bottom" id="c3C-Db-ukS"/>
                         <constraint firstItem="RY1-Vd-ra9" firstAttribute="top" secondItem="fwL-ja-Zjs" secondAttribute="top" id="iwe-aS-Qlw"/>
                     </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="Vp5-YR-sDW"/>
+                        </mask>
+                    </variation>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -84,7 +90,7 @@
                 <constraint firstItem="fwL-ja-Zjs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="z4r-HY-gFi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="367" y="160"/>
+            <point key="canvasLocation" x="330" y="304.5"/>
         </view>
     </objects>
 </document>

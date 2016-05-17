@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="120" id="Eg4-Vr-bj6" customClass="EHOrderAddressCell">
+            <rect key="frame" x="0.0" y="0.0" width="363" height="120"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Eg4-Vr-bj6" id="F57-ES-Xwk">
+                <rect key="frame" x="0.0" y="0.0" width="363" height="119.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ONx-2w-0rD">
+                        <rect key="frame" x="65" y="18" width="0.0" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="EC1-XI-x5C"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.31764705879999999" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="---" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aoW-cV-iGh">
+                        <rect key="frame" x="65" y="45" width="268" height="57"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mine_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="jDg-3C-I4a">
+                        <rect key="frame" x="341" y="53" width="7" height="14"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="7" id="2fM-71-kQC"/>
+                            <constraint firstAttribute="height" constant="14" id="Wj6-wt-SJg"/>
+                        </constraints>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mine_address" translatesAutoresizingMaskIntoConstraints="NO" id="kaY-gP-0Gz">
+                        <rect key="frame" x="15" y="49.5" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="8wu-0E-ZOk"/>
+                            <constraint firstAttribute="width" constant="20" id="L3t-66-QLa"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="ONx-2w-0rD" firstAttribute="top" secondItem="F57-ES-Xwk" secondAttribute="topMargin" constant="10" id="5xp-DN-Y4J"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="jDg-3C-I4a" secondAttribute="trailing" constant="7" id="MXl-PK-CZb"/>
+                    <constraint firstItem="kaY-gP-0Gz" firstAttribute="leading" secondItem="F57-ES-Xwk" secondAttribute="leadingMargin" constant="7" id="NCN-SA-rqw"/>
+                    <constraint firstItem="aoW-cV-iGh" firstAttribute="top" secondItem="ONx-2w-0rD" secondAttribute="bottom" constant="7" id="RCg-Cw-Cbq"/>
+                    <constraint firstItem="aoW-cV-iGh" firstAttribute="leading" secondItem="F57-ES-Xwk" secondAttribute="leadingMargin" constant="57" id="Tag-4i-fT2"/>
+                    <constraint firstItem="jDg-3C-I4a" firstAttribute="centerY" secondItem="F57-ES-Xwk" secondAttribute="centerY" id="XeM-pL-O2C"/>
+                    <constraint firstItem="ONx-2w-0rD" firstAttribute="leading" secondItem="F57-ES-Xwk" secondAttribute="leadingMargin" constant="57" id="f6j-im-AgT"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="aoW-cV-iGh" secondAttribute="trailing" constant="22" id="hPJ-aA-8q2"/>
+                    <constraint firstItem="kaY-gP-0Gz" firstAttribute="centerY" secondItem="F57-ES-Xwk" secondAttribute="centerY" id="jt6-qY-w34"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="aoW-cV-iGh" secondAttribute="bottom" constant="10" id="pvf-vD-iMX"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addressLable" destination="aoW-cV-iGh" id="mkD-GU-FD0"/>
+                <outlet property="buyerInfoLable" destination="ONx-2w-0rD" id="yeH-WS-Iah"/>
+                <outlet property="tableViewArrow" destination="jDg-3C-I4a" id="WWY-l2-7LX"/>
+            </connections>
+            <point key="canvasLocation" x="298.5" y="270"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="mine_address" width="23" height="23"/>
+        <image name="mine_arrow" width="8" height="14"/>
+    </resources>
+</document>

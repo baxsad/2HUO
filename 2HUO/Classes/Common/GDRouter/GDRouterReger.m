@@ -37,6 +37,10 @@
     [[GDRouter sharedInstance] reg:@"GD://updateUserNick" toClass:NSClassFromString(@"EHUpdateUserNickScene")];
     
     [[GDRouter sharedInstance] reg:@"GD://updateUserDesc" toClass:NSClassFromString(@"EHUpdateUserDesScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://confirmOrder" toClass:NSClassFromString(@"EHConfirmOrderScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://shippingCount" toClass:NSClassFromString(@"EHShippingCountScene")];
 }
 
 + (void)clearCache
