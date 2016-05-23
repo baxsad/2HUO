@@ -24,6 +24,7 @@
 #import "GDDropMenu.h"
 #import "HomeModel.h"
 #import "LGAlertView.h"
+#import "Post.h"
 
 typedef void(^ReloadBlock)();
 
@@ -43,22 +44,17 @@ typedef void(^ReloadBlock)();
 @property (nonatomic, strong) UIButton             * locationButton;
 @property (nonatomic, strong) UILabel              * selectMenuViewCountLable;
 @property (nonatomic, assign) NSInteger              menuSelectIndex;
-
 @property (nonatomic, strong) GDReq                * getAreaListRequest;
 @property (nonatomic, strong) Areas                * areaData;
 @property (nonatomic, strong) City                 * city;
-
 @property (nonatomic, strong) GDReq                * getSchoolListRequest;
 @property (nonatomic, assign) BOOL                   isFirstOpenThisController;
 @property (nonatomic, strong) GDDropMenu           * locationMenu;
-
 @property (nonatomic, strong) GDReq                * getHomeModelRequest;
-
-@property (nonatomic, copy) ReloadBlock               reloadAll;
-@property (nonatomic, copy) ReloadBlock               reloadSome;
-@property (nonatomic, copy) ReloadBlock               reloadBlock;
-
-@property (nonatomic, strong) HomeModel             * homeModel;
+@property (nonatomic,   copy) ReloadBlock            reloadAll;
+@property (nonatomic,   copy) ReloadBlock            reloadSome;
+@property (nonatomic,   copy) ReloadBlock            reloadBlock;
+@property (nonatomic, strong) HomeModel            * homeModel;
 
 
 @end
@@ -80,7 +76,13 @@ typedef void(^ReloadBlock)();
             [self.userButton.userIcon setImage:[UIImage imageNamed:@"tab_me"]];
         }
     }
+    if (![USER.school.city isEqualToString:self.cityName]) {
+        self.cityName = USER.school.city;
+        self.cityName = self.cityName.isNotEmpty ? self.cityName : @"全部地区";
+    }
 }
+
+#pragma mark 根据城市名字获取城市对象
 
 - (void)getMyArea
 {
@@ -95,7 +97,6 @@ typedef void(^ReloadBlock)();
         }
     }
     self.city = nil;
-    
 }
 
 - (void)viewDidLoad
@@ -118,6 +119,8 @@ typedef void(^ReloadBlock)();
         }
     }];
     
+    
+    // 获取地区数据
     self.getAreaListRequest = [GDRequest getAreaListRequest];
     self.getAreaListRequest.requestNeedActive = YES;
     [self.getAreaListRequest listen:^(GDReq * _Nonnull req) {
@@ -135,7 +138,7 @@ typedef void(^ReloadBlock)();
         }
     }];
     
-    
+    /** 定位当前位置 （暂时舍弃）
     [[GDLocationManager manager] startUpdatingLocation:^(BOOL sucess, GDLocationManager *manager) {
         if (sucess) {
             self.cityName = manager.city;
@@ -146,7 +149,9 @@ typedef void(^ReloadBlock)();
             [self getMyArea];
         }
     }];
+     */
     
+    // 根据地区获取学校列表
     self.getSchoolListRequest = [GDRequest getSchoolListRequest];
     [self.getSchoolListRequest listen:^(GDReq * _Nonnull req) {
         if (req.succeed) {
@@ -198,6 +203,14 @@ typedef void(^ReloadBlock)();
             }
         }
     }];
+    
+    [RACObserve(self, cityName) subscribeNext:^(id x) {
+        if (self.cityName.isNotEmpty) {
+            [self getMyArea];
+        }
+    }];
+    
+    // 监听地区变化
     [RACObserve(self, city) subscribeNext:^(id x) {
         if (self.city == nil) {
             [self.getSchoolListRequest.params setValue:@(0) forKey:@"lastId"];
@@ -209,7 +222,6 @@ typedef void(^ReloadBlock)();
             [self.getSchoolListRequest.params setValue:@(self.city.cityId) forKey:@"cityId"];
             [self.tableView.mj_header beginRefreshing];
             [self.titleButton reloadTitle:self.city.cityNameCH];
-            self.titleButton.frame=CGRectMake(0, 0, 100, 20);
         }
     }];
     
@@ -233,6 +245,7 @@ typedef void(^ReloadBlock)();
     UIView * headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 0, 0.00001)];
     self.tableView.tableHeaderView = headerView;
     
+    // 获取首页大数据
     self.getHomeModelRequest = [GDRequest gethomeModelRequest];
     self.getHomeModelRequest.requestNeedActive = YES;
     [self.getHomeModelRequest listen:^(GDReq * _Nonnull req) {
@@ -245,6 +258,7 @@ typedef void(^ReloadBlock)();
         }
     }];
     
+    // 获取全部分类（缓存数据）
     self.getCommunityListRequest = [GDRequest getCommunityListRequest];
     self.getCommunityListRequest.cachePolicy = GDRequestCachePolicyReadCache;
     [self.getCommunityListRequest listen:^(GDReq * _Nonnull req) {
@@ -279,6 +293,8 @@ typedef void(^ReloadBlock)();
     [self.tableView setDefaultGifRefreshWithFooter:footer];
     self.tableView.mj_footer = footer;
     
+    
+    // 监听学校和分类按钮的点击
     [RACObserve(self, menuSelectIndex) subscribeNext:^(id x) {
         
         if (_isFirstOpenThisController == YES) {
@@ -306,6 +322,8 @@ typedef void(^ReloadBlock)();
     
 }
 
+#pragma mark - 下拉刷新
+
 - (void)loadNewData
 {
     if (self.menuSelectIndex == 0) {
@@ -315,6 +333,8 @@ typedef void(^ReloadBlock)();
         self.getCommunityListRequest.requestNeedActive = YES;
     }
 }
+
+#pragma mark - 上拉加载
 
 - (void)loadMoreData
 {
@@ -327,6 +347,8 @@ typedef void(^ReloadBlock)();
     }
 }
 
+#pragma mark - leftButton touch action
+
 - (void)leftButtonTouch
 {
     if (!ISLOGIN) {
@@ -336,9 +358,11 @@ typedef void(^ReloadBlock)();
     [[GDRouter sharedInstance] show:@"GD://mine" animated:YES completion:nil];
 }
 
+#pragma mark - rightButton touch action
+
 - (void)rightButtonTouch
 {
-    if (LOGINandSETSCHOOL) {
+    if (LOGINandSETSCHOOLandSETPAYACCOUNT) {
         [[GDRouter sharedInstance] show:@"mfj://addPost" extraParams:@{@"needSelectType":@(1)} completion:nil];
     }else{
         if (!ISLOGIN) {
@@ -350,31 +374,25 @@ typedef void(^ReloadBlock)();
                                    buttonTitles:nil
                               cancelButtonTitle:@"确定"
                          destructiveButtonTitle:nil
-                                  actionHandler:^(LGAlertView *alertView, NSString *title, NSUInteger index) {
-                                      NSLog(@"actionHandler, %@, %lu", title, (long unsigned)index);
-                                  }
-                                  cancelHandler:^(LGAlertView *alertView) {
-                                      NSLog(@"cancelHandler");
-                                  }
-                             destructiveHandler:^(LGAlertView *alertView) {
-                                 NSLog(@"destructiveHandler");
-                             }] showAnimated:YES completionHandler:nil];
+                                  actionHandler:nil
+                                  cancelHandler:nil
+                             destructiveHandler:nil] showAnimated:YES completionHandler:nil];
+        }else if (!ISSETPAYACCOUNT){
+            [[[LGAlertView alloc] initWithTitle:@"提示"
+                                        message:@"请到用户信息页填写账户信息\n才能发布哦！"
+                                          style:LGAlertViewStyleAlert
+                                   buttonTitles:nil
+                              cancelButtonTitle:@"确定"
+                         destructiveButtonTitle:nil
+                                  actionHandler:nil
+                                  cancelHandler:nil
+                             destructiveHandler:nil] showAnimated:YES completionHandler:nil];
         }
     }
 }
 
 
 #pragma mark - UITableViewDelegate and UITableViewDataScore
-
-/**
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if (scrollView.contentOffset.y <= -55) {
-        scrollView.contentOffset = CGPointMake(scrollView.contentOffset.x, -55);
-    }
-}
- */
-
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -473,7 +491,33 @@ typedef void(^ReloadBlock)();
             [[GDRouter sharedInstance] open:url animated:YES extraParams:@{@"ptitle":model.name}];
         }
     }
+    if (indexPath.section == 0) {
+        if (indexPath.row<self.homeModel.post.count) {
+            PostInfo * post = [self.homeModel.post objectAtIndex:indexPath.row];
+            [[GDRouter sharedInstance] open:@"GD://postDetail" extraParams:@{@"post":post}];
+        }
+    }
 }
+
+#pragma mark - typeButton did select Action!
+
+- (void)typeSelectAction:(UIButton *)sender
+
+{
+    [self.typeButton setTitleColor:TEMCOLOR forState:UIControlStateNormal];
+    [self.locationButton setTitleColor:UIColorHex(0x888888) forState:UIControlStateNormal];
+    self.menuSelectIndex = 0;
+}
+
+- (void)locationSelectAction:(UIButton *)sender
+
+{
+    [self.typeButton setTitleColor:UIColorHex(0x888888) forState:UIControlStateNormal];
+    [self.locationButton setTitleColor:TEMCOLOR forState:UIControlStateNormal];
+    self.menuSelectIndex = 1;
+}
+
+#pragma mark - getter
 
 - (UITableView *)tableView
 {
@@ -563,21 +607,6 @@ typedef void(^ReloadBlock)();
     return _selectMenuView;
 }
 
-- (void)typeSelectAction:(UIButton *)sender
-
-{
-    [self.typeButton setTitleColor:TEMCOLOR forState:UIControlStateNormal];
-    [self.locationButton setTitleColor:UIColorHex(0x888888) forState:UIControlStateNormal];
-    self.menuSelectIndex = 0;
-}
-
-- (void)locationSelectAction:(UIButton *)sender
-
-{
-    [self.typeButton setTitleColor:UIColorHex(0x888888) forState:UIControlStateNormal];
-    [self.locationButton setTitleColor:TEMCOLOR forState:UIControlStateNormal];
-    self.menuSelectIndex = 1;
-}
 
 - (GDDropMenu *)locationMenu
 {
@@ -597,6 +626,8 @@ typedef void(^ReloadBlock)();
     }
     return _headerMenuView;
 }
+
+#pragma mark - GDDropMenuDelegate
 
 - (NSInteger)menu:(GDDropMenu *)menu numberOfRowsInSection:(NSInteger)section
 {

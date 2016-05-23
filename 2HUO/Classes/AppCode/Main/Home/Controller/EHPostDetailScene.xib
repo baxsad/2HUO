@@ -10,6 +10,7 @@
                 <outlet property="chujiaButton" destination="EZL-EV-eEf" id="GAM-PQ-va0"/>
                 <outlet property="tableView" destination="CjE-uL-6dY" id="v28-tI-nO9"/>
                 <outlet property="toolBar" destination="fwL-ja-Zjs" id="Bie-am-xXh"/>
+                <outlet property="toolBarHeight" destination="9mK-DM-YUA" id="DmW-Et-Uwg"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="xiangyaoButton" destination="RY1-Vd-ra9" id="cMQ-qS-gqD"/>
             </connections>
@@ -19,10 +20,6 @@
             <rect key="frame" x="0.0" y="0.0" width="324" height="563"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CjE-uL-6dY">
-                    <rect key="frame" x="0.0" y="0.0" width="324" height="518"/>
-                    <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
-                </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fwL-ja-Zjs">
                     <rect key="frame" x="0.0" y="518" width="324" height="45"/>
                     <subviews>
@@ -78,6 +75,10 @@
                         </mask>
                     </variation>
                 </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CjE-uL-6dY">
+                    <rect key="frame" x="0.0" y="0.0" width="324" height="518"/>
+                    <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -90,7 +91,7 @@
                 <constraint firstItem="fwL-ja-Zjs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="z4r-HY-gFi"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="330" y="304.5"/>
+            <point key="canvasLocation" x="199" y="297.5"/>
         </view>
     </objects>
 </document>

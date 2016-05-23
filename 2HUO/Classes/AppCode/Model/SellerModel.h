@@ -23,6 +23,8 @@
 @property (nonatomic, assign) NSInteger aid;
 @property (nonatomic, assign) NSInteger uid;
 @property (nonatomic, assign) NSInteger defaultAddress;
+@property (nonatomic, copy) NSString * alipay;
+@property (nonatomic, copy) NSString * weixin;
 @property (nonatomic, copy) NSString * idCard;
 @property (nonatomic, copy) NSString * location;
 @property (nonatomic, copy) NSString * userName;

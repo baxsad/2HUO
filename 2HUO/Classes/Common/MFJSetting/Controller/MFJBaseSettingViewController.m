@@ -67,7 +67,6 @@
             weakCell.item.switchBlock(on);
         }
     };
-    
     return cell;
 }
 
@@ -113,7 +112,12 @@
     if (group.headerView) {
         return group.headerView.frame.size.height;
     }else{
-        return 0.000001;
+        if (group.header) {
+            return [group.header heightForFont:[UIFont systemFontOfSize:17] width:Screen_Width]+10;
+        }else
+        {
+            return 0.00000001;
+        }
     }
 }
 
@@ -145,7 +149,12 @@
     if (group.footerView) {
         return group.footerView.frame.size.height;
     }else{
-        return 0.000001;
+        if (group.footer) {
+            return [group.footer heightForFont:[UIFont systemFontOfSize:17] width:Screen_Width]+10;
+        }else
+        {
+            return 0.00000001;
+        }
     }
 }
 

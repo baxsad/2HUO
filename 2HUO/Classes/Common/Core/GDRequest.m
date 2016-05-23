@@ -10,6 +10,36 @@
 
 @implementation GDRequest
 
++ (GDReq *)loginUsePhoneRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"user/x.loginUsePhone.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
+
++ (GDReq *)regUsePhoneRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"user/x.phoneReg.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
+
++ (GDReq *)getSMSVerificationCode
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"SMS/SendTemplateSMS.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
+
 + (GDReq *)gethomeModelRequest
 {
     GDReq * req = [GDReq Request];
@@ -202,6 +232,36 @@
 {
     GDReq * req = [GDReq Request];
     req.PATH = @"community/x.makeOrder.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
+    return req;
+}
+
++ (GDReq *)getOrderListRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.getMyOrder.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
+
++ (GDReq *)getMyLikePostListRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.getMyLikePost.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
+
++ (GDReq *)cancleOrderRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.cancleOrder.post.php";
     req.responseSerializer = GDResponseSerializerTypeJSON;
     req.needCheckCode = YES;
     req.METHOD = @"POST";

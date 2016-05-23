@@ -18,6 +18,8 @@ typedef NS_ENUM(NSInteger, MFJSettingItemType) {
 
 @interface MFJSettingItem : NSObject
 
+@property (nonatomic, strong) UIColor  *backGroundColor;
+
 @property (nonatomic,   copy) NSString *icon;
 
 @property (nonatomic,   copy) NSString *title;

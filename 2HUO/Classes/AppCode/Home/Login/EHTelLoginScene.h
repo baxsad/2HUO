@@ -8,6 +8,10 @@
 
 #import "IHBaseViewController.h"
 
+typedef void(^LoginSuccessCallBack)();
+
 @interface EHTelLoginScene : IHBaseViewController
+
+@property (nonatomic, copy) LoginSuccessCallBack LoginSuccessBlock;
 
 @end

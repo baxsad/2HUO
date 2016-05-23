@@ -54,6 +54,7 @@
     self.view.backgroundColor = NAVCOLOR;
     
     
+    
     self.dismissBtn.rac_command = [[RACCommand alloc] initWithSignalBlock:^RACSignal *(id input) {
         if (self.signStatus) {
             self.signStatus(NO);
@@ -138,8 +139,20 @@
         _telView.iconView.image = [UIImage imageNamed:@"login_phone"];
         _telView.titleLabel.text = @"手机登录";
         _telView.backgroundColor = NAVCOLOR;
+        @weakify(self);
         _telView.login = ^{
             EHTelLoginScene * telLogin = [[EHTelLoginScene alloc] init];
+            
+            void (^LoginSuccess)() = ^(){
+                @strongify(self);
+                [self doSomethingAfterDelay:1.5 action:^{
+                    @strongify(self);
+                    [self dismissViewControllerAnimated:YES completion:nil];
+                }];
+            };
+            
+            telLogin.LoginSuccessBlock = LoginSuccess;
+            
             IHNavigationController * nav = [[IHNavigationController alloc] initWithRootViewController:telLogin];
             [self.navigationController presentViewController:nav animated:YES completion:nil];
         };

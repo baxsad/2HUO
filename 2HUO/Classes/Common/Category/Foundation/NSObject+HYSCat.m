@@ -425,4 +425,10 @@ struct dummy arg = va_arg(args, struct dummy); \
     objc_setAssociatedObject(self, &blockKey, observer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (void)doSomethingAfterDelay:(float)delay action:(void (^)())action
+{
+    dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay/*延迟执行时间*/ * NSEC_PER_SEC));
+    dispatch_after(delayTime, dispatch_get_main_queue(), action);
+}
+
 @end

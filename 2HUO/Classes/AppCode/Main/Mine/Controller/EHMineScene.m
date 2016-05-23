@@ -54,12 +54,12 @@
     NSArray* section = @[ @{@"title":@""} ];
     
     NSArray* section1 = @[ @{@"title":@"我喜欢的",@"icon":@"mine_product"},
-                           @{@"title":@"我关注的",@"icon":@"mine_wallet"}
+                           @{@"title":@"我的发布",@"icon":@"skin_program"}
                            ];
     
-    NSArray* section2 = @[ @{@"title":@"我发布的",@"icon":@"skin_program"},
-                           @{@"title":@"我买到的",@"icon":@"mine_order"},
-                           @{@"title":@"订单地址",@"icon":@"mine_address"}
+    NSArray* section2 = @[ @{@"title":@"我的订单",@"icon":@"mine_order"},
+                           @{@"title":@"地址管理",@"icon":@"mine_address"},
+                           @{@"title":@"账户设置",@"icon":@"mine_wallet"}
                            ];
     
     NSArray* section3 = @[ @{@"title":@"登出",@"icon":@"setEnable"}];
@@ -140,10 +140,42 @@
             [self showSignScene];
         }
     }
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            if (ISLOGIN) {
+                [[GDRouter sharedInstance] open:@"GD://myLikePost"];
+            }else{
+                [self showSignScene];
+            }
+        }
+        if (indexPath.row == 1) {
+            if (ISLOGIN) {
+                [[GDRouter sharedInstance] open:@"GD://myLikePost/?myPost=1"];
+            }else{
+                [self showSignScene];
+            }
+        }
+    }
     if (indexPath.section == 2) {
-        if (indexPath.row == 2) {
+        if (indexPath.row == 1) {
             if (ISLOGIN) {
                 [[GDRouter sharedInstance] open:@"GD://addressList"];
+            }else
+            {
+                [self showSignScene];
+            }
+        }
+        if (indexPath.row == 0) {
+            if (ISLOGIN) {
+                [[GDRouter sharedInstance] open:@"GD://orderList"];
+            }else
+            {
+                [self showSignScene];
+            }
+        }
+        if (indexPath.row == 2) {
+            if (ISLOGIN) {
+                [[GDRouter sharedInstance] open:@"GD://payAccount"];
             }else
             {
                 [self showSignScene];

@@ -183,8 +183,8 @@
 
 -(void)postAction{
     
-    if (LOGINandSETSCHOOL) {
-        [[GDRouter sharedInstance] show:@"mfj://addPost" extraParams:@{@"cid":@(self.cid),@"sid":@(self.sid)} completion:nil];
+    if (LOGINandSETSCHOOLandSETPAYACCOUNT) {
+        [[GDRouter sharedInstance] show:@"mfj://addPost" extraParams:@{@"cid":[NSString stringWithFormat:@"%li",self.cid],@"sid":[NSString stringWithFormat:@"%li",self.sid]} completion:nil];
     }else{
         if (!ISLOGIN) {
             [self showSignScene];
@@ -195,15 +195,19 @@
                                    buttonTitles:nil
                               cancelButtonTitle:@"确定"
                          destructiveButtonTitle:nil
-                                  actionHandler:^(LGAlertView *alertView, NSString *title, NSUInteger index) {
-                                      NSLog(@"actionHandler, %@, %lu", title, (long unsigned)index);
-                                  }
-                                  cancelHandler:^(LGAlertView *alertView) {
-                                      NSLog(@"cancelHandler");
-                                  }
-                             destructiveHandler:^(LGAlertView *alertView) {
-                                 NSLog(@"destructiveHandler");
-                             }] showAnimated:YES completionHandler:nil];
+                                  actionHandler:nil
+                                  cancelHandler:nil
+                             destructiveHandler:nil] showAnimated:YES completionHandler:nil];
+        }else if (!ISSETPAYACCOUNT){
+            [[[LGAlertView alloc] initWithTitle:@"提示"
+                                        message:@"请到用户信息页填写账户信息\n才能发布哦！"
+                                          style:LGAlertViewStyleAlert
+                                   buttonTitles:nil
+                              cancelButtonTitle:@"确定"
+                         destructiveButtonTitle:nil
+                                  actionHandler:nil
+                                  cancelHandler:nil
+                             destructiveHandler:nil] showAnimated:YES completionHandler:nil];
         }
     }
     

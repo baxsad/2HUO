@@ -174,7 +174,7 @@ typedef void(^Upload)();
     }];
     
     
-    if (!self.cid) {
+    if (!self.cid.isNotEmpty || [self.cid isEqualToString:@"0"]) {
         [self.contentScrollView addSubview:self.typeView];
         [_typeView mas_makeConstraints:^(MASConstraintMaker *make) {
             
@@ -741,6 +741,7 @@ typedef void(^Upload)();
 {
     if (!_typeView) {
         _typeView = [EHSelectMenuView viewFromNib];
+        _typeView.clipsToBounds = YES;
         _typeView.title = @"分类";
         _typeView.content = @"选择分类";
         _typeView.backgroundColor = [UIColor whiteColor];
@@ -752,6 +753,7 @@ typedef void(^Upload)();
 {
     if (!_priceView) {
         _priceView = [EHSelectMenuView viewFromNib];
+        _priceView.clipsToBounds = YES;
         _priceView.title = @"价格";
         _priceView.content = @"输入价格";
         _priceView.backgroundColor = [UIColor whiteColor];
@@ -763,6 +765,7 @@ typedef void(^Upload)();
 {
     if (!_transactionModeView) {
         _transactionModeView = [EHSelectMenuView viewFromNib];
+        _transactionModeView.clipsToBounds = YES;
         _transactionModeView.title = @"方式";
         _transactionModeView.content = @"交易方式";
         _transactionModeView.backgroundColor = [UIColor whiteColor];
@@ -774,6 +777,7 @@ typedef void(^Upload)();
 {
     if (!_locationView) {
         _locationView = [EHSelectMenuView viewFromNib];
+        _locationView.clipsToBounds = YES;
         _locationView.title = @"地址";
         _locationView.content = @"详细信息";
         _locationView.backgroundColor = [UIColor whiteColor];
@@ -785,6 +789,7 @@ typedef void(^Upload)();
 {
     if (!_shippingOrContactView) {
         _shippingOrContactView = [EHSelectMenuView viewFromNib];
+        _shippingOrContactView.clipsToBounds = YES;
         _shippingOrContactView.title = @"";
         _shippingOrContactView.content = @"";
         _shippingOrContactView.backgroundColor = [UIColor whiteColor];

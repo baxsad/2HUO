@@ -33,13 +33,18 @@
 
 - (void)configModel:(SellerModel *)model
 {
-    if (model) {
+    if (model && model.phone.length > 0) {
         _buyerInfoLable.text = [NSString stringWithFormat:@"%@ %@",model.userName,model.phone];
         _addressLable.text = [NSString stringWithFormat:@"%@ %@",model.school.name,model.location];
     }else{
         self.buyerInfoLable.text = @"收货地址";
         self.addressLable.text = @"选择您的地址及联系方式";
     }
+}
+
+- (void)setArrowHiden:(BOOL)hiden
+{
+    self.tableViewArrow.hidden = hiden;
 }
 
 @end

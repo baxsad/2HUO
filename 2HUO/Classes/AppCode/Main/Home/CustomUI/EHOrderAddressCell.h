@@ -12,4 +12,6 @@
 
 - (void)configModel:(SellerModel *)model;
 
+- (void)setArrowHiden:(BOOL)hiden;
+
 @end

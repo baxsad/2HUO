@@ -23,7 +23,7 @@
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.view.backgroundColor = BGCOLOR;
     
-    self.title = @"昵称";
+    self.title = @"简介";
     self.view.backgroundColor = BGCOLOR;
     UIButton *saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [saveBtn setTitle:@"保存" forState:UIControlStateNormal];

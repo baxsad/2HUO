@@ -38,7 +38,7 @@
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars = YES;
-    self.title=@"信息";
+    self.title=@"地址";
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

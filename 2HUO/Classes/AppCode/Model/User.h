@@ -11,6 +11,8 @@
 @interface User : JSONModel
 
 @property (nonatomic, copy  ) NSString * uid;
+@property (nonatomic, copy  ) NSString * alipay;
+@property (nonatomic, copy  ) NSString * weixin;
 @property (nonatomic, copy  ) NSString * nick;
 @property (nonatomic, assign) NSInteger  sid;
 @property (nonatomic, copy  ) NSString * desc;

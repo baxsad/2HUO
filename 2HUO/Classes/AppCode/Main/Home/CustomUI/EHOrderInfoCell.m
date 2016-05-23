@@ -75,10 +75,10 @@
         self.titleLable.text = model.title;
         self.contentLable.text = model.content;
         self.transModelLable.text = [model.transactionMode isEqualToString:@"online"]?@"在线交易":@"线下交易";
-        self.priceLable.text = [NSString stringWithFormat:@"¥%.2f",model.presentPrice].processingPrice;
-        self.shippingLable.text = model.shippingCount != 0 ? [NSString stringWithFormat:@"¥%.2f",model.shippingCount].processingPrice : @"免运费";
-        self.totalLable.text = [NSString stringWithFormat:@"¥%.2f",model.presentPrice+model.shippingCount].processingPrice;
-        self.orgLable.text = [NSString stringWithFormat:@"原价：¥%.2f",model.originalPrice].processingPrice;
+        self.priceLable.text = [NSString stringWithFormat:@"%.2f",model.presentPrice].processingPrice;
+        self.shippingLable.text = model.shippingCount != 0 ? [NSString stringWithFormat:@"%.2f",model.shippingCount].processingPrice : @"免运费";
+        self.totalLable.text = [NSString stringWithFormat:@"%.2f",model.presentPrice+model.shippingCount].processingPrice;
+        self.orgLable.text = [NSString stringWithFormat:@"原价：%@",[NSString stringWithFormat:@"%.2f",model.originalPrice].processingPrice];
     }
 }
 
@@ -98,5 +98,6 @@
         }
     }
 }
+
 
 @end

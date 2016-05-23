@@ -104,6 +104,14 @@ const NSInteger YEAR = 12 * MONTH;
     return [pred evaluateWithObject:self];
 }
 
+- (NSString *)timeInvalueToDateString
+{
+    NSDate *confromTimesp = [NSDate dateWithTimeIntervalSince1970:[self integerValue]];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    return [dateFormatter stringFromDate:confromTimesp];
+}
+
 - (NSDate *)stringToDate
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -580,12 +588,12 @@ const NSInteger YEAR = 12 * MONTH;
     NSArray *priceArr = [priceString componentsSeparatedByString:@"."];
     if (priceArr.count == 2) {
         if ([priceArr[1] isEqualToString:@"00"]) {
-            return [NSString stringWithFormat:@"%@",priceArr[0]];
+            return [NSString stringWithFormat:@"¥%@",priceArr[0]];
         }else{
-            return [NSString stringWithFormat:@"%@",priceString];
+            return [NSString stringWithFormat:@"¥%@",priceString];
         }
     }else{
-        return [NSString stringWithFormat:@"%@",priceArr[0]];
+        return [NSString stringWithFormat:@"¥%@",priceArr[0]];
     }
     
 }

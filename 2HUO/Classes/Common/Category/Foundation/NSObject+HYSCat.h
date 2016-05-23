@@ -176,4 +176,6 @@ __weak id target_ = (TARGET); \
  */
 - (NSString *)className;
 
+- (void)doSomethingAfterDelay:(float)delay action:(void (^)())action;
+
 @end

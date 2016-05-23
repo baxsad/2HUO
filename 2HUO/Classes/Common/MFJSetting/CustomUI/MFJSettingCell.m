@@ -54,6 +54,7 @@
     self.subTitleRight.constant = 10;
     self.icon.image = [UIImage imageNamed:item.icon];
     self.title.text = item.title;
+    self.contentView.backgroundColor = _item.backGroundColor ? _item.backGroundColor : BGCOLOR;
     
     if (item.icon && item.icon.length>0) {
         self.bottomLineLeft.constant = 49;

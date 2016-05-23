@@ -55,7 +55,8 @@
 #define TEMCOLOR UIColorHex(0xD25403)
 #define ISLOGIN ([AccountCenter shareInstance].token && [AccountCenter shareInstance].token.length > 5)
 #define ISSETSCHOOL ([AccountCenter shareInstance].user.school != nil)
-#define LOGINandSETSCHOOL (ISLOGIN && ISSETSCHOOL)
+#define ISSETPAYACCOUNT (([AccountCenter shareInstance].user.alipay != nil && [AccountCenter shareInstance].user.alipay.length>2) || ([AccountCenter shareInstance].user.weixin != nil && [AccountCenter shareInstance].user.weixin.length>2))
+#define LOGINandSETSCHOOLandSETPAYACCOUNT (ISLOGIN && ISSETSCHOOL && ISSETPAYACCOUNT)
 #define USER [AccountCenter shareInstance].user
 
 //用户信息的缓存key

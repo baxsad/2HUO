@@ -8,6 +8,7 @@
 
 #import "EHMineMenuCell.h"
 
+
 @interface EHMineMenuCell ()
 
 @property (nonatomic, weak) IBOutlet UILabel *detailLable;

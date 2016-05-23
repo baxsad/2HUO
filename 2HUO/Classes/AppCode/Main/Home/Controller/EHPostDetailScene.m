@@ -20,6 +20,7 @@
 
 @property (nonatomic, weak) IBOutlet UITableView    * tableView;
 @property (nonatomic, weak) IBOutlet UIView         * toolBar;
+@property (nonatomic, weak) IBOutlet NSLayoutConstraint         * toolBarHeight;
 @property (nonatomic, strong) EHInputAccessoryView  * inputAccessoryView;
 @property (nonatomic, strong) UITextView  * textView;
 
@@ -75,6 +76,17 @@
             self.checkIsOnSaleRequest.requestNeedActive = YES;
         }
     }];
+    
+    self.toolBar.clipsToBounds = YES;
+    if (ISLOGIN) {
+        if ([self.post.user.uid isEqualToString:USER.uid]) {
+            self.toolBarHeight.constant = 0;
+        }else{
+            self.toolBarHeight.constant = 45;
+        }
+    }else{
+        self.toolBarHeight.constant = 0;
+    }
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;

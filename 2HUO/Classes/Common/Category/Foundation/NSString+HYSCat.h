@@ -56,11 +56,14 @@ extern const NSInteger YEAR;
  * @return 是密码类型返回 yes 否返回 no
  */
 - (BOOL)isPassword;
+
+- (NSString *)timeInvalueToDateString;
+
 /**
  * @brief  把字符串(yyyy-MM-dd HH:mm:ss)转换成日期
  * @return 时间
  */
-- (NSDate *)stringToDate;
+- (NSString *)stringToDate;
 /**
  * @brief  根据日期格式化方式,把字符串转换成日期（date）
  * @return 时间

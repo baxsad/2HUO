@@ -24,6 +24,7 @@
 @interface PostInfo : JSONModel
 
 @property (nonatomic, assign) NSInteger       pid;
+@property (nonatomic, copy  ) NSString      * communityName;
 @property (nonatomic, strong) User          * user;
 @property (nonatomic, copy  ) NSArray <Tag> * tags;
 @property (nonatomic, assign) NSInteger       likeCount;

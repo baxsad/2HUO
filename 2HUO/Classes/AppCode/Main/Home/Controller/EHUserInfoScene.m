@@ -49,7 +49,7 @@
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars = YES;
-    self.title = @"卖家信息";
+    self.title = @"地址管理";
     if (self.sellerModel) {
         self.school = self.sellerModel.school;
     }

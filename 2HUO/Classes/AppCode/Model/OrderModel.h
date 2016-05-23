@@ -16,6 +16,7 @@
 
 @property (nonatomic, assign) NSInteger oid;
 @property (nonatomic,   copy) NSString  *orderNumber;
+@property (nonatomic,   copy) NSString  *createdTime;
 @property (nonatomic, assign) NSInteger suid;
 @property (nonatomic, assign) NSInteger buid;
 @property (nonatomic, assign) NSInteger status;

@@ -10,6 +10,15 @@
 
 @interface GDRequest : GDReq
 
+// 手机号登录
++ (GDReq *)loginUsePhoneRequest;
+
+// 手机号注册
++ (GDReq *)regUsePhoneRequest;
+
+// 获取验证码
++ (GDReq *)getSMSVerificationCode;
+
 // 首页数据
 + (GDReq *)gethomeModelRequest;
 
@@ -73,5 +82,14 @@
 
 // 确认订单
 + (GDReq *)makeOrderRequest;
+
+// 获取订单列表
++ (GDReq *)getOrderListRequest;
+
+// 获取我喜欢的商品列表
++ (GDReq *)getMyLikePostListRequest;
+
+// 取消订单
++ (GDReq *)cancleOrderRequest;
 
 @end

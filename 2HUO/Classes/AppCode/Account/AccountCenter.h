@@ -17,6 +17,8 @@ typedef NS_ENUM(NSUInteger, UserLoginType) {
     
 };
 
+typedef void (^RegCallBack)(BOOL success);
+typedef void (^GetSMSCodeCallBack)(BOOL success);
 typedef void (^UpdateUserCallBack)(BOOL success);
 typedef void (^UserLoginCallBack)(BOOL success);
 typedef void (^UserLoginResultBlock)(BOOL success, User * user);
@@ -42,5 +44,11 @@ typedef void (^ClearCacheCallBack)(BOOL success,CGFloat progress);
 - (void)clearCache:(ClearCacheCallBack)callback;
 
 - (void)updateUserInfo:(NSDictionary *)info complete:(UpdateUserCallBack)complete;
+
+- (void)getSMSCode:(NSString *)phone complete:(GetSMSCodeCallBack)complete;
+
+- (void)regWithParams:(NSDictionary *)params complete:(RegCallBack)complete;
+
+- (void)loginWithParams:(NSDictionary *)params complete:(RegCallBack)complete;
 
 @end

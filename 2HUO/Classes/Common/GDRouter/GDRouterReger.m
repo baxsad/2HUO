@@ -41,6 +41,14 @@
     [[GDRouter sharedInstance] reg:@"GD://confirmOrder" toClass:NSClassFromString(@"EHConfirmOrderScene")];
     
     [[GDRouter sharedInstance] reg:@"GD://shippingCount" toClass:NSClassFromString(@"EHShippingCountScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://orderList" toClass:NSClassFromString(@"EHOrderListScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://myLikePost" toClass:NSClassFromString(@"EHMyLikePostScen")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://payAccount" toClass:NSClassFromString(@"EHPayAccountScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://setPayAccount" toClass:NSClassFromString(@"EHUpdateAccountScene")];
 }
 
 + (void)clearCache

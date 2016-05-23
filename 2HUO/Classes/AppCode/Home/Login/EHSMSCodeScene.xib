@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EHSMSCodeScene">
+            <connections>
+                <outlet property="codeTextField" destination="ud5-uX-Lzb" id="YAr-oZ-cQF"/>
+                <outlet property="nextButton" destination="PFQ-eS-v6C" id="HAN-3l-61i"/>
+                <outlet property="view" destination="sTo-5V-aDe" id="6pK-u1-aK6"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="sTo-5V-aDe">
+            <rect key="frame" x="0.0" y="0.0" width="340" height="545"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ebl-ja-e6o" customClass="ILContainView">
+                    <rect key="frame" x="40" y="30" width="260" height="45"/>
+                    <subviews>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="ud5-uX-Lzb">
+                            <rect key="frame" x="15" y="7" width="230" height="30"/>
+                            <color key="tintColor" red="1" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="fcV-lq-3Gb"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="ud5-uX-Lzb" firstAttribute="leading" secondItem="ebl-ja-e6o" secondAttribute="leading" constant="15" id="anL-GM-4Fd"/>
+                        <constraint firstAttribute="trailing" secondItem="ud5-uX-Lzb" secondAttribute="trailing" constant="15" id="lRU-Gl-7st"/>
+                        <constraint firstAttribute="height" constant="45" id="t06-b2-43a"/>
+                        <constraint firstItem="ud5-uX-Lzb" firstAttribute="centerY" secondItem="ebl-ja-e6o" secondAttribute="centerY" id="zMI-g5-1WJ"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                            <real key="value" value="2"/>
+                        </userDefinedRuntimeAttribute>
+                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                            <integer key="value" value="0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cK2-Iw-TVu">
+                    <rect key="frame" x="40" y="163" width="260" height="44"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="7B6-QA-RMH"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="重新发送">
+                        <color key="titleColor" red="0.31764705879999999" green="0.31764705879999999" blue="0.31764705879999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted" backgroundImage="btn-high1"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PFQ-eS-v6C">
+                    <rect key="frame" x="40" y="97" width="260" height="44"/>
+                    <color key="backgroundColor" red="1" green="0.35294117650000001" blue="0.37254901959999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="efM-My-GEM"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <state key="normal" title="完成">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="ebl-ja-e6o" firstAttribute="centerX" secondItem="sTo-5V-aDe" secondAttribute="centerX" id="EQg-Lg-mtC"/>
+                <constraint firstAttribute="trailing" secondItem="ebl-ja-e6o" secondAttribute="trailing" constant="40" id="Hkd-F4-7I5"/>
+                <constraint firstAttribute="trailing" secondItem="PFQ-eS-v6C" secondAttribute="trailing" constant="40" id="KY0-uh-UjN"/>
+                <constraint firstItem="PFQ-eS-v6C" firstAttribute="leading" secondItem="sTo-5V-aDe" secondAttribute="leading" constant="40" id="SUY-lc-4k7"/>
+                <constraint firstAttribute="trailing" secondItem="cK2-Iw-TVu" secondAttribute="trailing" constant="40" id="Zos-8c-1fF"/>
+                <constraint firstItem="ebl-ja-e6o" firstAttribute="leading" secondItem="sTo-5V-aDe" secondAttribute="leading" constant="40" id="eSA-zE-TCW"/>
+                <constraint firstItem="cK2-Iw-TVu" firstAttribute="top" secondItem="PFQ-eS-v6C" secondAttribute="bottom" constant="22" id="gMV-e8-QtQ"/>
+                <constraint firstItem="PFQ-eS-v6C" firstAttribute="top" secondItem="ebl-ja-e6o" secondAttribute="bottom" constant="22" id="quw-eB-rn6"/>
+                <constraint firstItem="cK2-Iw-TVu" firstAttribute="leading" secondItem="sTo-5V-aDe" secondAttribute="leading" constant="40" id="vxW-Pv-9Ui"/>
+                <constraint firstItem="ebl-ja-e6o" firstAttribute="top" secondItem="sTo-5V-aDe" secondAttribute="top" constant="30" id="zaT-et-BnB"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="275" y="156.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="btn-high1" width="5" height="4"/>
+    </resources>
+</document>

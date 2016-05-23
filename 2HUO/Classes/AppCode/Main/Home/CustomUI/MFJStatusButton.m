@@ -143,9 +143,8 @@
         [self addSubview:self.buttonImage];
         [self addSubview:self.title];
         [self configureStatus:NO text:text animated:NO];
-        [self addTarget:self action:@selector(buttonDownSelect:) forControlEvents:UIControlEventTouchDown];
         [self addTarget:self action:@selector(buttonUpSelect:) forControlEvents:UIControlEventTouchUpInside];
-        [self addTarget:self action:@selector(buttonUpSelect:) forControlEvents:UIControlEventTouchDragExit];
+        
         
     }
     return self;
@@ -199,21 +198,16 @@
     
 }
 
-- (void)buttonDownSelect:(UIButton *)sender
-{
-    [UIView beginAnimations:nil context:nil];
-    [UIView    setAnimationCurve: UIViewAnimationCurveLinear];
-    [UIView    setAnimationDelegate:self];
-    [UIView    setAnimationDuration:0.125];
-    [self setBackgroundColor:UIColorHex(0xf2f2f2)];
-    [UIView commitAnimations];
-    
-}
 
 - (void)buttonUpSelect:(UIButton *)sender
 {
     
-    
+    if (!ISLOGIN) {
+        if (self.ButtonClick) {
+            self.ButtonClick();
+        }
+        return ;
+    }
     if (self.type == MFJStatusButtonTypeLike) {
         
         NSInteger count;

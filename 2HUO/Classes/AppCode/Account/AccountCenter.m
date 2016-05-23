@@ -15,6 +15,9 @@
 
 @property (nonatomic, strong) GDReq * userLoginRequest;
 @property (nonatomic, strong) GDReq * updateUserInfoRequest;
+@property (nonatomic, strong) GDReq * getSMSVerificationCodeRequest;
+@property (nonatomic, strong) GDReq * regUsePhoneRequest;
+@property (nonatomic, strong) GDReq * loginUsePhoneRequest;
 
 @end
 
@@ -29,6 +32,9 @@
         account = [[AccountCenter alloc] init];
         account.userLoginRequest = [GDRequest userLoginRequest];
         account.updateUserInfoRequest = [GDRequest updateUserInfoRequest];
+        account.getSMSVerificationCodeRequest = [GDRequest getSMSVerificationCode];
+        account.regUsePhoneRequest = [GDRequest regUsePhoneRequest];
+        account.loginUsePhoneRequest = [GDRequest loginUsePhoneRequest];
         
     });
     return account;
@@ -166,6 +172,7 @@
             [self save:nil];
         }];
     }
+    [self save:nil];
 }
 
 - (void)updateUserInfo:(NSDictionary *)info complete:(UpdateUserCallBack)complete
@@ -213,6 +220,79 @@
         }
     }];
     
+}
+
+- (void)getSMSCode:(NSString *)phone complete:(GetSMSCodeCallBack)complete
+{
+    if (self.getSMSVerificationCodeRequest.status == GDRequestStatusSending) {
+        [self.getSMSVerificationCodeRequest cancle];
+    }
+    [self.getSMSVerificationCodeRequest.params setValue:phone forKey:@"phone"];
+    self.getSMSVerificationCodeRequest.requestNeedActive = YES;
+    [self.getSMSVerificationCodeRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            if (complete) {
+                complete(YES);
+            }
+        }
+        if (req.failed) {
+            if (complete) {
+                complete(NO);
+            }
+        }
+    }];
+}
+
+- (void)regWithParams:(NSDictionary *)params complete:(RegCallBack)complete
+{
+    if (self.regUsePhoneRequest.status == GDRequestStatusSending) {
+        [self.regUsePhoneRequest cancle];
+    }
+    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.regUsePhoneRequest.params setValue:obj forKey:key];
+    }];
+    self.regUsePhoneRequest.requestNeedActive = YES;
+    [self.regUsePhoneRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            if (complete) {
+                complete(YES);
+            }
+        }
+        if (req.failed) {
+            if (complete) {
+                complete(NO);
+            }
+        }
+    }];
+}
+
+- (void)loginWithParams:(NSDictionary *)params complete:(RegCallBack)complete
+{
+    if (self.loginUsePhoneRequest.status == GDRequestStatusSending) {
+        [self.loginUsePhoneRequest cancle];
+    }
+    [params enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        [self.loginUsePhoneRequest.params setValue:obj forKey:key];
+    }];
+    self.loginUsePhoneRequest.requestNeedActive = YES;
+    [self.loginUsePhoneRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            
+            User * user = [[User alloc] initWithDictionary:req.output[@"user"] error:nil];
+            if (user) {
+                [self save:user];
+                complete(YES);
+            }else{
+                complete(NO);
+            }
+            
+        }
+        if (req.failed) {
+            if (complete) {
+                complete(NO);
+            }
+        }
+    }];
 }
 
 @end
