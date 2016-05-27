@@ -195,6 +195,12 @@
 		A0BA08321CDCC5AB0089BB72 /* LoginItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BA08301CDCC5AB0089BB72 /* LoginItemView.xib */; };
 		A0BA08371CDCCE4B0089BB72 /* EHTelLoginScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0BA08351CDCCE4B0089BB72 /* EHTelLoginScene.m */; };
 		A0BA08381CDCCE4B0089BB72 /* EHTelLoginScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0BA08361CDCCE4B0089BB72 /* EHTelLoginScene.xib */; };
+		A0CB27CB1CF2FC5E003FD5A1 /* EHProfileScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB27C91CF2FC5E003FD5A1 /* EHProfileScene.m */; };
+		A0CB27CC1CF2FC5E003FD5A1 /* EHProfileScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CB27CA1CF2FC5E003FD5A1 /* EHProfileScene.xib */; };
+		A0CB27D01CF429B9003FD5A1 /* EHPostUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB27CE1CF429B9003FD5A1 /* EHPostUserCell.m */; };
+		A0CB27D11CF429B9003FD5A1 /* EHPostUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CB27CF1CF429B9003FD5A1 /* EHPostUserCell.xib */; };
+		A0CB27D51CF434EC003FD5A1 /* EHProfilePostCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0CB27D31CF434EC003FD5A1 /* EHProfilePostCell.m */; };
+		A0CB27D61CF434EC003FD5A1 /* EHProfilePostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0CB27D41CF434EC003FD5A1 /* EHProfilePostCell.xib */; };
 		A0D1A9991CE170CE00086E36 /* EHPostDetailScene.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1A9971CE170CE00086E36 /* EHPostDetailScene.m */; };
 		A0D1A99A1CE170CE00086E36 /* EHPostDetailScene.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0D1A9981CE170CE00086E36 /* EHPostDetailScene.xib */; };
 		A0D1A99E1CE185FA00086E36 /* EHPostDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A0D1A99C1CE185FA00086E36 /* EHPostDetailCell.m */; };
@@ -634,6 +640,15 @@
 		A0BA08351CDCCE4B0089BB72 /* EHTelLoginScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHTelLoginScene.m; sourceTree = "<group>"; };
 		A0BA08361CDCCE4B0089BB72 /* EHTelLoginScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHTelLoginScene.xib; sourceTree = "<group>"; };
 		A0BF1CCD1CB3CB5D004CCFF6 /* libAVOSCloud.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAVOSCloud.a; path = Pods/AVOSCloud/libAVOSCloud.a; sourceTree = "<group>"; };
+		A0CB27C81CF2FC5E003FD5A1 /* EHProfileScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHProfileScene.h; sourceTree = "<group>"; };
+		A0CB27C91CF2FC5E003FD5A1 /* EHProfileScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHProfileScene.m; sourceTree = "<group>"; };
+		A0CB27CA1CF2FC5E003FD5A1 /* EHProfileScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHProfileScene.xib; sourceTree = "<group>"; };
+		A0CB27CD1CF429B9003FD5A1 /* EHPostUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHPostUserCell.h; sourceTree = "<group>"; };
+		A0CB27CE1CF429B9003FD5A1 /* EHPostUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHPostUserCell.m; sourceTree = "<group>"; };
+		A0CB27CF1CF429B9003FD5A1 /* EHPostUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHPostUserCell.xib; sourceTree = "<group>"; };
+		A0CB27D21CF434EC003FD5A1 /* EHProfilePostCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHProfilePostCell.h; sourceTree = "<group>"; };
+		A0CB27D31CF434EC003FD5A1 /* EHProfilePostCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHProfilePostCell.m; sourceTree = "<group>"; };
+		A0CB27D41CF434EC003FD5A1 /* EHProfilePostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHProfilePostCell.xib; sourceTree = "<group>"; };
 		A0D1A9961CE170CE00086E36 /* EHPostDetailScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EHPostDetailScene.h; sourceTree = "<group>"; };
 		A0D1A9971CE170CE00086E36 /* EHPostDetailScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EHPostDetailScene.m; sourceTree = "<group>"; };
 		A0D1A9981CE170CE00086E36 /* EHPostDetailScene.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EHPostDetailScene.xib; sourceTree = "<group>"; };
@@ -1697,6 +1712,9 @@
 				A08230841CF134BA006DD0F6 /* EHPayAccountScene.xib */,
 				A08230871CF14291006DD0F6 /* EHUpdateAccountScene.h */,
 				A08230881CF14291006DD0F6 /* EHUpdateAccountScene.m */,
+				A0CB27C81CF2FC5E003FD5A1 /* EHProfileScene.h */,
+				A0CB27C91CF2FC5E003FD5A1 /* EHProfileScene.m */,
+				A0CB27CA1CF2FC5E003FD5A1 /* EHProfileScene.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1722,6 +1740,12 @@
 				A082308A1CF1B7CA006DD0F6 /* EHOrderPayCell.h */,
 				A082308B1CF1B7CA006DD0F6 /* EHOrderPayCell.m */,
 				A082308C1CF1B7CA006DD0F6 /* EHOrderPayCell.xib */,
+				A0CB27CD1CF429B9003FD5A1 /* EHPostUserCell.h */,
+				A0CB27CE1CF429B9003FD5A1 /* EHPostUserCell.m */,
+				A0CB27CF1CF429B9003FD5A1 /* EHPostUserCell.xib */,
+				A0CB27D21CF434EC003FD5A1 /* EHProfilePostCell.h */,
+				A0CB27D31CF434EC003FD5A1 /* EHProfilePostCell.m */,
+				A0CB27D41CF434EC003FD5A1 /* EHProfilePostCell.xib */,
 			);
 			path = CustomUI;
 			sourceTree = "<group>";
@@ -1897,11 +1921,14 @@
 				A0BA08381CDCCE4B0089BB72 /* EHTelLoginScene.xib in Resources */,
 				A03E6DE21CEC4533006E0261 /* EHMyOrderCell.xib in Resources */,
 				A0D1A9D91CE379D200086E36 /* ico_make.png in Resources */,
+				A0CB27D11CF429B9003FD5A1 /* EHPostUserCell.xib in Resources */,
 				A0BA08051CDB461D0089BB72 /* EHTextViewCell.xib in Resources */,
 				A03E6DEF1CEC65FC006E0261 /* EHMyPostCell.xib in Resources */,
 				A0D1A9E81CE4892900086E36 /* EHCategaryCell.xib in Resources */,
+				A0CB27D61CF434EC003FD5A1 /* EHProfilePostCell.xib in Resources */,
 				A0AE934A1CB77F89001C9CB2 /* UMShareEditViewControlleriPad.xib in Resources */,
 				A0FB86CD1CEEB11F00FBEDF0 /* EHSMSCodeScene.xib in Resources */,
+				A0CB27CC1CF2FC5E003FD5A1 /* EHProfileScene.xib in Resources */,
 				A0AE93511CB77F89001C9CB2 /* WeiboSDK.bundle in Resources */,
 				A08230771CEEFEA2006DD0F6 /* EHOrderStatusView.xib in Resources */,
 				A0D1A9B11CE1C5D500086E36 /* EHInputAccessoryView.xib in Resources */,
@@ -2040,6 +2067,8 @@
 				A0D1A9A71CE1B98D00086E36 /* Comments.m in Sources */,
 				A0A6F07E1CB670380059AE77 /* MFJDragCellCollectionView.m in Sources */,
 				A0F25A8D1CB94E3D003AB803 /* FPSLable.m in Sources */,
+				A0CB27D51CF434EC003FD5A1 /* EHProfilePostCell.m in Sources */,
+				A0CB27D01CF429B9003FD5A1 /* EHPostUserCell.m in Sources */,
 				A0127DFC1CCF0D7D00A44187 /* UIColor+HYSCat.m in Sources */,
 				A0127DC01CCDF5D600A44187 /* GDRouter.m in Sources */,
 				A0127E031CCF0D7D00A44187 /* UITableViewCell+HYSCat.m in Sources */,
@@ -2149,6 +2178,7 @@
 				A02F976B1CA64BD6008D02E3 /* MFJPhotoGroupCell.m in Sources */,
 				A0BA07E61CD9F2DD0089BB72 /* EHCommunitySelectScene.m in Sources */,
 				A0127E041CCF0D7D00A44187 /* UIView+EZGesture.m in Sources */,
+				A0CB27CB1CF2FC5E003FD5A1 /* EHProfileScene.m in Sources */,
 				A08230851CF134BA006DD0F6 /* EHPayAccountScene.m in Sources */,
 				A082307B1CEEFF8E006DD0F6 /* EHOrdelDetailScene.m in Sources */,
 				A04E99851CA2911400B0ABB5 /* GDHUD.m in Sources */,

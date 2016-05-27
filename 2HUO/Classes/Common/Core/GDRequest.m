@@ -268,4 +268,14 @@
     return req;
 }
 
++ (GDReq *)getProfileRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.profile.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
+
 @end

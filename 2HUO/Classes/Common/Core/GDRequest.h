@@ -92,4 +92,7 @@
 // 取消订单
 + (GDReq *)cancleOrderRequest;
 
+// 获取指定用户帖子
++ (GDReq *)getProfileRequest;
+
 @end

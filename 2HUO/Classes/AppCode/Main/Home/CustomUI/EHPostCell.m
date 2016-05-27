@@ -56,6 +56,7 @@
     self.selectionStyle = UITableViewCellSelectionStyleNone;
     self.userIcon.layer.cornerRadius = self.userIcon.width*0.5;
     self.userIcon.layer.masksToBounds = YES;
+    self.userIcon.userInteractionEnabled = YES;
     self.collectionHeight.constant = 0;
     [self setUpToolBar];
     @weakify(self);
@@ -64,6 +65,13 @@
         @strongify(self);
         if (self.delegate) {
             [self.delegate EHPostCell:self moreButtonDidSelect:nil];
+        }
+    }];
+    
+    [self.userIcon whenTapped:^{
+        @strongify(self);
+        if (self.delegate) {
+            [self.delegate EHPostCell:self userDidSelect:self.model];
         }
     }];
     

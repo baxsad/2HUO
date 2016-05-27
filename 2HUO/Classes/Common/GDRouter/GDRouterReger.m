@@ -49,6 +49,8 @@
     [[GDRouter sharedInstance] reg:@"GD://payAccount" toClass:NSClassFromString(@"EHPayAccountScene")];
     
     [[GDRouter sharedInstance] reg:@"GD://setPayAccount" toClass:NSClassFromString(@"EHUpdateAccountScene")];
+    
+    [[GDRouter sharedInstance] reg:@"GD://profile" toClass:NSClassFromString(@"EHProfileScene")];
 }
 
 + (void)clearCache

@@ -15,6 +15,8 @@
 - (void)EHPostCell:(EHPostCell *)cell moreButtonDidSelect:(PostInfo *)model;
 - (void)EHPostCell:(EHPostCell *)cell likeButtonDidSelect:(PostInfo *)model IsLike:(BOOL)like likeCount:(NSInteger)count;
 
+- (void)EHPostCell:(EHPostCell *)cell userDidSelect:(PostInfo *)model;
+
 @end
 
 @interface EHPostCell : UITableViewCell

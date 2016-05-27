@@ -309,6 +309,12 @@
     self.likePostRequest.requestNeedActive = YES;
 }
 
+- (void)EHPostCell:(EHPostCell *)cell userDidSelect:(PostInfo *)model
+{
+    User * user = model.user;
+    [[GDRouter sharedInstance] open:@"GD://profile" extraParams:@{@"user":user}];
+}
+
 #pragma mark - getter
 
 - (UITableView *)tableView

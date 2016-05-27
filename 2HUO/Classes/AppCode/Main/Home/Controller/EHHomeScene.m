@@ -73,7 +73,7 @@ typedef void(^ReloadBlock)();
         if (ISLOGIN) {
             [self.userButton.userIcon yy_setImageWithURL:[NSURL URLWithString:USER.avatar] options:YYWebImageOptionProgressiveBlur];
         }else{
-            [self.userButton.userIcon setImage:[UIImage imageNamed:@"tab_me"]];
+            [self.userButton.userIcon setImage:[UIImage imageNamed:@"DefaultHeader"]];
         }
     }
     if (![USER.school.city isEqualToString:self.cityName]) {
