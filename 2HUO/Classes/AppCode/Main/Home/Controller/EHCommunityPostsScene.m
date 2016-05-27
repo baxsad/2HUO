@@ -57,7 +57,6 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.extendedLayoutIncludesOpaqueBars = YES;
     self.view.backgroundColor = UIColorHex(0xf2f2f2);
-    [self showBarButton:NAV_RIGHT title:@"Edit" fontColor:UIColorHex(0xD2B203)];
     self.title = self.ptitle;
     
     [self.view addSubview:self.sendPostButton];
