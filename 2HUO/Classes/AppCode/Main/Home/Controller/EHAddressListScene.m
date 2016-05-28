@@ -67,6 +67,15 @@
     [self.updateAddressListRequest listen:^(GDReq * _Nonnull req) {
         if (req.succeed) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateAddressInfo" object:self.selectModel];
+            
+            if (self.confirm) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateConfirmOrderAddress" object:self.selectModel];
+            }
+            
+            if (self.orderDetail) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"updateDetailOrderAddress" object:self.selectModel];
+            }
+            
             [[GDRouter sharedInstance] pop];
         }
         if (req.failed) {
@@ -117,6 +126,14 @@
     if (model.defaultAddress == 1) {
         self.selectModel = model;
         [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateAddressInfo" object:self.selectModel];
+        /**
+        if (self.confirm) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateConfirmOrderAddress" object:self.selectModel];
+        }
+        if (self.orderDetail) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"updateDetailOrderAddress" object:self.selectModel];
+        }
+         */
     }
     [cell reloadAddressInfo:model];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;

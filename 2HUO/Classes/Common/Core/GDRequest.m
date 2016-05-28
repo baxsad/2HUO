@@ -144,7 +144,7 @@
 + (GDReq *)getCommunityListRequest
 {
     GDReq * req = [GDReq Request];
-    req.PATH = @"community/x.community.get.php";
+    req.PATH = @"community/x.communityType.get.php";
     req.responseSerializer = GDResponseSerializerTypeJSON;
     req.METHOD = @"GET";
     return req;
@@ -275,6 +275,26 @@
     req.responseSerializer = GDResponseSerializerTypeJSON;
     req.needCheckCode = YES;
     req.METHOD = @"GET";
+    return req;
+}
+
++ (GDReq *)getPostRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.community.get.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"GET";
+    return req;
+}
+
++ (GDReq *)updateOrderAddressRequest
+{
+    GDReq * req = [GDReq Request];
+    req.PATH = @"community/x.updateOrderAddress.post.php";
+    req.responseSerializer = GDResponseSerializerTypeJSON;
+    req.needCheckCode = YES;
+    req.METHOD = @"POST";
     return req;
 }
 

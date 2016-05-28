@@ -622,7 +622,21 @@ typedef void(^ReloadBlock)();
 - (EHHomeHeaderView *)headerMenuView
 {
     if (!_headerMenuView) {
+        @weakify(self);
         _headerMenuView = [EHHomeHeaderView viewFromNib];
+        _headerMenuView.handleAction = ^(NSInteger index){
+            @strongify(self);
+            if (!ISLOGIN) {
+                [self showSignScene];
+                return ;
+            }
+            if (index == 1) {
+                [[GDRouter sharedInstance] open:@"GD://myLikePost/?myPost=1"];
+            }
+            if (index == 2) {
+                [[GDRouter sharedInstance] open:@"GD://myLikePost"];
+            }
+        };
     }
     return _headerMenuView;
 }

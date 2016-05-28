@@ -8,7 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^clickAction)(NSInteger index);
+
 @interface EHHomeHeaderView : UIView
+
+@property (nonatomic, copy) clickAction handleAction;
 
 - (void)configModels:(NSArray *)array;
 

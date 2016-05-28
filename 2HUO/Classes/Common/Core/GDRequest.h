@@ -95,4 +95,10 @@
 // 获取指定用户帖子
 + (GDReq *)getProfileRequest;
 
+// 获取某一个帖子
++ (GDReq *)getPostRequest;
+
+// 更新订单地址
++ (GDReq *)updateOrderAddressRequest;
+
 @end

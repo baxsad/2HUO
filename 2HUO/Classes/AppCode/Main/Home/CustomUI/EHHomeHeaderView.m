@@ -24,6 +24,18 @@
     [super awakeFromNib];
     self.leftMenuImage.clipsToBounds = YES;
     self.rightMenuImage.clipsToBounds = YES;
+    self.leftMenuImage.userInteractionEnabled = YES;
+    self.rightMenuImage.userInteractionEnabled = YES;
+    [self.leftMenuImage whenTapped:^{
+        if (self.handleAction) {
+            self.handleAction(1);
+        }
+    }];
+    [self.rightMenuImage whenTapped:^{
+        if (self.handleAction) {
+            self.handleAction(2);
+        }
+    }];
 }
 
 - (void)configModels:(NSArray *)array

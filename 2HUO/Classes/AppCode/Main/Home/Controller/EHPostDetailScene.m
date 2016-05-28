@@ -27,6 +27,7 @@
 @property (nonatomic, strong) GDReq              * addCommentsRequest;
 @property (nonatomic, strong) GDReq              * getCommentsRequest;
 @property (nonatomic, strong) GDReq              * checkIsOnSaleRequest;
+@property (nonatomic, strong) GDReq              * getPostRequest;
 
 @property (nonatomic, strong) Comments           * commentsData;
 @property (nonatomic, strong) NSMutableArray<Comment>     * commentsDataArray;
@@ -112,6 +113,21 @@
             
         }
     }];
+    
+    if (!self.post) {
+        self.getPostRequest = [GDRequest getPostRequest];
+        [self.getPostRequest.params setValue:self.pid forKey:@"pid"];
+        self.getPostRequest.requestNeedActive = YES;
+        [self.getPostRequest listen:^(GDReq * _Nonnull req) {
+            if (req.succeed) {
+                self.post = [[PostInfo alloc] initWithDictionary:req.output[@"data"][0] error:nil];
+                [self.tableView reloadData];
+            }
+            if (req.failed) {
+                [GDHUD showMessage:@"不小心出现了一个问题" timeout:1];
+            }
+        }];
+    }
     
     self.addCommentsRequest = [GDRequest addCommentsRequest];
     [self.addCommentsRequest.params setValue:USER.uid forKey:@"uid"];

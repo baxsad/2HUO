@@ -64,16 +64,6 @@
                         <color key="textColor" red="0.82352941180000006" green="0.3294117647" blue="0.01176470588" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a02-ib-uhS" customClass="ILButton">
-                        <rect key="frame" x="286" y="162" width="65" height="30"/>
-                        <color key="backgroundColor" red="0.82352941180000006" green="0.3294117647" blue="0.01176470588" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="30" id="J90-Wf-OH2"/>
-                            <constraint firstAttribute="width" constant="65" id="Nn0-RH-Gcu"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                        <state key="normal" title="立即支付"/>
-                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ifv-Y0-j5x">
                         <rect key="frame" x="0.0" y="55" width="366" height="1"/>
                         <constraints>
@@ -115,7 +105,6 @@
                     <constraint firstItem="svr-SW-goP" firstAttribute="top" secondItem="KuA-kc-Ak7" secondAttribute="bottom" constant="10" id="ASK-wa-J5y"/>
                     <constraint firstAttribute="trailing" secondItem="gWx-Rd-6Uh" secondAttribute="trailing" constant="15" id="GAg-xv-OVh"/>
                     <constraint firstItem="ovU-T9-ba8" firstAttribute="leading" secondItem="9zy-as-is8" secondAttribute="trailing" constant="3" id="GhO-yt-V9P"/>
-                    <constraint firstItem="a02-ib-uhS" firstAttribute="centerY" secondItem="ovU-T9-ba8" secondAttribute="centerY" id="Hlw-en-8eQ"/>
                     <constraint firstItem="ynt-zX-Hpi" firstAttribute="leading" secondItem="YRG-zY-fP9" secondAttribute="trailing" constant="3" id="ID5-z9-GZs"/>
                     <constraint firstItem="KuA-kc-Ak7" firstAttribute="leading" secondItem="TrW-JP-we7" secondAttribute="leading" id="JTn-K3-3pf"/>
                     <constraint firstItem="TrW-JP-we7" firstAttribute="leading" secondItem="jVL-ns-e2p" secondAttribute="leading" constant="15" id="Jts-gV-lX5"/>
@@ -127,7 +116,6 @@
                     <constraint firstAttribute="trailing" secondItem="Ifv-Y0-j5x" secondAttribute="trailing" id="Mws-gD-cdC"/>
                     <constraint firstItem="TrW-JP-we7" firstAttribute="top" secondItem="F1L-LA-TNi" secondAttribute="bottom" constant="16" id="Srz-QJ-4qy"/>
                     <constraint firstAttribute="trailingMargin" secondItem="ynt-zX-Hpi" secondAttribute="trailing" constant="7" id="VIc-Xx-QQT"/>
-                    <constraint firstItem="a02-ib-uhS" firstAttribute="trailing" secondItem="PdB-nd-GKZ" secondAttribute="trailing" id="W9z-Ap-exl"/>
                     <constraint firstItem="PdB-nd-GKZ" firstAttribute="centerY" secondItem="TrW-JP-we7" secondAttribute="centerY" id="dxc-Ob-5BR"/>
                     <constraint firstItem="KuA-kc-Ak7" firstAttribute="top" secondItem="TrW-JP-we7" secondAttribute="bottom" constant="26" id="ePL-1F-fdk"/>
                     <constraint firstItem="gWx-Rd-6Uh" firstAttribute="leading" secondItem="KuA-kc-Ak7" secondAttribute="trailing" constant="15" id="emH-Rj-cDI"/>
@@ -148,8 +136,6 @@
             </tableViewCellContentView>
             <inset key="separatorInset" minX="1000" minY="0.0" maxX="0.0" maxY="0.0"/>
             <connections>
-                <outlet property="LogisticsOrPayButton" destination="a02-ib-uhS" id="NmV-Fk-bXA"/>
-                <outlet property="btnWidthConstraint" destination="Nn0-RH-Gcu" id="D7S-gU-yg6"/>
                 <outlet property="goodsIcon" destination="KuA-kc-Ak7" id="Zcc-Uo-ael"/>
                 <outlet property="goodsPayStatusLable" destination="PdB-nd-GKZ" id="zJc-9M-oTd"/>
                 <outlet property="goodsPriceLable" destination="YRG-zY-fP9" id="qoo-Ic-Ke5"/>

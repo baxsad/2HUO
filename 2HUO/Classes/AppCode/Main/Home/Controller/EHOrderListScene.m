@@ -111,10 +111,14 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     Order * order = self.orderListData[indexPath.row];
-    EHOrdelDetailScene * scene = [[EHOrdelDetailScene alloc] init];
-    scene.oid = [NSString stringWithFormat:@"%li",order.oid];
-    scene.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:scene animated:YES];
+    if (order.status == 1001) {
+        [[GDRouter sharedInstance] open:[NSString stringWithFormat:@"GD://confirmOrder/?oid=%li",order.oid]];
+    }else{
+        EHOrdelDetailScene * scene = [[EHOrdelDetailScene alloc] init];
+        scene.oid = [NSString stringWithFormat:@"%li",order.oid];
+        scene.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:scene animated:YES];
+    }
 }
 
 @end

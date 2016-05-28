@@ -63,7 +63,7 @@
 
 - (void)configButton:(NSInteger)status
 {
-    self.LogisticsOrPayButton.hidden = NO;
+    self.LogisticsOrPayButton.hidden = YES;
     switch (status) {
         case 1001:
         {

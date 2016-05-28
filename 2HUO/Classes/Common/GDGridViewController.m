@@ -472,10 +472,10 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
                 return ;
             }
             [self.selectAssets setValue:self.allAsset[path.item] forKey:[NSString stringWithFormat:@"%li",path.item]];
-            [scell.selectIcon setImage:[UIImage imageNamed:@"photo_sel_photoPickerVc"]];
+            [scell.selectIcon setImage:[UIImage imageNamed:@"ImagePackerSelected"]];
         }else{
             [self.selectAssets removeObjectForKey:[NSString stringWithFormat:@"%li",path.item]];
-            [scell.selectIcon setImage:[UIImage imageNamed:@"photo_def_previewVc"]];
+            [scell.selectIcon setImage:[UIImage imageNamed:@"ImagePackerDef"]];
         }
         
     };
@@ -497,9 +497,9 @@ NSString * const GDGridViewCellIdentifier = @"GDGridViewCellIdentifier";
                                               }];
     
     if (assetModel.isSelected) {
-        [cell.selectIcon setImage:[UIImage imageNamed:@"photo_sel_photoPickerVc"]];
+        [cell.selectIcon setImage:[UIImage imageNamed:@"ImagePackerSelected"]];
     }else{
-        [cell.selectIcon setImage:[UIImage imageNamed:@"photo_def_previewVc"]];
+        [cell.selectIcon setImage:[UIImage imageNamed:@"ImagePackerDef"]];
     }
     
     return cell;

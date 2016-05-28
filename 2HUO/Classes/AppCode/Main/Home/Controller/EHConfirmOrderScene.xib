@@ -70,9 +70,9 @@
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
-                            <exclude reference="VK9-vU-gU8"/>
                             <exclude reference="4AS-Nx-Zkt"/>
                             <exclude reference="CWN-aZ-IyJ"/>
+                            <exclude reference="VK9-vU-gU8"/>
                         </mask>
                     </variation>
                 </view>

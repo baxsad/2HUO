@@ -12,6 +12,7 @@
 
 @interface EHPostDetailScene : IHBaseViewController
 
+@property (nonatomic, copy  ) NSString * pid;
 @property (nonatomic, strong) PostInfo * post;
 
 @end

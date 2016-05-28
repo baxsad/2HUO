@@ -10,6 +10,7 @@
                 <outlet property="immediatelyPayBgView" destination="ufg-hy-36C" id="dk2-jQ-xbU"/>
                 <outlet property="immediatelyPayButton" destination="RNk-tq-GVT" id="4nO-uv-kVh"/>
                 <outlet property="tableView" destination="ReL-ia-GWU" id="Nvz-7Y-CO6"/>
+                <outlet property="totalPrice" destination="9z2-kn-2TN" id="spI-fY-QEP"/>
                 <outlet property="view" destination="jpM-QR-Rlg" id="4nS-HS-Qyo"/>
             </connections>
         </placeholder>

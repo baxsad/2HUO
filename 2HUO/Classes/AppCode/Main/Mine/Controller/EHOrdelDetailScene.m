@@ -25,9 +25,13 @@
 
 @property (nonatomic, strong) GDReq                   * getOrderRequest;
 @property (nonatomic, strong) GDReq                   * cancleOrderRequest;
+@property (nonatomic, strong) GDReq                   * updateOrderAddressRequest;
 @property (nonatomic, strong) OrderModel              * orderModel;
+@property (nonatomic, strong) SellerModel             * updateAddress;
 
 @property (nonatomic, assign) NSInteger                 paySelectIndex;
+
+@property (nonatomic, weak) IBOutlet UILabel * totalPrice;
 
 @end
 
@@ -73,7 +77,8 @@
             [self reloadHeader];
             [self reloadNavButton];
             [self.tableView reloadData];
-            
+            [self.updateOrderAddressRequest.params setValue:@(self.orderModel.oid) forKey:@"oid"];
+            self.totalPrice.text = [NSString stringWithFormat:@"%.2f",self.orderModel.productInfo.presentPrice+self.orderModel.productInfo.shippingCount].processingPrice;
             [GDHUD hideUIBlockingIndicator];
             [UIView animateWithDuration:0.125 animations:^{
                 self.tableView.alpha = 1;
@@ -99,6 +104,25 @@
         }
     }];
     
+    self.updateOrderAddressRequest = [GDRequest updateOrderAddressRequest];
+    [self.updateOrderAddressRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            if (self.updateAddress) {
+                self.orderModel.buyerAddress = self.updateAddress;
+                [self.tableView reloadRow:1 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }
+        if (req.failed) {
+            [GDHUD showMessage:@"更新地址失败" timeout:1];
+        }
+    }];
+    
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"updateDetailOrderAddress" object:nil] subscribeNext:^(NSNotification * x) {
+        SellerModel * address = x.object;
+        self.updateAddress = address;
+        [self.updateOrderAddressRequest.params setValue:@(self.updateAddress.aid) forKey:@"aid"];
+        self.updateOrderAddressRequest.requestNeedActive = YES;
+    }];
     
 }
 
@@ -132,6 +156,11 @@
 - (void)reloadHeader
 {
     switch (self.orderModel.status) {
+        case 1001:
+        {
+            [self.headerView reloadTopViewInfoWithTitle:@"待确认订单" Des:@"订单等待确认"];
+        }
+            break;
         case 1002:
         {
             [self.headerView reloadTopViewInfoWithTitle:@"交易中" Des:@"订单正在处理中"];
@@ -306,8 +335,11 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 1) {
             if (self.orderModel.status == 1002) {
-                [[GDRouter sharedInstance] open:@"GD://addressList"];
+                [[GDRouter sharedInstance] open:@"GD://addressList" extraParams:@{@"orderDetail":@(1)}];
             }
+        }
+        if (indexPath.row == 2) {
+            [[GDRouter sharedInstance] open:@"GD://postDetail" extraParams:@{@"pid":[NSString stringWithFormat:@"%li",self.orderModel.productInfo.pid]}];
         }
     }
     if (indexPath.section == 1) {

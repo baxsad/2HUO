@@ -11,6 +11,7 @@
 #import "EHOrderInfoCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "OrderModel.h"
+#import "EHOrdelDetailScene.h"
 #import "LGAlertView.h"
 
 @interface EHConfirmOrderScene ()<UITableViewDelegate,UITableViewDataSource>
@@ -22,7 +23,9 @@
 
 @property (nonatomic, strong) GDReq                   * getOrderRequest;
 @property (nonatomic, strong) GDReq                   * makeOrderRequest;
+@property (nonatomic, strong) GDReq                   * updateOrderAddressRequest;
 @property (nonatomic, strong) OrderModel              * orderModel;
+@property (nonatomic, strong) SellerModel             * updateAddress;
 
 @end
 
@@ -54,9 +57,10 @@
             
             self.orderModel = [[OrderModel alloc] initWithDictionary:req.output[@"data"] error:nil];
             [self.makeOrderRequest.params setValue:@(self.orderModel.productInfo.pid) forKey:@"pid"];
+            [self.updateOrderAddressRequest.params setValue:@(self.orderModel.oid) forKey:@"oid"];
             
             [self.tableView reloadData];
-            self.totalPriceLable.text = [NSString stringWithFormat:@"¥%.2f",self.orderModel.productInfo.presentPrice+self.orderModel.productInfo.shippingCount].processingPrice;
+            self.totalPriceLable.text = [NSString stringWithFormat:@"%.2f",self.orderModel.productInfo.presentPrice+self.orderModel.productInfo.shippingCount].processingPrice;
             
             [GDHUD hideUIBlockingIndicator];
             [UIView animateWithDuration:0.125 animations:^{
@@ -89,6 +93,10 @@
         if (req.succeed) {
             // 可以购买
             [GDHUD hideUIBlockingIndicator];
+            EHOrdelDetailScene * scene = [[EHOrdelDetailScene alloc] init];
+            scene.oid = [NSString stringWithFormat:@"%li",self.orderModel.oid];
+            scene.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:scene animated:YES];
 
         }
         if (req.failed) {
@@ -128,6 +136,25 @@
         }
     }];
     
+    self.updateOrderAddressRequest = [GDRequest updateOrderAddressRequest];
+    [self.updateOrderAddressRequest listen:^(GDReq * _Nonnull req) {
+        if (req.succeed) {
+            if (self.updateAddress) {
+                self.orderModel.buyerAddress = self.updateAddress;
+                [self.tableView reloadRow:0 inSection:0 withRowAnimation:UITableViewRowAnimationNone];
+            }
+        }
+        if (req.failed) {
+            [GDHUD showMessage:@"更新地址失败" timeout:1];
+        }
+    }];
+    
+    [[[NSNotificationCenter defaultCenter] rac_addObserverForName:@"updateConfirmOrderAddress" object:nil] subscribeNext:^(NSNotification * x) {
+        SellerModel * address = x.object;
+        self.updateAddress = address;
+        [self.updateOrderAddressRequest.params setValue:@(self.updateAddress.aid) forKey:@"aid"];
+        self.updateOrderAddressRequest.requestNeedActive = YES;
+    }];
     
 }
 
@@ -174,6 +201,16 @@
         }];
     }
     return 50;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        [[GDRouter sharedInstance] open:@"GD://addressList" extraParams:@{@"confirm":@(1)}];
+    }
+    if (indexPath.row == 1) {
+        [[GDRouter sharedInstance] open:@"GD://postDetail" extraParams:@{@"pid":[NSString stringWithFormat:@"%li",self.orderModel.productInfo.pid]}];
+    }
 }
 
 @end

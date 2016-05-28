@@ -11,4 +11,7 @@
 
 @interface EHAddressListScene : IHBaseViewController
 
+@property (nonatomic, assign) BOOL confirm;
+@property (nonatomic, assign) BOOL orderDetail;
+
 @end
