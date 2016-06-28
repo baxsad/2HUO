@@ -88,14 +88,6 @@
     self.tableView.showsHorizontalScrollIndicator = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    if (!_userInteractionEnabled && self.sellerModel) {
-        _placeholders = @[_sellerModel.userName,_sellerModel.phone,_sellerModel.school.name,_sellerModel.location,_sellerModel.numberCard];
-    }else{
-        _placeholders = @[@"卖家姓名",@"手机号码",@"学校",@"详细地址",@"您的学号信息将被加密，请放心填写"];
-    }
-    
-    
-    
     _nameSignal = [RACSubject subject];
     _telephoneSignal = [RACSubject subject];
     _addressSignal = [RACSubject subject];
@@ -105,6 +97,12 @@
     RAC(self,phone) = [self.telephoneSignal startWith:@""];
     RAC(self,address) = [self.addressSignal startWith:@""];
     RAC(self,IDCard) = [self.IDCardSignal startWith:@""];
+    
+    if (!_userInteractionEnabled && self.sellerModel) {
+        _placeholders = @[_sellerModel.userName,_sellerModel.phone,_sellerModel.school.name,_sellerModel.location,_sellerModel.numberCard];
+    }else{
+        _placeholders = @[@"卖家姓名",@"手机号码",@"学校",@"详细地址",@"您的学号信息将被加密，请放心填写"];
+    }
     
     self.addAddressRequest = [GDRequest addAddressRequest];
     [self.addAddressRequest listen:^(GDReq * _Nonnull req) {
@@ -178,8 +176,20 @@
     
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    if (self.sellerModel) {
+        self.name = _sellerModel.userName;
+        self.phone = _sellerModel.phone;
+        self.address = _sellerModel.location;
+        self.IDCard = _sellerModel.numberCard;
+    }
+}
+
 - (void)rightButtonTouch
 {
+    
     if (self.status == AddressStatusNone) {
         self.status = AddressStatusUpdate;
         if (self.school && self.sellerModel) {
@@ -259,8 +269,8 @@
             EHTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EHTextFieldCell"];
             cell.text = @"";
             cell.placeholder = _placeholders[indexPath.row];
-            if (self.userInteractionEnabled && self.sellerModel) {
-                cell.text = _placeholders[indexPath.row];
+            if (self.userInteractionEnabled){
+                cell.text = self.name;
             }
             [cell bindSignal:self.nameSignal];
             cell.userInteractionEnabled = _userInteractionEnabled;
@@ -271,8 +281,8 @@
             EHTextFieldCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EHTextFieldCell"];
             cell.text = @"";
             cell.placeholder = _placeholders[indexPath.row];
-            if (self.userInteractionEnabled && self.sellerModel) {
-                cell.text = _placeholders[indexPath.row];
+            if (self.userInteractionEnabled){
+                cell.text = self.phone;
             }
             [cell setKeyBoardType:UIKeyboardTypePhonePad];
             [cell bindSignal:self.telephoneSignal];
@@ -304,8 +314,8 @@
             EHTextViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"EHTextViewCell"];
             [cell.textView setText:@""];
             cell.textView.placeholder = _placeholders[indexPath.row];
-            if (self.userInteractionEnabled && self.sellerModel) {
-                cell.textView.text = _placeholders[indexPath.row];
+            if (self.userInteractionEnabled){
+                cell.textView.text = self.address;
             }
             [cell bindSignal:self.addressSignal];
             cell.userInteractionEnabled = _userInteractionEnabled;
@@ -316,8 +326,8 @@
             identityCardCell *cell = [tableView dequeueReusableCellWithIdentifier:@"identityCardCell"];
             cell.text = @"";
             cell.placeholder = _placeholders[indexPath.row];
-            if (self.userInteractionEnabled && self.sellerModel) {
-                cell.text = _placeholders[indexPath.row];
+            if (self.userInteractionEnabled){
+                cell.text = self.IDCard;
             }
             [cell setKeyBoardType:UIKeyboardTypeDefault];
             [cell bindSignal:self.IDCardSignal];
