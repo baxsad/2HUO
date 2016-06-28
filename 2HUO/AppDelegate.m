@@ -30,6 +30,8 @@
     MainScene * home = [[MainScene alloc] init];
     self.window.rootViewController = home;
     [self.window makeKeyAndVisible];
+    
+    
 
     /* 注册路由 */
     [GDRouter sharedInstance].openException = YES;
