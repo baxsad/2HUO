@@ -275,6 +275,7 @@
             [cell bindSignal:self.nameSignal];
             cell.userInteractionEnabled = _userInteractionEnabled;
             return cell;
+            
             break;
         }
         case 1:{
